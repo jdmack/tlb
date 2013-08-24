@@ -1,55 +1,60 @@
 #include "dot.h"
+#include "assets.h"
 #include "screen.h"
+#include "surface.h"
 
 Dot::Dot()
 {
+    art_asset_ = kAssetArtDot;
     x_position_ = 0;
     y_position_ = 0;
+
     x_velocity_ = 0;
     y_velocity_ = 0;
-    surface_ = nullptr;
+
+    surface_ = surface::load_image_alpha(art_asset_);
 }
 
 void Dot::handle_input(SDL_Event event)
 {
     if(event.type == SDL_KEYDOWN) {
         switch( event.key.keysym.sym) {
-        case SDLK_UP:
-            y_velocity_ -= kDotVelocity;
-            break;
-        case SDLK_DOWN:
-            y_velocity_ += kDotVelocity;
-            break;
-        case SDLK_LEFT:
-            x_velocity_ -= kDotVelocity;
-            break;
-        case SDLK_RIGHT:
-            x_velocity_ += kDotVelocity;
-            break;
+            case SDLK_UP:
+                y_velocity_ -= kDotVelocity;
+                break;
+            case SDLK_DOWN:
+                y_velocity_ += kDotVelocity;
+                break;
+            case SDLK_LEFT:
+                x_velocity_ -= kDotVelocity;
+                break;
+            case SDLK_RIGHT:
+                x_velocity_ += kDotVelocity;
+                break;
         }
     }
     else if(event.type == SDL_KEYUP) {
         switch( event.key.keysym.sym) {
-        case SDLK_UP:
-            y_velocity_ += kDotVelocity;
-            break;
-        case SDLK_DOWN:
-            y_velocity_ -= kDotVelocity;
-            break;
-        case SDLK_LEFT:
-            x_velocity_ += kDotVelocity;
-            break;
-        case SDLK_RIGHT:
-            x_velocity_ -= kDotVelocity;
-            break;
+            case SDLK_UP:
+                y_velocity_ += kDotVelocity;
+                break;
+            case SDLK_DOWN:
+                y_velocity_ -= kDotVelocity;
+                break;
+            case SDLK_LEFT:
+                x_velocity_ += kDotVelocity;
+                break;
+            case SDLK_RIGHT:
+                x_velocity_ -= kDotVelocity;
+                break;
         }
     }
 }
 
-void Dot::move(int deltaTicks)
+void Dot::move(int delta_ticks)
 {
     // Move left/right
-    x_position_ += x_velocity_ * (deltaTicks / 1000.f);
+    x_position_ += x_velocity_ * (delta_ticks / 1000.f);
 
     // Check left boundary
     if(x_position_ < 0) {
@@ -61,7 +66,7 @@ void Dot::move(int deltaTicks)
     }
 
     // Move up/down
-    y_position_ += y_velocity_ * (deltaTicks / 1000.f);
+    y_position_ += y_velocity_ * (delta_ticks / 1000.f);
 
     // Check top boundary
     if(y_position_ < 0) {

@@ -43,7 +43,13 @@ void Screen::blit_surface(int x_position, int y_position, SDL_Surface * source)
 
 void Screen::clear()
 {
-    SDL_FillRect(surface_, &surface_->clip_rect, SDL_MapRGB(surface_->format, 0x00, 0x00, 0x00));
+    Uint32 clear_color = kDefaultClearColor;
+    SDL_FillRect(surface_, &surface_->clip_rect, clear_color);
+}
+
+void Screen::clear(Uint32 clear_color)
+{
+    SDL_FillRect(surface_, &surface_->clip_rect, clear_color);
 }
 
 bool Screen::update()

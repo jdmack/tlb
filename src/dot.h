@@ -1,5 +1,5 @@
+#include <string>
 #include "SDL/SDL.h"
-
 #include "screen.h"
 
 #ifndef TLB_DOT_H_
@@ -15,6 +15,7 @@ class Dot
         float x_position_, y_position_;
         float x_velocity_, y_velocity_;
         SDL_Surface * surface_;
+        std::string art_asset_;
 
     public:
         Dot();

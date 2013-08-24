@@ -15,6 +15,8 @@
 #include "constants.h"
 #include "main.h"
 #include "screen.h"
+#include "timer.h"
+#include "dot.h"
 
 int main(int argc, char* args[])
 {
@@ -23,9 +25,15 @@ int main(int argc, char* args[])
         return 1;
     }
 
+    Timer delta_timer;
     SDL_Event event;
 
     bool quit = false;
+
+    // Create a dot
+    Dot dot;
+
+    delta_timer.start();
 
     // Main Loop
     while(quit == false) {
@@ -40,15 +48,21 @@ int main(int argc, char* args[])
             }
 
             // Keyboard input
+            else if((event.type == SDL_KEYDOWN) || (event.type == SDL_KEYUP)) {
+                dot.handle_input(event);
+            }
 
         }
 
-
         // Update
-        //myDot.move(delta.get_ticks());
+        dot.move(delta_timer.get_ticks());
+
+        delta_timer.start();
 
         // Draw
         screen.clear();
+        dot.show(screen);
+
         //screen.blit_surface(game);
 
         if(!screen.update()) {
