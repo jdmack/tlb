@@ -1,5 +1,7 @@
 #include "SDL/SDL.h"
 
+#include "screen.h"
+
 #ifndef TLB_DOT_H_
 #define TLB_DOT_H
 
@@ -18,7 +20,7 @@ class Dot
         Dot();
         void handle_input(SDL_Event event);
         void move(int deltaTicks);
-        void show();
+        void show(Screen screen);
 };
 
 #endif

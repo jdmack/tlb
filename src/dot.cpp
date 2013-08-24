@@ -1,4 +1,5 @@
 #include "dot.h"
+#include "screen.h"
 
 Dot::Dot()
 {
@@ -45,7 +46,7 @@ void Dot::handle_input(SDL_Event event)
     }
 }
 
-void Dot::move(Uint32 deltaTicks)
+void Dot::move(int deltaTicks)
 {
     // Move left/right
     x_position_ += x_velocity_ * (deltaTicks / 1000.f);
@@ -72,7 +73,7 @@ void Dot::move(Uint32 deltaTicks)
     }
 }
 
-void Dot::show()
+void Dot::show(Screen screen)
 {
-    apply_surface((int) x_position_, (int) y,_position_ surface_, screen);
+    screen.blit_surface((int) x_position_, (int) y_position_, surface_);
 }

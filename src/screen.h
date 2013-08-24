@@ -1,5 +1,5 @@
 #ifndef TLB_SCREEN_H_
-#define TLB_SCREEN_H
+#define TLB_SCREEN_H_
 
 /* Screen Attributes */
 const int kScreenWidth        = 800;
