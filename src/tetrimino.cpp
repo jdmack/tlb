@@ -6,9 +6,9 @@
 #include "constants.h"
 #include "grid.h"
 #include "main.h"
-#include "score.h"
 #include "tetrimino.h"
 #include "timer.h"
+/*
 
 Tetrimino::Tetrimino()
 {
@@ -89,3 +89,4 @@ void Tetrimino::show(SDL_Surface * screen)
 {
     apply_surface(x_position_, y_position_, surface_, screen);
 }
+*/

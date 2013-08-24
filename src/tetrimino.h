@@ -1,3 +1,4 @@
+/*
 // Tetrimino like tetris and domino
 #include <string>
 #include "timer.h"
@@ -41,3 +42,5 @@ class Tetrimino
 };
 
 #endif
+
+*/
