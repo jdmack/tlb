@@ -14,6 +14,7 @@
 // Project Files
 #include "constants.h"
 #include "main.h"
+#include "screen.h"
 
 int main(int argc, char* args[])
 {

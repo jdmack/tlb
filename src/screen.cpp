@@ -1,6 +1,7 @@
 #include "SDL/SDL.h"
 #include "screen.h"
 #include "surface.h"
+#include "constants.h"
 
 Screen::Screen()
 {

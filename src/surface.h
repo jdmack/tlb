@@ -1,3 +1,5 @@
+#include <string>
+
 #ifndef TLB_SURFACE_H_
 #define TLB_SURFACE_H_
 

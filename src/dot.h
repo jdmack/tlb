@@ -1,3 +1,5 @@
+#include "SDL/SDL.h"
+
 #ifndef TLB_DOT_H_
 #define TLB_DOT_H
 
