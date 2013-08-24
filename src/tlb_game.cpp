@@ -5,16 +5,18 @@
 #include "tlb_game.h"
 #include "dot.h"
 #include "assets.h"
+#include "screen.h"
 
 TlbGame::TlbGame()
 {
     exit_code_ = 0;
     quit_ = false;
+    screen_ = new Screen();
 }
 
 int TlbGame::run()
 {
-    if(screen_.init() == false) {
+    if(screen_->init() == false) {
         return 1;
     }
 
@@ -23,7 +25,7 @@ int TlbGame::run()
     game_loop();
 
     //Clean up
-    screen_.clean_up();
+    screen_->clean_up();
 
     return exit_code_;
 }
@@ -31,7 +33,8 @@ int TlbGame::run()
 void TlbGame::game_loop()
 {
     // Create a dot
-    Dot dot(kAssetArtDot);
+    Dot * dot = new Dot(kAssetArtDot);
+    screen_->addObject(dot);
 
     // Main Loop
     while(quit_ == false) {
@@ -46,26 +49,28 @@ void TlbGame::game_loop()
 
             // Keyboard input
             else if((event_.type == SDL_KEYDOWN) || (event_.type == SDL_KEYUP)) {
-                dot.handle_input(event_);
+                dot->handle_input(event_);
             }
 
         }
 
         // Update
-        dot.move(delta_timer_.get_ticks());
+        dot->move(delta_timer_.get_ticks());
 
         delta_timer_.start();
 
         // Draw
-        screen_.clear();
-        dot.draw(screen_);
+        screen_->clear();
+        dot->draw(screen_);
 
-        //screen_.blit_surface(game);
+        //screen_->blit_surface(game);
 
-        if(!screen_.update()) {
+        if(!screen_->update()) {
             exit_code_ = 1;
         }
     }
+
+    delete(dot);
 
 }
 

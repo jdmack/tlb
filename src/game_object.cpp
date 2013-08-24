@@ -10,8 +10,17 @@ GameObject::GameObject(std::string art_asset)
     surface_ = nullptr;
 }
 
-void GameObject::draw(Screen screen)
+void GameObject::draw(Screen * screen)
 {
+    screen->blit_surface((int)x_position_, (int)y_position_, surface_);
+}
 
+void GameObject::set_surface(SDL_Surface * surface)
+{
+    surface_ = surface;
+}
 
+std::string GameObject::art_asset()
+{
+    return art_asset_;
 }

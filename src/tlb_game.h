@@ -3,7 +3,8 @@
 
 #include "SDL/SDL.h"
 #include "timer.h"
-#include "screen.h"
+
+class Screen;
 
 class TlbGame
 {
@@ -12,7 +13,7 @@ class TlbGame
         bool quit_;
         Timer delta_timer_;
         SDL_Event event_;
-        Screen screen_;
+        Screen * screen_;
 
     public:
         TlbGame();

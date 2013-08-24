@@ -16,7 +16,9 @@ class GameObject
 
     public:
         GameObject(std::string art_asset);
-        void draw(Screen screen);
+        std::string art_asset();
+        void draw(Screen * screen);
+        void set_surface(SDL_Surface * surface);
 };
 
 #endif

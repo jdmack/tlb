@@ -33,6 +33,7 @@ class Screen
         SDL_Surface * load_image(std::string);
         SDL_Surface * load_image_alpha(std::string);
         void apply_surface(int, int, SDL_Surface *, SDL_Surface *);
+        void addObject(GameObject * object);
 };
 
 #endif

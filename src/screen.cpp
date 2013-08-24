@@ -1,6 +1,7 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include "screen.h"
+#include "game_object.h"
 
 Screen::Screen()
 {
@@ -104,6 +105,15 @@ void Screen::apply_surface(int x, int y, SDL_Surface * source, SDL_Surface * des
 
     SDL_BlitSurface(source, nullptr, destination, &offset );
 }
+
+void Screen::addObject(GameObject * object)
+{
+    objects.push_back(object);
+    object->set_surface(load_image_alpha(object->art_asset()));
+    // TODO(2013-08-24/JM): Add function to remove object from the vector
+    // or add an "active" field to distinguish elements that haven't been deleted yet
+}
+
 /*******************************************************************************
 /*  Accessors
 /******************************************************************************/
