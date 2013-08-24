@@ -2,3 +2,6 @@
 .settings/*
 .project
 .cproject
+Debug/*
+*.o
+*.exe
