@@ -14,7 +14,7 @@ class Dot : public GameObject
         float y_velocity_;
 
     public:
-        Dot();
+        Dot(std::string art_asset);
         void handle_input(SDL_Event event);
         void move(int deltaTicks);
 };

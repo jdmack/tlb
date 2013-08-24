@@ -15,7 +15,7 @@ class GameObject
         std::string art_asset_;
 
     public:
-        GameObject();
+        GameObject(std::string art_asset);
         void draw(Screen screen);
 };
 

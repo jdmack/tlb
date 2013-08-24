@@ -3,9 +3,8 @@
 #include "assets.h"
 #include "screen.h"
 
-Dot::Dot()
+Dot::Dot(std::string art_asset) : GameObject(art_asset)
 {
-    art_asset_ = kAssetArtDot;
     x_position_ = 0;
     y_position_ = 0;
 

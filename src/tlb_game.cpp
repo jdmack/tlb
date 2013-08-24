@@ -4,6 +4,7 @@
 // Project Files
 #include "tlb_game.h"
 #include "dot.h"
+#include "assets.h"
 
 TlbGame::TlbGame()
 {
@@ -30,7 +31,7 @@ int TlbGame::run()
 void TlbGame::game_loop()
 {
     // Create a dot
-    Dot dot;
+    Dot dot(kAssetArtDot);
 
     // Main Loop
     while(quit_ == false) {
