@@ -1,8 +1,5 @@
-#ifndef TEITRUS_GRID_H_
-#define TEITRUS_GRID_H_
-
-#include <vector>
-#include "grid_block.h"
+#ifndef TLB_GRID_H_
+#define TLB_GRID_H_
 
 // Constants
 const int kGridColumns   = 10;
@@ -17,7 +14,6 @@ const int kSpawnY = kGridOriginY;
 class Grid
 {
     private:
-        GridBlock * grid[kGridRows][kGridColumns];
 
     public:
 
