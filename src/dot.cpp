@@ -1,7 +1,7 @@
+#include "SDL/SDL.h"
 #include "dot.h"
 #include "assets.h"
 #include "screen.h"
-#include "surface.h"
 
 Dot::Dot()
 {
@@ -12,7 +12,7 @@ Dot::Dot()
     x_velocity_ = 0;
     y_velocity_ = 0;
 
-    surface_ = surface::load_image_alpha(art_asset_);
+    surface_ = nullptr;
 }
 
 void Dot::handle_input(SDL_Event event)
@@ -76,9 +76,4 @@ void Dot::move(int delta_ticks)
     else if(y_position_ + kDotHeight > kScreenHeight) {
         y_position_ = kScreenHeight - kDotHeight;
     }
-}
-
-void Dot::show(Screen screen)
-{
-    screen.blit_surface((int) x_position_, (int) y_position_, surface_);
 }

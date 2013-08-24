@@ -1,7 +1,10 @@
-#include "constants.h"
-
 #ifndef TLB_SCREEN_H_
 #define TLB_SCREEN_H_
+
+#include <vector>
+#include "constants.h"
+
+class GameObject;
 
 /* Screen Attributes */
 const int kScreenWidth        = 800;
@@ -15,18 +18,21 @@ class Screen
 {
     private:
         SDL_Surface * surface_;
+        std::vector<GameObject *> objects;
 
     public:
         Screen();
         SDL_Surface * surface();
 
         bool init();
-        void clean_up();
         void blit_surface(int, int, SDL_Surface * source);
-        //void clear(Uint32 clear_color);
+        bool update();
         void clear();
         void clear(Uint32 clear_color);
-        bool update();
+        void clean_up();
+        SDL_Surface * load_image(std::string);
+        SDL_Surface * load_image_alpha(std::string);
+        void apply_surface(int, int, SDL_Surface *, SDL_Surface *);
 };
 
 #endif

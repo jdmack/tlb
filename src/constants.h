@@ -1,7 +1,7 @@
-#include <string>
-
 #ifndef TLB_CONSTANTS_H_
 #define TLB_CONSTANTS_H_
+
+#include <string>
 
 /* Strings */
 const std::string kWindowName = "The Left Behind";

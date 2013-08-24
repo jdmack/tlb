@@ -1,5 +1,5 @@
-#ifndef TEITRUS_TIMER_H_
-#define TEITRUS_TIMER_H_
+#ifndef TLB_TIMER_H_
+#define TLB_TIMER_H_
 
 class Timer
 {
