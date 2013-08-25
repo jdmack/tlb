@@ -10,5 +10,6 @@ const std::string kPathArt    = kPathAssetS + "art/";
 
 /* Art */
 const std::string kAssetArtDot = kPathArt + "dot.png";
+const std::string kAssetArtDotCircle = kPathArt + "dot_circle.png";
 
 #endif

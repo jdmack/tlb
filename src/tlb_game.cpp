@@ -6,6 +6,7 @@
 #include "dot.h"
 #include "assets.h"
 #include "screen.h"
+#include "logger.h"
 
 TlbGame::TlbGame()
 {
@@ -16,6 +17,7 @@ TlbGame::TlbGame()
 
 int TlbGame::run()
 {
+    logger.write("Run");
     if(screen_->init() == false) {
         return 1;
     }
@@ -27,14 +29,19 @@ int TlbGame::run()
     //Clean up
     screen_->clean_up();
 
+    logger.close();
+
     return exit_code_;
 }
 
 void TlbGame::game_loop()
 {
     // Create a dot
-    Dot * dot = new Dot(kAssetArtDot);
-    screen_->addObject(dot);
+    Dot * dot1 = new Dot(kAssetArtDot);
+    screen_->addObject(dot1);
+
+    Dot * dot2 = new Dot(kAssetArtDot, 0, kScreenHeight - kDotHeight);
+    screen_->addObject(dot2);
 
     // Main Loop
     while(quit_ == false) {
@@ -49,19 +56,49 @@ void TlbGame::game_loop()
 
             // Keyboard input
             else if((event_.type == SDL_KEYDOWN) || (event_.type == SDL_KEYUP)) {
-                dot->handle_input(event_);
+                logger.write("SDL_KEYDOWN");
+                dot1->handle_input(event_);
+                dot2->handle_input(event_);
+            }
+
+            // Mouse input
+            //else if((event_.type == SDL_MOUSEBUTTONDOWN) || (event_.type == SDL_MOUSEBUTTONUP)) {
+            else if(event_.type == SDL_MOUSEBUTTONDOWN) {
+                logger.write("SDL_MOUSEBUTTONDOWN");
+
+                if(event_.button.button == SDL_BUTTON_LEFT) {
+                    logger.write("SDL_BUTTON_LEFT");
+                    // select object
+                    if(dot1->contains_point(event_.button.x, event_.button.y)) {
+                        dot1->select();
+                        dot2->deselect();
+                    }
+                    else if(dot2->contains_point(event_.button.x, event_.button.y)) {
+                        dot2->select();
+                        dot1->deselect();
+                    }
+                    else {
+                        dot1->deselect();
+                        dot2->deselect();
+                    }
+                }
+                else if(event_.button.button == SDL_BUTTON_RIGHT) {
+                    // issue order command
+                }
             }
 
         }
 
         // Update
-        dot->move(delta_timer_.get_ticks());
+        dot1->move(delta_timer_.get_ticks());
+        dot2->move(delta_timer_.get_ticks());
 
         delta_timer_.start();
 
         // Draw
         screen_->clear();
-        dot->draw(screen_);
+        dot1->draw(screen_);
+        dot2->draw(screen_);
 
         //screen_->blit_surface(game);
 
@@ -70,8 +107,8 @@ void TlbGame::game_loop()
         }
     }
 
-    delete(dot);
-
+    delete(dot1);
+    delete(dot2);
 }
 
 // placeholder functions (not implemented yet)

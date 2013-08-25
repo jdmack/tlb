@@ -110,6 +110,7 @@ void Screen::addObject(GameObject * object)
 {
     objects.push_back(object);
     object->set_surface(load_image_alpha(object->art_asset()));
+    object->register_screen(this);
     // TODO(2013-08-24/JM): Add function to remove object from the vector
     // or add an "active" field to distinguish elements that haven't been deleted yet
 }

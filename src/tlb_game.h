@@ -3,6 +3,7 @@
 
 #include "SDL/SDL.h"
 #include "timer.h"
+#include "logger.h"
 
 class Screen;
 
@@ -14,6 +15,7 @@ class TlbGame
         Timer delta_timer_;
         SDL_Event event_;
         Screen * screen_;
+        Logger logger;
 
     public:
         TlbGame();
