@@ -3,20 +3,20 @@
 #include "assets.h"
 #include "screen.h"
 
-Dot::Dot(std::string art_asset) : GameObject(art_asset)
+Dot::Dot()
 {
     x_velocity_ = 0;
     y_velocity_ = 0;
 
-    selected_ = false;
+    selectable_ = true;
 }
 
-Dot::Dot(std::string art_asset, float x, float y) : GameObject(art_asset, x, y)
+Dot::Dot(float x, float y)
 {
     x_velocity_ = 0;
     y_velocity_ = 0;
 
-    selected_ = false;
+    selectable_ = true;
 }
 
 void Dot::handle_input(SDL_Event event)
@@ -84,28 +84,7 @@ void Dot::move(int delta_ticks)
     }
 }
 
-void Dot::select()
-{
-    if(!selected_) {
-        selected_ = true;
-        SDL_Surface * select_surface = screen_->load_image_alpha(kAssetArtDotCircle);
-        screen_->apply_surface(0, 0, select_surface, surface_);
-        SDL_FreeSurface(select_surface);
-    }
-}
-
-void Dot::deselect()
-{
-    if(selected_) {
-        selected_ = false;
-        SDL_FreeSurface(surface_);
-        surface_ = nullptr;
-
-        surface_ = screen_->load_image_alpha(art_asset_);
-    }
-}
-
-bool Dot::contains_point(int x, int y)
+bool Dot::contains_point(float x, float y)
 {
     if((x < x_position_) || (x > (x_position_ + kDotWidth))) {
         return false;
@@ -115,10 +94,5 @@ bool Dot::contains_point(int x, int y)
     }
 
     return true;
-}
-
-bool Dot::is_selected()
-{
-    return selected_;
 }
 

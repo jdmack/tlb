@@ -5,6 +5,7 @@
 
 /* Strings */
 const std::string kWindowName = "The Left Behind";
+const std::string kLogFilename = "tlb_log.txt";
 
 const Uint32 kRedMask   = 0xff000000;
 const Uint32 kGreenMask = 0x00ff0000;
@@ -13,4 +14,6 @@ const Uint32 kAlphaMask = 0x000000ff;
 
 const Uint32 kColorWhite = 0xFFFFFFFF;
 const Uint32 kColorBlack = 0x00000000;
+
+
 #endif

@@ -3,9 +3,10 @@
 
 #include "SDL/SDL.h"
 #include "timer.h"
-#include "logger.h"
 
+class Entigent;
 class Screen;
+class Logger;
 
 class TlbGame
 {
@@ -13,16 +14,19 @@ class TlbGame
         bool exit_code_;
         bool quit_;
         Timer delta_timer_;
-        SDL_Event event_;
         Screen * screen_;
-        Logger logger;
+        Logger * logger_;
+        Entigent * entigent_;
 
     public:
         TlbGame();
+        ~TlbGame();
         int run();
         void game_loop();
         void process_arguments(int argc, char * argv[]);
-
+        void set_quit(bool quit);
+        Screen * screen();
+        Entigent * entigent();
 };
 
 #endif

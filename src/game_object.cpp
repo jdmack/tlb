@@ -1,24 +1,30 @@
 #include "game_object.h"
 #include "screen.h"
 
-GameObject::GameObject(std::string art_asset)
+// TODO (2013-08-26/JM): Refactor constructor to use constructor delegation when
+// you get a gcc 4.7 compiler
+
+GameObject::GameObject()
 {
-    art_asset_ = art_asset;
     x_position_ = 0;
     y_position_ = 0;
 
     surface_ = nullptr;
     screen_ = nullptr;
+    selectable_ = false;
+    selected_ = false;
+
 }
 
-GameObject::GameObject(std::string art_asset, float x, float y)
+GameObject::GameObject(float x, float y)
 {
-    art_asset_ = art_asset;
     x_position_ = x;
     y_position_ = y;
 
     surface_ = nullptr;
     screen_ = nullptr;
+    selectable_ = false;
+    selected_ = false;
 }
 
 void GameObject::draw(Screen * screen)
@@ -39,4 +45,39 @@ std::string GameObject::art_asset()
 void GameObject::register_screen(Screen * screen)
 {
     screen_ = screen;
+}
+
+bool GameObject::contains_point(float x, float y)
+{
+    return false;
+}
+
+void GameObject::select()
+{
+    if(!selected_) {
+        selected_ = true;
+
+        // TODO (2013-08-26/JM) Put back in the select graphic code
+        //SDL_Surface * select_surface = screen_->load_image_alpha(kAssetArtDotCircle);
+        //screen_->apply_surface(0, 0, select_surface, surface_);
+        //SDL_FreeSurface(select_surface);
+    }
+}
+
+void GameObject::deselect()
+{
+    if(selected_) {
+        selected_ = false;
+
+        // TODO (2013-08-26/JM) Put back in the select graphic code
+        //SDL_FreeSurface(surface_);
+        //surface_ = nullptr;
+        //surface_ = screen_->load_image_alpha(art_asset_);
+    }
+}
+
+
+bool GameObject::is_selected()
+{
+    return selected_;
 }

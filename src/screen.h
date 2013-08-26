@@ -1,7 +1,7 @@
 #ifndef TLB_SCREEN_H_
 #define TLB_SCREEN_H_
 
-#include <vector>
+#include "SDL/SDL.h"
 #include "constants.h"
 
 class GameObject;
@@ -18,7 +18,6 @@ class Screen
 {
     private:
         SDL_Surface * surface_;
-        std::vector<GameObject *> objects;
 
     public:
         Screen();
@@ -33,7 +32,7 @@ class Screen
         SDL_Surface * load_image(std::string);
         SDL_Surface * load_image_alpha(std::string);
         void apply_surface(int, int, SDL_Surface *, SDL_Surface *);
-        void addObject(GameObject * object);
+        void init_object(GameObject * object);
 };
 
 #endif
