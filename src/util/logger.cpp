@@ -3,14 +3,14 @@
 
 #include "logger.h"
 
-Logger::Logger()
+Logger::Logger(std::string filename)
 {
-    output_file.open("tlb_log.txt");
+    output_file.open(filename.c_str());
 }
 
 void Logger::write(std::string message)
 {
-    output_file << message + "\n";
+    output_file << datetime.timestamp() + message + "\n";
     output_file.flush();
 }
 
