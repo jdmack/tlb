@@ -1,2 +1,10 @@
-[Mon Aug 26 12:18:47 2013] running
-[Mon Aug 26 12:18:50 2013] gameloop start
+[Mon Aug 26 13:00:56 2013] running
+[Mon Aug 26 13:00:59 2013] right before game_loop
+[Mon Aug 26 13:00:59 2013] gameloop start
+[Mon Aug 26 13:00:59 2013] here
+[Mon Aug 26 13:00:59 2013] before init_object
+[Mon Aug 26 13:00:59 2013] exiting add_object
+[Mon Aug 26 13:00:59 2013] after add_object
+[Mon Aug 26 13:00:59 2013] before init_object
+[Mon Aug 26 13:00:59 2013] exiting add_object
+[Mon Aug 26 13:01:00 2013] gameloop end

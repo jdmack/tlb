@@ -5,14 +5,16 @@
 
 Dot::Dot()
 {
+    art_asset_ = kAssetArtDot;
     x_velocity_ = 0;
     y_velocity_ = 0;
 
     selectable_ = true;
 }
 
-Dot::Dot(float x, float y)
+Dot::Dot(float x, float y) : GameObject(x,y)
 {
+    art_asset_ = kAssetArtDot;
     x_velocity_ = 0;
     y_velocity_ = 0;
 

@@ -4,6 +4,7 @@
 #include "screen.h"
 #include "tlb_game.h"
 #include "game_object.h"
+#include "util/logger.h"
 
 Entigent::Entigent()
 {
@@ -14,10 +15,12 @@ Entigent::Entigent()
 void Entigent::add_object(GameObject * object)
 {
     objects_.push_back(object);
+    game_->logger()->write("before init_object");
     game_->screen()->init_object(object);
 
     // TODO(2013-08-24/JM): Add function to remove object from the vector
     // or add an "active" field to distinguish elements that haven't been deleted yet
+    game_->logger()->write("exiting add_object");
 }
 
 void Entigent::register_game(TlbGame * game)

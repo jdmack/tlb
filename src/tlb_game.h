@@ -5,6 +5,7 @@
 #include "timer.h"
 
 class Entigent;
+class Evengent;
 class Screen;
 class Logger;
 
@@ -17,6 +18,7 @@ class TlbGame
         Screen * screen_;
         Logger * logger_;
         Entigent * entigent_;
+        Evengent * evengent_;
 
     public:
         TlbGame();
@@ -27,6 +29,7 @@ class TlbGame
         void set_quit(bool quit);
         Screen * screen();
         Entigent * entigent();
+        Logger * logger();
 };
 
 #endif

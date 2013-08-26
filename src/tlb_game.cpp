@@ -7,6 +7,7 @@
 #include "assets.h"
 #include "screen.h"
 #include "entigent.h"
+#include "evengent.h"
 #include "util/logger.h"
 
 
@@ -16,6 +17,9 @@ TlbGame::TlbGame()
     quit_ = false;
     screen_ = new Screen();
     entigent_ = new Entigent();
+    entigent_->register_game(this);
+    evengent_ = new Evengent();
+    evengent_->register_game(this);
     logger_ = new Logger(kLogFilename);
 }
 
@@ -35,6 +39,7 @@ int TlbGame::run()
 
     delta_timer_.start();
 
+    logger_->write("right before game_loop");
     game_loop();
 
     //Clean up
@@ -48,20 +53,20 @@ void TlbGame::game_loop()
 {
     logger_->write("gameloop start");
     // Create a dot
-    /*
     Dot * dot1 = new Dot();
+    logger_->write("here");
     entigent_->add_object(dot1);
+    logger_->write("after add_object");
 
     Dot * dot2 = new Dot(0, kScreenHeight - kDotHeight);
     entigent_->add_object(dot2);
-*/
+
     // Main Loop
     while(quit_ == false) {
 
-    /*
 
         // Handle Events
-
+        evengent_->handle_events();
 
         // Update
         dot1->move(delta_timer_.get_ticks());
@@ -79,7 +84,6 @@ void TlbGame::game_loop()
         if(!screen_->update()) {
             exit_code_ = 1;
         }
-        */
     }
 
     delete(dot1);
@@ -107,4 +111,9 @@ Screen * TlbGame::screen()
 Entigent * TlbGame::entigent()
 {
     return entigent_;
+}
+
+Logger * TlbGame::logger()
+{
+    return logger_;
 }
