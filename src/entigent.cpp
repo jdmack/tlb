@@ -61,9 +61,11 @@ void Entigent::deselect(GameObject * object)
 void Entigent::deselect_all()
 {
     Logger::write("deselect_all");
-    for(std::vector<GameObject *>::iterator selected_iterator = selected_->begin(); selected_iterator < selected_->end(); ++selected_iterator) {
-        (*selected_iterator)->deselect();
-        selected_->erase(selected_iterator);
+    if(!selected_->empty()) {
+        for(std::vector<GameObject *>::iterator selected_iterator = selected_->begin(); selected_iterator < selected_->end(); ++selected_iterator) {
+            (*selected_iterator)->deselect();
+            selected_->erase(selected_iterator);
+        }
     }
 }
 

@@ -32,13 +32,14 @@ void Evengent::handle_events()
                 break;
 
             case SDL_MOUSEBUTTONDOWN:
-                // SDL_BUTTON_LEFT
+                // SDL_BUTTON_LEFT - Selection
                 if(event.button.button == SDL_BUTTON_LEFT)
                 {
                     // 2 cases
                     GameObject * clicked_on = game_->entigent()->get_object_at(event.button.x, event.button.y);
                     // 1. clicking on nothing
                     if(clicked_on == nullptr) {
+                        // NOTE: left clicking on anything deselects_all with current functionality
                         game_->entigent()->deselect_all();
                     }
                     // 2. clicking on something
@@ -50,10 +51,12 @@ void Evengent::handle_events()
                     }
 
                 }
-                // SDL_BUTTON_RIGHT
+                // SDL_BUTTON_RIGHT - Command
                 else if(event.button.button == SDL_BUTTON_RIGHT)
                 {
-
+                    if(!game_->entigent()->selected()->empty()) {
+                        // something is selected, can now give it an order
+                    }
                 }
                 break;
 
