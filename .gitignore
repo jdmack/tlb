@@ -5,3 +5,4 @@
 Debug/*
 *.o
 *.exe
+tlb_log.txt
