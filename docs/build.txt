@@ -1,0 +1,26 @@
+-I../include
+
+
+g++ "-IE:\\workspace-TLB\\TLB\\include" -O0 -g3 -c -fmessage-length=0 -std=c++0x -o "src\\entigent.o" "..\\src\\entigent.cpp" 
+g++ "-IE:\\workspace-TLB\\TLB\\include" -O0 -g3 -c -fmessage-length=0 -std=c++0x -o "src\\util\\date_time.o" "..\\src\\util\\date_time.cpp" 
+g++ "-IE:\\workspace-TLB\\TLB\\include" -O0 -g3 -c -fmessage-length=0 -std=c++0x -o "src\\tlb_game.o" "..\\src\\tlb_game.cpp" 
+g++ "-IE:\\workspace-TLB\\TLB\\include" -O0 -g3 -c -fmessage-length=0 -std=c++0x -o "src\\main.o" "..\\src\\main.cpp" 
+g++ "-IE:\\workspace-TLB\\TLB\\include" -O0 -g3 -c -fmessage-length=0 -std=c++0x -o "src\\screen.o" "..\\src\\screen.cpp" 
+g++ "-IE:\\workspace-TLB\\TLB\\include" -O0 -g3 -c -fmessage-length=0 -std=c++0x -o "src\\timer.o" "..\\src\\timer.cpp" 
+g++ "-IE:\\workspace-TLB\\TLB\\include" -O0 -g3 -c -fmessage-length=0 -std=c++0x -o "src\\evengent.o" "..\\src\\evengent.cpp" 
+g++ "-IE:\\workspace-TLB\\TLB\\include" -O0 -g3 -c -fmessage-length=0 -std=c++0x -o "src\\game_object.o" "..\\src\\game_object.cpp" 
+g++ "-IE:\\workspace-TLB\\TLB\\include" -O0 -g3 -c -fmessage-length=0 -std=c++0x -o "src\\util\\logger.o" "..\\src\\util\\logger.cpp" 
+g++ "-IE:\\workspace-TLB\\TLB\\include" -O0 -g3 -c -fmessage-length=0 -std=c++0x -o "src\\dot.o" "..\\src\\dot.cpp" 
+g++ -static-libgcc -static-libstdc++ -o TLB.exe "src\\util\\logger.o" "src\\util\\date_time.o" "src\\tlb_game.o" "src\\timer.o" "src\\screen.o" "src\\main.o" "src\\game_object.o" "src\\evengent.o" "src\\entigent.o" "src\\dot.o" -lmingw32 -lSDLmain -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer -lSDL_gfx 
+
+
+
+Options:
+"-IE:\\workspace-TLB\\TLB\\include" - include directory
+-O0 - optimize level: do not optimize
+-g3 - debug info
+-c - compile to object file but do not link
+-fmessage-length=0 - format error message to n characters, n=0 means no line wrapping
+-std=c++0x - compile iwth standard c++11
+-o - output filename
+
