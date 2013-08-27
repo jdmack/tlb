@@ -20,18 +20,17 @@ TlbGame::TlbGame()
     entigent_->register_game(this);
     evengent_ = new Evengent();
     evengent_->register_game(this);
-    logger_ = new Logger(kLogFilename);
 }
 
 TlbGame::~TlbGame()
 {
     delete screen_;
-    delete logger_;
 }
 
 int TlbGame::run()
 {
-    logger_->write("running");
+    Logger::open(kLogFilename);
+    Logger::write("running");
     SDL_Delay(3000);
     if(screen_->init() == false) {
         return 1;
@@ -39,24 +38,20 @@ int TlbGame::run()
 
     delta_timer_.start();
 
-    logger_->write("right before game_loop");
     game_loop();
 
     //Clean up
     screen_->clean_up();
 
-
+    Logger::write("shutting down");
     return exit_code_;
 }
 
 void TlbGame::game_loop()
 {
-    logger_->write("gameloop start");
     // Create a dot
     Dot * dot1 = new Dot();
-    logger_->write("here");
     entigent_->add_object(dot1);
-    logger_->write("after add_object");
 
     Dot * dot2 = new Dot(0, kScreenHeight - kDotHeight);
     entigent_->add_object(dot2);
@@ -88,7 +83,6 @@ void TlbGame::game_loop()
 
     delete(dot1);
     delete(dot2);
-    logger_->write("gameloop end");
 }
 
 // placeholder functions (not implemented yet)
@@ -111,9 +105,4 @@ Screen * TlbGame::screen()
 Entigent * TlbGame::entigent()
 {
     return entigent_;
-}
-
-Logger * TlbGame::logger()
-{
-    return logger_;
 }

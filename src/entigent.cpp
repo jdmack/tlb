@@ -9,18 +9,18 @@
 Entigent::Entigent()
 {
     game_ = nullptr;
+    objects_ = new std::vector<GameObject *>();
+    selected_ = new std::vector<GameObject *>();
 }
 
 
 void Entigent::add_object(GameObject * object)
 {
-    objects_.push_back(object);
-    game_->logger()->write("before init_object");
+    objects_->push_back(object);
     game_->screen()->init_object(object);
 
     // TODO(2013-08-24/JM): Add function to remove object from the vector
     // or add an "active" field to distinguish elements that haven't been deleted yet
-    game_->logger()->write("exiting add_object");
 }
 
 void Entigent::register_game(TlbGame * game)
@@ -30,8 +30,9 @@ void Entigent::register_game(TlbGame * game)
 
 GameObject * Entigent::get_object_at(float x, float y)
 {
-    for(std::vector<GameObject *>::iterator object_iterator = objects_.begin(); object_iterator != objects_.end(); ++object_iterator) {
-        if((**object_iterator).contains_point(x, y)) {
+    for(std::vector<GameObject *>::iterator object_iterator = objects_->begin(); object_iterator != objects_->end(); ++object_iterator) {
+        if((*object_iterator)->contains_point(x, y)) {
+                Logger::write("found GameObject");
             return *object_iterator;
         }
     }
@@ -39,10 +40,40 @@ GameObject * Entigent::get_object_at(float x, float y)
     return nullptr;
 }
 
-void Entigent::deselect_all()
+void Entigent::select(GameObject * object)
 {
-    for(std::vector<GameObject *>::iterator selected_iterator = selected_.begin(); selected_iterator != selected_.end(); ++selected_iterator) {
-        (**selected_iterator).deselect();
+    object->select();
+    selected_->push_back(object);
+}
 
+void Entigent::deselect(GameObject * object)
+{
+    object->deselect();
+    for(std::vector<GameObject *>::iterator selected_iterator = selected_->begin(); selected_iterator != selected_->end(); ++selected_iterator) {
+        if((*selected_iterator)->object_id() == object->object_id()) {
+            (*selected_iterator)->deselect();
+            selected_->erase(selected_iterator);
+            break;
+        }
     }
 }
+
+void Entigent::deselect_all()
+{
+    Logger::write("deselect_all");
+    for(std::vector<GameObject *>::iterator selected_iterator = selected_->begin(); selected_iterator < selected_->end(); ++selected_iterator) {
+        (*selected_iterator)->deselect();
+        selected_->erase(selected_iterator);
+    }
+}
+
+std::vector<GameObject *> * Entigent::objects()
+{
+    return objects_;
+}
+
+std::vector<GameObject *> * Entigent::selected()
+{
+    return selected_;
+}
+

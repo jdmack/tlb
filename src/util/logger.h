@@ -5,14 +5,16 @@
 #include <fstream>
 #include "date_time.h"
 
-class Logger
+namespace Logger
 {
-    private:
-        std::ofstream output_file;
-        DateTime datetime;
+    //private:
+    //    std::ofstream output_file;
+    //    DateTime datetime;
+    //std::ofstream output_file;
 
-    public:
-        Logger(std::string filename);
+    //public:
+    //    Logger(std::string filename);
+        void open(std::string filename);
         void write(std::string message);
         void close();
 };

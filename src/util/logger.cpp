@@ -2,19 +2,33 @@
 #include <fstream>
 
 #include "logger.h"
+#include "date_time.h"
 
+/*
 Logger::Logger(std::string filename)
 {
     output_file.open(filename.c_str());
 }
+*/
+
+namespace Logger
+{
+    std::ofstream output_file;
+}
+
+void Logger::open(std::string filename)
+{
+    Logger::output_file.open(filename.c_str());
+}
 
 void Logger::write(std::string message)
 {
-    output_file << datetime.timestamp() + message + "\n";
-    output_file.flush();
+    DateTime datetime;
+    Logger::output_file << datetime.timestamp() + message + "\n";
+    Logger::output_file.flush();
 }
 
 void Logger::close()
 {
-    output_file.close();
+    Logger::output_file.close();
 }

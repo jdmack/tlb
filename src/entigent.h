@@ -12,8 +12,8 @@ class Entigent
 {
     private:
         TlbGame * game_;
-        std::vector<GameObject *> objects_;
-        std::vector<GameObject *> selected_;
+        std::vector<GameObject *> * objects_;
+        std::vector<GameObject *> * selected_;
 
 
     public:
@@ -21,6 +21,10 @@ class Entigent
         void register_game(TlbGame * game);
         Entigent();
         GameObject * get_object_at(float x, float y);
+        void select(GameObject * object);
+        void deselect(GameObject * object);
         void deselect_all();
+        std::vector<GameObject *> * objects();
+        std::vector<GameObject *> * selected();
 };
 #endif

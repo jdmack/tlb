@@ -19,6 +19,8 @@ class Dot : public GameObject
         void handle_input(SDL_Event event);
         void move(int deltaTicks);
         bool contains_point(float x, float y);
+        void select();
+        void deselect();
 };
 
 #endif

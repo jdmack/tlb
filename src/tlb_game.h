@@ -7,7 +7,6 @@
 class Entigent;
 class Evengent;
 class Screen;
-class Logger;
 
 class TlbGame
 {
@@ -16,7 +15,6 @@ class TlbGame
         bool quit_;
         Timer delta_timer_;
         Screen * screen_;
-        Logger * logger_;
         Entigent * entigent_;
         Evengent * evengent_;
 
@@ -29,7 +27,6 @@ class TlbGame
         void set_quit(bool quit);
         Screen * screen();
         Entigent * entigent();
-        Logger * logger();
 };
 
 #endif

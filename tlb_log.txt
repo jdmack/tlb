@@ -1,10 +1,46 @@
-[Mon Aug 26 13:00:56 2013] running
-[Mon Aug 26 13:00:59 2013] right before game_loop
-[Mon Aug 26 13:00:59 2013] gameloop start
-[Mon Aug 26 13:00:59 2013] here
-[Mon Aug 26 13:00:59 2013] before init_object
-[Mon Aug 26 13:00:59 2013] exiting add_object
-[Mon Aug 26 13:00:59 2013] after add_object
-[Mon Aug 26 13:00:59 2013] before init_object
-[Mon Aug 26 13:00:59 2013] exiting add_object
-[Mon Aug 26 13:01:00 2013] gameloop end
+[Mon Aug 26 17:33:52 2013] running
+[Mon Aug 26 17:33:57 2013] Dot::contains_point
+[Mon Aug 26 17:33:57 2013] found GameObject
+[Mon Aug 26 17:33:57 2013] deselect_all
+[Mon Aug 26 17:33:57 2013] Dot::select
+[Mon Aug 26 17:33:57 2013] GameObject::select
+[Mon Aug 26 17:33:57 2013] Dot::contains_point
+[Mon Aug 26 17:33:57 2013] Dot::contains_point
+[Mon Aug 26 17:33:57 2013] deselect_all
+[Mon Aug 26 17:33:57 2013] Dot::deselect
+[Mon Aug 26 17:33:57 2013] GameObject::deselect
+[Mon Aug 26 17:34:09 2013] Dot::contains_point
+[Mon Aug 26 17:34:09 2013] found GameObject
+[Mon Aug 26 17:34:09 2013] deselect_all
+[Mon Aug 26 17:34:09 2013] Dot::select
+[Mon Aug 26 17:34:09 2013] GameObject::select
+[Mon Aug 26 17:34:12 2013] Dot::contains_point
+[Mon Aug 26 17:34:12 2013] Dot::contains_point
+[Mon Aug 26 17:34:12 2013] found GameObject
+[Mon Aug 26 17:34:12 2013] deselect_all
+[Mon Aug 26 17:34:12 2013] Dot::deselect
+[Mon Aug 26 17:34:12 2013] GameObject::deselect
+[Mon Aug 26 17:34:12 2013] Dot::select
+[Mon Aug 26 17:34:12 2013] GameObject::select
+[Mon Aug 26 17:34:14 2013] Dot::contains_point
+[Mon Aug 26 17:34:14 2013] Dot::contains_point
+[Mon Aug 26 17:34:14 2013] deselect_all
+[Mon Aug 26 17:34:14 2013] Dot::deselect
+[Mon Aug 26 17:34:14 2013] GameObject::deselect
+[Mon Aug 26 17:34:15 2013] Dot::contains_point
+[Mon Aug 26 17:34:15 2013] Dot::contains_point
+[Mon Aug 26 17:34:15 2013] found GameObject
+[Mon Aug 26 17:34:15 2013] deselect_all
+[Mon Aug 26 17:34:15 2013] Dot::select
+[Mon Aug 26 17:34:15 2013] GameObject::select
+[Mon Aug 26 17:34:15 2013] Dot::contains_point
+[Mon Aug 26 17:34:15 2013] Dot::contains_point
+[Mon Aug 26 17:34:15 2013] deselect_all
+[Mon Aug 26 17:34:15 2013] Dot::deselect
+[Mon Aug 26 17:34:15 2013] GameObject::deselect
+[Mon Aug 26 17:34:16 2013] Dot::contains_point
+[Mon Aug 26 17:34:16 2013] found GameObject
+[Mon Aug 26 17:34:16 2013] deselect_all
+[Mon Aug 26 17:34:16 2013] Dot::select
+[Mon Aug 26 17:34:16 2013] GameObject::select
+[Mon Aug 26 17:34:19 2013] shutting down

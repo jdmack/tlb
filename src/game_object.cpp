@@ -1,8 +1,11 @@
 #include "game_object.h"
 #include "screen.h"
+#include "util/logger.h"
 
 // TODO (2013-08-26/JM): Refactor constructor to use constructor delegation when
 // you get a gcc 4.7 compiler
+
+int GameObject::id_counter_ = 1;
 
 GameObject::GameObject()
 {
@@ -13,6 +16,8 @@ GameObject::GameObject()
     screen_ = nullptr;
     selectable_ = false;
     selected_ = false;
+
+    object_id_ = id_counter_++;
 
 }
 
@@ -25,6 +30,13 @@ GameObject::GameObject(float x, float y)
     screen_ = nullptr;
     selectable_ = false;
     selected_ = false;
+
+    object_id_ = id_counter_++;
+}
+
+GameObject::~GameObject()
+{
+
 }
 
 void GameObject::draw(Screen * screen)
@@ -49,11 +61,13 @@ void GameObject::register_screen(Screen * screen)
 
 bool GameObject::contains_point(float x, float y)
 {
-    return false;
+    Logger::write("GameObject::contains_point");
+    return true;
 }
 
 void GameObject::select()
 {
+    Logger::write("GameObject::select");
     if(!selected_) {
         selected_ = true;
 
@@ -66,6 +80,7 @@ void GameObject::select()
 
 void GameObject::deselect()
 {
+    Logger::write("GameObject::deselect");
     if(selected_) {
         selected_ = false;
 
@@ -76,8 +91,12 @@ void GameObject::deselect()
     }
 }
 
-
-bool GameObject::is_selected()
+bool GameObject::selected()
 {
     return selected_;
+}
+
+int GameObject::object_id()
+{
+    return object_id_;
 }

@@ -1,19 +1,22 @@
 #include "tlb_game.h"
+#include <fstream>
+#include <iostream>
+using namespace std;
 
 int main(int argc, char* argv[])
 {
-  int exit_code = 0;
+    int exit_code = 0;
 
-  // TODO(2013-08-23 JM): Create logger
+    // TODO(2013-08-23 JM): Create logger
 
-  TlbGame * game = new TlbGame;
+    TlbGame * game = new TlbGame;
 
-  game->process_arguments(argc, argv);
+    game->process_arguments(argc, argv);
 
-  exit_code = game->run();
+    exit_code = game->run();
 
-  delete game;
-  game = nullptr;
+    delete game;
+    game = nullptr;
 
-  return exit_code;
+    return exit_code;
 }

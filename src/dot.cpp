@@ -1,6 +1,7 @@
 #include "SDL/SDL.h"
 #include "dot.h"
 #include "assets.h"
+#include "util/logger.h"
 #include "screen.h"
 
 Dot::Dot()
@@ -88,6 +89,7 @@ void Dot::move(int delta_ticks)
 
 bool Dot::contains_point(float x, float y)
 {
+    Logger::write("Dot::contains_point");
     if((x < x_position_) || (x > (x_position_ + kDotWidth))) {
         return false;
     }
@@ -98,3 +100,20 @@ bool Dot::contains_point(float x, float y)
     return true;
 }
 
+void Dot::select()
+{
+    Logger::write("Dot::select");
+    GameObject::select();
+    SDL_Surface * select_surface = screen_->load_image_alpha(kAssetArtDotCircle);
+    screen_->apply_surface(0, 0, select_surface, surface_);
+    SDL_FreeSurface(select_surface);
+}
+
+void Dot::deselect()
+{
+    Logger::write("Dot::deselect");
+    GameObject::deselect();
+    SDL_FreeSurface(surface_);
+    surface_ = nullptr;
+    surface_ = screen_->load_image_alpha(art_asset_);
+}

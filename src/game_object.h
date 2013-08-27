@@ -17,19 +17,23 @@ class GameObject
         Screen * screen_;
         bool selectable_;
         bool selected_;
+        static int id_counter_;
+        int object_id_;
 
     public:
         GameObject();
         GameObject(float x, float y);
+        virtual ~GameObject();
         std::string art_asset();
         void draw(Screen * screen);
         void set_surface(SDL_Surface * surface);
         void register_screen(Screen * screen);
-        bool contains_point(float x, float y);
-        void select();
-        void deselect();
-        bool is_selected();
+        virtual bool contains_point(float x, float y);
+        virtual void select();
+        virtual void deselect();
+        bool selected();
         bool selectable();
+        int object_id();
 };
 
 #endif

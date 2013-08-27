@@ -32,7 +32,6 @@ bool Screen::init()
     if(game == nullptr) {
         return false;
     } */
-
     return true;
 }
 
