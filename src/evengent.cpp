@@ -56,6 +56,7 @@ void Evengent::handle_events()
                 {
                     if(!game_->entigent()->selected()->empty()) {
                         // something is selected, can now give it an order
+
                     }
                 }
                 break;

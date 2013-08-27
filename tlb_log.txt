@@ -1,46 +1,240 @@
-[Mon Aug 26 17:33:52 2013] running
-[Mon Aug 26 17:33:57 2013] Dot::contains_point
-[Mon Aug 26 17:33:57 2013] found GameObject
-[Mon Aug 26 17:33:57 2013] deselect_all
-[Mon Aug 26 17:33:57 2013] Dot::select
-[Mon Aug 26 17:33:57 2013] GameObject::select
-[Mon Aug 26 17:33:57 2013] Dot::contains_point
-[Mon Aug 26 17:33:57 2013] Dot::contains_point
-[Mon Aug 26 17:33:57 2013] deselect_all
-[Mon Aug 26 17:33:57 2013] Dot::deselect
-[Mon Aug 26 17:33:57 2013] GameObject::deselect
-[Mon Aug 26 17:34:09 2013] Dot::contains_point
-[Mon Aug 26 17:34:09 2013] found GameObject
-[Mon Aug 26 17:34:09 2013] deselect_all
-[Mon Aug 26 17:34:09 2013] Dot::select
-[Mon Aug 26 17:34:09 2013] GameObject::select
-[Mon Aug 26 17:34:12 2013] Dot::contains_point
-[Mon Aug 26 17:34:12 2013] Dot::contains_point
-[Mon Aug 26 17:34:12 2013] found GameObject
-[Mon Aug 26 17:34:12 2013] deselect_all
-[Mon Aug 26 17:34:12 2013] Dot::deselect
-[Mon Aug 26 17:34:12 2013] GameObject::deselect
-[Mon Aug 26 17:34:12 2013] Dot::select
-[Mon Aug 26 17:34:12 2013] GameObject::select
-[Mon Aug 26 17:34:14 2013] Dot::contains_point
-[Mon Aug 26 17:34:14 2013] Dot::contains_point
-[Mon Aug 26 17:34:14 2013] deselect_all
-[Mon Aug 26 17:34:14 2013] Dot::deselect
-[Mon Aug 26 17:34:14 2013] GameObject::deselect
-[Mon Aug 26 17:34:15 2013] Dot::contains_point
-[Mon Aug 26 17:34:15 2013] Dot::contains_point
-[Mon Aug 26 17:34:15 2013] found GameObject
-[Mon Aug 26 17:34:15 2013] deselect_all
-[Mon Aug 26 17:34:15 2013] Dot::select
-[Mon Aug 26 17:34:15 2013] GameObject::select
-[Mon Aug 26 17:34:15 2013] Dot::contains_point
-[Mon Aug 26 17:34:15 2013] Dot::contains_point
-[Mon Aug 26 17:34:15 2013] deselect_all
-[Mon Aug 26 17:34:15 2013] Dot::deselect
-[Mon Aug 26 17:34:15 2013] GameObject::deselect
-[Mon Aug 26 17:34:16 2013] Dot::contains_point
-[Mon Aug 26 17:34:16 2013] found GameObject
-[Mon Aug 26 17:34:16 2013] deselect_all
-[Mon Aug 26 17:34:16 2013] Dot::select
-[Mon Aug 26 17:34:16 2013] GameObject::select
-[Mon Aug 26 17:34:19 2013] shutting down
+[Mon Aug 26 17:46:57 2013] running
+[Mon Aug 26 17:47:11 2013] Dot::contains_point
+[Mon Aug 26 17:47:11 2013] found GameObject
+[Mon Aug 26 17:47:11 2013] deselect_all
+[Mon Aug 26 17:47:11 2013] Dot::select
+[Mon Aug 26 17:47:11 2013] GameObject::select
+[Mon Aug 26 17:47:12 2013] Dot::contains_point
+[Mon Aug 26 17:47:12 2013] Dot::contains_point
+[Mon Aug 26 17:47:12 2013] deselect_all
+[Mon Aug 26 17:47:12 2013] Dot::deselect
+[Mon Aug 26 17:47:12 2013] GameObject::deselect
+[Mon Aug 26 17:47:12 2013] Dot::contains_point
+[Mon Aug 26 17:47:12 2013] found GameObject
+[Mon Aug 26 17:47:12 2013] deselect_all
+[Mon Aug 26 17:47:12 2013] Dot::select
+[Mon Aug 26 17:47:12 2013] GameObject::select
+[Mon Aug 26 17:47:13 2013] Dot::contains_point
+[Mon Aug 26 17:47:13 2013] Dot::contains_point
+[Mon Aug 26 17:47:13 2013] deselect_all
+[Mon Aug 26 17:47:13 2013] Dot::deselect
+[Mon Aug 26 17:47:13 2013] GameObject::deselect
+[Mon Aug 26 17:47:14 2013] Dot::contains_point
+[Mon Aug 26 17:47:14 2013] Dot::contains_point
+[Mon Aug 26 17:47:14 2013] found GameObject
+[Mon Aug 26 17:47:14 2013] deselect_all
+[Mon Aug 26 17:47:14 2013] Dot::select
+[Mon Aug 26 17:47:14 2013] GameObject::select
+[Mon Aug 26 17:47:14 2013] Dot::contains_point
+[Mon Aug 26 17:47:14 2013] Dot::contains_point
+[Mon Aug 26 17:47:14 2013] deselect_all
+[Mon Aug 26 17:47:14 2013] Dot::deselect
+[Mon Aug 26 17:47:14 2013] GameObject::deselect
+[Mon Aug 26 17:47:14 2013] Dot::contains_point
+[Mon Aug 26 17:47:14 2013] Dot::contains_point
+[Mon Aug 26 17:47:14 2013] found GameObject
+[Mon Aug 26 17:47:14 2013] deselect_all
+[Mon Aug 26 17:47:14 2013] Dot::select
+[Mon Aug 26 17:47:14 2013] GameObject::select
+[Mon Aug 26 17:47:15 2013] Dot::contains_point
+[Mon Aug 26 17:47:15 2013] Dot::contains_point
+[Mon Aug 26 17:47:15 2013] deselect_all
+[Mon Aug 26 17:47:15 2013] Dot::deselect
+[Mon Aug 26 17:47:15 2013] GameObject::deselect
+[Mon Aug 26 17:47:15 2013] Dot::contains_point
+[Mon Aug 26 17:47:15 2013] Dot::contains_point
+[Mon Aug 26 17:47:15 2013] found GameObject
+[Mon Aug 26 17:47:15 2013] deselect_all
+[Mon Aug 26 17:47:15 2013] Dot::select
+[Mon Aug 26 17:47:15 2013] GameObject::select
+[Mon Aug 26 17:47:15 2013] Dot::contains_point
+[Mon Aug 26 17:47:15 2013] Dot::contains_point
+[Mon Aug 26 17:47:15 2013] deselect_all
+[Mon Aug 26 17:47:15 2013] Dot::deselect
+[Mon Aug 26 17:47:15 2013] GameObject::deselect
+[Mon Aug 26 17:47:15 2013] Dot::contains_point
+[Mon Aug 26 17:47:15 2013] Dot::contains_point
+[Mon Aug 26 17:47:15 2013] found GameObject
+[Mon Aug 26 17:47:15 2013] deselect_all
+[Mon Aug 26 17:47:15 2013] Dot::select
+[Mon Aug 26 17:47:15 2013] GameObject::select
+[Mon Aug 26 17:47:16 2013] Dot::contains_point
+[Mon Aug 26 17:47:16 2013] Dot::contains_point
+[Mon Aug 26 17:47:16 2013] deselect_all
+[Mon Aug 26 17:47:16 2013] Dot::deselect
+[Mon Aug 26 17:47:16 2013] GameObject::deselect
+[Mon Aug 26 17:47:16 2013] Dot::contains_point
+[Mon Aug 26 17:47:16 2013] Dot::contains_point
+[Mon Aug 26 17:47:16 2013] deselect_all
+[Mon Aug 26 17:47:16 2013] Dot::contains_point
+[Mon Aug 26 17:47:16 2013] Dot::contains_point
+[Mon Aug 26 17:47:16 2013] found GameObject
+[Mon Aug 26 17:47:16 2013] deselect_all
+[Mon Aug 26 17:47:16 2013] Dot::select
+[Mon Aug 26 17:47:16 2013] GameObject::select
+[Mon Aug 26 17:47:16 2013] Dot::contains_point
+[Mon Aug 26 17:47:16 2013] Dot::contains_point
+[Mon Aug 26 17:47:16 2013] deselect_all
+[Mon Aug 26 17:47:16 2013] Dot::deselect
+[Mon Aug 26 17:47:16 2013] GameObject::deselect
+[Mon Aug 26 17:47:17 2013] Dot::contains_point
+[Mon Aug 26 17:47:17 2013] Dot::contains_point
+[Mon Aug 26 17:47:17 2013] deselect_all
+[Mon Aug 26 17:47:17 2013] Dot::contains_point
+[Mon Aug 26 17:47:17 2013] Dot::contains_point
+[Mon Aug 26 17:47:17 2013] found GameObject
+[Mon Aug 26 17:47:17 2013] deselect_all
+[Mon Aug 26 17:47:17 2013] Dot::select
+[Mon Aug 26 17:47:17 2013] GameObject::select
+[Mon Aug 26 17:47:17 2013] Dot::contains_point
+[Mon Aug 26 17:47:17 2013] Dot::contains_point
+[Mon Aug 26 17:47:17 2013] found GameObject
+[Mon Aug 26 17:47:17 2013] deselect_all
+[Mon Aug 26 17:47:17 2013] Dot::deselect
+[Mon Aug 26 17:47:17 2013] GameObject::deselect
+[Mon Aug 26 17:47:17 2013] Dot::select
+[Mon Aug 26 17:47:17 2013] GameObject::select
+[Mon Aug 26 17:47:17 2013] Dot::contains_point
+[Mon Aug 26 17:47:17 2013] Dot::contains_point
+[Mon Aug 26 17:47:17 2013] deselect_all
+[Mon Aug 26 17:47:17 2013] Dot::deselect
+[Mon Aug 26 17:47:17 2013] GameObject::deselect
+[Mon Aug 26 17:47:18 2013] Dot::contains_point
+[Mon Aug 26 17:47:18 2013] Dot::contains_point
+[Mon Aug 26 17:47:18 2013] found GameObject
+[Mon Aug 26 17:47:18 2013] deselect_all
+[Mon Aug 26 17:47:18 2013] Dot::select
+[Mon Aug 26 17:47:18 2013] GameObject::select
+[Mon Aug 26 17:47:18 2013] Dot::contains_point
+[Mon Aug 26 17:47:18 2013] Dot::contains_point
+[Mon Aug 26 17:47:18 2013] deselect_all
+[Mon Aug 26 17:47:18 2013] Dot::deselect
+[Mon Aug 26 17:47:18 2013] GameObject::deselect
+[Mon Aug 26 17:47:18 2013] Dot::contains_point
+[Mon Aug 26 17:47:18 2013] Dot::contains_point
+[Mon Aug 26 17:47:18 2013] found GameObject
+[Mon Aug 26 17:47:18 2013] deselect_all
+[Mon Aug 26 17:47:18 2013] Dot::select
+[Mon Aug 26 17:47:18 2013] GameObject::select
+[Mon Aug 26 17:47:19 2013] Dot::contains_point
+[Mon Aug 26 17:47:19 2013] Dot::contains_point
+[Mon Aug 26 17:47:19 2013] deselect_all
+[Mon Aug 26 17:47:19 2013] Dot::deselect
+[Mon Aug 26 17:47:19 2013] GameObject::deselect
+[Mon Aug 26 17:47:19 2013] Dot::contains_point
+[Mon Aug 26 17:47:19 2013] Dot::contains_point
+[Mon Aug 26 17:47:19 2013] found GameObject
+[Mon Aug 26 17:47:19 2013] deselect_all
+[Mon Aug 26 17:47:19 2013] Dot::select
+[Mon Aug 26 17:47:19 2013] GameObject::select
+[Mon Aug 26 17:47:19 2013] Dot::contains_point
+[Mon Aug 26 17:47:19 2013] Dot::contains_point
+[Mon Aug 26 17:47:19 2013] deselect_all
+[Mon Aug 26 17:47:19 2013] Dot::deselect
+[Mon Aug 26 17:47:19 2013] GameObject::deselect
+[Mon Aug 26 17:47:19 2013] Dot::contains_point
+[Mon Aug 26 17:47:19 2013] Dot::contains_point
+[Mon Aug 26 17:47:19 2013] found GameObject
+[Mon Aug 26 17:47:19 2013] deselect_all
+[Mon Aug 26 17:47:19 2013] Dot::select
+[Mon Aug 26 17:47:19 2013] GameObject::select
+[Mon Aug 26 17:47:20 2013] Dot::contains_point
+[Mon Aug 26 17:47:20 2013] Dot::contains_point
+[Mon Aug 26 17:47:20 2013] deselect_all
+[Mon Aug 26 17:47:20 2013] Dot::deselect
+[Mon Aug 26 17:47:20 2013] GameObject::deselect
+[Mon Aug 26 17:47:20 2013] Dot::contains_point
+[Mon Aug 26 17:47:20 2013] Dot::contains_point
+[Mon Aug 26 17:47:20 2013] found GameObject
+[Mon Aug 26 17:47:20 2013] deselect_all
+[Mon Aug 26 17:47:20 2013] Dot::select
+[Mon Aug 26 17:47:20 2013] GameObject::select
+[Mon Aug 26 17:47:20 2013] Dot::contains_point
+[Mon Aug 26 17:47:20 2013] Dot::contains_point
+[Mon Aug 26 17:47:20 2013] deselect_all
+[Mon Aug 26 17:47:20 2013] Dot::deselect
+[Mon Aug 26 17:47:20 2013] GameObject::deselect
+[Mon Aug 26 17:47:20 2013] Dot::contains_point
+[Mon Aug 26 17:47:20 2013] Dot::contains_point
+[Mon Aug 26 17:47:20 2013] found GameObject
+[Mon Aug 26 17:47:20 2013] deselect_all
+[Mon Aug 26 17:47:20 2013] Dot::select
+[Mon Aug 26 17:47:20 2013] GameObject::select
+[Mon Aug 26 17:47:20 2013] Dot::contains_point
+[Mon Aug 26 17:47:20 2013] Dot::contains_point
+[Mon Aug 26 17:47:20 2013] deselect_all
+[Mon Aug 26 17:47:20 2013] Dot::deselect
+[Mon Aug 26 17:47:20 2013] GameObject::deselect
+[Mon Aug 26 17:47:21 2013] Dot::contains_point
+[Mon Aug 26 17:47:21 2013] Dot::contains_point
+[Mon Aug 26 17:47:21 2013] found GameObject
+[Mon Aug 26 17:47:21 2013] deselect_all
+[Mon Aug 26 17:47:21 2013] Dot::select
+[Mon Aug 26 17:47:21 2013] GameObject::select
+[Mon Aug 26 17:47:21 2013] Dot::contains_point
+[Mon Aug 26 17:47:21 2013] Dot::contains_point
+[Mon Aug 26 17:47:21 2013] deselect_all
+[Mon Aug 26 17:47:21 2013] Dot::deselect
+[Mon Aug 26 17:47:21 2013] GameObject::deselect
+[Mon Aug 26 17:47:21 2013] Dot::contains_point
+[Mon Aug 26 17:47:21 2013] Dot::contains_point
+[Mon Aug 26 17:47:21 2013] found GameObject
+[Mon Aug 26 17:47:21 2013] deselect_all
+[Mon Aug 26 17:47:21 2013] Dot::select
+[Mon Aug 26 17:47:21 2013] GameObject::select
+[Mon Aug 26 17:47:21 2013] Dot::contains_point
+[Mon Aug 26 17:47:21 2013] Dot::contains_point
+[Mon Aug 26 17:47:21 2013] deselect_all
+[Mon Aug 26 17:47:21 2013] Dot::deselect
+[Mon Aug 26 17:47:21 2013] GameObject::deselect
+[Mon Aug 26 17:47:21 2013] Dot::contains_point
+[Mon Aug 26 17:47:21 2013] Dot::contains_point
+[Mon Aug 26 17:47:21 2013] found GameObject
+[Mon Aug 26 17:47:21 2013] deselect_all
+[Mon Aug 26 17:47:21 2013] Dot::select
+[Mon Aug 26 17:47:21 2013] GameObject::select
+[Mon Aug 26 17:47:22 2013] Dot::contains_point
+[Mon Aug 26 17:47:22 2013] Dot::contains_point
+[Mon Aug 26 17:47:22 2013] deselect_all
+[Mon Aug 26 17:47:22 2013] Dot::deselect
+[Mon Aug 26 17:47:22 2013] GameObject::deselect
+[Mon Aug 26 17:47:22 2013] Dot::contains_point
+[Mon Aug 26 17:47:22 2013] Dot::contains_point
+[Mon Aug 26 17:47:22 2013] found GameObject
+[Mon Aug 26 17:47:22 2013] deselect_all
+[Mon Aug 26 17:47:22 2013] Dot::select
+[Mon Aug 26 17:47:22 2013] GameObject::select
+[Mon Aug 26 17:47:22 2013] Dot::contains_point
+[Mon Aug 26 17:47:22 2013] Dot::contains_point
+[Mon Aug 26 17:47:22 2013] deselect_all
+[Mon Aug 26 17:47:22 2013] Dot::deselect
+[Mon Aug 26 17:47:22 2013] GameObject::deselect
+[Mon Aug 26 17:47:22 2013] Dot::contains_point
+[Mon Aug 26 17:47:22 2013] Dot::contains_point
+[Mon Aug 26 17:47:22 2013] found GameObject
+[Mon Aug 26 17:47:22 2013] deselect_all
+[Mon Aug 26 17:47:22 2013] Dot::select
+[Mon Aug 26 17:47:22 2013] GameObject::select
+[Mon Aug 26 17:47:22 2013] Dot::contains_point
+[Mon Aug 26 17:47:22 2013] Dot::contains_point
+[Mon Aug 26 17:47:22 2013] deselect_all
+[Mon Aug 26 17:47:22 2013] Dot::deselect
+[Mon Aug 26 17:47:22 2013] GameObject::deselect
+[Mon Aug 26 17:47:23 2013] Dot::contains_point
+[Mon Aug 26 17:47:23 2013] Dot::contains_point
+[Mon Aug 26 17:47:23 2013] found GameObject
+[Mon Aug 26 17:47:23 2013] deselect_all
+[Mon Aug 26 17:47:23 2013] Dot::select
+[Mon Aug 26 17:47:23 2013] GameObject::select
+[Mon Aug 26 17:47:23 2013] Dot::contains_point
+[Mon Aug 26 17:47:23 2013] Dot::contains_point
+[Mon Aug 26 17:47:23 2013] deselect_all
+[Mon Aug 26 17:47:23 2013] Dot::deselect
+[Mon Aug 26 17:47:23 2013] GameObject::deselect
+[Mon Aug 26 17:47:23 2013] Dot::contains_point
+[Mon Aug 26 17:47:23 2013] Dot::contains_point
+[Mon Aug 26 17:47:23 2013] found GameObject
+[Mon Aug 26 17:47:23 2013] deselect_all
+[Mon Aug 26 17:47:23 2013] Dot::select
+[Mon Aug 26 17:47:23 2013] GameObject::select
+[Mon Aug 26 17:49:11 2013] shutting down
