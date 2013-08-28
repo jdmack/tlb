@@ -26,7 +26,6 @@ GameObject * Entigent::get_object_at(double x, double y)
 {
     for(std::vector<GameObject *>::iterator object_iterator = objects_->begin(); object_iterator != objects_->end(); ++object_iterator) {
         if((*object_iterator)->contains_point(x, y)) {
-                Logger::write("found GameObject");
             return *object_iterator;
         }
     }
@@ -54,7 +53,6 @@ void Entigent::deselect(GameObject * object)
 
 void Entigent::deselect_all()
 {
-    Logger::write("deselect_all");
     if(!selected_->empty()) {
         for(std::vector<GameObject *>::iterator selected_iterator = selected_->begin(); selected_iterator < selected_->end(); ++selected_iterator) {
             (*selected_iterator)->deselect();

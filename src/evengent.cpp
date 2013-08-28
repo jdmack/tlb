@@ -6,6 +6,7 @@
 #include "entigent.h"
 #include "tlb_game.h"
 #include "game_object.h"
+#include "util/logger.h"
 
 Evengent::Evengent()
 {
@@ -58,7 +59,7 @@ void Evengent::handle_events()
                         // something is selected, can now give it an order
                         std::vector<GameObject *> * selected = game_->entigent()->selected();
                         for(std::vector<GameObject *>::iterator selected_iterator = selected->begin(); selected_iterator < selected->end(); ++selected_iterator) {
-                            //(*selected_iterator)->move(event.button.x, event.button.y);
+                            (*selected_iterator)->move(event.button.x, event.button.y);
                         }
                     }
                 }

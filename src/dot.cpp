@@ -10,6 +10,9 @@ Dot::Dot()
     x_velocity_ = 0;
     y_velocity_ = 0;
 
+    width_ = kDotWidth;
+    height_ = kDotHeight;
+
     selectable_ = true;
 }
 
@@ -18,6 +21,9 @@ Dot::Dot(double x, double y, double rot) : GameObject(x,y, rot)
     art_asset_ = kAssetArtDot;
     x_velocity_ = 0;
     y_velocity_ = 0;
+
+    width_ = kDotWidth;
+    height_ = kDotHeight;
 
     selectable_ = true;
 }
@@ -66,34 +72,37 @@ void Dot::update(int delta_ticks)
     x_position_ += x_velocity_ * (delta_ticks / 1000.f);
 
     // Check left boundary
-    if(x_position_ < 0) {
-        x_position_ = 0;
+    if(x_position_ - (width_ / 2) < 0) {
+        x_position_ = 0 + (width_ / 2);
+        x_velocity_ = 0;
     }
     // Check right boundary
-    else if(x_position_ + kDotWidth > kScreenWidth) {
-        x_position_ = kScreenWidth - kDotWidth;
+    else if(x_position_ + (width_ / 2) > kScreenWidth) {
+        x_position_ = kScreenWidth - (width_ / 2);
+        x_velocity_ = 0;
     }
 
     // Move up/down
     y_position_ += y_velocity_ * (delta_ticks / 1000.f);
 
     // Check top boundary
-    if(y_position_ < 0) {
-        y_position_ = 0;
+    if(y_position_ - (height_ / 2) < 0) {
+        y_position_ = 0 + (height_ / 2);
+        y_velocity_ = 0;
     }
     // Check bottom boundary
-    else if(y_position_ + kDotHeight > kScreenHeight) {
-        y_position_ = kScreenHeight - kDotHeight;
+    else if(y_position_ + (height_ / 2) > kScreenHeight) {
+        y_position_ = kScreenHeight - (height_ / 2);
+        y_velocity_ = 0;
     }
 }
 
 bool Dot::contains_point(double x, double y)
 {
-    Logger::write("Dot::contains_point");
-    if((x < x_position_) || (x > (x_position_ + kDotWidth))) {
+    if((x < (x_position_ - (width_ / 2))) || (x > (x_position_ + (width_ / 2)))) {
         return false;
     }
-    else if((y < y_position_) || (y > (y_position_ + kDotHeight))) {
+    else if((y < (y_position_ - (width_ / 2))) || (y > (y_position_ + (height_ / 2)))) {
         return false;
     }
 
@@ -102,7 +111,7 @@ bool Dot::contains_point(double x, double y)
 
 void Dot::select()
 {
-    Logger::write("Dot::select");
+    Logger::write(Logger::string_stream << "Dot::select object_id: " << object_id_ << " (x,y): (" << x_position_ << ", " <<  y_position_ << ")");
     GameObject::select();
     SDL_Surface * select_surface = screen_->load_image_alpha(kAssetArtDotCircle);
     screen_->apply_surface(0, 0, select_surface, surface_);
@@ -116,4 +125,17 @@ void Dot::deselect()
     SDL_FreeSurface(surface_);
     surface_ = nullptr;
     surface_ = screen_->load_image_alpha(art_asset_);
+}
+
+void Dot::move(double x, double y)
+{
+    Logger::write("move command: ");
+    move_command_ = new Vector((double)x, (double)y, (double)x_position_, (double)y_position_);
+
+    Vector velocity(kDotVelocity, move_command_->direction());
+
+    x_velocity_ = velocity.x_component();
+    y_velocity_ = velocity.y_component();
+    Logger::write(Logger::string_stream << "creating vector (2) - x_velocity: " << x_velocity_ << " y_velocity: " << y_velocity_);
+
 }

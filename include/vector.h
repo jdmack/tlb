@@ -22,6 +22,9 @@ class Vector
         double direction() const { return direction_; }
         double magnitude() const { return magnitude_; }
 
+        double radians_to_degrees(double radians);
+        double degrees_to_radians(double degrees);
+
 };
 
 #endif

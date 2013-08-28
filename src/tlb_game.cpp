@@ -31,6 +31,7 @@ int TlbGame::run()
 {
     Logger::open(kLogFilename);
     Logger::write("running");
+
     SDL_Delay(3000);
     if(screen_->init() == false) {
         return 1;
@@ -50,10 +51,10 @@ int TlbGame::run()
 void TlbGame::game_loop()
 {
     // Create a dot
-    Dot * dot1 = new Dot();
-    entigent_->add_object(dot1);
+    //Dot * dot1 = new Dot();
+    //entigent_->add_object(dot1);
 
-    Dot * dot2 = new Dot(0, kScreenHeight - kDotHeight, 0);
+    Dot * dot2 = new Dot(kScreenWidth / 2, kScreenHeight / 2, 0);
     entigent_->add_object(dot2);
 
     // Main Loop
@@ -64,14 +65,14 @@ void TlbGame::game_loop()
         evengent_->handle_events();
 
         // Update
-        dot1->update(delta_timer_.get_ticks());
+        //dot1->update(delta_timer_.get_ticks());
         dot2->update(delta_timer_.get_ticks());
 
         delta_timer_.start();
 
         // Draw
         screen_->clear();
-        dot1->draw(screen_);
+        //dot1->draw(screen_);
         dot2->draw(screen_);
 
         //screen_->blit_surface(game);
@@ -81,7 +82,7 @@ void TlbGame::game_loop()
         }
     }
 
-    delete(dot1);
+    //delete(dot1);
     delete(dot2);
 }
 

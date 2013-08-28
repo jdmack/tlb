@@ -1,6 +1,7 @@
 #include "game_object.h"
 #include "screen.h"
 #include "util/logger.h"
+#include "vector.h"
 
 // TODO (2013-08-26/JM): Refactor constructor to use constructor delegation when
 // you get a gcc 4.7 compiler
@@ -12,6 +13,8 @@ GameObject::GameObject()
     x_position_ = 0;
     y_position_ = 0;
     rotation_ = 0;
+    width_ = 0;
+    height_ = 0;
 
     surface_ = nullptr;
     screen_ = nullptr;
@@ -20,6 +23,7 @@ GameObject::GameObject()
 
     object_id_ = id_counter_++;
 
+    move_command_ = nullptr;
 }
 
 GameObject::GameObject(double x, double y, double rot)
@@ -27,6 +31,8 @@ GameObject::GameObject(double x, double y, double rot)
     x_position_ = x;
     y_position_ = y;
     rotation_ = rot;
+    width_ = 0;
+    height_ = 0;
 
     surface_ = nullptr;
     screen_ = nullptr;
@@ -34,6 +40,8 @@ GameObject::GameObject(double x, double y, double rot)
     selected_ = false;
 
     object_id_ = id_counter_++;
+
+    move_command_ = nullptr;
 }
 
 GameObject::~GameObject()
@@ -43,7 +51,7 @@ GameObject::~GameObject()
 
 void GameObject::draw(Screen * screen)
 {
-    screen->blit_surface((int)x_position_, (int)y_position_, surface_);
+    screen->blit_surface(x_position_ - (width_ / 2), y_position_ - (height_ / 2), surface_);
 }
 
 bool GameObject::contains_point(double x, double y)
@@ -78,9 +86,8 @@ void GameObject::deselect()
     }
 }
 
-void move(double x, double y)
+void GameObject::move(double x, double y)
 {
     // TODO(2013-08-27/JM): Handle rotating
-
 
 }

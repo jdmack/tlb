@@ -37,6 +37,12 @@ bool Screen::init()
 
 void Screen::blit_surface(int x_position, int y_position, SDL_Surface * source)
 {
+    // TODO(2013-08-28/JM): Set constants for the rendering boundaries
+    if(x_position < 0) { x_position = 0; }
+    if(x_position > kScreenWidth) { x_position = kScreenWidth; }
+    if(y_position < 0) { y_position = 0; }
+    if(y_position > kScreenHeight) { y_position = kScreenHeight; }
+
     apply_surface(x_position, y_position, source, surface_);
 }
 

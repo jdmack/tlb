@@ -1,6 +1,9 @@
-#include "tlb_game.h"
 #include <fstream>
 #include <iostream>
+
+#include "tlb_game.h"
+#include "util/logger.h"
+#include "constants.h"
 using namespace std;
 
 int main(int argc, char* argv[])
@@ -12,6 +15,7 @@ int main(int argc, char* argv[])
     TlbGame * game = new TlbGame;
 
     game->process_arguments(argc, argv);
+
 
     exit_code = game->run();
 
