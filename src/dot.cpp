@@ -13,7 +13,7 @@ Dot::Dot()
     selectable_ = true;
 }
 
-Dot::Dot(float x, float y) : GameObject(x,y)
+Dot::Dot(float x, float y, float rot) : GameObject(x,y, rot)
 {
     art_asset_ = kAssetArtDot;
     x_velocity_ = 0;

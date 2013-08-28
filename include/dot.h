@@ -14,13 +14,17 @@ class Dot : public GameObject
         float y_velocity_;
 
     public:
+        // constructors/destructors
         Dot();
-        Dot(float x, float y);
-        void handle_input(SDL_Event event);
-        void move(int deltaTicks);
-        bool contains_point(float x, float y);
+        Dot(float x, float y, float rot);
+
+        // overridden
         void select();
         void deselect();
+        bool contains_point(float x, float y);
+
+        void handle_input(SDL_Event event);
+        void move(int deltaTicks);
 };
 
 #endif

@@ -53,7 +53,7 @@ void TlbGame::game_loop()
     Dot * dot1 = new Dot();
     entigent_->add_object(dot1);
 
-    Dot * dot2 = new Dot(0, kScreenHeight - kDotHeight);
+    Dot * dot2 = new Dot(0, kScreenHeight - kDotHeight, 0);
     entigent_->add_object(dot2);
 
     // Main Loop

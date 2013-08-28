@@ -11,6 +11,7 @@ GameObject::GameObject()
 {
     x_position_ = 0;
     y_position_ = 0;
+    rotation_ = 0;
 
     surface_ = nullptr;
     screen_ = nullptr;
@@ -21,10 +22,11 @@ GameObject::GameObject()
 
 }
 
-GameObject::GameObject(float x, float y)
+GameObject::GameObject(float x, float y, float rot)
 {
     x_position_ = x;
     y_position_ = y;
+    rotation_ = rot;
 
     surface_ = nullptr;
     screen_ = nullptr;
@@ -54,7 +56,7 @@ std::string GameObject::art_asset()
     return art_asset_;
 }
 
-void GameObject::register_screen(Screen * screen)
+void GameObject::set_screen(Screen * screen)
 {
     screen_ = screen;
 }

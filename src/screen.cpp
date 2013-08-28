@@ -108,7 +108,7 @@ void Screen::apply_surface(int x, int y, SDL_Surface * source, SDL_Surface * des
 void Screen::init_object(GameObject * object)
 {
     object->set_surface(load_image_alpha(object->art_asset()));
-    object->register_screen(this);
+    object->set_screen(this);
 }
 
 
