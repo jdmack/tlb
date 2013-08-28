@@ -13,7 +13,6 @@ Entigent::Entigent()
     selected_ = new std::vector<GameObject *>();
 }
 
-
 void Entigent::add_object(GameObject * object)
 {
     objects_->push_back(object);
@@ -23,12 +22,7 @@ void Entigent::add_object(GameObject * object)
     // or add an "active" field to distinguish elements that haven't been deleted yet
 }
 
-void Entigent::register_game(TlbGame * game)
-{
-    game_ = game;
-}
-
-GameObject * Entigent::get_object_at(float x, float y)
+GameObject * Entigent::get_object_at(double x, double y)
 {
     for(std::vector<GameObject *>::iterator object_iterator = objects_->begin(); object_iterator != objects_->end(); ++object_iterator) {
         if((*object_iterator)->contains_point(x, y)) {
@@ -68,14 +62,3 @@ void Entigent::deselect_all()
         }
     }
 }
-
-std::vector<GameObject *> * Entigent::objects()
-{
-    return objects_;
-}
-
-std::vector<GameObject *> * Entigent::selected()
-{
-    return selected_;
-}
-

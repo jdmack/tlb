@@ -24,9 +24,14 @@ class TlbGame
         int run();
         void game_loop();
         void process_arguments(int argc, char * argv[]);
-        void set_quit(bool quit);
-        Screen * screen();
-        Entigent * entigent();
+
+        // accessors
+        Screen * screen() const { return screen_; }
+        Entigent * entigent() const { return entigent_; }
+        Evengent * evengent() const { return evengent_; }
+
+        // mutators
+        void set_quit(bool quit) { quit_ = quit; }
 };
 
 #endif

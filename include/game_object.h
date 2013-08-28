@@ -12,9 +12,9 @@ class GameObject
     protected:
         static int id_counter_;
         int object_id_;
-        float x_position_;
-        float y_position_;
-        float rotation_;
+        double x_position_;
+        double y_position_;
+        double rotation_;
         bool selectable_;
         bool selected_;
         std::string art_asset_;
@@ -24,29 +24,29 @@ class GameObject
     public:
         // constructors/destructors
         GameObject();
-        GameObject(float x, float y, float rot);
+        GameObject(double x, double y, double rot);
         virtual ~GameObject();
 
         // accessors
-        int object_id();
-        float x_position();
-        float y_position();
-        float rotation();
-        bool selectable();
-        bool selected();
-        std::string art_asset();
-        SDL_Surface * surface();
-        Screen * screen();
+        int object_id() const { return object_id_; }
+        double x_position() const { return x_position_; }
+        double y_position() const { return y_position_; }
+        double rotation() const { return rotation_; }
+        bool selectable() const { return selectable_; }
+        bool selected() const { return selected_; }
+        std::string art_asset() const { return art_asset_; }
+        SDL_Surface * surface() const { return surface_; }
+        Screen * screen() const { return screen_; }
 
         // mutators
-        void set_surface(SDL_Surface * surface);
-        void set_screen(Screen * screen);
-
+        void set_surface(SDL_Surface * surface) { surface_ = surface; }
+        void set_screen(Screen * screen) { screen_ = screen; }
 
         void draw(Screen * screen);
-        virtual bool contains_point(float x, float y);
         virtual void select();
         virtual void deselect();
+        virtual bool contains_point(double x, double y);
+        void move(double x, double y);
 };
 
 #endif

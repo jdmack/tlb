@@ -12,8 +12,9 @@ class Evengent
     public:
         Evengent();
         void handle_events();
-        void register_game(TlbGame * game);
-};
 
+        // mutators
+        void set_game(TlbGame * game) { game_ = game; }
+};
 
 #endif

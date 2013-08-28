@@ -13,7 +13,7 @@ Dot::Dot()
     selectable_ = true;
 }
 
-Dot::Dot(float x, float y, float rot) : GameObject(x,y, rot)
+Dot::Dot(double x, double y, double rot) : GameObject(x,y, rot)
 {
     art_asset_ = kAssetArtDot;
     x_velocity_ = 0;
@@ -60,7 +60,7 @@ void Dot::handle_input(SDL_Event event)
     }
 }
 
-void Dot::move(int delta_ticks)
+void Dot::update(int delta_ticks)
 {
     // Move left/right
     x_position_ += x_velocity_ * (delta_ticks / 1000.f);
@@ -87,7 +87,7 @@ void Dot::move(int delta_ticks)
     }
 }
 
-bool Dot::contains_point(float x, float y)
+bool Dot::contains_point(double x, double y)
 {
     Logger::write("Dot::contains_point");
     if((x < x_position_) || (x > (x_position_ + kDotWidth))) {

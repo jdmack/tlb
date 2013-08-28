@@ -11,7 +11,6 @@ class DateTime
     public:
         DateTime();
         std::string timestamp();
-
 };
 
 #endif

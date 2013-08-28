@@ -17,9 +17,9 @@ TlbGame::TlbGame()
     quit_ = false;
     screen_ = new Screen();
     entigent_ = new Entigent();
-    entigent_->register_game(this);
+    entigent_->set_game(this);
     evengent_ = new Evengent();
-    evengent_->register_game(this);
+    evengent_->set_game(this);
 }
 
 TlbGame::~TlbGame()
@@ -64,8 +64,8 @@ void TlbGame::game_loop()
         evengent_->handle_events();
 
         // Update
-        dot1->move(delta_timer_.get_ticks());
-        dot2->move(delta_timer_.get_ticks());
+        dot1->update(delta_timer_.get_ticks());
+        dot2->update(delta_timer_.get_ticks());
 
         delta_timer_.start();
 
@@ -90,19 +90,4 @@ void TlbGame::game_loop()
 void TlbGame::process_arguments(int argc, char * argv[])
 {
 
-}
-
-void TlbGame::set_quit(bool quit)
-{
-    quit_ = quit;
-}
-
-Screen * TlbGame::screen()
-{
-    return screen_;
-}
-
-Entigent * TlbGame::entigent()
-{
-    return entigent_;
 }

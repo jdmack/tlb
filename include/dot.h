@@ -10,21 +10,21 @@ const int kDotVelocity = 200;
 class Dot : public GameObject
 {
     private:
-        float x_velocity_;
-        float y_velocity_;
+        double x_velocity_;
+        double y_velocity_;
 
     public:
         // constructors/destructors
         Dot();
-        Dot(float x, float y, float rot);
+        Dot(double x, double y, double rot);
 
         // overridden
         void select();
         void deselect();
-        bool contains_point(float x, float y);
+        bool contains_point(double x, double y);
 
         void handle_input(SDL_Event event);
-        void move(int deltaTicks);
+        void update(int deltaTicks);
 };
 
 #endif

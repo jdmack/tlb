@@ -22,7 +22,7 @@ GameObject::GameObject()
 
 }
 
-GameObject::GameObject(float x, float y, float rot)
+GameObject::GameObject(double x, double y, double rot)
 {
     x_position_ = x;
     y_position_ = y;
@@ -46,22 +46,7 @@ void GameObject::draw(Screen * screen)
     screen->blit_surface((int)x_position_, (int)y_position_, surface_);
 }
 
-void GameObject::set_surface(SDL_Surface * surface)
-{
-    surface_ = surface;
-}
-
-std::string GameObject::art_asset()
-{
-    return art_asset_;
-}
-
-void GameObject::set_screen(Screen * screen)
-{
-    screen_ = screen;
-}
-
-bool GameObject::contains_point(float x, float y)
+bool GameObject::contains_point(double x, double y)
 {
     Logger::write("GameObject::contains_point");
     return true;
@@ -93,12 +78,9 @@ void GameObject::deselect()
     }
 }
 
-bool GameObject::selected()
+void move(double x, double y)
 {
-    return selected_;
-}
+    // TODO(2013-08-27/JM): Handle rotating
 
-int GameObject::object_id()
-{
-    return object_id_;
+
 }

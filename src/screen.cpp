@@ -110,13 +110,3 @@ void Screen::init_object(GameObject * object)
     object->set_surface(load_image_alpha(object->art_asset()));
     object->set_screen(this);
 }
-
-
-/*******************************************************************************
-/*  Accessors
-/******************************************************************************/
-
-SDL_Surface * Screen::surface()
-{
-    return surface_;
-}

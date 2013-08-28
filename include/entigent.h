@@ -18,13 +18,18 @@ class Entigent
 
     public:
         void add_object(GameObject * object);
-        void register_game(TlbGame * game);
         Entigent();
-        GameObject * get_object_at(float x, float y);
+        GameObject * get_object_at(double x, double y);
         void select(GameObject * object);
         void deselect(GameObject * object);
         void deselect_all();
-        std::vector<GameObject *> * objects();
-        std::vector<GameObject *> * selected();
+
+        // accessors
+        std::vector<GameObject *> * objects() const { return objects_; }
+        std::vector<GameObject *> * selected() const { return selected_; }
+
+        // mutators
+        void set_game(TlbGame * game) { game_ = game; }
 };
+
 #endif
