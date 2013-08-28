@@ -2,6 +2,7 @@
 #define TLB_CONSTANTS_H_
 
 #include <string>
+#include <cstdint>
 
 /* Strings */
 const std::string kWindowName = "The Left Behind";
