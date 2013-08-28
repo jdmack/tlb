@@ -7,8 +7,8 @@ TARGET := bin/TLB
 SRCEXT := cpp
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS := -g3 -O0 # -Wall
-LIB := -lSDL
+CFLAGS := -g3 -O0 -std=c++0x # -Wall
+LIB := -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer -static-libgcc -static-libstdc++
 INC := -I include
 
 $(TARGET): $(OBJECTS)
