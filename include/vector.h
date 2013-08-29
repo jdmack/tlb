@@ -21,6 +21,8 @@ class Vector
         double y_component() const { return y_component_; }
         double direction() const { return direction_; }
         double magnitude() const { return magnitude_; }
+        double direction_r() { return direction_; }
+        double direction_d() { return radians_to_degrees(direction_); }
 
         double radians_to_degrees(double radians);
         double degrees_to_radians(double degrees);

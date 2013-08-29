@@ -42,10 +42,10 @@ Vector::Vector(double magnitude, double direction)
 
 double Vector::radians_to_degrees(double radians)
 {
-
+    return radians / kPi * 180;
 }
 
 double Vector::degrees_to_radians(double degrees)
 {
-
+    return degrees * kPi / 180;
 }
