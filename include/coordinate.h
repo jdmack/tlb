@@ -12,11 +12,11 @@ class Coordinate
 
         // accessors
         double x_position() const { return x_position_; }
-        double y_position() const { return x_position_; }
+        double y_position() const { return y_position_; }
 
         // mutators
-        double set_x_position(double x) { x_position_ = x; }
-        double set_y_position(double y) { y_position_ = y; }
+        void set_x_position(double x) { x_position_ = x; }
+        void set_y_position(double y) { y_position_ = y; }
 };
 
 #endif

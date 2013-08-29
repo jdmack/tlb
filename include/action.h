@@ -4,11 +4,11 @@
 class Action
 {
     private:
-        bool movement_;
 
     public:
         Action();
-        bool movement() const { return movement_; }
+        virtual ~Action();
+        virtual bool is_movement() const { return false; }
 };
 
 #endif

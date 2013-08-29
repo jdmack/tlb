@@ -2,7 +2,12 @@
 
 Action::Action()
 {
-    movement_ = false;
+
+}
+
+Action::~Action()
+{
+
 }
 
 

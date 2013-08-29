@@ -77,3 +77,43 @@ void Evengent::handle_events()
         }
     }
 }
+
+/*
+void Dot::handle_input(SDL_Event event)
+{
+    if(selected_ == true) {
+        if(event.type == SDL_KEYDOWN) {
+            switch( event.key.keysym.sym) {
+                case SDLK_UP:
+                    y_velocity_ -= kDotVelocity;
+                    break;
+                case SDLK_DOWN:
+                    y_velocity_ += kDotVelocity;
+                    break;
+                case SDLK_LEFT:
+                    x_velocity_ -= kDotVelocity;
+                    break;
+                case SDLK_RIGHT:
+                    x_velocity_ += kDotVelocity;
+                    break;
+            }
+        }
+        else if(event.type == SDL_KEYUP) {
+            switch( event.key.keysym.sym) {
+                case SDLK_UP:
+                    y_velocity_ += kDotVelocity;
+                    break;
+                case SDLK_DOWN:
+                    y_velocity_ -= kDotVelocity;
+                    break;
+                case SDLK_LEFT:
+                    x_velocity_ += kDotVelocity;
+                    break;
+                case SDLK_RIGHT:
+                    x_velocity_ -= kDotVelocity;
+                    break;
+            }
+        }
+    }
+}
+*/

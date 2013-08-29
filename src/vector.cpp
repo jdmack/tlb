@@ -20,7 +20,7 @@ Vector::Vector(double x1, double y1, double x2, double y2)
 
     int quadrant = determine_quadrant(x1, y1, x2, y2);
 
-    magnitude_ = sqrt(pow(x_component_,2) + pow(y_component_,2));
+    magnitude_ = sqrt(pow(x_component_, 2) + pow(y_component_, 2));
     double theta = acos(x_component_ / magnitude_);
     direction_ = determine_direction(quadrant, theta);
 

@@ -10,8 +10,6 @@ const int kDotVelocity = 200;
 class Dot : public GameObject
 {
     private:
-        double x_velocity_;
-        double y_velocity_;
 
     public:
         // constructors/destructors
@@ -25,8 +23,9 @@ class Dot : public GameObject
         void move(double x, double y);
         void stop();
 
-        void handle_input(SDL_Event event);
         void update(int deltaTicks);
+
+        // accessors
 };
 
 #endif

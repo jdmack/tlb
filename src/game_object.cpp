@@ -2,6 +2,7 @@
 #include "screen.h"
 #include "util/logger.h"
 #include "vector.h"
+#include "action.h"
 
 // TODO (2013-08-26/JM): Refactor constructor to use constructor delegation when
 // you get a gcc 4.7 compiler
@@ -15,6 +16,8 @@ GameObject::GameObject()
     rotation_ = 0;
     width_ = 0;
     height_ = 0;
+    x_velocity_ = 0;
+    y_velocity_ = 0;
 
     surface_ = nullptr;
     screen_ = nullptr;
@@ -23,7 +26,7 @@ GameObject::GameObject()
 
     object_id_ = id_counter_++;
 
-    move_command_ = nullptr;
+    current_action_ = nullptr;
 }
 
 GameObject::GameObject(double x, double y, double rot)
@@ -33,6 +36,8 @@ GameObject::GameObject(double x, double y, double rot)
     rotation_ = rot;
     width_ = 0;
     height_ = 0;
+    x_velocity_ = 0;
+    y_velocity_ = 0;
 
     surface_ = nullptr;
     screen_ = nullptr;
@@ -41,7 +46,7 @@ GameObject::GameObject(double x, double y, double rot)
 
     object_id_ = id_counter_++;
 
-    move_command_ = nullptr;
+    current_action_ = nullptr;
 }
 
 GameObject::~GameObject()

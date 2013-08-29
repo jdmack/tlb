@@ -3,6 +3,9 @@
 #include "assets.h"
 #include "util/logger.h"
 #include "screen.h"
+#include "coordinate.h"
+#include "vector.h"
+#include "movement.h"
 
 Dot::Dot()
 {
@@ -28,43 +31,7 @@ Dot::Dot(double x, double y, double rot) : GameObject(x,y, rot)
     selectable_ = true;
 }
 
-void Dot::handle_input(SDL_Event event)
-{
-    if(selected_ == true) {
-        if(event.type == SDL_KEYDOWN) {
-            switch( event.key.keysym.sym) {
-                case SDLK_UP:
-                    y_velocity_ -= kDotVelocity;
-                    break;
-                case SDLK_DOWN:
-                    y_velocity_ += kDotVelocity;
-                    break;
-                case SDLK_LEFT:
-                    x_velocity_ -= kDotVelocity;
-                    break;
-                case SDLK_RIGHT:
-                    x_velocity_ += kDotVelocity;
-                    break;
-            }
-        }
-        else if(event.type == SDL_KEYUP) {
-            switch( event.key.keysym.sym) {
-                case SDLK_UP:
-                    y_velocity_ += kDotVelocity;
-                    break;
-                case SDLK_DOWN:
-                    y_velocity_ -= kDotVelocity;
-                    break;
-                case SDLK_LEFT:
-                    x_velocity_ += kDotVelocity;
-                    break;
-                case SDLK_RIGHT:
-                    x_velocity_ -= kDotVelocity;
-                    break;
-            }
-        }
-    }
-}
+
 
 void Dot::update(int delta_ticks)
 {
@@ -98,6 +65,27 @@ void Dot::update(int delta_ticks)
         y_position_ = kScreenHeight - (height_ / 2);
         x_velocity_ = 0;
         y_velocity_ = 0;
+    }
+
+    if((current_action_ != nullptr) && (current_action_->is_movement())) {
+        Movement * movement_command = (static_cast<Movement*>(current_action_));
+
+        double distance = Movement::calculate_distance(Coordinate(movement_command->destination().x_position(), movement_command->destination().y_position()), Coordinate(x_position_, y_position_));
+
+        //Logger::write(Logger::string_stream << distance << " " << movement_command->distance());
+
+        if(distance > movement_command->distance()) {
+            x_position_ = movement_command->destination().x_position();
+            y_position_ = movement_command->destination().y_position();
+            x_velocity_ = 0;
+            y_velocity_ = 0;
+
+            delete(current_action_);
+            current_action_ = nullptr;
+        }
+        else {
+            movement_command->set_distance(distance);
+        }
     }
 }
 
@@ -133,14 +121,17 @@ void Dot::deselect()
 
 void Dot::move(double x, double y)
 {
-    Logger::write("move command: ");
-    move_command_ = new Vector(x_position_, y_position_, x, y);
+    Logger::write("move command");
 
-    Vector velocity(kDotVelocity, move_command_->direction());
+    current_action_ = new Movement(Vector(x_position_, y_position_, x, y), Coordinate(x, y));
+
+    Movement * movement_command = static_cast<Movement*>(current_action_);
+    movement_command->set_distance(Movement::calculate_distance(Coordinate(movement_command->destination().x_position(), movement_command->destination().y_position()), Coordinate(x_position_, y_position_)));
+
+    Vector velocity(kDotVelocity, static_cast<Movement*>(current_action_)->vector().direction());
 
     x_velocity_ = velocity.x_component();
     y_velocity_ = velocity.y_component();
-    Logger::write(Logger::string_stream << "creating vector (2) - x_velocity: " << x_velocity_ << " y_velocity: " << y_velocity_);
 
 }
 void Dot::stop()
