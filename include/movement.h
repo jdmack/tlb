@@ -11,8 +11,9 @@ class Movement
         Coordinate destination_;
 
     public:
+        Movement();
         Movement(Vector vector); 
-        Movement(); 
+        Movement(double magnitude, double direction);
 
         // accessors
         Vector vector() const { return vector_; }
@@ -24,5 +25,4 @@ class Movement
 
 };
 
-#define
-
+#endif
