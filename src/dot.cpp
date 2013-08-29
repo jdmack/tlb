@@ -75,11 +75,13 @@ void Dot::update(int delta_ticks)
     if(x_position_ - (width_ / 2) < 0) {
         x_position_ = 0 + (width_ / 2);
         x_velocity_ = 0;
+        y_velocity_ = 0;
     }
     // Check right boundary
     else if(x_position_ + (width_ / 2) > kScreenWidth) {
         x_position_ = kScreenWidth - (width_ / 2);
         x_velocity_ = 0;
+        y_velocity_ = 0;
     }
 
     // Move up/down
@@ -88,11 +90,13 @@ void Dot::update(int delta_ticks)
     // Check top boundary
     if(y_position_ - (height_ / 2) < 0) {
         y_position_ = 0 + (height_ / 2);
+        x_velocity_ = 0;
         y_velocity_ = 0;
     }
     // Check bottom boundary
     else if(y_position_ + (height_ / 2) > kScreenHeight) {
         y_position_ = kScreenHeight - (height_ / 2);
+        x_velocity_ = 0;
         y_velocity_ = 0;
     }
 }
