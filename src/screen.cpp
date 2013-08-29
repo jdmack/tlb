@@ -1,7 +1,10 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
+#include "SDL/SDL_rotozoom.h"
 #include "screen.h"
 #include "game_object.h"
+#include "sprite.h"
+#include "util/logger.h"
 
 Screen::Screen()
 {
@@ -113,6 +116,18 @@ void Screen::apply_surface(int x, int y, SDL_Surface * source, SDL_Surface * des
 
 void Screen::init_object(GameObject * object)
 {
-    object->set_surface(load_image_alpha(object->art_asset()));
-    object->set_screen(this);
+    object->sprite()->set_surface(load_image_alpha(object->sprite()->art_asset()));
+    object->sprite()->set_screen(this);
+}
+
+SDL_Surface * Screen::rotate_surface(SDL_Surface * surface, double rotation)
+{
+    SDL_Surface * rotated_surface = nullptr;
+
+    double degrees = rotation / kPi * 180;
+    Logger::write(Logger::string_stream << "rotating: " << degrees << " degrees");
+    rotated_surface = rotozoomSurface(surface, degrees, 1, SMOOTHING_ON);
+
+    SDL_FreeSurface(surface);
+    return rotated_surface;
 }

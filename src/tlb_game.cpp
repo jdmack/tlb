@@ -73,7 +73,7 @@ void TlbGame::game_loop()
         // Draw
         screen_->clear();
         //dot1->draw(screen_);
-        dot2->draw(screen_);
+        dot2->draw();
 
         //screen_->blit_surface(game);
 

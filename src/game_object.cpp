@@ -3,6 +3,7 @@
 #include "util/logger.h"
 #include "vector.h"
 #include "action.h"
+#include "sprite.h"
 
 // TODO (2013-08-26/JM): Refactor constructor to use constructor delegation when
 // you get a gcc 4.7 compiler
@@ -19,14 +20,14 @@ GameObject::GameObject()
     x_velocity_ = 0;
     y_velocity_ = 0;
 
-    surface_ = nullptr;
-    screen_ = nullptr;
     selectable_ = false;
     selected_ = false;
 
     object_id_ = id_counter_++;
 
     current_action_ = nullptr;
+
+    sprite_ = nullptr;
 }
 
 GameObject::GameObject(double x, double y, double rot)
@@ -39,14 +40,14 @@ GameObject::GameObject(double x, double y, double rot)
     x_velocity_ = 0;
     y_velocity_ = 0;
 
-    surface_ = nullptr;
-    screen_ = nullptr;
     selectable_ = false;
     selected_ = false;
 
     object_id_ = id_counter_++;
 
     current_action_ = nullptr;
+
+    sprite_ = nullptr;
 }
 
 GameObject::~GameObject()
@@ -54,9 +55,9 @@ GameObject::~GameObject()
 
 }
 
-void GameObject::draw(Screen * screen)
+void GameObject::draw()
 {
-    screen->blit_surface(x_position_ - (width_ / 2), y_position_ - (height_ / 2), surface_);
+    sprite_->draw();
 }
 
 bool GameObject::contains_point(double x, double y)

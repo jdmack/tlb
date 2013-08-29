@@ -33,6 +33,8 @@ class Screen
         SDL_Surface * load_image_alpha(std::string);
         void apply_surface(int, int, SDL_Surface *, SDL_Surface *);
         void init_object(GameObject * object);
+        SDL_Surface * rotate_surface(SDL_Surface * surface, double rotation);
+
 };
 
 #endif
