@@ -23,6 +23,7 @@ class Dot : public GameObject
         void deselect();
         bool contains_point(double x, double y);
         void move(double x, double y);
+        void stop();
 
         void handle_input(SDL_Event event);
         void update(int deltaTicks);

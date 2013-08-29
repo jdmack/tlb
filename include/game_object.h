@@ -56,6 +56,7 @@ class GameObject
         virtual void deselect();
         virtual bool contains_point(double x, double y);
         virtual void move(double x, double y);
+        virtual void stop();
         void set_move_command(Vector * move_command) { move_command_ = move_command; }
 
 };

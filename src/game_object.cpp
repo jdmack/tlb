@@ -91,3 +91,8 @@ void GameObject::move(double x, double y)
     // TODO(2013-08-27/JM): Handle rotating
 
 }
+
+void GameObject::stop()
+{
+
+}

@@ -27,6 +27,15 @@ void Evengent::handle_events()
                 if(event.key.keysym.sym == SDLK_ESCAPE) {
                     game_->set_quit(true);
                 }
+                if(event.key.keysym.sym == SDLK_s) {
+                    if(!game_->entigent()->selected()->empty()) {
+                        // something is selected, can now give it an order
+                        std::vector<GameObject *> * selected = game_->entigent()->selected();
+                        for(std::vector<GameObject *>::iterator selected_iterator = selected->begin(); selected_iterator < selected->end(); ++selected_iterator) {
+                            (*selected_iterator)->stop();
+                        }
+                    }
+                }
                 break;
 
             case SDL_KEYUP:

@@ -130,7 +130,7 @@ void Dot::deselect()
 void Dot::move(double x, double y)
 {
     Logger::write("move command: ");
-    move_command_ = new Vector((double)x, (double)y, (double)x_position_, (double)y_position_);
+    move_command_ = new Vector(x_position_, y_position_, x, y);
 
     Vector velocity(kDotVelocity, move_command_->direction());
 
@@ -138,4 +138,10 @@ void Dot::move(double x, double y)
     y_velocity_ = velocity.y_component();
     Logger::write(Logger::string_stream << "creating vector (2) - x_velocity: " << x_velocity_ << " y_velocity: " << y_velocity_);
 
+}
+void Dot::stop()
+{
+    Logger::write("stop command");
+    x_velocity_ = 0;
+    y_velocity_ = 0;
 }
