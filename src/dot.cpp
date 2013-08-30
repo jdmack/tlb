@@ -36,8 +36,10 @@ Dot::Dot(double x, double y, double rot) : GameObject(x,y, rot)
 
 void Dot::update(int delta_ticks)
 {
-    if((x_velocity_ == 0) && (x_velocity_ == 0)) {
-        return;
+    if((x_velocity_ == 0) && (y_velocity_ == 0)) {
+        if((x_acceleration_ == 0) && (y_acceleration_ == 0)) {
+            return;
+        }
     }
 
     if((current_action_ != nullptr) && (current_action_->is_movement())) {
@@ -57,6 +59,8 @@ void Dot::update(int delta_ticks)
         else {
 
             // Move left/right
+            x_velocity_ += x_acceleration_ * (delta_ticks / 1000.f);
+            //if(x_velocity_ >=
             x_position_ += x_velocity_ * (delta_ticks / 1000.f);
 
             // Check left boundary
@@ -64,15 +68,20 @@ void Dot::update(int delta_ticks)
                 x_position_ = 0 + (width_ / 2);
                 x_velocity_ = 0;
                 y_velocity_ = 0;
+                x_acceleration_ = 0;
+                y_acceleration_ = 0;
             }
             // Check right boundary
             else if(x_position_ + (width_ / 2) > kScreenWidth) {
                 x_position_ = kScreenWidth - (width_ / 2);
                 x_velocity_ = 0;
                 y_velocity_ = 0;
+                x_acceleration_ = 0;
+                y_acceleration_ = 0;
             }
 
             // Move up/down
+            y_velocity_ += y_acceleration_ * (delta_ticks / 1000.f);
             y_position_ += y_velocity_ * (delta_ticks / 1000.f);
 
             // Check top boundary
@@ -80,12 +89,16 @@ void Dot::update(int delta_ticks)
                 y_position_ = 0 + (height_ / 2);
                 x_velocity_ = 0;
                 y_velocity_ = 0;
+                x_acceleration_ = 0;
+                y_acceleration_ = 0;
             }
             // Check bottom boundary
             else if(y_position_ + (height_ / 2) > kScreenHeight) {
                 y_position_ = kScreenHeight - (height_ / 2);
                 x_velocity_ = 0;
                 y_velocity_ = 0;
+                x_acceleration_ = 0;
+                y_acceleration_ = 0;
             }
 
             double distance = Movement::calculate_distance(Coordinate(movement_command->destination().x_position(), movement_command->destination().y_position()), Coordinate(x_position_, y_position_));
@@ -143,10 +156,10 @@ void Dot::move(double x, double y)
     Movement * movement_command = static_cast<Movement*>(current_action_);
     movement_command->set_distance(Movement::calculate_distance(Coordinate(movement_command->destination().x_position(), movement_command->destination().y_position()), Coordinate(x_position_, y_position_)));
 
-    Vector velocity(kDotVelocity, static_cast<Movement*>(current_action_)->vector().direction());
+    Vector acceleration(kDotAcceleration, static_cast<Movement*>(current_action_)->vector().direction());
 
-    x_velocity_ = velocity.x_component();
-    y_velocity_ = velocity.y_component();
+    x_acceleration_ = acceleration.x_component();
+    y_acceleration_ = acceleration.y_component();
 
 }
 
@@ -155,6 +168,8 @@ void Dot::stop()
     Logger::write("stop command");
     x_velocity_ = 0;
     y_velocity_ = 0;
+    x_acceleration_ = 0;
+    y_acceleration_ = 0;
 }
 
 

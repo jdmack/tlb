@@ -14,11 +14,13 @@ GameObject::GameObject()
 {
     x_position_ = 0;
     y_position_ = 0;
+    x_velocity_ = 0;
+    y_velocity_ = 0;
+    x_acceleration_ = 0;
+    y_acceleration_ = 0;
     rotation_ = kPi / 2;
     width_ = 0;
     height_ = 0;
-    x_velocity_ = 0;
-    y_velocity_ = 0;
 
     selectable_ = false;
     selected_ = false;
@@ -34,11 +36,13 @@ GameObject::GameObject(double x, double y, double rot)
 {
     x_position_ = x;
     y_position_ = y;
+    x_velocity_ = 0;
+    y_velocity_ = 0;
+    x_acceleration_ = 0;
+    y_acceleration_ = 0;
     rotation_ = rot;
     width_ = 0;
     height_ = 0;
-    x_velocity_ = 0;
-    y_velocity_ = 0;
 
     selectable_ = false;
     selected_ = false;

@@ -6,9 +6,9 @@
 const int kDotWidth  = 64;
 const int kDotHeight = 64;
 
-const int kDotVelocity         = 200;
-//const double kDotRotationVelocity = 3.141592653589793;
-const double kDotRotationVelocity = 200;
+const double kDotVelocity         = 200;
+const double kDotAcceleration = 50;
+const double kDotRotationVelocity = 3.141592653589793;
 
 class Dot : public GameObject
 {
