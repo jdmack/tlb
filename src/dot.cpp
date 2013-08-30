@@ -49,6 +49,8 @@ void Dot::update(int delta_ticks)
         // Check rotation
         if(rotation_ != movement_command->vector().direction()) {
             // rotate
+            // TODO(2013-08-29/JM): We only turn one direction I believe. Have it choose the shorter direction to go.
+
             //double new_rotation = rotation_ + kDotRotationVelocity * (delta_ticks / 1000.f);
             rotation_ += kDotRotationVelocity * (delta_ticks / 1000.f);
 
@@ -57,6 +59,9 @@ void Dot::update(int delta_ticks)
             }
         }
         else {
+
+            // TODO(2013-08-29/JM): Acceleration doesn't cap yet. Just need to compare it to the acceleration component for it's axis and set it to 0 when it's right.
+            // To implement, instead of storing the components, store a velocity and acceleration vector so it's easier to get the components and the total
 
             // Move left/right
             x_velocity_ += x_acceleration_ * (delta_ticks / 1000.f);
@@ -158,6 +163,8 @@ void Dot::move(double x, double y)
 
     Vector acceleration(kDotAcceleration, static_cast<Movement*>(current_action_)->vector().direction());
 
+    x_velocity_ = 0;
+    y_velocity_ = 0;
     x_acceleration_ = acceleration.x_component();
     y_acceleration_ = acceleration.y_component();
 
