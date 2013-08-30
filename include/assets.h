@@ -13,6 +13,7 @@ const std::string kPathSprites = kPathArt + "sprites/";
 const std::string kAssetArtDot = kPathArt + "dot.png";
 const std::string kAssetArtDotCircle = kPathArt + "dot_circle.png";
 const std::string kAssetArtGreenCircle = kPathArt + "green_circle.png";
+const std::string kAssetArtWhiteCircle = kPathArt + "white_circle.png";
 const std::string kAssetArtProbe = kPathSprites + "probe.png";
 const std::string kAssetArtShip = kPathSprites + "ship.png";
 const std::string kAssetArtRobot = kPathSprites + "robot.png";

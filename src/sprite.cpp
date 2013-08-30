@@ -13,14 +13,16 @@ Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
     surface_ = nullptr;
     screen_ = nullptr;
     setup_sprites();
+    select_surface_ = nullptr;
 }
 
 void Sprite::select()
 {
-    SDL_Surface * select_surface = screen_->load_image_alpha(select_art_asset_);
+    if(select_surface_ == nullptr) {
+        select_surface_ = screen_->load_image_alpha(select_art_asset_);
+    }
 
-    screen_->apply_surface(0, 0, select_surface, surface_);
-    SDL_FreeSurface(select_surface);
+    screen_->apply_surface(sprites_[frame_].x, sprites_[frame_].y, select_surface_, surface_);
 }
 
 void Sprite::deselect()
@@ -35,23 +37,10 @@ void Sprite::draw()
     if(rotation_ != object_->rotation()) {
         set_rotation(object_->rotation());
     }
-    SDL_Rect clip;
-    clip.x = 0;
-    clip.y = 0;
-    clip.w = object_->width();
-    clip.h = object_->height();
-
-
-    //frame_ = kSpriteNorthLow;
-    //frame_ = kSpriteNorthEastLow;
-    //frame_ = kSpriteEastLow;
-    //frame_ = kSpriteSouthEastLow;
-    //frame_ = kSpriteSouthLow;
-    //frame_ = kSpriteSouthWestLow;
-    //frame_ = kSpriteWestLow;
-    //frame_ = kSpriteNorthWestLow;
+    if(object_->selected()) {
+        screen_->apply_surface(sprites_[frame_].x, sprites_[frame_].y, select_surface_, surface_);
+    }
     screen_->blit_surface(object_->x_position() - (object_->width() / 2), object_->y_position() - (object_->height() / 2), surface_, &sprites_[frame_]);
-    //screen_->blit_surface(object_->x_position() - (object_->width() / 2), object_->y_position() - (object_->height() / 2), surface_, &clip);
 }
 
 void Sprite::set_rotation(double rotation)

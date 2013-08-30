@@ -54,6 +54,7 @@ class Sprite
         std::string select_art_asset_;
         GameObject * object_;
         SDL_Rect sprites_[kNumOfSprites];
+        SDL_Surface * select_surface_;
 
     public:
         Sprite(GameObject * object, std::string asset, std::string select_asset);
