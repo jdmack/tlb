@@ -18,7 +18,7 @@ Dot::Dot()
     height_ = kDotHeight;
 
     selectable_ = true;
-    sprite_ = new Sprite(this, kAssetArtDot, kAssetArtDotCircle);
+    sprite_ = new Sprite(this, kAssetArtShip, kAssetArtGreenCircle);
 }
 
 Dot::Dot(double x, double y, double rot) : GameObject(x,y, rot)
@@ -30,11 +30,9 @@ Dot::Dot(double x, double y, double rot) : GameObject(x,y, rot)
     height_ = kDotHeight;
 
     selectable_ = true;
-    sprite_ = new Sprite(this, kAssetArtDot, kAssetArtDotCircle);
-    sprite_->set_rotation(rot);
+    sprite_ = new Sprite(this, kAssetArtShip, kAssetArtGreenCircle);
+    //sprite_->set_rotation(rot);
 }
-
-
 
 void Dot::update(int delta_ticks)
 {

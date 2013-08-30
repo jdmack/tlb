@@ -75,6 +75,10 @@ void TlbGame::game_loop()
         //dot1->draw(screen_);
         dot2->draw();
 
+        //SDL_Surface * select_surface = screen_->load_image_alpha(kAssetArtGreenCircle);
+        //screen_->blit_surface(kScreenWidth / 2, kScreenHeight / 2, select_surface);
+
+
         //screen_->blit_surface(game);
 
         if(!screen_->update()) {

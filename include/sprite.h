@@ -7,15 +7,53 @@
 class GameObject;
 class Screen;
 
+const int kNumOfSprites  = 24;
+const int kSpriteOffsetX = 64;
+const int kSpriteOffsetY = 64;
+
+const int kSpriteNorthHigh = 0;
+const int kSpriteNorthLow = 1;
+const int kSpriteNorthMedium = 2;
+
+const int kSpriteNorthEastHigh = 3;
+const int kSpriteNorthEastLow = 4;
+const int kSpriteNorthEastMedium = 5;
+
+const int kSpriteEastHigh = 6;
+const int kSpriteEastLow = 7;
+const int kSpriteEastMedium = 8;
+
+const int kSpriteSouthEastHigh = 9;
+const int kSpriteSouthEastLow = 10;
+const int kSpriteSouthEastMedium = 11;
+
+const int kSpriteNorthWestHigh = 12;
+const int kSpriteNorthWestLow = 13;
+const int kSpriteNorthWestMedium = 14;
+
+const int kSpriteWestHigh = 15;
+const int kSpriteWestLow = 16;
+const int kSpriteWestMedium = 17;
+
+const int kSpriteSouthWestHigh = 18;
+const int kSpriteSouthWestLow = 19;
+const int kSpriteSouthWestMedium = 20;
+
+const int kSpriteSouthHigh = 21;
+const int kSpriteSouthLow = 22;
+const int kSpriteSouthMedium = 23;
+
 class Sprite
 {
     private:
+        int frame_;
         double rotation_;
         SDL_Surface * surface_;
         Screen * screen_;
         std::string art_asset_;
         std::string select_art_asset_;
         GameObject * object_;
+        SDL_Rect sprites_[kNumOfSprites];
 
     public:
         Sprite(GameObject * object, std::string asset, std::string select_asset);
@@ -35,6 +73,7 @@ class Sprite
         void draw();
         void select();
         void deselect();
+        void setup_sprites();
 
 };
 

@@ -14,7 +14,7 @@ GameObject::GameObject()
 {
     x_position_ = 0;
     y_position_ = 0;
-    rotation_ = 0;
+    rotation_ = kPi / 2;
     width_ = 0;
     height_ = 0;
     x_velocity_ = 0;
