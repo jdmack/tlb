@@ -10,31 +10,38 @@ Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
     rotation_ = object->rotation();
     art_asset_ = asset;
     select_art_asset_ = select_asset;
-    surface_ = nullptr;
+    texture_ = nullptr;
     screen_ = nullptr;
+    height_ = object->height();
+    width_ = object->width();
     setup_sprites();
 }
 
 void Sprite::select()
 {
+    SDL_DestroyTexture(texture_);
+
+    SDL_Surface * surface = screen_->load_image_alpha(art_asset_);
     SDL_Surface * select_surface = screen_->load_image_alpha(select_art_asset_);
 
-    screen_->apply_surface(sprites_[kSpriteNorthLow].x, sprites_[kSpriteNorthLow].y, select_surface, surface_);
-    screen_->apply_surface(sprites_[kSpriteNorthEastLow].x, sprites_[kSpriteNorthEastLow].y, select_surface, surface_);
-    screen_->apply_surface(sprites_[kSpriteEastLow].x, sprites_[kSpriteEastLow].y, select_surface, surface_);
-    screen_->apply_surface(sprites_[kSpriteSouthEastLow].x, sprites_[kSpriteSouthEastLow].y, select_surface, surface_);
-    screen_->apply_surface(sprites_[kSpriteSouthLow].x, sprites_[kSpriteSouthLow].y, select_surface, surface_);
-    screen_->apply_surface(sprites_[kSpriteSouthWestLow].x, sprites_[kSpriteSouthWestLow].y, select_surface, surface_);
-    screen_->apply_surface(sprites_[kSpriteWestLow].x, sprites_[kSpriteWestLow].y, select_surface, surface_);
-    screen_->apply_surface(sprites_[kSpriteNorthWestLow].x, sprites_[kSpriteNorthWestLow].y, select_surface, surface_);
+    screen_->apply_surface(select_surface, surface, sprites_[kSpriteNorthEastLow].x, sprites_[kSpriteNorthEastLow].y);
+
+    screen_->apply_surface(select_surface, surface, sprites_[kSpriteNorthEastLow].x, sprites_[kSpriteNorthEastLow].y);
+    screen_->apply_surface(select_surface, surface, sprites_[kSpriteEastLow].x, sprites_[kSpriteEastLow].y);
+    screen_->apply_surface(select_surface, surface, sprites_[kSpriteSouthEastLow].x, sprites_[kSpriteSouthEastLow].y);
+    screen_->apply_surface(select_surface, surface, sprites_[kSpriteSouthLow].x, sprites_[kSpriteSouthLow].y);
+    screen_->apply_surface(select_surface, surface, sprites_[kSpriteSouthWestLow].x, sprites_[kSpriteSouthWestLow].y);
+    screen_->apply_surface(select_surface, surface, sprites_[kSpriteWestLow].x, sprites_[kSpriteWestLow].y);
+    screen_->apply_surface(select_surface, surface, sprites_[kSpriteNorthWestLow].x, sprites_[kSpriteNorthWestLow].y);
+    texture_ = SDL_CreateTextureFromSurface(screen_->renderer(), surface);
     SDL_FreeSurface(select_surface);
 }
 
 void Sprite::deselect()
 {
-    SDL_FreeSurface(surface_);
-    surface_ = nullptr;
-    surface_ = screen_->load_image_alpha(art_asset_);
+    SDL_DestroyTexture(texture_);
+    texture_ = nullptr;
+    texture_ = screen_->load_texture_alpha(art_asset_);
 }
 
 void Sprite::draw()
@@ -42,12 +49,17 @@ void Sprite::draw()
     if(rotation_ != object_->rotation()) {
         set_rotation(object_->rotation());
     }
-    screen_->blit_surface(object_->x_position() - (object_->width() / 2), object_->y_position() - (object_->height() / 2), surface_, &sprites_[frame_]);
+    SDL_Rect offset;
+    offset.x = object_->x_position();
+    offset.y = object_->y_position();
+    offset.h = height_;
+    offset.w = width_;
+    screen_->render_texture(texture_, &offset , &sprites_[frame_]);
 }
 
 void Sprite::set_rotation(double rotation)
 {
-    //surface_ = screen_->rotate_surface(surface_, rotation - rotation_);
+    //texture_ = screen_->rotate_surface(texture_, rotation - rotation_);
     rotation_ = rotation;
 
     // set frame

@@ -4,6 +4,7 @@
 #include "game_object.h"
 #include "sprite.h"
 #include "util/logger.h"
+#include "color.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -12,7 +13,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 Screen::Screen()
 {
-    surface_ = nullptr;
+    window_ = nullptr;
+    renderer_ = nullptr;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -24,27 +26,19 @@ bool Screen::init()
 {
     // Initialize SDL
     // TODO(2013-08-23/JM): Move this elsewhere, init function for whole game
-    if(SDL_Init(SDL_INIT_EVERYTHING) == -1) {
+    if(SDL_Init(SDL_INIT_VIDEO) == -1) {
         return false;
     }
 
     // Setup screen
-    //surface_ = SDL_SetVideoMode(kScreenWidth, kScreenHeight, kScreenBitsPerPixel, SDL_SWSURFACE | SDL_NOFRAME);
-    surface_ = SDL_SetVideoMode(kScreenWidth, kScreenHeight, kScreenBitsPerPixel, SDL_SWSURFACE);
+    window_ = SDL_CreateWindow(kWindowName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, kScreenWidth, kScreenHeight, SDL_WINDOW_SHOWN);
+    renderer_ = SDL_CreateRenderer(window_, -1, 0);
 
     // Check screen was setup successfully
-    if(surface_ == nullptr) {
+    if((window_ == nullptr) || (renderer_ == nullptr)) {
         return false;
     }
 
-    // Set window caption
-    SDL_WM_SetCaption(kWindowName.c_str(), nullptr);
-    //SDL_putenv("SDL_VIDEO_CENTERED=center");
-    /* Game was the unchanging parts of Teitrus, such as the overlay, title, border, etc
-    game = SDL_CreateRGBSurface(0, kScreenWidth, kScreenHeight, kScreenBitsPerPixel, kRedMask, kGreenMask, kBlueMask, kAlphaMask);
-    if(game == nullptr) {
-        return false;
-    } */
     return true;
 }
 
@@ -53,15 +47,34 @@ bool Screen::init()
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Screen::blit_surface(int x_position, int y_position, SDL_Surface * source, SDL_Rect * clip)
+void Screen::render_texture(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect * clip)
 {
     // TODO(2013-08-28/JM): Set constants for the rendering boundaries
-    if(x_position < 0) { x_position = 0; }
-    if(x_position > kScreenWidth) { x_position = kScreenWidth; }
-    if(y_position < 0) { y_position = 0; }
-    if(y_position > kScreenHeight) { y_position = kScreenHeight; }
+    if(offset->x < 0) { offset->x = 0; }
+    if(offset->x > kScreenWidth) { offset->x = kScreenWidth; }
+    if(offset->y < 0) { offset->y = 0; }
+    if(offset->y > kScreenHeight) { offset->y = kScreenHeight; }
 
-    apply_surface(x_position, y_position, source, surface_, clip);
+    // TODO(2013-08-31/JM): RenderCopy returns int for status, do error checking
+    int return_code = SDL_RenderCopy(renderer_, texture, clip, offset);
+    if(return_code != 0) {
+        Logger::write("Error render copying");
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//
+//
+////////////////////////////////////////////////////////////////////////////////
+void Screen::apply_surface(SDL_Surface * source, SDL_Surface * destination, int x, int y, SDL_Rect * clip)
+{
+    SDL_Rect offset;
+
+    offset.x = x;
+    offset.y = y;
+
+    SDL_BlitSurface(source, clip, destination, &offset );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -71,8 +84,8 @@ void Screen::blit_surface(int x_position, int y_position, SDL_Surface * source, 
 ////////////////////////////////////////////////////////////////////////////////
 void Screen::clear()
 {
-    Uint32 clear_color = kDefaultClearColor;
-    SDL_FillRect(surface_, &surface_->clip_rect, clear_color);
+    SDL_SetRenderDrawColor(renderer_, kDefaultClearColor.red(), kDefaultClearColor.green(), kDefaultClearColor.blue(), 255);
+    SDL_RenderClear(renderer_);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -80,9 +93,10 @@ void Screen::clear()
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Screen::clear(Uint32 clear_color)
+void Screen::clear(Color clear_color)
 {
-    SDL_FillRect(surface_, &surface_->clip_rect, clear_color);
+    SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 255);
+    SDL_RenderClear(renderer_);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -90,13 +104,9 @@ void Screen::clear(Uint32 clear_color)
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-bool Screen::update()
+void Screen::update()
 {
-    if(SDL_Flip(surface_) == -1) {
-        return false;
-    }
-
-    return true;
+    SDL_RenderPresent(renderer_);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -117,22 +127,18 @@ void Screen::clean_up()
 ////////////////////////////////////////////////////////////////////////////////
 SDL_Surface * Screen::load_image(std::string filename)
 {
-    SDL_Surface* loadedImage    = nullptr;
-    SDL_Surface* optimizedImage = nullptr;
+    SDL_Surface* loaded_image    = nullptr;
+    SDL_Surface* optimized_image = nullptr;
 
-    loadedImage = IMG_Load(filename.c_str());
+    loaded_image = IMG_Load(filename.c_str());
 
-    if(loadedImage != nullptr) {
-        optimizedImage = SDL_DisplayFormat(loadedImage);
-        SDL_FreeSurface(loadedImage);
+
+    if( loaded_image != NULL ) {
+        Uint32 colorkey = SDL_MapRGB(loaded_image->format, 0xFF, 0, 0xFF);
+        SDL_SetColorKey(loaded_image, SDL_TRUE, colorkey);
     }
 
-    if( optimizedImage != NULL ) {
-        Uint32 colorkey = SDL_MapRGB(optimizedImage->format, 0xFF, 0, 0xFF);
-        SDL_SetColorKey(optimizedImage, SDL_SRCCOLORKEY, colorkey);
-    }
-
-    return optimizedImage;
+    return loaded_image;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -142,32 +148,22 @@ SDL_Surface * Screen::load_image(std::string filename)
 ////////////////////////////////////////////////////////////////////////////////
 SDL_Surface * Screen::load_image_alpha(std::string filename)
 {
-    SDL_Surface* loadedImage = nullptr;
-    SDL_Surface* optimizedImage = nullptr;
+    SDL_Surface* loaded_image = nullptr;
+    SDL_Surface* optimized_image = nullptr;
 
-    loadedImage = IMG_Load(filename.c_str());
+    loaded_image = IMG_Load(filename.c_str());
 
-    if(loadedImage != nullptr) {
-        optimizedImage = SDL_DisplayFormatAlpha(loadedImage);
-        SDL_FreeSurface(loadedImage);
-    }
-
-    return optimizedImage;
+    return loaded_image;
 }
 
-////////////////////////////////////////////////////////////////////////////////
-//
-//
-//
-////////////////////////////////////////////////////////////////////////////////
-void Screen::apply_surface(int x, int y, SDL_Surface * source, SDL_Surface * destination, SDL_Rect * clip)
+SDL_Texture * Screen::load_texture(std::string filename)
 {
-    SDL_Rect offset;
+    return SDL_CreateTextureFromSurface(renderer_, load_image(filename));
+}
 
-    offset.x = x;
-    offset.y = y;
-
-    SDL_BlitSurface(source, clip, destination, &offset );
+SDL_Texture * Screen::load_texture_alpha(std::string filename)
+{
+    return SDL_CreateTextureFromSurface(renderer_, load_image_alpha(filename));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -177,23 +173,6 @@ void Screen::apply_surface(int x, int y, SDL_Surface * source, SDL_Surface * des
 ////////////////////////////////////////////////////////////////////////////////
 void Screen::init_object(GameObject * object)
 {
-    object->sprite()->set_surface(load_image_alpha(object->sprite()->art_asset()));
+    object->sprite()->set_texture(load_texture_alpha(object->sprite()->art_asset()));
     object->sprite()->set_screen(this);
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//
-//
-////////////////////////////////////////////////////////////////////////////////
-SDL_Surface * Screen::rotate_surface(SDL_Surface * surface, double rotation)
-{
-    SDL_Surface * rotated_surface = nullptr;
-
-    double degrees = rotation / kPi * 180;
-    Logger::write(Logger::string_stream << "rotating: " << degrees << " degrees");
-    //rotated_surface = rotozoomSurface(surface, degrees, 1, SMOOTHING_ON);
-
-    SDL_FreeSurface(surface);
-    return rotated_surface;
 }

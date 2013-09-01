@@ -1,5 +1,4 @@
 #include "SDL/SDL.h"
-#include "SDL/SDL_rotozoom.h"
 #include "dot.h"
 #include "assets.h"
 #include "util/logger.h"

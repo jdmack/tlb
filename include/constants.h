@@ -12,8 +12,4 @@ const int kGreenMask = 0x00ff0000;
 const int kBlueMask  = 0x0000ff00;
 const int kAlphaMask = 0x000000ff;
 
-const int kColorWhite = 0xFFFFFFFF;
-const int kColorBlack = 0x00000000;
-
-
 #endif
