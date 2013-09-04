@@ -3,12 +3,13 @@
 
 #include "game_object.h"
 
-const int kDotWidth  = 64;
-const int kDotHeight = 64;
+const int kDotWidth  = 50;
+const int kDotHeight = 50;
 
-const double kDotVelocity         = 200;
-const double kDotAcceleration = 100;
-const double kDotRotationVelocity = 3.141592653589793;
+const double kDotVelocity     = 200;
+const double kDotAcceleration = 400;
+//const double kDotRotationVelocity = 3.141592653589793;
+const double kDotRotationVelocity = 180;
 
 class Dot : public GameObject
 {

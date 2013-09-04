@@ -5,7 +5,6 @@
 
 Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
 {
-    frame_ = kSpriteNorthLow;
     object_ = object;
     rotation_ = object->rotation();
     art_asset_ = asset;
@@ -14,7 +13,6 @@ Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
     screen_ = nullptr;
     height_ = object->height();
     width_ = object->width();
-    setup_sprites();
 }
 
 void Sprite::select()
@@ -24,15 +22,14 @@ void Sprite::select()
     SDL_Surface * surface = screen_->load_image_alpha(art_asset_);
     SDL_Surface * select_surface = screen_->load_image_alpha(select_art_asset_);
 
-    screen_->apply_surface(select_surface, surface, sprites_[kSpriteNorthEastLow].x, sprites_[kSpriteNorthEastLow].y);
+    SDL_Rect offset;
+    offset.x = 0;
+    offset.y = 0;
+    offset.w = width_;
+    offset.h = height_;
 
-    screen_->apply_surface(select_surface, surface, sprites_[kSpriteNorthEastLow].x, sprites_[kSpriteNorthEastLow].y);
-    screen_->apply_surface(select_surface, surface, sprites_[kSpriteEastLow].x, sprites_[kSpriteEastLow].y);
-    screen_->apply_surface(select_surface, surface, sprites_[kSpriteSouthEastLow].x, sprites_[kSpriteSouthEastLow].y);
-    screen_->apply_surface(select_surface, surface, sprites_[kSpriteSouthLow].x, sprites_[kSpriteSouthLow].y);
-    screen_->apply_surface(select_surface, surface, sprites_[kSpriteSouthWestLow].x, sprites_[kSpriteSouthWestLow].y);
-    screen_->apply_surface(select_surface, surface, sprites_[kSpriteWestLow].x, sprites_[kSpriteWestLow].y);
-    screen_->apply_surface(select_surface, surface, sprites_[kSpriteNorthWestLow].x, sprites_[kSpriteNorthWestLow].y);
+    screen_->apply_surface(select_surface, surface, &offset);
+
     texture_ = SDL_CreateTextureFromSurface(screen_->renderer(), surface);
     SDL_FreeSurface(select_surface);
 }
@@ -46,106 +43,23 @@ void Sprite::deselect()
 
 void Sprite::draw()
 {
-    if(rotation_ != object_->rotation()) {
-        set_rotation(object_->rotation());
-    }
+    SDL_Rect offset;
+    offset.x = object_->x_position() - (object_->width() / 2);
+    offset.y = object_->y_position() - (object_->height() / 2);
+    offset.h = height_;
+    offset.w = width_;
+    screen_->render_texture_rotate(texture_, &offset, nullptr, object_->rotation());
+    //screen_->render_texture(texture_, &offset);
+}
+
+void Sprite::rotate(double rotation)
+{
     SDL_Rect offset;
     offset.x = object_->x_position();
     offset.y = object_->y_position();
     offset.h = height_;
     offset.w = width_;
-    screen_->render_texture(texture_, &offset , &sprites_[frame_]);
-}
 
-void Sprite::set_rotation(double rotation)
-{
-    //texture_ = screen_->rotate_surface(texture_, rotation - rotation_);
+    SDL_RenderCopyEx(screen_->renderer(), texture_, &offset, nullptr, rotation - rotation_, nullptr, SDL_FLIP_NONE);
     rotation_ = rotation;
-
-    // set frame
-    /*
-    if((rotation_ < 2 * kPi / 3) && (rotation_ >= kPi / 3)) { frame_ = kSpriteNorthLow; }
-    else if((rotation_ < kPi / 3) && (rotation_ >= kPi / 6)) { frame_ = kSpriteNorthEastLow; }
-    else if((rotation_ < kPi / 6) && (rotation_ >= 11 * kPi / 6)) { frame_ = kSpriteEastLow; }
-    else if((rotation_ < 11 * kPi / 6) && (rotation_ >= 5 * kPi / 3)) { frame_ = kSpriteSouthEastLow; }
-    else if((rotation_ < 5 * kPi / 3) && (rotation_ >= 4 * kPi / 3)) { frame_ = kSpriteSouthLow; }
-    else if((rotation_ < 4 * kPi / 3) && (rotation_ >= 7 * kPi / 6)) { frame_ = kSpriteSouthWestLow; }
-    else if((rotation_ < 7 * kPi / 6) && (rotation_ >= 5 * kPi / 6)) { frame_ = kSpriteWestLow; }
-    else if((rotation_ < 5 * kPi / 6) && (rotation_ >= 2 * kPi / 3)) { frame_ = kSpriteNorthWestLow; }
-    else { frame_ = kSpriteNorthHigh; }
-    */
-
-    double degrees = rotation_ / kPi * 180;
-    Logger::write(Logger::string_stream << "degrees`: " << degrees);
-
-    if((degrees < 120) && (degrees >= 60)) { frame_ = kSpriteNorthLow; }
-    else if((degrees < 60) && (degrees >= 30)) { frame_ = kSpriteNorthEastLow; }
-
-    else if((degrees < 30) || (degrees >= 330)) { frame_ = kSpriteEastLow; }
-    else if((degrees < 330) && (degrees >= 300)) { frame_ = kSpriteSouthEastLow; }
-
-    else if((degrees < 300) && (degrees >= 240)) { frame_ = kSpriteSouthLow; }
-    else if((degrees < 240) && (degrees >= 210)) { frame_ = kSpriteSouthWestLow; }
-    else if((degrees < 210) && (degrees >= 150)) { frame_ = kSpriteWestLow; }
-    else if((degrees < 150) && (degrees >= 120)) { frame_ = kSpriteNorthWestLow; }
-    else { frame_ = kSpriteNorthMedium; }
-
-    Logger::write(Logger::string_stream << "frame: " << frame_);
-
-
-}
-
-
-void Sprite::setup_sprites()
-{
-    /*
-    for(int i = 0; i < 8; i++) {
-        for(int j = 0; i < 3; j++) {
-            sprites_[3 * i + j].x = 0 + (kSpriteOffsetX * i);
-            sprites_[3 * i + j].y = 0 + (kSpriteOffsetY * j);
-            sprites_[3 * i + j].w = object_->width();
-            sprites_[3 * i + j].h = object_->height();
-        }
-    }
-    */
-
-    sprites_[kSpriteNorthLow].x = kSpriteOffsetX;
-    sprites_[kSpriteNorthLow].y = 0;
-    sprites_[kSpriteNorthLow].w = object_->width();
-    sprites_[kSpriteNorthLow].h = object_->height();
-
-    sprites_[kSpriteNorthEastLow].x = kSpriteOffsetX;
-    sprites_[kSpriteNorthEastLow].y = kSpriteOffsetY;
-    sprites_[kSpriteNorthEastLow].w = object_->width();
-    sprites_[kSpriteNorthEastLow].h = object_->height();
-
-    sprites_[kSpriteEastLow].x = kSpriteOffsetX;
-    sprites_[kSpriteEastLow].y = kSpriteOffsetY * 2;
-    sprites_[kSpriteEastLow].w = object_->width();
-    sprites_[kSpriteEastLow].h = object_->height();
-
-    sprites_[kSpriteSouthEastLow].x = kSpriteOffsetX;
-    sprites_[kSpriteSouthEastLow].y = kSpriteOffsetY * 3;
-    sprites_[kSpriteSouthEastLow].w = object_->width();
-    sprites_[kSpriteSouthEastLow].h = object_->height();
-
-    sprites_[kSpriteNorthWestLow].x = kSpriteOffsetX;
-    sprites_[kSpriteNorthWestLow].y = kSpriteOffsetY * 4;
-    sprites_[kSpriteNorthWestLow].w = object_->width();
-    sprites_[kSpriteNorthWestLow].h = object_->height();
-
-    sprites_[kSpriteWestLow].x = kSpriteOffsetX;
-    sprites_[kSpriteWestLow].y = kSpriteOffsetY * 5;
-    sprites_[kSpriteWestLow].w = object_->width();
-    sprites_[kSpriteWestLow].h = object_->height();
-
-    sprites_[kSpriteSouthWestLow].x = kSpriteOffsetX;
-    sprites_[kSpriteSouthWestLow].y = kSpriteOffsetY * 6;
-    sprites_[kSpriteSouthWestLow].w = object_->width();
-    sprites_[kSpriteSouthWestLow].h = object_->height();
-
-    sprites_[kSpriteSouthLow].x = kSpriteOffsetX;
-    sprites_[kSpriteSouthLow].y = kSpriteOffsetY * 7;
-    sprites_[kSpriteSouthLow].w = object_->width();
-    sprites_[kSpriteSouthLow].h = object_->height();
 }

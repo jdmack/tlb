@@ -5,6 +5,7 @@
 #include "sprite.h"
 #include "util/logger.h"
 #include "color.h"
+#include "debug_frame.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -15,6 +16,8 @@ Screen::Screen()
 {
     window_ = nullptr;
     renderer_ = nullptr;
+    debug_frame_ = nullptr;
+    debug_ = false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -29,6 +32,10 @@ bool Screen::init()
     if(SDL_Init(SDL_INIT_VIDEO) == -1) {
         return false;
     }
+    if(TTF_Init()==-1) {
+        Logger::write(Logger::string_stream << "TTF_Init: " << TTF_GetError());
+        return false;
+    }
 
     // Setup screen
     window_ = SDL_CreateWindow(kWindowName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, kScreenWidth, kScreenHeight, SDL_WINDOW_SHOWN);
@@ -38,6 +45,8 @@ bool Screen::init()
     if((window_ == nullptr) || (renderer_ == nullptr)) {
         return false;
     }
+
+    if(debug_) debug_frame_ = new DebugFrame(this);
 
     return true;
 }
@@ -57,8 +66,9 @@ void Screen::render_texture(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect *
 
     // TODO(2013-08-31/JM): RenderCopy returns int for status, do error checking
     int return_code = SDL_RenderCopy(renderer_, texture, clip, offset);
+
     if(return_code != 0) {
-        Logger::write("Error render copying");
+        Logger::write(Logger::string_stream << "Render: " << SDL_GetError());
     }
 }
 
@@ -67,14 +77,31 @@ void Screen::render_texture(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect *
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Screen::apply_surface(SDL_Surface * source, SDL_Surface * destination, int x, int y, SDL_Rect * clip)
+void Screen::render_texture_rotate(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect * clip, double angle)
 {
-    SDL_Rect offset;
+    // TODO(2013-08-28/JM): Set constants for the rendering boundaries
+    if(offset->x < 0) { offset->x = 0; }
+    if(offset->x > kScreenWidth) { offset->x = kScreenWidth; }
+    if(offset->y < 0) { offset->y = 0; }
+    if(offset->y > kScreenHeight) { offset->y = kScreenHeight; }
 
-    offset.x = x;
-    offset.y = y;
+    // TODO(2013-08-31/JM): RenderCopy returns int for status, do error checking
 
-    SDL_BlitSurface(source, clip, destination, &offset );
+    int return_code = SDL_RenderCopyEx(renderer_, texture, nullptr, offset, -angle, nullptr, SDL_FLIP_NONE);
+
+    if(return_code != 0) {
+        Logger::write(Logger::string_stream << "Render Rotate: " << SDL_GetError());
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//
+//
+////////////////////////////////////////////////////////////////////////////////
+void Screen::apply_surface(SDL_Surface * source, SDL_Surface * destination, SDL_Rect * offset, SDL_Rect * clip)
+{
+    SDL_BlitSurface(source, clip, destination, offset );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -106,6 +133,7 @@ void Screen::clear(Color clear_color)
 ////////////////////////////////////////////////////////////////////////////////
 void Screen::update()
 {
+    if(debug_) debug_frame_->draw();
     SDL_RenderPresent(renderer_);
 }
 
@@ -117,6 +145,7 @@ void Screen::update()
 void Screen::clean_up()
 {
     // TODO(2013-08-23/JM): Move this elsewhere, cleanup function for whole game
+    TTF_Quit();
     SDL_Quit();
 }
 
@@ -156,11 +185,21 @@ SDL_Surface * Screen::load_image_alpha(std::string filename)
     return loaded_image;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+//
+//
+//
+////////////////////////////////////////////////////////////////////////////////
 SDL_Texture * Screen::load_texture(std::string filename)
 {
     return SDL_CreateTextureFromSurface(renderer_, load_image(filename));
 }
 
+////////////////////////////////////////////////////////////////////////////////
+//
+//
+//
+////////////////////////////////////////////////////////////////////////////////
 SDL_Texture * Screen::load_texture_alpha(std::string filename)
 {
     return SDL_CreateTextureFromSurface(renderer_, load_image_alpha(filename));

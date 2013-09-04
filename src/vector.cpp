@@ -21,7 +21,7 @@ Vector::Vector(double x1, double y1, double x2, double y2)
     int quadrant = determine_quadrant(x1, y1, x2, y2);
 
     magnitude_ = sqrt(pow(x_component_, 2) + pow(y_component_, 2));
-    double theta = acos(x_component_ / magnitude_);
+    double theta = radians_to_degrees(acos(x_component_ / magnitude_));
     direction_ = determine_direction(quadrant, theta);
 
     set_component_signs(direction_);
@@ -38,8 +38,8 @@ Vector::Vector(double x1, double y1, double x2, double y2)
 Vector::Vector(double magnitude, double direction)
 {
 
-    x_component_ = magnitude * cos(direction);
-    y_component_ = magnitude * sin(direction);
+    x_component_ = magnitude * cos(degrees_to_radians(direction));
+    y_component_ = magnitude * sin(degrees_to_radians(direction));
     set_component_signs(direction);
 
     magnitude_ = magnitude;
@@ -86,19 +86,19 @@ int Vector::determine_quadrant(double x1, double y1, double x2, double y2)
 void Vector::set_component_signs(double direction)
 {
     // Quadrant IV
-    if(direction > k270Degrees) {
+    if(direction > 270.0) {
         Logger::write(Logger::string_stream << "set_component_signs - quadrant: IV");
         make_positive(x_component_);
         make_positive(y_component_);
     }
     // Quadrant III
-    else if(direction > k180Degrees) {
+    else if(direction > 180.0) {
         Logger::write(Logger::string_stream << "set_component_signs - quadrant: III");
         make_negative(x_component_);
         make_positive(y_component_);
     }
     // Quadrant II
-    else if(direction > k90Degrees) {
+    else if(direction > 90.0) {
         Logger::write(Logger::string_stream << "set_component_signs - quadrant: II");
         make_negative(x_component_);
         make_negative(y_component_);
@@ -119,13 +119,13 @@ double Vector::determine_direction(int quadrant, double theta)
             return theta;
             break;
         case kQuadrantII:
-            return kPi - theta;
+            return 180.0 - theta;
             break;
         case kQuadrantIII:
-            return kPi + theta;
+            return 180.0 + theta;
             break;
         case kQuadrantIV:
-            return (2 * kPi) - theta;
+            return 360.0 - theta;
             break;
         default:
             return 0;

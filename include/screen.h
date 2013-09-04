@@ -6,6 +6,7 @@
 #include "color.h"
 
 class GameObject;
+class DebugFrame;
 
 /* Screen Attributes */
 //const int kScreenWidth        = 800;
@@ -13,14 +14,16 @@ class GameObject;
 const int kScreenWidth        = 1600;
 const int kScreenHeight       = 900;
 
-//const int kDefaultClearColor = kColorWhite;
-const Color kDefaultClearColor = kColorBlack;
+const Color kDefaultClearColor = kColorWhite;
+//const Color kDefaultClearColor = kColorBlack;
 
 class Screen
 {
     private:
+        bool debug_;
         SDL_Window * window_;
         SDL_Renderer * renderer_;
+        DebugFrame * debug_frame_;
 
     public:
         Screen();
@@ -28,6 +31,7 @@ class Screen
         // accessors
         SDL_Window * window() const { return window_; }
         SDL_Renderer * renderer() const { return renderer_; }
+        DebugFrame * debug_frame() const { return debug_frame_; }
 
         bool init();
         void update();
@@ -37,7 +41,9 @@ class Screen
         void init_object(GameObject * object);
 
         void render_texture(SDL_Texture * source, SDL_Rect * offset, SDL_Rect * clip = nullptr);
-        void apply_surface(SDL_Surface * source, SDL_Surface * destination, int x, int y, SDL_Rect * clip = nullptr);
+        void render_texture_rotate(SDL_Texture * source, SDL_Rect * offset, SDL_Rect * clip , double angle);
+        void apply_surface(SDL_Surface * source, SDL_Surface * destination, SDL_Rect * offset, SDL_Rect * clip = nullptr);
+
 
         SDL_Surface * load_image(std::string);
         SDL_Surface * load_image_alpha(std::string);

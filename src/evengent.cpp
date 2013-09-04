@@ -7,6 +7,7 @@
 #include "tlb_game.h"
 #include "game_object.h"
 #include "util/logger.h"
+#include "coordinate.h"
 
 Evengent::Evengent()
 {
@@ -18,6 +19,15 @@ void Evengent::handle_events()
     SDL_Event event;
     while(SDL_PollEvent(&event)) {
 
+        // timer checks
+        /*
+        if((focus_timer_.started()) && (focus_timer_.get_ticks() >= kFocusTimeout)) {
+            game_->set_quit(true);
+            Logger::write("Setting game quit");
+        }
+        */
+
+        // Handle Events
         switch(event.type) {
             case SDL_QUIT:
                 game_->set_quit(true);
@@ -73,47 +83,21 @@ void Evengent::handle_events()
                     }
                 }
                 break;
-
+                /*
+            case SDL_WINDOWEVENT:
+                if((event.window.event == SDL_WINDOWEVENT_MINIMIZED) || (event.window.event == SDL_WINDOWEVENT_HIDDEN)) {
+                    focus_timer_.start();
+                    Logger::write("focus_timer started");
+                }
+                break;
+                */
         }
     }
 }
 
-/*
-void Dot::handle_input(SDL_Event event)
+Coordinate Evengent::mouse_position()
 {
-    if(selected_ == true) {
-        if(event.type == SDL_KEYDOWN) {
-            switch( event.key.keysym.sym) {
-                case SDLK_UP:
-                    y_velocity_ -= kDotVelocity;
-                    break;
-                case SDLK_DOWN:
-                    y_velocity_ += kDotVelocity;
-                    break;
-                case SDLK_LEFT:
-                    x_velocity_ -= kDotVelocity;
-                    break;
-                case SDLK_RIGHT:
-                    x_velocity_ += kDotVelocity;
-                    break;
-            }
-        }
-        else if(event.type == SDL_KEYUP) {
-            switch( event.key.keysym.sym) {
-                case SDLK_UP:
-                    y_velocity_ += kDotVelocity;
-                    break;
-                case SDLK_DOWN:
-                    y_velocity_ -= kDotVelocity;
-                    break;
-                case SDLK_LEFT:
-                    x_velocity_ += kDotVelocity;
-                    break;
-                case SDLK_RIGHT:
-                    x_velocity_ -= kDotVelocity;
-                    break;
-            }
-        }
-    }
+    int x, y = 0;
+    SDL_GetMouseState(&x, &y);
+    return Coordinate(x, y);
 }
-*/

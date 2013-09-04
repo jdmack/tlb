@@ -18,7 +18,7 @@ GameObject::GameObject()
     y_velocity_ = 0;
     x_acceleration_ = 0;
     y_acceleration_ = 0;
-    rotation_ = kPi / 2;
+    rotation_ = 0;
     width_ = 0;
     height_ = 0;
 

@@ -17,7 +17,7 @@ Dot::Dot()
     height_ = kDotHeight;
 
     selectable_ = true;
-    sprite_ = new Sprite(this, kAssetArtShip, kAssetArtGreenCircle);
+    sprite_ = new Sprite(this, kAssetArtHexagon, kAssetArtHexagonOutline);
 }
 
 Dot::Dot(double x, double y, double rot) : GameObject(x,y, rot)
@@ -29,7 +29,8 @@ Dot::Dot(double x, double y, double rot) : GameObject(x,y, rot)
     height_ = kDotHeight;
 
     selectable_ = true;
-    sprite_ = new Sprite(this, kAssetArtShip, kAssetArtGreenCircle);
+    sprite_ = new Sprite(this, kAssetArtHexagon, kAssetArtHexagonOutline);
+    // TODO(2013-09-01/JM): Set rotation
     //sprite_->set_rotation(rot);
 }
 
@@ -52,7 +53,7 @@ void Dot::update(int delta_ticks)
 
             //double new_rotation = rotation_ + kDotRotationVelocity * (delta_ticks / 1000.f);
             rotation_ += kDotRotationVelocity * (delta_ticks / 1000.f);
-
+            Logger::write(Logger::string_stream << "Rotation: " << rotation_);
             if(rotation_ > movement_command->vector().direction()) {
                 rotation_ = movement_command->vector().direction();
             }
@@ -127,9 +128,11 @@ void Dot::update(int delta_ticks)
 
 bool Dot::contains_point(double x, double y)
 {
+    //if((x < x_position_) || (x > x_position_ + width_)) {
     if((x < (x_position_ - (width_ / 2))) || (x > (x_position_ + (width_ / 2)))) {
         return false;
     }
+    //else if((y < y_position_) || (y > y_position_ + height_)) {
     else if((y < (y_position_ - (width_ / 2))) || (y > (y_position_ + (height_ / 2)))) {
         return false;
     }
