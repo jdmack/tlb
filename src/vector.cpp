@@ -28,7 +28,7 @@ Vector::Vector(double x1, double y1, double x2, double y2)
 
     Logger::write(Logger::string_stream << "creating vector:");
     Logger::write(Logger::string_stream << "\t\tmagnitude: " << magnitude_);
-    Logger::write(Logger::string_stream << "\t\tdirection: " << direction_ << "(" << radians_to_degrees(direction_) << ")");
+    Logger::write(Logger::string_stream << "\t\tdirection: " << direction_);
     Logger::write(Logger::string_stream << "\t\tx_component: " << x_component_);
     Logger::write(Logger::string_stream << "\t\ty_component: " << y_component_);
     Logger::write(Logger::string_stream << "\t\tquadrant: " << quadrant);
@@ -47,7 +47,7 @@ Vector::Vector(double magnitude, double direction)
 
     Logger::write(Logger::string_stream << "creating vector:");
     Logger::write(Logger::string_stream << "\t\tmagnitude: " << magnitude_);
-    Logger::write(Logger::string_stream << "\t\tdirection: " << direction_ << "(" << radians_to_degrees(direction_) << ")");
+    Logger::write(Logger::string_stream << "\t\tdirection: " << direction_);
     Logger::write(Logger::string_stream << "\t\tx_component: " << x_component_);
     Logger::write(Logger::string_stream << "\t\ty_component: " << y_component_);
 }
@@ -113,7 +113,7 @@ void Vector::set_component_signs(double direction)
 
 double Vector::determine_direction(int quadrant, double theta)
 {
-    Logger::write(Logger::string_stream << "determine_direction - quadrant: " << quadrant << " theta: " << theta << "(" << radians_to_degrees(theta) << ")");
+    Logger::write(Logger::string_stream << "determine_direction - quadrant: " << quadrant << " theta: " << theta);
     switch(quadrant) {
         case kQuadrantI:
             return theta;

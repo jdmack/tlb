@@ -7,18 +7,24 @@
 Movement::Movement()
 {
     distance_ = 0;
+    clockwise_ = false;
+    degrees_ = 0;
 }
 
 Movement::Movement(Vector vector)
 {
     vector_ = vector;
     distance_ = 0;
+    clockwise_ = false;
+    degrees_ = 0;
 }
 
 Movement::Movement(double magnitude, double direction)
 {
     vector_ = Vector(magnitude, direction);
     distance_ = 0;
+    clockwise_ = false;
+    degrees_ = 0;
 }
 
 Movement::Movement(Vector vector, Coordinate destination)
@@ -26,6 +32,8 @@ Movement::Movement(Vector vector, Coordinate destination)
     vector_ = vector;
     destination_ = destination;
     distance_ = 0;
+    clockwise_ = false;
+    degrees_ = 0;
 }
 
 double Movement::calculate_distance(Coordinate point1, Coordinate point2)

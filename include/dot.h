@@ -3,8 +3,8 @@
 
 #include "game_object.h"
 
-const int kDotWidth  = 50;
-const int kDotHeight = 50;
+const int kDotWidth  = 40;
+const int kDotHeight = 40;
 
 const double kDotVelocity     = 200;
 const double kDotAcceleration = 400;

@@ -11,6 +11,8 @@ class Movement : public Action
 {
     private:
         double distance_;
+        bool clockwise_;
+        double degrees_;
         Vector vector_;
         Coordinate destination_;
 
@@ -22,11 +24,15 @@ class Movement : public Action
 
         // accessors
         double distance() const { return distance_; }
+        bool clockwise() const { return clockwise_; }
+        double degrees() const { return degrees_; }
         Vector vector() const { return vector_; }
         Coordinate destination() const { return destination_; }
 
         // mutators
         void set_distance(double distance) { distance_ = distance; }
+        void set_clockwise(bool clockwise) { clockwise_ = clockwise; }
+        void set_degrees(double degrees) { degrees_ = degrees; }
         void set_vector(Vector vector) { vector_ = vector; }
         void set_destination(Coordinate destination) { destination_ = destination; }
 

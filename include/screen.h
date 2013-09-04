@@ -17,6 +17,8 @@ const int kScreenHeight       = 900;
 const Color kDefaultClearColor = kColorWhite;
 //const Color kDefaultClearColor = kColorBlack;
 
+const bool kDebugFrame = false;
+
 class Screen
 {
     private:

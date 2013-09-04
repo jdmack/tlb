@@ -1,3 +1,4 @@
+#include <cmath>
 #include "SDL/SDL.h"
 #include "dot.h"
 #include "assets.h"
@@ -48,13 +49,20 @@ void Dot::update(int delta_ticks)
 
         // Check rotation
         if(rotation_ != movement_command->vector().direction()) {
-            // rotate
-            // TODO(2013-08-29/JM): We only turn one direction I believe. Have it choose the shorter direction to go.
 
-            //double new_rotation = rotation_ + kDotRotationVelocity * (delta_ticks / 1000.f);
-            rotation_ += kDotRotationVelocity * (delta_ticks / 1000.f);
-            Logger::write(Logger::string_stream << "Rotation: " << rotation_);
-            if(rotation_ > movement_command->vector().direction()) {
+            double degrees  = kDotRotationVelocity * (delta_ticks / 1000.f);
+            // Turn CW
+            if(movement_command->clockwise()) {
+                rotation_ -= degrees;
+            }
+            // Turn CCW
+            else {
+                rotation_ += degrees;
+            }
+
+            // check if turned far enough
+            movement_command->set_degrees(movement_command->degrees() - degrees);
+            if(movement_command->degrees() < 0) {
                 rotation_ = movement_command->vector().direction();
             }
         }
@@ -163,12 +171,29 @@ void Dot::move(double x, double y)
     Movement * movement_command = static_cast<Movement*>(current_action_);
     movement_command->set_distance(Movement::calculate_distance(Coordinate(movement_command->destination().x_position(), movement_command->destination().y_position()), Coordinate(x_position_, y_position_)));
 
+    double dir = movement_command->vector().direction() - rotation_;
+    if((dir > 0) && (std::abs(dir) <= 180)) { movement_command->set_clockwise(false); }
+    if((dir > 0) && (std::abs(dir) > 180)) { movement_command->set_clockwise(true); }
+    if((dir < 0) && (std::abs(dir) <= 180)) { movement_command->set_clockwise(true); }
+    if((dir < 0) && (std::abs(dir) > 180)) { movement_command->set_clockwise(false); }
+
+    //dir += (dir > 180) ? -360 : (dir < -180) ? 360 : 0;
+    if(dir > 180) {
+        dir -= 360;
+    }
+    else if(dir < -180) {
+        dir += 360;
+    }
+    movement_command->set_degrees(std::abs(dir));
+
     Vector acceleration(kDotAcceleration, static_cast<Movement*>(current_action_)->vector().direction());
 
     x_velocity_ = 0;
     y_velocity_ = 0;
     x_acceleration_ = acceleration.x_component();
     y_acceleration_ = acceleration.y_component();
+    Logger::write(Logger::string_stream << "Move - (x,y): (" << movement_command->destination().x_position() << "," << movement_command->destination().x_position()
+            << ") direction: " << movement_command->vector().direction());
 
 }
 

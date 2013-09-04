@@ -44,14 +44,28 @@ void DebugFrame::draw()
         Logger::write(Logger::string_stream << "Text Error: " << TTF_GetError());
     }
 
+    Logger::write(Logger::string_stream << "Text Surface:\n"
+            << "\t\t\t\t\t\t" << "w: " << surface->format << "\n"
+            << "\t\t\t\t\t\t" << "h: " << surface->format << "\n"
+            << "\t\t\t\t\t\t" << "pitch: " << surface->format << "\n"
+            << "\t\t\t\t" << "pixelformat: \n"
+            << "\t\t\t\t\t\t" << "BytesPerPixel: " << surface->format->BytesPerPixel << "\n"
+            << "\t\t\t\t\t\t" << "Rmask: " << surface->format->Rmask << "\n"
+            << "\t\t\t\t\t\t" << "Gmask: " << surface->format->Gmask << "\n"
+            << "\t\t\t\t\t\t" << "Bmask: " << surface->format->Bmask << "\n"
+            << "\t\t\t\t\t\t" << "Amask: " << surface->format->Amask << "\n"
+    );
+
+
     // Render debug frame
     SDL_Rect offset = { x_position_, y_position_, surface->w, surface->h };
     texture_ = SDL_CreateTextureFromSurface(screen_->renderer(), surface);
     if(texture_ == nullptr) {
         Logger::write(Logger::string_stream << "DebugFrame Texture: " << SDL_GetError());
-        return;
     }
-    screen_->render_texture(texture_, &offset, nullptr);
+    else {
+        screen_->render_texture(texture_, &offset, nullptr);
+    }
 
     SDL_FreeSurface(surface);
 }

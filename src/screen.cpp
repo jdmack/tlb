@@ -17,7 +17,7 @@ Screen::Screen()
     window_ = nullptr;
     renderer_ = nullptr;
     debug_frame_ = nullptr;
-    debug_ = false;
+    debug_ = kDebugFrame;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
