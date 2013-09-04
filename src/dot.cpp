@@ -68,13 +68,17 @@ void Dot::update(int delta_ticks)
         }
         else {
 
-            // TODO(2013-08-29/JM): Acceleration doesn't cap yet. Just need to compare it to the acceleration component for it's axis and set it to 0 when it's right.
-            // To implement, instead of storing the components, store a velocity and acceleration vector so it's easier to get the components and the total
+            if( (std::abs(x_velocity_) < std::abs(movement_command->maximum_velocity().x_component())) || ( std::abs(y_velocity_) < std::abs(movement_command->maximum_velocity().y_component())) ) {
+                x_velocity_ += x_acceleration_ * (delta_ticks / 1000.f);
+                y_velocity_ += y_acceleration_ * (delta_ticks / 1000.f);
+            }
 
             // Move left/right
-            x_velocity_ += x_acceleration_ * (delta_ticks / 1000.f);
-            //if(x_velocity_ >=
             x_position_ += x_velocity_ * (delta_ticks / 1000.f);
+
+            // Move up/down
+            y_position_ += y_velocity_ * (delta_ticks / 1000.f);
+
 
             // Check left boundary
             if(x_position_ - (width_ / 2) < 0) {
@@ -92,10 +96,6 @@ void Dot::update(int delta_ticks)
                 x_acceleration_ = 0;
                 y_acceleration_ = 0;
             }
-
-            // Move up/down
-            y_velocity_ += y_acceleration_ * (delta_ticks / 1000.f);
-            y_position_ += y_velocity_ * (delta_ticks / 1000.f);
 
             // Check top boundary
             if(y_position_ - (height_ / 2) < 0) {
@@ -186,7 +186,9 @@ void Dot::move(double x, double y)
     }
     movement_command->set_degrees(std::abs(dir));
 
-    Vector acceleration(kDotAcceleration, static_cast<Movement*>(current_action_)->vector().direction());
+    Vector acceleration(kDotAcceleration, movement_command->vector().direction());
+
+    movement_command->set_maximum_velocity(Vector(kDotVelocity, movement_command->vector().direction()));
 
     x_velocity_ = 0;
     y_velocity_ = 0;

@@ -15,6 +15,7 @@ class Movement : public Action
         double degrees_;
         Vector vector_;
         Coordinate destination_;
+        Vector maximum_velocity_;
 
     public:
         Movement();
@@ -28,6 +29,7 @@ class Movement : public Action
         double degrees() const { return degrees_; }
         Vector vector() const { return vector_; }
         Coordinate destination() const { return destination_; }
+        Vector maximum_velocity() const { return maximum_velocity_; }
 
         // mutators
         void set_distance(double distance) { distance_ = distance; }
@@ -35,6 +37,7 @@ class Movement : public Action
         void set_degrees(double degrees) { degrees_ = degrees; }
         void set_vector(Vector vector) { vector_ = vector; }
         void set_destination(Coordinate destination) { destination_ = destination; }
+        void set_maximum_velocity(Vector maximum_velocity) { maximum_velocity_ = maximum_velocity; }
 
         bool is_movement() const { return true; }
 
