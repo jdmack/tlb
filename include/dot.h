@@ -6,10 +6,12 @@
 const int kDotWidth  = 40;
 const int kDotHeight = 40;
 
-const double kDotVelocity     = 200;
-const double kDotAcceleration = 400;
-//const double kDotRotationVelocity = 3.141592653589793;
-const double kDotRotationVelocity = 180;
+const double kDotVelocity     = 400;
+const double kDotAcceleration = 800;
+const double kDotRotationVelocity = 200;
+//const double kDotVelocity     = 1000;
+//const double kDotAcceleration = 6000;
+//const double kDotRotationVelocity = 1000;
 
 class Game;
 

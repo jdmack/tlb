@@ -46,6 +46,9 @@ void Dot::update(int delta_ticks)
         }
     }
 
+
+    // TODO(2013-09-06/JM): Bug: Moving only on 1 axis causes a jump
+
     if((current_action_ != nullptr) && (current_action_->is_movement())) {
 
         Movement * movement_command = (static_cast<Movement*>(current_action_));
