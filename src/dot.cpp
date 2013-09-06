@@ -33,7 +33,8 @@ Dot::Dot(Game * game, double x, double y, double rot) : GameObject(game, x, y, r
     height_ = kDotHeight;
 
     selectable_ = true;
-    sprite_ = new Sprite(this, kAssetArtHexagon, kAssetArtHexagonOutline);
+    //sprite_ = new Sprite(this, kAssetArtHexagon, kAssetArtHexagonOutline);
+    sprite_ = new Sprite(this, "assets/art/ball.png", kAssetArtHexagonOutline);
     // TODO(2013-09-01/JM): Set rotation
     //sprite_->set_rotation(rot);
 }
