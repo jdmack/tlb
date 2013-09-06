@@ -9,6 +9,7 @@
 #include "util/logger.h"
 #include "coordinate.h"
 #include "dot.h"
+#include "camera.h"
 
 Evengent::Evengent()
 {
@@ -78,7 +79,7 @@ void Evengent::handle_events()
                 if(event.button.button == SDL_BUTTON_LEFT)
                 {
                     // 2 cases
-                    GameObject * clicked_on = game_->entigent()->get_object_at(event.button.x, event.button.y);
+                    GameObject * clicked_on = game_->entigent()->get_object_at(event.button.x + game_->camera()->x_position(), event.button.y + game_->camera()->y_position());
                     // 1. clicking on nothing
                     if(clicked_on == nullptr) {
                         // NOTE: left clicking on anything deselects_all with current functionality

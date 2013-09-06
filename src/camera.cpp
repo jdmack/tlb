@@ -21,8 +21,8 @@ void Camera::move(double x, double y) {
 
 void Camera::center(GameObject * object)
 {
-    x_position_ = object->x_position() + object->width();
-    y_position_ = object->y_position() + object->height();
+    x_position_ = object->x_position() - width_;
+    y_position_ = object->y_position() - height_;
     fix_bounds();
 }
 

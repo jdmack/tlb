@@ -92,6 +92,7 @@ bool Level::load(std::string filename)
     }
 
     map.close();
+    Logger::write("Level loaded");
     return true;
 }
 

@@ -97,7 +97,9 @@ void Screen::render_texture_rotate(SDL_Texture * texture, SDL_Rect * offset, SDL
     //if(offset->y < 0) { offset->y = 0; }
     //if(offset->y > kScreenHeight) { offset->y = kScreenHeight; }
 
-    int return_code = SDL_RenderCopyEx(renderer_, texture, nullptr, offset, -angle, nullptr, SDL_FLIP_NONE);
+    SDL_Rect rect = { (int)offset->x - (int)camera_->x_position(), (int)offset->y - (int)camera_->y_position(), (int)offset->w, (int)offset->h };
+
+    int return_code = SDL_RenderCopyEx(renderer_, texture, nullptr, &rect, -angle, nullptr, SDL_FLIP_NONE);
 
     if(return_code != 0) {
         Logger::write(Logger::string_stream << "Render Rotate: " << SDL_GetError());
