@@ -29,7 +29,7 @@ DebugFrame::~DebugFrame()
 }
 
 
-void DebugFrame::draw()
+void DebugFrame::render()
 {
     // Draw background rectangle
     SDL_SetRenderDrawColor(screen_->renderer(), 20, 20, 20, 200);

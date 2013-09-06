@@ -7,20 +7,24 @@
 class Entigent;
 class Evengent;
 class Screen;
+class Camera;
+class Level;
 
-class TlbGame
+class Game
 {
     private:
-        bool exit_code_;
+        int exit_code_;
         bool quit_;
         Timer delta_timer_;
         Screen * screen_;
         Entigent * entigent_;
         Evengent * evengent_;
+        Camera * camera_;
+        Level * level_;
 
     public:
-        TlbGame();
-        ~TlbGame();
+        Game();
+        ~Game();
         int run();
         void game_loop();
         void process_arguments(int argc, char * argv[]);
@@ -29,9 +33,12 @@ class TlbGame
         Screen * screen() const { return screen_; }
         Entigent * entigent() const { return entigent_; }
         Evengent * evengent() const { return evengent_; }
+        Camera * camera() const { return camera_; }
+        Level * level() const { return level_; }
 
         // mutators
         void set_quit(bool quit) { quit_ = quit; }
+        void level(Level * level) { level_ = level; }
 };
 
 #endif

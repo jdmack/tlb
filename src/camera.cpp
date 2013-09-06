@@ -1,25 +1,16 @@
 #include "camera.h"
 #include "game_object.h"
 #include "level.h"
+#include "game.h"
 
-Camera::Camera()
+Camera::Camera(Game * game)
 {
     x_position_ = kCameraInitialX;
     y_position_ = kCameraInitialY;
     width_ = kCameraWidth;
     height_ = kCameraHeight;
 
-    level_ = nullptr;
-}
-
-Camera::Camera(Level * level)
-{
-    x_position_ = kCameraInitialX;
-    y_position_ = kCameraInitialY;
-    width_ = kCameraWidth;
-    height_ = kCameraHeight;
-
-    level_ = level;
+    game_ = game;
 }
 
 void Camera::move(double x, double y) {
@@ -30,34 +21,54 @@ void Camera::move(double x, double y) {
 
 void Camera::center(GameObject * object)
 {
-    x_position_ = object->x_position();
-    y_position_ = object->y_position();
+    x_position_ = object->x_position() + object->width();
+    y_position_ = object->y_position() + object->height();
     fix_bounds();
 }
 
 SDL_Rect Camera::rect()
 {
-    SDL_Rect rect = { x_position_, y_position_, width_, height_ };
+    SDL_Rect rect = { (int)x_position_, (int)y_position_, (int)width_, (int)height_ };
     return rect;
 }
 
 void Camera::fix_bounds()
 {
-    //Keep the camera in bounds.
-    if( x_position_ < 0 )
-    {
+    if(x_position_ < 0) {
         x_position_ = 0;
     }
-    if( y_position_ < 0 )
-    {
+    if(y_position_ < 0) {
         y_position_ = 0;
     }
-    if( x_position_ > level_->width() - width_ )
-    {
-        x_position_ = level_->width() - width_;
+    if(x_position_ > game_->level()->width() - width_) {
+        x_position_ = game_->level()->width() - width_;
     }
-    if( y_position_ > level_->height() - height_ )
-    {
-        y_position_ = level_->height() - height_;
+    if(y_position_ > game_->level()->height() - height_) {
+        y_position_ = game_->level()->height() - height_;
     }
+}
+
+bool Camera::contains(SDL_Rect rect)
+{
+    // bottom_A <= top_B
+    if((y_position_ + height_) <= rect.y) {
+        return false;
+    }
+
+    // top_A <= bottom_B
+    if(y_position_ >= (rect.y + rect.h)) {
+        return false;
+    }
+
+    // right_A <= left_B
+    if((x_position_ + width_) <= rect.x) {
+        return false;
+    }
+
+    // left_A <= right_B
+    if(x_position_ >= (rect.x + rect.w)) {
+        return false;
+    }
+
+    return true;
 }

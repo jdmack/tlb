@@ -6,14 +6,14 @@
 #include "coordinate.h"
 #include "timer.h"
 
-class TlbGame;
+class Game;
 
-const double kFocusTimeout = 1000;
+const double kFocusTimeout = 10000;
 
 class Evengent
 {
     private:
-        TlbGame * game_;
+        Game * game_;
         Timer focus_timer_;
 
     public:
@@ -21,49 +21,9 @@ class Evengent
         void handle_events();
 
         // mutators
-        void set_game(TlbGame * game) { game_ = game; }
+        void set_game(Game * game) { game_ = game; }
 
         static Coordinate mouse_position();
 };
 
 #endif
-
-/*
-void Dot::handle_input(SDL_Event event)
-{
-    if(selected_ == true) {
-        if(event.type == SDL_KEYDOWN) {
-            switch( event.key.keysym.sym) {
-                case SDLK_UP:
-                    y_velocity_ -= kDotVelocity;
-                    break;
-                case SDLK_DOWN:
-                    y_velocity_ += kDotVelocity;
-                    break;
-                case SDLK_LEFT:
-                    x_velocity_ -= kDotVelocity;
-                    break;
-                case SDLK_RIGHT:
-                    x_velocity_ += kDotVelocity;
-                    break;
-            }
-        }
-        else if(event.type == SDL_KEYUP) {
-            switch( event.key.keysym.sym) {
-                case SDLK_UP:
-                    y_velocity_ += kDotVelocity;
-                    break;
-                case SDLK_DOWN:
-                    y_velocity_ -= kDotVelocity;
-                    break;
-                case SDLK_LEFT:
-                    x_velocity_ += kDotVelocity;
-                    break;
-                case SDLK_RIGHT:
-                    x_velocity_ -= kDotVelocity;
-                    break;
-            }
-        }
-    }
-}
-*/

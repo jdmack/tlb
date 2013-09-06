@@ -1,7 +1,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "tlb_game.h"
+#include "game.h"
 #include "util/logger.h"
 #include "constants.h"
 using namespace std;
@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 
     // TODO(2013-08-23 JM): Create logger
 
-    TlbGame * game = new TlbGame;
+    Game * game = new Game;
 
     game->process_arguments(argc, argv);
 

@@ -1,33 +1,37 @@
-
 #include "SDL/SDL.h"
 
 // Project Files
-#include "tlb_game.h"
+#include "game.h"
 #include "dot.h"
 #include "assets.h"
 #include "screen.h"
 #include "entigent.h"
 #include "evengent.h"
 #include "util/logger.h"
+#include "camera.h"
+#include "level.h"
 
 
-TlbGame::TlbGame()
+Game::Game()
 {
     exit_code_ = 0;
     quit_ = false;
     screen_ = new Screen();
     entigent_ = new Entigent();
-    entigent_->set_game(this);
+    entigent_->set_game(this); // TODO
     evengent_ = new Evengent();
-    evengent_->set_game(this);
+    evengent_->set_game(this); // TODO
+    camera_ = new Camera(this);
+    screen_->set_camera(camera_);
+    level_ = nullptr;
 }
 
-TlbGame::~TlbGame()
+Game::~Game()
 {
     delete screen_;
 }
 
-int TlbGame::run()
+int Game::run()
 {
     Logger::open(kLogFilename);
     Logger::write("running");
@@ -36,6 +40,15 @@ int TlbGame::run()
         return 1;
     }
 
+    // Load level
+    level_ = new Level(this);
+    if(!level_->load(kMapTest20x12)) {
+    //if(!level_->load(kMapTest80x45)) {
+        Logger::write(Logger::string_stream << "Failed to load map");
+        exit_code_ = 1;
+        return exit_code_;
+    }
+    Logger::write(Logger::string_stream << "tiles_->size(): " << level_->tiles()->size());
     delta_timer_.start();
 
     game_loop();
@@ -47,11 +60,10 @@ int TlbGame::run()
     return exit_code_;
 }
 
-void TlbGame::game_loop()
+void Game::game_loop()
 {
     // Create a dot
-
-    Dot * dot1 = new Dot(kScreenWidth / 2, kScreenHeight / 2, 0);
+    Dot * dot1 = new Dot(this, kScreenWidth / 2, kScreenHeight / 2, 0);
     entigent_->add_object(dot1);
 
     // Main Loop
@@ -65,9 +77,13 @@ void TlbGame::game_loop()
 
         delta_timer_.start();
 
+        // center camera
+        camera_->center(dot1);
+
         // Draw
         screen_->clear();
-        dot1->draw();
+        level_->render();
+        dot1->render();
 
         screen_->update();
     }
@@ -77,7 +93,7 @@ void TlbGame::game_loop()
 
 // placeholder functions (not implemented yet)
 
-void TlbGame::process_arguments(int argc, char * argv[])
+void Game::process_arguments(int argc, char * argv[])
 {
 
 }

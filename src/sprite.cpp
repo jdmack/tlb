@@ -41,7 +41,7 @@ void Sprite::deselect()
     texture_ = screen_->load_texture_alpha(art_asset_);
 }
 
-void Sprite::draw()
+void Sprite::render()
 {
     SDL_Rect offset;
     offset.x = object_->x_position() - (object_->width() / 2);

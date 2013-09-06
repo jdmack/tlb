@@ -7,6 +7,7 @@
 
 class Action;
 class Sprite;
+class Game;
 
 class GameObject
 {
@@ -25,13 +26,14 @@ class GameObject
         bool selectable_;
         bool selected_;
 
+        Game * game_;
         Action * current_action_;
         Sprite * sprite_;
 
     public:
         // constructors/destructors
-        GameObject();
-        GameObject(double x, double y, double rot);
+        GameObject(Game * game);
+        GameObject(Game * game, double x, double y, double rot);
         virtual ~GameObject();
 
         // accessors
@@ -47,18 +49,22 @@ class GameObject
         double height() const { return height_; }
         bool selectable() const { return selectable_; }
         bool selected() const { return selected_; }
-
         Action * current_action() const { return current_action_; }
         Sprite * sprite() const { return sprite_; }
+        SDL_Rect rect();
 
         virtual void select();
         virtual void deselect();
         virtual bool contains_point(double x, double y);
         virtual void move(double x, double y);
         virtual void stop();
-        void draw();
+        void render();
         void set_current_action(Action * action) { current_action_ = action; }
         void set_sprite(Sprite * sprite) { sprite_ = sprite; }
+        bool stopped();
+
+        bool check_collision(SDL_Rect rect);
+        void fix_collision(SDL_Rect rect);
 
 };
 

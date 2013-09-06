@@ -6,6 +6,7 @@
 #include "util/logger.h"
 #include "color.h"
 #include "debug_frame.h"
+#include "camera.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -18,6 +19,7 @@ Screen::Screen()
     renderer_ = nullptr;
     debug_frame_ = nullptr;
     debug_ = kDebugFrame;
+    camera_ = nullptr;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -48,6 +50,15 @@ bool Screen::init()
 
     if(debug_) debug_frame_ = new DebugFrame(this);
 
+/*
+    int w;
+    int h;
+    SDL_GetWindowMinimumSize(window_, &w, &h);
+    Logger::write(Logger::string_stream << "Minimum: (" << w << " x " << h << ")");
+    SDL_GetWindowMaximumSize(window_, &w, &h);
+    Logger::write(Logger::string_stream << "Maximum: (" << w << " x " << h << ")");
+    */
+
     return true;
 }
 
@@ -59,13 +70,14 @@ bool Screen::init()
 void Screen::render_texture(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect * clip)
 {
     // TODO(2013-08-28/JM): Set constants for the rendering boundaries
-    if(offset->x < 0) { offset->x = 0; }
-    if(offset->x > kScreenWidth) { offset->x = kScreenWidth; }
-    if(offset->y < 0) { offset->y = 0; }
-    if(offset->y > kScreenHeight) { offset->y = kScreenHeight; }
+    //if(offset->x < 0) { offset->x = 0; }
+    //if(offset->x > kScreenWidth) { offset->x = kScreenWidth; }
+    //if(offset->y < 0) { offset->y = 0; }
+    //if(offset->y > kScreenHeight) { offset->y = kScreenHeight; }
 
-    // TODO(2013-08-31/JM): RenderCopy returns int for status, do error checking
-    int return_code = SDL_RenderCopy(renderer_, texture, clip, offset);
+    SDL_Rect rect = { (int)offset->x - (int)camera_->x_position(), (int)offset->y - (int)camera_->y_position(), (int)offset->w, (int)offset->h };
+
+    int return_code = SDL_RenderCopy(renderer_, texture, clip, &rect);
 
     if(return_code != 0) {
         Logger::write(Logger::string_stream << "Render: " << SDL_GetError());
@@ -80,12 +92,10 @@ void Screen::render_texture(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect *
 void Screen::render_texture_rotate(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect * clip, double angle)
 {
     // TODO(2013-08-28/JM): Set constants for the rendering boundaries
-    if(offset->x < 0) { offset->x = 0; }
-    if(offset->x > kScreenWidth) { offset->x = kScreenWidth; }
-    if(offset->y < 0) { offset->y = 0; }
-    if(offset->y > kScreenHeight) { offset->y = kScreenHeight; }
-
-    // TODO(2013-08-31/JM): RenderCopy returns int for status, do error checking
+    //if(offset->x < 0) { offset->x = 0; }
+    //if(offset->x > kScreenWidth) { offset->x = kScreenWidth; }
+    //if(offset->y < 0) { offset->y = 0; }
+    //if(offset->y > kScreenHeight) { offset->y = kScreenHeight; }
 
     int return_code = SDL_RenderCopyEx(renderer_, texture, nullptr, offset, -angle, nullptr, SDL_FLIP_NONE);
 
@@ -133,7 +143,7 @@ void Screen::clear(Color clear_color)
 ////////////////////////////////////////////////////////////////////////////////
 void Screen::update()
 {
-    if(debug_) debug_frame_->draw();
+    if(debug_) debug_frame_->render();
     SDL_RenderPresent(renderer_);
 }
 

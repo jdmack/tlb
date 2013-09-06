@@ -2,7 +2,7 @@
 
 #include "entigent.h"
 #include "screen.h"
-#include "tlb_game.h"
+#include "game.h"
 #include "game_object.h"
 #include "util/logger.h"
 

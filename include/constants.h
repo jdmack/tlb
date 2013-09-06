@@ -3,6 +3,9 @@
 
 #include <string>
 
+const int kScreenWidth      = 1600;
+const int kScreenHeight     = 900;
+
 /* Strings */
 const std::string kWindowName = "The Left Behind";
 const std::string kLogFilename = "tlb_log.txt";

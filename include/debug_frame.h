@@ -36,7 +36,7 @@ class DebugFrame
         // accessors
         bool shown() const { return shown_; }
 
-        void draw();
+        void render();
         bool toggle();
 };
 

@@ -4,10 +4,11 @@
 #include "SDL/SDL.h"
 #include "evengent.h"
 #include "entigent.h"
-#include "tlb_game.h"
+#include "game.h"
 #include "game_object.h"
 #include "util/logger.h"
 #include "coordinate.h"
+#include "dot.h"
 
 Evengent::Evengent()
 {
@@ -20,35 +21,56 @@ void Evengent::handle_events()
     while(SDL_PollEvent(&event)) {
 
         // timer checks
-        /*
         if((focus_timer_.started()) && (focus_timer_.get_ticks() >= kFocusTimeout)) {
             game_->set_quit(true);
             Logger::write("Setting game quit");
         }
-        */
 
         // Handle Events
         switch(event.type) {
-            case SDL_QUIT:
+            case SDL_QUIT:  // Quit Event (user x's the window)
                 game_->set_quit(true);
                 break;
 
-            case SDL_KEYDOWN:
-                if(event.key.keysym.sym == SDLK_ESCAPE) {
-                    game_->set_quit(true);
-                }
-                if(event.key.keysym.sym == SDLK_s) {
-                    if(!game_->entigent()->selected()->empty()) {
-                        // something is selected, can now give it an order
-                        std::vector<GameObject *> * selected = game_->entigent()->selected();
-                        for(std::vector<GameObject *>::iterator selected_iterator = selected->begin(); selected_iterator < selected->end(); ++selected_iterator) {
-                            (*selected_iterator)->stop();
+            case SDL_KEYDOWN:   // Keypress
+                switch(event.key.keysym.sym) {
+
+                    case SDLK_ESCAPE:   // Escape
+                        game_->set_quit(true);
+                        break;
+
+                    case SDLK_s:    // S
+                        if(!game_->entigent()->selected()->empty()) {
+                            // something is selected, can now give it an order
+                            std::vector<GameObject *> * selected = game_->entigent()->selected();
+                            for(std::vector<GameObject *>::iterator selected_iterator = selected->begin(); selected_iterator < selected->end(); ++selected_iterator) {
+                                (*selected_iterator)->stop();
+                            }
                         }
-                    }
+                        break;
+
+                    case SDLK_UP:       // Up Arrow
+                        break;
+                    case SDLK_DOWN:     // Down Arrow
+                        break;
+                    case SDLK_LEFT:     // Left Arrow
+                        break;
+                    case SDLK_RIGHT:    // Right Arrow
+                        break;
                 }
                 break;
 
             case SDL_KEYUP:
+                switch( event.key.keysym.sym) {
+                    case SDLK_UP:       // Up Arrow
+                        break;
+                    case SDLK_DOWN:    // Down Arrow
+                        break;
+                    case SDLK_LEFT:    // Left Arrow
+                        break;
+                    case SDLK_RIGHT:    // Right Arrow
+                        break;
+                }
                 break;
 
             case SDL_MOUSEBUTTONDOWN:
@@ -83,14 +105,19 @@ void Evengent::handle_events()
                     }
                 }
                 break;
-                /*
+
             case SDL_WINDOWEVENT:
-                if((event.window.event == SDL_WINDOWEVENT_MINIMIZED) || (event.window.event == SDL_WINDOWEVENT_HIDDEN)) {
+                if(event.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
                     focus_timer_.start();
                     Logger::write("focus_timer started");
                 }
+                if(event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
+                    if(focus_timer_.started()) {
+                        focus_timer_.stop();
+                        Logger::write("focus_timer stopped");
+                    }
+                }
                 break;
-                */
         }
     }
 }

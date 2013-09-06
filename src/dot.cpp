@@ -8,8 +8,11 @@
 #include "vector.h"
 #include "movement.h"
 #include "sprite.h"
+#include "game.h"
+#include "level.h"
+#include "tile.h"
 
-Dot::Dot()
+Dot::Dot(Game * game) : GameObject(game)
 {
     x_velocity_ = 0;
     y_velocity_ = 0;
@@ -21,7 +24,7 @@ Dot::Dot()
     sprite_ = new Sprite(this, kAssetArtHexagon, kAssetArtHexagonOutline);
 }
 
-Dot::Dot(double x, double y, double rot) : GameObject(x,y, rot)
+Dot::Dot(Game * game, double x, double y, double rot) : GameObject(game, x, y, rot)
 {
     x_velocity_ = 0;
     y_velocity_ = 0;
@@ -68,7 +71,8 @@ void Dot::update(int delta_ticks)
         }
         else {
 
-            if( (std::abs(x_velocity_) < std::abs(movement_command->maximum_velocity().x_component())) || ( std::abs(y_velocity_) < std::abs(movement_command->maximum_velocity().y_component())) ) {
+            // Accelerate
+            if((std::abs(x_velocity_) < std::abs(movement_command->maximum_velocity().x_component())) || ( std::abs(y_velocity_) < std::abs(movement_command->maximum_velocity().y_component())) ) {
                 x_velocity_ += x_acceleration_ * (delta_ticks / 1000.f);
                 y_velocity_ += y_acceleration_ * (delta_ticks / 1000.f);
             }
@@ -79,56 +83,62 @@ void Dot::update(int delta_ticks)
             // Move up/down
             y_position_ += y_velocity_ * (delta_ticks / 1000.f);
 
+            // Check collisions
+            //TODO(2013-09-05/JM): Create a rectangle class like SDL_Rect to replace all instances outside SDL specific code with it
+            SDL_Rect rect;
+            if(game_->level()->touches_wall(this, &rect)) {
+                fix_collision(rect);
+                Logger::write("STOPPING: Collision with wall");
+                // Go back
+                // TODO(2013-09-05/JM): Change this to move 1 pixel away from the collided object
+                x_position_ -= x_velocity_ * (delta_ticks / 1000.f);
+                y_position_ -= y_velocity_ * (delta_ticks / 1000.f);
 
+                stop();
+            }
+
+            // TODO(2013-09-05/JM): Create function for checking screen boundary collisions
             // Check left boundary
             if(x_position_ - (width_ / 2) < 0) {
+                Logger::write("STOPPING: Collision with LEFT screen boundary");
+                stop();
                 x_position_ = 0 + (width_ / 2);
-                x_velocity_ = 0;
-                y_velocity_ = 0;
-                x_acceleration_ = 0;
-                y_acceleration_ = 0;
             }
             // Check right boundary
             else if(x_position_ + (width_ / 2) > kScreenWidth) {
+                Logger::write("STOPPING: Collision with RIGHT screen boundary");
+                stop();
                 x_position_ = kScreenWidth - (width_ / 2);
-                x_velocity_ = 0;
-                y_velocity_ = 0;
-                x_acceleration_ = 0;
-                y_acceleration_ = 0;
             }
 
             // Check top boundary
             if(y_position_ - (height_ / 2) < 0) {
+                Logger::write("STOPPING: Collision with TOP screen boundary");
+                stop();
                 y_position_ = 0 + (height_ / 2);
-                x_velocity_ = 0;
-                y_velocity_ = 0;
-                x_acceleration_ = 0;
-                y_acceleration_ = 0;
             }
             // Check bottom boundary
             else if(y_position_ + (height_ / 2) > kScreenHeight) {
+                Logger::write("STOPPING: Collision with BOTTOM screen boundary");
+                stop();
                 y_position_ = kScreenHeight - (height_ / 2);
-                x_velocity_ = 0;
-                y_velocity_ = 0;
-                x_acceleration_ = 0;
-                y_acceleration_ = 0;
             }
 
             double distance = Movement::calculate_distance(Coordinate(movement_command->destination().x_position(), movement_command->destination().y_position()), Coordinate(x_position_, y_position_));
 
-            //Logger::write(Logger::string_stream << distance << " " << movement_command->distance());
-
             if(distance > movement_command->distance()) {
+                Logger::write("STOPPING: Movement distance travelled");
+                stop();
                 x_position_ = movement_command->destination().x_position();
                 y_position_ = movement_command->destination().y_position();
-                x_velocity_ = 0;
-                y_velocity_ = 0;
-
-                delete(current_action_);
-                current_action_ = nullptr;
             }
             else {
                 movement_command->set_distance(distance);
+            }
+
+            if(stopped()) {
+                delete(current_action_);
+                current_action_ = nullptr;
             }
         }
     }
@@ -198,14 +208,3 @@ void Dot::move(double x, double y)
             << ") direction: " << movement_command->vector().direction());
 
 }
-
-void Dot::stop()
-{
-    Logger::write("stop command");
-    x_velocity_ = 0;
-    y_velocity_ = 0;
-    x_acceleration_ = 0;
-    y_acceleration_ = 0;
-}
-
-

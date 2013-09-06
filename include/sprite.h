@@ -37,7 +37,7 @@ class Sprite
         void set_screen(Screen * screen) { screen_ = screen; }
         void set_object(GameObject * object) { object_ = object; }
 
-        void draw();
+        void render();
         void select();
         void deselect();
 };

@@ -7,12 +7,11 @@
 
 class GameObject;
 class DebugFrame;
+class Camera;
 
 /* Screen Attributes */
 //const int kScreenWidth        = 800;
 //const int kScreenHeight       = 600;
-const int kScreenWidth        = 1600;
-const int kScreenHeight       = 900;
 
 const Color kDefaultClearColor = kColorWhite;
 //const Color kDefaultClearColor = kColorBlack;
@@ -26,6 +25,7 @@ class Screen
         SDL_Window * window_;
         SDL_Renderer * renderer_;
         DebugFrame * debug_frame_;
+        Camera * camera_;
 
     public:
         Screen();
@@ -34,6 +34,10 @@ class Screen
         SDL_Window * window() const { return window_; }
         SDL_Renderer * renderer() const { return renderer_; }
         DebugFrame * debug_frame() const { return debug_frame_; }
+        Camera * camera() const { return camera_; }
+
+        // mutators
+        void set_camera(Camera * camera) { camera_ = camera; }
 
         bool init();
         void update();

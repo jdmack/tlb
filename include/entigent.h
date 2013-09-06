@@ -5,13 +5,13 @@
 
 #include <vector>
 
-class TlbGame;
+class Game;
 class GameObject;
 
 class Entigent
 {
     private:
-        TlbGame * game_;
+        Game * game_;
         std::vector<GameObject *> * objects_;
         std::vector<GameObject *> * selected_;
 
@@ -29,7 +29,7 @@ class Entigent
         std::vector<GameObject *> * selected() const { return selected_; }
 
         // mutators
-        void set_game(TlbGame * game) { game_ = game; }
+        void set_game(Game * game) { game_ = game; }
 };
 
 #endif
