@@ -2,6 +2,7 @@
 #include "game_object.h"
 #include "level.h"
 #include "game.h"
+#include "util/logger.h"
 
 Camera::Camera(Game * game)
 {
@@ -21,9 +22,11 @@ void Camera::move(double x, double y) {
 
 void Camera::center(GameObject * object)
 {
-    x_position_ = object->x_position() - width_;
-    y_position_ = object->y_position() - height_;
+    x_position_ = object->x_position() - (width_ / 2);
+    y_position_ = object->y_position() - (height_ / 2);
+    //Logger::write(Logger::string_stream << "Camera: " << x_position_ << "," << y_position_);
     fix_bounds();
+    //Logger::write(Logger::string_stream << "Camera: " << x_position_ << "," << y_position_);
 }
 
 SDL_Rect Camera::rect()
@@ -72,3 +75,15 @@ bool Camera::contains(SDL_Rect rect)
 
     return true;
 }
+
+double Camera::x_adjust(double x)
+{
+    return x - x_position_;
+}
+
+double Camera::y_adjust(double y)
+{
+    return y - y_position_;
+}
+
+

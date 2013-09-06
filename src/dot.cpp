@@ -105,10 +105,10 @@ void Dot::update(int delta_ticks)
                 x_position_ = 0 + (width_ / 2);
             }
             // Check right boundary
-            else if(x_position_ + (width_ / 2) > kScreenWidth) {
+            else if(x_position_ + (width_ / 2) > game_->level()->width()) {
                 Logger::write("STOPPING: Collision with RIGHT screen boundary");
                 stop();
-                x_position_ = kScreenWidth - (width_ / 2);
+                x_position_ = game_->level()->width() - (width_ / 2);
             }
 
             // Check top boundary
@@ -118,10 +118,10 @@ void Dot::update(int delta_ticks)
                 y_position_ = 0 + (height_ / 2);
             }
             // Check bottom boundary
-            else if(y_position_ + (height_ / 2) > kScreenHeight) {
+            else if(y_position_ + (height_ / 2) > game_->level()->height()) {
                 Logger::write("STOPPING: Collision with BOTTOM screen boundary");
                 stop();
-                y_position_ = kScreenHeight - (height_ / 2);
+                y_position_ = game_->level()->height() - (height_ / 2);
             }
 
             double distance = Movement::calculate_distance(Coordinate(movement_command->destination().x_position(), movement_command->destination().y_position()), Coordinate(x_position_, y_position_));

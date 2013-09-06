@@ -39,7 +39,7 @@ int Game::run()
     if(screen_->init() == false) {
         return 1;
     }
-    apt-get install libsdl2.0-dev libsdl-image2.0-dev libsdl-mixer2.0-dev libsdl-ttf2.0-dev
+
     // Load level
     level_ = new Level(this);
     if(!level_->load(kMapTest20x12)) {
@@ -47,7 +47,6 @@ int Game::run()
         exit_code_ = 1;
         return exit_code_;
     }
-    Logger::write(Logger::string_stream << "tiles_->size(): " << level_->tiles()->size());
     delta_timer_.start();
 
     game_loop();
@@ -62,8 +61,8 @@ int Game::run()
 void Game::game_loop()
 {
     // Create a dot
-    Dot * dot1 = new Dot(this, kScreenWidth / 2, kScreenHeight / 2, 0);
-    //Dot * dot1 = new Dot(this, 10, 10, 0);
+    //Dot * dot1 = new Dot(this, kScreenWidth / 2, kScreenHeight / 2, 0);
+    Dot * dot1 = new Dot(this, kDotWidth, kDotHeight, 0);
     entigent_->add_object(dot1);
 
     // Main Loop

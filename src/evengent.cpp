@@ -74,12 +74,16 @@ void Evengent::handle_events()
                 }
                 break;
 
-            case SDL_MOUSEBUTTONDOWN:
+            case SDL_MOUSEBUTTONDOWN: {
+                // mouse coordinates adjusted to camera position
+                int mouse_x = event.button.x + game_->camera()->x_position();
+                int mouse_y = event.button.y + game_->camera()->y_position();
+
                 // SDL_BUTTON_LEFT - Selection
                 if(event.button.button == SDL_BUTTON_LEFT)
                 {
                     // 2 cases
-                    GameObject * clicked_on = game_->entigent()->get_object_at(event.button.x + game_->camera()->x_position(), event.button.y + game_->camera()->y_position());
+                    GameObject * clicked_on = game_->entigent()->get_object_at(mouse_x, mouse_y);
                     // 1. clicking on nothing
                     if(clicked_on == nullptr) {
                         // NOTE: left clicking on anything deselects_all with current functionality
@@ -101,12 +105,12 @@ void Evengent::handle_events()
                         // something is selected, can now give it an order
                         std::vector<GameObject *> * selected = game_->entigent()->selected();
                         for(std::vector<GameObject *>::iterator selected_iterator = selected->begin(); selected_iterator < selected->end(); ++selected_iterator) {
-                            (*selected_iterator)->move(event.button.x, event.button.y);
+                            (*selected_iterator)->move(mouse_x, mouse_y);
                         }
                     }
                 }
                 break;
-
+            }
             case SDL_WINDOWEVENT:
                 if(event.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
                     focus_timer_.start();

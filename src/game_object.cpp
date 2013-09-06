@@ -6,6 +6,7 @@
 #include "sprite.h"
 #include "game.h"
 #include "movement.h"
+#include "camera.h"
 
 // TODO (2013-08-26/JM): Refactor constructor to use constructor delegation when
 // you get a gcc 4.7 compiler
@@ -68,7 +69,7 @@ void GameObject::render()
     // Draw line showing movement command
     if((current_action_ != nullptr) && (current_action_->is_movement())) {
         SDL_SetRenderDrawColor(game_->screen()->renderer(), 0, 255, 0, 0);
-        SDL_RenderDrawLine(game_->screen()->renderer(), x_position_, y_position_, (static_cast<Movement*>(current_action_))->destination().x_position(), (static_cast<Movement*>(current_action_))->destination().y_position());
+        SDL_RenderDrawLine(game_->screen()->renderer(), game_->camera()->x_adjust(x_position_), game_->camera()->y_adjust(y_position_), game_->camera()->x_adjust((static_cast<Movement*>(current_action_))->destination().x_position()), game_->camera()->y_adjust((static_cast<Movement*>(current_action_))->destination().y_position()));
     }
 }
 

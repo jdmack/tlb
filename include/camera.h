@@ -35,6 +35,9 @@ class Camera
         void fix_bounds();
         bool contains(SDL_Rect rect);
         SDL_Rect rect();
+
+        double x_adjust(double x);
+        double y_adjust(double y);
 };
 
 #endif
