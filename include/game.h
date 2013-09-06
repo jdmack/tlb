@@ -2,7 +2,7 @@
 #define TLB_TLB_GAME_H_
 
 #include "SDL/SDL.h"
-#include "timer.h"
+#include "util/timer.h"
 
 class Entigent;
 class Evengent;
