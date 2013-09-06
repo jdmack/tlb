@@ -34,8 +34,6 @@ Dot::Dot(Game * game, double x, double y, double rot) : GameObject(game, x, y, r
 
     selectable_ = true;
     sprite_ = new Sprite(this, kAssetArtHexagon, kAssetArtHexagonOutline);
-    // TODO(2013-09-01/JM): Set rotation
-    //sprite_->set_rotation(rot);
 }
 
 void Dot::update(int delta_ticks)

@@ -6,7 +6,6 @@
 Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
 {
     object_ = object;
-    rotation_ = object->rotation();
     art_asset_ = asset;
     select_art_asset_ = select_asset;
     texture_ = nullptr;
@@ -50,16 +49,4 @@ void Sprite::render()
     offset.w = width_;
     screen_->render_texture_rotate(texture_, &offset, nullptr, object_->rotation());
     //screen_->render_texture(texture_, &offset);
-}
-
-void Sprite::rotate(double rotation)
-{
-    SDL_Rect offset;
-    offset.x = object_->x_position();
-    offset.y = object_->y_position();
-    offset.h = height_;
-    offset.w = width_;
-
-    SDL_RenderCopyEx(screen_->renderer(), texture_, &offset, nullptr, rotation - rotation_, nullptr, SDL_FLIP_NONE);
-    rotation_ = rotation;
 }
