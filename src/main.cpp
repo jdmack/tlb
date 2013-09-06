@@ -4,6 +4,7 @@
 
 int main(int argc, char* argv[])
 {
+    Logger::open(kLogFilename);
     Logger::write("Initializing game");
 
     int exit_code = 0;

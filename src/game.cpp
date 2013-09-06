@@ -31,8 +31,7 @@ Game::~Game()
 
 int Game::run()
 {
-    Logger::open(kLogFilename);
-    Logger::write("running");
+    Logger::write("Game running");
 
     if(screen_->init() == false) {
         return 1;
@@ -52,7 +51,7 @@ int Game::run()
     //Clean up
     screen_->clean_up();
 
-    Logger::write("shutting down");
+    Logger::write("Game shutting down");
     return exit_code_;
 }
 
