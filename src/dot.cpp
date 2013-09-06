@@ -1,23 +1,24 @@
 #include <cmath>
+
 #include "SDL/SDL.h"
+
 #include "dot.h"
 #include "assets.h"
-#include "util/logger.h"
-#include "screen.h"
 #include "coordinate.h"
-#include "vector.h"
-#include "movement.h"
-#include "sprite.h"
 #include "game.h"
 #include "level.h"
-#include "tile.h"
+#include "movement.h"
+#include "screen.h"
+#include "sprite.h"
+#include "vector.h"
+#include "util/logger.h"
 
 Dot::Dot(Game * game) : GameObject(game)
 {
     x_velocity_ = 0;
     y_velocity_ = 0;
 
-    width_ = kDotWidth;
+    width_  = kDotWidth;
     height_ = kDotHeight;
 
     selectable_ = true;
@@ -29,7 +30,7 @@ Dot::Dot(Game * game, double x, double y, double rot) : GameObject(game, x, y, r
     x_velocity_ = 0;
     y_velocity_ = 0;
 
-    width_ = kDotWidth;
+    width_  = kDotWidth;
     height_ = kDotHeight;
 
     selectable_ = true;
@@ -44,9 +45,7 @@ void Dot::update(int delta_ticks)
         }
     }
 
-
     // TODO(2013-09-06/JM): Bug: Moving only on 1 axis causes a jump
-
     if((current_action_ != nullptr) && (current_action_->is_movement())) {
 
         Movement * movement_command = (static_cast<Movement*>(current_action_));
@@ -138,7 +137,7 @@ void Dot::update(int delta_ticks)
             }
 
             if(stopped()) {
-                delete(current_action_);
+                delete current_action_;
                 current_action_ = nullptr;
             }
         }
@@ -147,11 +146,9 @@ void Dot::update(int delta_ticks)
 
 bool Dot::contains_point(double x, double y)
 {
-    //if((x < x_position_) || (x > x_position_ + width_)) {
     if((x < (x_position_ - (width_ / 2))) || (x > (x_position_ + (width_ / 2)))) {
         return false;
     }
-    //else if((y < y_position_) || (y > y_position_ + height_)) {
     else if((y < (y_position_ - (width_ / 2))) || (y > (y_position_ + (height_ / 2)))) {
         return false;
     }
@@ -175,8 +172,6 @@ void Dot::deselect()
 
 void Dot::move(double x, double y)
 {
-    Logger::write("move command");
-
     current_action_ = new Movement(Vector(x_position_, y_position_, x, y), Coordinate(x, y));
 
     Movement * movement_command = static_cast<Movement*>(current_action_);

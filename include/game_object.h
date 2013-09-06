@@ -25,6 +25,7 @@ class GameObject
         double height_;
         bool selectable_;
         bool selected_;
+        // TODO(2013-09-06/JM): Create "to string" function for objects to use with logging
 
         Game * game_;
         Action * current_action_;

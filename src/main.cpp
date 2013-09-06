@@ -1,22 +1,16 @@
-#include <fstream>
-#include <iostream>
-
+#include "constants.h"
 #include "game.h"
 #include "util/logger.h"
-#include "constants.h"
-using namespace std;
 
 int main(int argc, char* argv[])
 {
-    int exit_code = 0;
+    Logger::write("Initializing game");
 
-    // TODO(2013-08-23 JM): Create logger
+    int exit_code = 0;
 
     Game * game = new Game;
 
     game->process_arguments(argc, argv);
-
-
     exit_code = game->run();
 
     delete game;

@@ -7,3 +7,4 @@ Debug/*
 *.exe
 tlb_log.txt
 *.dll
+/Debug

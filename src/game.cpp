@@ -86,7 +86,7 @@ void Game::game_loop()
         screen_->update();
     }
 
-    delete(dot1);
+    delete dot1;
 }
 
 // placeholder functions (not implemented yet)
