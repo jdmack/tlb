@@ -11,9 +11,9 @@
 #include "dot.h"
 #include "camera.h"
 
-Evengent::Evengent()
+Evengent::Evengent(Game * game)
 {
-    game_ = nullptr;
+    game_ = game;
 }
 
 void Evengent::handle_events()

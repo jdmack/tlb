@@ -6,9 +6,9 @@
 #include "game_object.h"
 #include "util/logger.h"
 
-Entigent::Entigent()
+Entigent::Entigent(Game * game)
 {
-    game_ = nullptr;
+    game_ = game;
     objects_ = new std::vector<GameObject *>();
     selected_ = new std::vector<GameObject *>();
 }

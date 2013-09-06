@@ -4,11 +4,11 @@
 #include "SDL/SDL.h"
 #include "util/timer.h"
 
+class Camera;
 class Entigent;
 class Evengent;
-class Screen;
-class Camera;
 class Level;
+class Screen;
 
 class Game
 {

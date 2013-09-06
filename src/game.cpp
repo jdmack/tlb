@@ -17,10 +17,8 @@ Game::Game()
     exit_code_ = 0;
     quit_ = false;
     screen_ = new Screen();
-    entigent_ = new Entigent();
-    entigent_->set_game(this); // TODO
-    evengent_ = new Evengent();
-    evengent_->set_game(this); // TODO
+    entigent_ = new Entigent(this);
+    evengent_ = new Evengent(this);
     camera_ = new Camera(this);
     screen_->set_camera(camera_);
     level_ = nullptr;

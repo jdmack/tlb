@@ -17,11 +17,8 @@ class Evengent
         Timer focus_timer_;
 
     public:
-        Evengent();
+        Evengent(Game * game);
         void handle_events();
-
-        // mutators
-        void set_game(Game * game) { game_ = game; }
 
         static Coordinate mouse_position();
 };
