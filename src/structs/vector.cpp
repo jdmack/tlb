@@ -1,6 +1,6 @@
 #include <cmath>
 #include "vector.h"
-#include "util/logger.h"
+#include "utils/logger.h"
 
 Vector::Vector()
 {

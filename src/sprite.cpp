@@ -1,7 +1,7 @@
 #include "sprite.h"
 #include "screen.h"
 #include "game_object.h"
-#include "util/logger.h"
+#include "utils/logger.h"
 
 Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
 {

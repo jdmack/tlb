@@ -2,7 +2,7 @@
 #define TLB_TLB_GAME_H_
 
 #include "SDL/SDL.h"
-#include "util/timer.h"
+#include "utils/timer.h"
 
 class Camera;
 class Entigent;

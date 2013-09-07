@@ -2,8 +2,8 @@
 #include <fstream>
 #include <sstream>
 
-#include "util/logger.h"
-#include "util/date_time.h"
+#include "utils/logger.h"
+#include "utils/date_time.h"
 
 /*
 Logger::Logger(std::string filename)

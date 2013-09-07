@@ -11,7 +11,7 @@
 #include "screen.h"
 #include "sprite.h"
 #include "vector.h"
-#include "util/logger.h"
+#include "utils/logger.h"
 
 Dot::Dot(Game * game) : GameObject(game)
 {

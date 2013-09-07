@@ -2,7 +2,7 @@
 #include "movement.h"
 #include "coordinate.h"
 #include "game_object.h"
-#include "util/logger.h"
+#include "utils/logger.h"
 
 Movement::Movement()
 {

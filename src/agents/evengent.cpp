@@ -6,7 +6,7 @@
 #include "entigent.h"
 #include "game.h"
 #include "game_object.h"
-#include "util/logger.h"
+#include "utils/logger.h"
 #include "coordinate.h"
 #include "dot.h"
 #include "camera.h"

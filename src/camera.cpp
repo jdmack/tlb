@@ -2,7 +2,7 @@
 #include "game_object.h"
 #include "level.h"
 #include "game.h"
-#include "util/logger.h"
+#include "utils/logger.h"
 
 Camera::Camera(Game * game)
 {

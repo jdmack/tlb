@@ -4,7 +4,7 @@
 #include "screen.h"
 #include "game.h"
 #include "game_object.h"
-#include "util/logger.h"
+#include "utils/logger.h"
 
 Entigent::Entigent(Game * game)
 {

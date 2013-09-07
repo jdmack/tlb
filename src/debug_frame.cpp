@@ -4,7 +4,7 @@
 #include "assets.h"
 #include "coordinate.h"
 #include "evengent.h"
-#include "util/logger.h"
+#include "utils/logger.h"
 
 DebugFrame::DebugFrame(Screen * screen)
 {

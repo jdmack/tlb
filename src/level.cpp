@@ -6,7 +6,7 @@
 #include "game_object.h"
 #include "screen.h"
 #include "game.h"
-#include "util/logger.h"
+#include "utils/logger.h"
 
 Level::Level(Game * game)
 {

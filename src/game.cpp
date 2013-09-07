@@ -7,7 +7,7 @@
 #include "screen.h"
 #include "entigent.h"
 #include "evengent.h"
-#include "util/logger.h"
+#include "utils/logger.h"
 #include "camera.h"
 #include "level.h"
 
