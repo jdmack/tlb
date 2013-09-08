@@ -1,6 +1,6 @@
 #include <cmath>
 
-#include "SDL/SDL.h"
+#include "SDL2/SDL.h"
 
 #include "dot.h"
 #include "assets.h"

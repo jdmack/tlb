@@ -1,7 +1,7 @@
 #ifndef TLB_CAMERA_H_
 #define TLB_CAMERA_H_
 
-#include "SDL/SDL.h"
+#include "SDL2/SDL.h"
 #include "constants.h"
 
 const double kCameraInitialX = 0;

@@ -1,7 +1,7 @@
 #ifndef TLB_SCREEN_H_
 #define TLB_SCREEN_H_
 
-#include "SDL/SDL.h"
+#include "SDL2/SDL.h"
 #include "constants.h"
 #include "color.h"
 

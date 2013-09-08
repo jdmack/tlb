@@ -1,5 +1,5 @@
 #include <sstream>
-#include "SDL/SDL_ttf.h"
+#include "SDL2/SDL_ttf.h"
 #include "debug_frame.h"
 #include "assets.h"
 #include "coordinate.h"

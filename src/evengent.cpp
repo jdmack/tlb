@@ -1,7 +1,7 @@
 /* Event Agent */
 
 #include <vector>
-#include "SDL/SDL.h"
+#include "SDL2/SDL.h"
 #include "evengent.h"
 #include "entigent.h"
 #include "game.h"

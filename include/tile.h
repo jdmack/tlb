@@ -1,7 +1,7 @@
 #ifndef TLB_TILE_H_
 #define TLB_TILE_H_
 
-#include "SDL/SDL.h"
+#include "SDL2/SDL.h"
 
 const double kTileWidth = 80;
 const double kTileHeight = 80;

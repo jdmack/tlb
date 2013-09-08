@@ -1,7 +1,7 @@
 #ifndef TLB_TLB_GAME_H_
 #define TLB_TLB_GAME_H_
 
-#include "SDL/SDL.h"
+#include "SDL2/SDL.h"
 #include "utils/timer.h"
 
 class Camera;

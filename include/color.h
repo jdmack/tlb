@@ -1,7 +1,7 @@
 #ifndef TLB_COLOR_H_
 #define TLB_COLOR_H_
 
-#include "SDL/SDL.h"
+#include "SDL2/SDL.h"
 
 class Color
 {

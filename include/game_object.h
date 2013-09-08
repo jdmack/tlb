@@ -1,7 +1,7 @@
 #ifndef TLB_GAME_OBJECT_H_
 #define TLB_GAME_OBJECT_H_
 
-#include "SDL/SDL.h"
+#include "SDL2/SDL.h"
 #include "assets.h"
 #include "vector.h"
 

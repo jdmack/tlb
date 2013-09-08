@@ -1,8 +1,8 @@
 #ifndef TLB_DEBUG_FRAME_H_
 #define TLB_DEBUG_FRAME_H_
 
-#include "SDL/SDL.h"
-#include "SDL/SDL_ttf.h"
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_ttf.h"
 #include "constants.h"
 #include "screen.h"
 

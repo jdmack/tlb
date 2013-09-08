@@ -2,7 +2,7 @@
 #define TLB_SPRITE_H_
 
 #include <string>
-#include "SDL/SDL.h"
+#include "SDL2/SDL.h"
 
 class GameObject;
 class Screen;
