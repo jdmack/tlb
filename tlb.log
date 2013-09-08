@@ -1,5 +1,398 @@
-[Fri Sep 06 16:48:24 2013] Initializing game
-[Fri Sep 06 16:48:24 2013] Game running
-[Fri Sep 06 16:48:24 2013] Loading map: maps/test_80x45.map
-[Fri Sep 06 16:48:24 2013] Level loaded
-[Fri Sep 06 16:48:29 2013] Game shutting down
+[Sun Sep 08 01:22:51 2013] Initializing game
+[Sun Sep 08 01:22:51 2013] Game running
+[Sun Sep 08 01:22:52 2013] Loading map: maps/test_80x45.map
+[Sun Sep 08 01:22:52 2013] Level loaded
+[Sun Sep 08 01:22:55 2013] Dot::select object_id: 1 (x,y): (3200, 1800)
+[Sun Sep 08 01:22:55 2013] GameObject::select
+[Sun Sep 08 01:22:56 2013] determine_direction - quadrant: 1 theta: 84.2153
+[Sun Sep 08 01:22:56 2013] set_component_signs - quadrant: I
+[Sun Sep 08 01:22:56 2013] creating vector:
+[Sun Sep 08 01:22:56 2013] 		magnitude: 307.566
+[Sun Sep 08 01:22:56 2013] 		direction: 84.2153
+[Sun Sep 08 01:22:56 2013] 		x_component: 31
+[Sun Sep 08 01:22:56 2013] 		y_component: -306
+[Sun Sep 08 01:22:56 2013] 		quadrant: 1
+[Sun Sep 08 01:22:56 2013] 		(3200,1800) & (3231,1494)
+[Sun Sep 08 01:22:56 2013] creating vector (0)
+[Sun Sep 08 01:22:56 2013] creating vector (0)
+[Sun Sep 08 01:22:56 2013] set_component_signs - quadrant: I
+[Sun Sep 08 01:22:56 2013] creating vector:
+[Sun Sep 08 01:22:56 2013] 		magnitude: 800
+[Sun Sep 08 01:22:56 2013] 		direction: 84.2153
+[Sun Sep 08 01:22:56 2013] 		x_component: 80.633
+[Sun Sep 08 01:22:56 2013] 		y_component: -795.926
+[Sun Sep 08 01:22:56 2013] set_component_signs - quadrant: I
+[Sun Sep 08 01:22:56 2013] creating vector:
+[Sun Sep 08 01:22:56 2013] 		magnitude: 400
+[Sun Sep 08 01:22:56 2013] 		direction: 84.2153
+[Sun Sep 08 01:22:56 2013] 		x_component: 40.3165
+[Sun Sep 08 01:22:56 2013] 		y_component: -397.963
+[Sun Sep 08 01:22:56 2013] Move - (x,y): (3231,3231) direction: 84.2153
+[Sun Sep 08 01:22:58 2013] determine_direction - quadrant: 1 theta: 44.8355
+[Sun Sep 08 01:22:58 2013] set_component_signs - quadrant: I
+[Sun Sep 08 01:22:58 2013] creating vector:
+[Sun Sep 08 01:22:58 2013] 		magnitude: 497.669
+[Sun Sep 08 01:22:58 2013] 		direction: 44.8355
+[Sun Sep 08 01:22:58 2013] 		x_component: 352.914
+[Sun Sep 08 01:22:58 2013] 		y_component: -350.894
+[Sun Sep 08 01:22:58 2013] 		quadrant: 1
+[Sun Sep 08 01:22:58 2013] 		(3229.09,1512.89) & (3582,1162)
+[Sun Sep 08 01:22:58 2013] creating vector (0)
+[Sun Sep 08 01:22:58 2013] creating vector (0)
+[Sun Sep 08 01:22:58 2013] set_component_signs - quadrant: I
+[Sun Sep 08 01:22:58 2013] creating vector:
+[Sun Sep 08 01:22:58 2013] 		magnitude: 800
+[Sun Sep 08 01:22:58 2013] 		direction: 44.8355
+[Sun Sep 08 01:22:58 2013] 		x_component: 567.307
+[Sun Sep 08 01:22:58 2013] 		y_component: -564.059
+[Sun Sep 08 01:22:58 2013] set_component_signs - quadrant: I
+[Sun Sep 08 01:22:58 2013] creating vector:
+[Sun Sep 08 01:22:58 2013] 		magnitude: 400
+[Sun Sep 08 01:22:58 2013] 		direction: 44.8355
+[Sun Sep 08 01:22:58 2013] 		x_component: 283.654
+[Sun Sep 08 01:22:58 2013] 		y_component: -282.03
+[Sun Sep 08 01:22:58 2013] Move - (x,y): (3582,3582) direction: 44.8355
+[Sun Sep 08 01:22:59 2013] determine_direction - quadrant: 2 theta: 78.3485
+[Sun Sep 08 01:22:59 2013] set_component_signs - quadrant: II
+[Sun Sep 08 01:22:59 2013] creating vector:
+[Sun Sep 08 01:22:59 2013] 		magnitude: 402.343
+[Sun Sep 08 01:22:59 2013] 		direction: 101.651
+[Sun Sep 08 01:22:59 2013] 		x_component: -81.2564
+[Sun Sep 08 01:22:59 2013] 		y_component: -394.052
+[Sun Sep 08 01:22:59 2013] 		quadrant: 2
+[Sun Sep 08 01:22:59 2013] 		(3461.26,1282.05) & (3380,888)
+[Sun Sep 08 01:22:59 2013] creating vector (0)
+[Sun Sep 08 01:22:59 2013] creating vector (0)
+[Sun Sep 08 01:22:59 2013] set_component_signs - quadrant: II
+[Sun Sep 08 01:22:59 2013] creating vector:
+[Sun Sep 08 01:22:59 2013] 		magnitude: 800
+[Sun Sep 08 01:22:59 2013] 		direction: 101.651
+[Sun Sep 08 01:22:59 2013] 		x_component: -161.566
+[Sun Sep 08 01:22:59 2013] 		y_component: -783.515
+[Sun Sep 08 01:22:59 2013] set_component_signs - quadrant: II
+[Sun Sep 08 01:22:59 2013] creating vector:
+[Sun Sep 08 01:22:59 2013] 		magnitude: 400
+[Sun Sep 08 01:22:59 2013] 		direction: 101.651
+[Sun Sep 08 01:22:59 2013] 		x_component: -80.7832
+[Sun Sep 08 01:22:59 2013] 		y_component: -391.758
+[Sun Sep 08 01:22:59 2013] Move - (x,y): (3380,3380) direction: 101.651
+[Sun Sep 08 01:23:01 2013] determine_direction - quadrant: 2 theta: 81.7549
+[Sun Sep 08 01:23:01 2013] set_component_signs - quadrant: II
+[Sun Sep 08 01:23:01 2013] creating vector:
+[Sun Sep 08 01:23:01 2013] 		magnitude: 396.208
+[Sun Sep 08 01:23:01 2013] 		direction: 98.2451
+[Sun Sep 08 01:23:01 2013] 		x_component: -56.8191
+[Sun Sep 08 01:23:01 2013] 		y_component: -392.113
+[Sun Sep 08 01:23:01 2013] 		quadrant: 2
+[Sun Sep 08 01:23:01 2013] 		(3399.82,984.113) & (3343,592)
+[Sun Sep 08 01:23:01 2013] creating vector (0)
+[Sun Sep 08 01:23:01 2013] creating vector (0)
+[Sun Sep 08 01:23:01 2013] set_component_signs - quadrant: II
+[Sun Sep 08 01:23:01 2013] creating vector:
+[Sun Sep 08 01:23:01 2013] 		magnitude: 800
+[Sun Sep 08 01:23:01 2013] 		direction: 98.2451
+[Sun Sep 08 01:23:01 2013] 		x_component: -114.726
+[Sun Sep 08 01:23:01 2013] 		y_component: -791.731
+[Sun Sep 08 01:23:01 2013] set_component_signs - quadrant: II
+[Sun Sep 08 01:23:01 2013] creating vector:
+[Sun Sep 08 01:23:01 2013] 		magnitude: 400
+[Sun Sep 08 01:23:01 2013] 		direction: 98.2451
+[Sun Sep 08 01:23:01 2013] 		x_component: -57.3629
+[Sun Sep 08 01:23:01 2013] 		y_component: -395.866
+[Sun Sep 08 01:23:01 2013] Move - (x,y): (3343,3343) direction: 98.2451
+[Sun Sep 08 01:23:03 2013] determine_direction - quadrant: 1 theta: 23.2527
+[Sun Sep 08 01:23:03 2013] set_component_signs - quadrant: I
+[Sun Sep 08 01:23:03 2013] creating vector:
+[Sun Sep 08 01:23:03 2013] 		magnitude: 492.434
+[Sun Sep 08 01:23:03 2013] 		direction: 23.2527
+[Sun Sep 08 01:23:03 2013] 		x_component: 452.435
+[Sun Sep 08 01:23:03 2013] 		y_component: -194.407
+[Sun Sep 08 01:23:03 2013] 		quadrant: 1
+[Sun Sep 08 01:23:03 2013] 		(3348.57,630.407) & (3801,436)
+[Sun Sep 08 01:23:03 2013] creating vector (0)
+[Sun Sep 08 01:23:03 2013] creating vector (0)
+[Sun Sep 08 01:23:03 2013] set_component_signs - quadrant: I
+[Sun Sep 08 01:23:03 2013] creating vector:
+[Sun Sep 08 01:23:03 2013] 		magnitude: 800
+[Sun Sep 08 01:23:03 2013] 		direction: 23.2527
+[Sun Sep 08 01:23:03 2013] 		x_component: 735.018
+[Sun Sep 08 01:23:03 2013] 		y_component: -315.83
+[Sun Sep 08 01:23:03 2013] set_component_signs - quadrant: I
+[Sun Sep 08 01:23:03 2013] creating vector:
+[Sun Sep 08 01:23:03 2013] 		magnitude: 400
+[Sun Sep 08 01:23:03 2013] 		direction: 23.2527
+[Sun Sep 08 01:23:03 2013] 		x_component: 367.509
+[Sun Sep 08 01:23:03 2013] 		y_component: -157.915
+[Sun Sep 08 01:23:03 2013] Move - (x,y): (3801,3801) direction: 23.2527
+[Sun Sep 08 01:23:04 2013] determine_direction - quadrant: 3 theta: 7.24167
+[Sun Sep 08 01:23:04 2013] set_component_signs - quadrant: III
+[Sun Sep 08 01:23:04 2013] creating vector:
+[Sun Sep 08 01:23:04 2013] 		magnitude: 288.451
+[Sun Sep 08 01:23:04 2013] 		direction: 187.242
+[Sun Sep 08 01:23:04 2013] 		x_component: -286.15
+[Sun Sep 08 01:23:04 2013] 		y_component: 36.3606
+[Sun Sep 08 01:23:04 2013] 		quadrant: 3
+[Sun Sep 08 01:23:04 2013] 		(3555.15,541.639) & (3269,578)
+[Sun Sep 08 01:23:04 2013] creating vector (0)
+[Sun Sep 08 01:23:04 2013] creating vector (0)
+[Sun Sep 08 01:23:04 2013] set_component_signs - quadrant: III
+[Sun Sep 08 01:23:04 2013] creating vector:
+[Sun Sep 08 01:23:04 2013] 		magnitude: 800
+[Sun Sep 08 01:23:04 2013] 		direction: 187.242
+[Sun Sep 08 01:23:04 2013] 		x_component: -793.619
+[Sun Sep 08 01:23:04 2013] 		y_component: 100.844
+[Sun Sep 08 01:23:04 2013] set_component_signs - quadrant: III
+[Sun Sep 08 01:23:04 2013] creating vector:
+[Sun Sep 08 01:23:04 2013] 		magnitude: 400
+[Sun Sep 08 01:23:04 2013] 		direction: 187.242
+[Sun Sep 08 01:23:04 2013] 		x_component: -396.809
+[Sun Sep 08 01:23:04 2013] 		y_component: 50.4219
+[Sun Sep 08 01:23:04 2013] Move - (x,y): (3269,3269) direction: 187.242
+[Sun Sep 08 01:23:06 2013] focus_timer started
+[Sun Sep 08 01:23:07 2013] STOPPING: Movement distance travelled
+[Sun Sep 08 01:23:07 2013] focus_timer stopped
+[Sun Sep 08 01:23:07 2013] determine_direction - quadrant: 4 theta: 70.567
+[Sun Sep 08 01:23:07 2013] set_component_signs - quadrant: IV
+[Sun Sep 08 01:23:07 2013] creating vector:
+[Sun Sep 08 01:23:07 2013] 		magnitude: 453.856
+[Sun Sep 08 01:23:07 2013] 		direction: 289.433
+[Sun Sep 08 01:23:07 2013] 		x_component: 151
+[Sun Sep 08 01:23:07 2013] 		y_component: 428
+[Sun Sep 08 01:23:07 2013] 		quadrant: 4
+[Sun Sep 08 01:23:07 2013] 		(3269,578) & (3420,1006)
+[Sun Sep 08 01:23:07 2013] creating vector (0)
+[Sun Sep 08 01:23:07 2013] creating vector (0)
+[Sun Sep 08 01:23:07 2013] set_component_signs - quadrant: IV
+[Sun Sep 08 01:23:07 2013] creating vector:
+[Sun Sep 08 01:23:07 2013] 		magnitude: 800
+[Sun Sep 08 01:23:07 2013] 		direction: 289.433
+[Sun Sep 08 01:23:07 2013] 		x_component: 266.164
+[Sun Sep 08 01:23:07 2013] 		y_component: 754.425
+[Sun Sep 08 01:23:07 2013] set_component_signs - quadrant: IV
+[Sun Sep 08 01:23:07 2013] creating vector:
+[Sun Sep 08 01:23:07 2013] 		magnitude: 400
+[Sun Sep 08 01:23:07 2013] 		direction: 289.433
+[Sun Sep 08 01:23:07 2013] 		x_component: 133.082
+[Sun Sep 08 01:23:07 2013] 		y_component: 377.212
+[Sun Sep 08 01:23:07 2013] Move - (x,y): (3420,3420) direction: 289.433
+[Sun Sep 08 01:23:08 2013] STOPPING: Collision with wall
+[Sun Sep 08 01:23:08 2013] determine_direction - quadrant: 4 theta: 50.6327
+[Sun Sep 08 01:23:08 2013] set_component_signs - quadrant: IV
+[Sun Sep 08 01:23:08 2013] creating vector:
+[Sun Sep 08 01:23:08 2013] 		magnitude: 402.338
+[Sun Sep 08 01:23:08 2013] 		direction: 309.367
+[Sun Sep 08 01:23:08 2013] 		x_component: 255.198
+[Sun Sep 08 01:23:08 2013] 		y_component: 311.046
+[Sun Sep 08 01:23:08 2013] 		quadrant: 4
+[Sun Sep 08 01:23:08 2013] 		(3283.8,619.954) & (3539,931)
+[Sun Sep 08 01:23:08 2013] creating vector (0)
+[Sun Sep 08 01:23:08 2013] creating vector (0)
+[Sun Sep 08 01:23:08 2013] set_component_signs - quadrant: IV
+[Sun Sep 08 01:23:08 2013] creating vector:
+[Sun Sep 08 01:23:08 2013] 		magnitude: 800
+[Sun Sep 08 01:23:08 2013] 		direction: 309.367
+[Sun Sep 08 01:23:08 2013] 		x_component: 507.431
+[Sun Sep 08 01:23:08 2013] 		y_component: 618.477
+[Sun Sep 08 01:23:08 2013] set_component_signs - quadrant: IV
+[Sun Sep 08 01:23:08 2013] creating vector:
+[Sun Sep 08 01:23:08 2013] 		magnitude: 400
+[Sun Sep 08 01:23:08 2013] 		direction: 309.367
+[Sun Sep 08 01:23:08 2013] 		x_component: 253.716
+[Sun Sep 08 01:23:08 2013] 		y_component: 309.238
+[Sun Sep 08 01:23:08 2013] Move - (x,y): (3539,3539) direction: 309.367
+[Sun Sep 08 01:23:08 2013] STOPPING: Collision with wall
+[Sun Sep 08 01:23:09 2013] determine_direction - quadrant: 1 theta: 21.8338
+[Sun Sep 08 01:23:09 2013] set_component_signs - quadrant: I
+[Sun Sep 08 01:23:09 2013] creating vector:
+[Sun Sep 08 01:23:09 2013] 		magnitude: 212.401
+[Sun Sep 08 01:23:09 2013] 		direction: 21.8338
+[Sun Sep 08 01:23:09 2013] 		x_component: 197.165
+[Sun Sep 08 01:23:09 2013] 		y_component: -78.9951
+[Sun Sep 08 01:23:09 2013] 		quadrant: 1
+[Sun Sep 08 01:23:09 2013] 		(3283.84,619.995) & (3481,541)
+[Sun Sep 08 01:23:09 2013] creating vector (0)
+[Sun Sep 08 01:23:09 2013] creating vector (0)
+[Sun Sep 08 01:23:09 2013] set_component_signs - quadrant: I
+[Sun Sep 08 01:23:09 2013] creating vector:
+[Sun Sep 08 01:23:09 2013] 		magnitude: 800
+[Sun Sep 08 01:23:09 2013] 		direction: 21.8338
+[Sun Sep 08 01:23:09 2013] 		x_component: 742.613
+[Sun Sep 08 01:23:09 2013] 		y_component: -297.532
+[Sun Sep 08 01:23:09 2013] set_component_signs - quadrant: I
+[Sun Sep 08 01:23:09 2013] creating vector:
+[Sun Sep 08 01:23:09 2013] 		magnitude: 400
+[Sun Sep 08 01:23:09 2013] 		direction: 21.8338
+[Sun Sep 08 01:23:09 2013] 		x_component: 371.307
+[Sun Sep 08 01:23:09 2013] 		y_component: -148.766
+[Sun Sep 08 01:23:09 2013] Move - (x,y): (3481,3481) direction: 21.8338
+[Sun Sep 08 01:23:09 2013] determine_direction - quadrant: 4 theta: 83.9144
+[Sun Sep 08 01:23:09 2013] set_component_signs - quadrant: IV
+[Sun Sep 08 01:23:09 2013] creating vector:
+[Sun Sep 08 01:23:09 2013] 		magnitude: 349.442
+[Sun Sep 08 01:23:09 2013] 		direction: 276.086
+[Sun Sep 08 01:23:09 2013] 		x_component: 37.0457
+[Sun Sep 08 01:23:09 2013] 		y_component: 347.473
+[Sun Sep 08 01:23:09 2013] 		quadrant: 4
+[Sun Sep 08 01:23:09 2013] 		(3314.95,607.527) & (3352,955)
+[Sun Sep 08 01:23:09 2013] creating vector (0)
+[Sun Sep 08 01:23:09 2013] creating vector (0)
+[Sun Sep 08 01:23:09 2013] set_component_signs - quadrant: IV
+[Sun Sep 08 01:23:09 2013] creating vector:
+[Sun Sep 08 01:23:09 2013] 		magnitude: 800
+[Sun Sep 08 01:23:09 2013] 		direction: 276.086
+[Sun Sep 08 01:23:09 2013] 		x_component: 84.811
+[Sun Sep 08 01:23:09 2013] 		y_component: 795.492
+[Sun Sep 08 01:23:09 2013] set_component_signs - quadrant: IV
+[Sun Sep 08 01:23:09 2013] creating vector:
+[Sun Sep 08 01:23:09 2013] 		magnitude: 400
+[Sun Sep 08 01:23:09 2013] 		direction: 276.086
+[Sun Sep 08 01:23:09 2013] 		x_component: 42.4055
+[Sun Sep 08 01:23:09 2013] 		y_component: 397.746
+[Sun Sep 08 01:23:09 2013] Move - (x,y): (3352,3352) direction: 276.086
+[Sun Sep 08 01:23:11 2013] determine_direction - quadrant: 4 theta: 9.44635
+[Sun Sep 08 01:23:11 2013] set_component_signs - quadrant: IV
+[Sun Sep 08 01:23:11 2013] creating vector:
+[Sun Sep 08 01:23:11 2013] 		magnitude: 472.434
+[Sun Sep 08 01:23:11 2013] 		direction: 350.554
+[Sun Sep 08 01:23:11 2013] 		x_component: 466.028
+[Sun Sep 08 01:23:11 2013] 		y_component: 77.5377
+[Sun Sep 08 01:23:11 2013] 		quadrant: 4
+[Sun Sep 08 01:23:11 2013] 		(3345.97,898.462) & (3812,976)
+[Sun Sep 08 01:23:11 2013] creating vector (0)
+[Sun Sep 08 01:23:11 2013] creating vector (0)
+[Sun Sep 08 01:23:11 2013] set_component_signs - quadrant: IV
+[Sun Sep 08 01:23:11 2013] creating vector:
+[Sun Sep 08 01:23:11 2013] 		magnitude: 800
+[Sun Sep 08 01:23:11 2013] 		direction: 350.554
+[Sun Sep 08 01:23:11 2013] 		x_component: 789.152
+[Sun Sep 08 01:23:11 2013] 		y_component: 131.299
+[Sun Sep 08 01:23:11 2013] set_component_signs - quadrant: IV
+[Sun Sep 08 01:23:11 2013] creating vector:
+[Sun Sep 08 01:23:11 2013] 		magnitude: 400
+[Sun Sep 08 01:23:11 2013] 		direction: 350.554
+[Sun Sep 08 01:23:11 2013] 		x_component: 394.576
+[Sun Sep 08 01:23:11 2013] 		y_component: 65.6496
+[Sun Sep 08 01:23:11 2013] Move - (x,y): (3812,3812) direction: 350.554
+[Sun Sep 08 01:23:14 2013] determine_direction - quadrant: 3 theta: 35.9107
+[Sun Sep 08 01:23:14 2013] set_component_signs - quadrant: III
+[Sun Sep 08 01:23:14 2013] creating vector:
+[Sun Sep 08 01:23:14 2013] 		magnitude: 474.216
+[Sun Sep 08 01:23:14 2013] 		direction: 215.911
+[Sun Sep 08 01:23:14 2013] 		x_component: -384.082
+[Sun Sep 08 01:23:14 2013] 		y_component: 278.139
+[Sun Sep 08 01:23:14 2013] 		quadrant: 3
+[Sun Sep 08 01:23:14 2013] 		(3763.08,967.861) & (3379,1246)
+[Sun Sep 08 01:23:14 2013] creating vector (0)
+[Sun Sep 08 01:23:14 2013] creating vector (0)
+[Sun Sep 08 01:23:14 2013] set_component_signs - quadrant: III
+[Sun Sep 08 01:23:14 2013] creating vector:
+[Sun Sep 08 01:23:14 2013] 		magnitude: 800
+[Sun Sep 08 01:23:14 2013] 		direction: 215.911
+[Sun Sep 08 01:23:14 2013] 		x_component: -647.945
+[Sun Sep 08 01:23:14 2013] 		y_component: 469.219
+[Sun Sep 08 01:23:14 2013] set_component_signs - quadrant: III
+[Sun Sep 08 01:23:14 2013] creating vector:
+[Sun Sep 08 01:23:14 2013] 		magnitude: 400
+[Sun Sep 08 01:23:14 2013] 		direction: 215.911
+[Sun Sep 08 01:23:14 2013] 		x_component: -323.973
+[Sun Sep 08 01:23:14 2013] 		y_component: 234.61
+[Sun Sep 08 01:23:14 2013] Move - (x,y): (3379,3379) direction: 215.911
+[Sun Sep 08 01:23:17 2013] STOPPING: Movement distance travelled
+[Sun Sep 08 01:23:37 2013] determine_direction - quadrant: 1 theta: 52.9072
+[Sun Sep 08 01:23:37 2013] set_component_signs - quadrant: I
+[Sun Sep 08 01:23:37 2013] creating vector:
+[Sun Sep 08 01:23:37 2013] 		magnitude: 205.602
+[Sun Sep 08 01:23:37 2013] 		direction: 52.9072
+[Sun Sep 08 01:23:37 2013] 		x_component: 124
+[Sun Sep 08 01:23:37 2013] 		y_component: -164
+[Sun Sep 08 01:23:37 2013] 		quadrant: 1
+[Sun Sep 08 01:23:37 2013] 		(3379,1246) & (3503,1082)
+[Sun Sep 08 01:23:37 2013] creating vector (0)
+[Sun Sep 08 01:23:37 2013] creating vector (0)
+[Sun Sep 08 01:23:37 2013] set_component_signs - quadrant: I
+[Sun Sep 08 01:23:37 2013] creating vector:
+[Sun Sep 08 01:23:37 2013] 		magnitude: 800
+[Sun Sep 08 01:23:37 2013] 		direction: 52.9072
+[Sun Sep 08 01:23:37 2013] 		x_component: 482.487
+[Sun Sep 08 01:23:37 2013] 		y_component: -638.127
+[Sun Sep 08 01:23:37 2013] set_component_signs - quadrant: I
+[Sun Sep 08 01:23:37 2013] creating vector:
+[Sun Sep 08 01:23:37 2013] 		magnitude: 400
+[Sun Sep 08 01:23:37 2013] 		direction: 52.9072
+[Sun Sep 08 01:23:37 2013] 		x_component: 241.243
+[Sun Sep 08 01:23:37 2013] 		y_component: -319.064
+[Sun Sep 08 01:23:37 2013] Move - (x,y): (3503,3503) direction: 52.9072
+[Sun Sep 08 01:23:39 2013] determine_direction - quadrant: 4 theta: 49.3137
+[Sun Sep 08 01:23:39 2013] set_component_signs - quadrant: IV
+[Sun Sep 08 01:23:39 2013] creating vector:
+[Sun Sep 08 01:23:39 2013] 		magnitude: 352.559
+[Sun Sep 08 01:23:39 2013] 		direction: 310.686
+[Sun Sep 08 01:23:39 2013] 		x_component: 229.839
+[Sun Sep 08 01:23:39 2013] 		y_component: 267.342
+[Sun Sep 08 01:23:39 2013] 		quadrant: 4
+[Sun Sep 08 01:23:39 2013] 		(3491.16,1097.66) & (3721,1365)
+[Sun Sep 08 01:23:39 2013] creating vector (0)
+[Sun Sep 08 01:23:39 2013] creating vector (0)
+[Sun Sep 08 01:23:39 2013] set_component_signs - quadrant: IV
+[Sun Sep 08 01:23:39 2013] creating vector:
+[Sun Sep 08 01:23:39 2013] 		magnitude: 800
+[Sun Sep 08 01:23:39 2013] 		direction: 310.686
+[Sun Sep 08 01:23:39 2013] 		x_component: 521.534
+[Sun Sep 08 01:23:39 2013] 		y_component: 606.632
+[Sun Sep 08 01:23:39 2013] set_component_signs - quadrant: IV
+[Sun Sep 08 01:23:39 2013] creating vector:
+[Sun Sep 08 01:23:39 2013] 		magnitude: 400
+[Sun Sep 08 01:23:39 2013] 		direction: 310.686
+[Sun Sep 08 01:23:39 2013] 		x_component: 260.767
+[Sun Sep 08 01:23:39 2013] 		y_component: 303.316
+[Sun Sep 08 01:23:39 2013] Move - (x,y): (3721,3721) direction: 310.686
+[Sun Sep 08 01:23:41 2013] determine_direction - quadrant: 4 theta: 82.9562
+[Sun Sep 08 01:23:41 2013] set_component_signs - quadrant: IV
+[Sun Sep 08 01:23:41 2013] creating vector:
+[Sun Sep 08 01:23:41 2013] 		magnitude: 311.704
+[Sun Sep 08 01:23:41 2013] 		direction: 277.044
+[Sun Sep 08 01:23:41 2013] 		x_component: 38.2239
+[Sun Sep 08 01:23:41 2013] 		y_component: 309.351
+[Sun Sep 08 01:23:41 2013] 		quadrant: 4
+[Sun Sep 08 01:23:41 2013] 		(3603.78,1228.65) & (3642,1538)
+[Sun Sep 08 01:23:41 2013] creating vector (0)
+[Sun Sep 08 01:23:41 2013] creating vector (0)
+[Sun Sep 08 01:23:41 2013] set_component_signs - quadrant: IV
+[Sun Sep 08 01:23:41 2013] creating vector:
+[Sun Sep 08 01:23:41 2013] 		magnitude: 800
+[Sun Sep 08 01:23:41 2013] 		direction: 277.044
+[Sun Sep 08 01:23:41 2013] 		x_component: 98.1031
+[Sun Sep 08 01:23:41 2013] 		y_component: 793.962
+[Sun Sep 08 01:23:41 2013] set_component_signs - quadrant: IV
+[Sun Sep 08 01:23:41 2013] creating vector:
+[Sun Sep 08 01:23:41 2013] 		magnitude: 400
+[Sun Sep 08 01:23:41 2013] 		direction: 277.044
+[Sun Sep 08 01:23:41 2013] 		x_component: 49.0515
+[Sun Sep 08 01:23:41 2013] 		y_component: 396.981
+[Sun Sep 08 01:23:41 2013] Move - (x,y): (3642,3642) direction: 277.044
+[Sun Sep 08 01:23:42 2013] determine_direction - quadrant: 3 theta: 36.7189
+[Sun Sep 08 01:23:42 2013] set_component_signs - quadrant: III
+[Sun Sep 08 01:23:42 2013] creating vector:
+[Sun Sep 08 01:23:42 2013] 		magnitude: 396.273
+[Sun Sep 08 01:23:42 2013] 		direction: 216.719
+[Sun Sep 08 01:23:42 2013] 		x_component: -317.644
+[Sun Sep 08 01:23:42 2013] 		y_component: 236.928
+[Sun Sep 08 01:23:42 2013] 		quadrant: 3
+[Sun Sep 08 01:23:42 2013] 		(3619.64,1357.07) & (3302,1594)
+[Sun Sep 08 01:23:42 2013] creating vector (0)
+[Sun Sep 08 01:23:42 2013] creating vector (0)
+[Sun Sep 08 01:23:42 2013] set_component_signs - quadrant: III
+[Sun Sep 08 01:23:42 2013] creating vector:
+[Sun Sep 08 01:23:42 2013] 		magnitude: 800
+[Sun Sep 08 01:23:42 2013] 		direction: 216.719
+[Sun Sep 08 01:23:42 2013] 		x_component: -641.263
+[Sun Sep 08 01:23:42 2013] 		y_component: 478.311
+[Sun Sep 08 01:23:42 2013] set_component_signs - quadrant: III
+[Sun Sep 08 01:23:42 2013] creating vector:
+[Sun Sep 08 01:23:42 2013] 		magnitude: 400
+[Sun Sep 08 01:23:42 2013] 		direction: 216.719
+[Sun Sep 08 01:23:42 2013] 		x_component: -320.631
+[Sun Sep 08 01:23:42 2013] 		y_component: 239.156
+[Sun Sep 08 01:23:42 2013] Move - (x,y): (3302,3302) direction: 216.719
+[Sun Sep 08 01:23:44 2013] STOPPING: Movement distance travelled
+[Sun Sep 08 01:23:48 2013] focus_timer started
