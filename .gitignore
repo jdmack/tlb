@@ -8,4 +8,4 @@ Debug/*
 tlb_log.txt
 *.dll
 /Debug
-tlb.log`
+tlb.log
