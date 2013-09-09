@@ -1,12 +1,12 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include "screen.h"
+#include "camera.h"
+#include "color.h"
 #include "game_object.h"
 #include "sprite.h"
 #include "utils/logger.h"
-#include "color.h"
-#include "debug_frame.h"
-#include "camera.h"
+
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -17,8 +17,6 @@ Screen::Screen()
 {
     window_ = nullptr;
     renderer_ = nullptr;
-    debug_frame_ = nullptr;
-    debug_ = kDebugFrame;
     camera_ = nullptr;
 }
 
@@ -34,10 +32,13 @@ bool Screen::init()
     if(SDL_Init(SDL_INIT_VIDEO) == -1) {
         return false;
     }
+    /*
+    NOTE/TODO: Uncomment this when SDL_ttf is installed
     if(TTF_Init()==-1) {
         Logger::write(Logger::string_stream << "TTF_Init: " << TTF_GetError());
         return false;
     }
+    */
 
     // Setup screen
     window_ = SDL_CreateWindow(kWindowName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, kScreenWidth, kScreenHeight, SDL_WINDOW_SHOWN);
@@ -48,7 +49,6 @@ bool Screen::init()
         return false;
     }
 
-    if(debug_) debug_frame_ = new DebugFrame(this);
 
 /*
     int w;
@@ -69,11 +69,7 @@ bool Screen::init()
 ////////////////////////////////////////////////////////////////////////////////
 void Screen::render_texture(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect * clip)
 {
-    // TODO(2013-08-28/JM): Set constants for the rendering boundaries
-    //if(offset->x < 0) { offset->x = 0; }
-    //if(offset->x > kScreenWidth) { offset->x = kScreenWidth; }
-    //if(offset->y < 0) { offset->y = 0; }
-    //if(offset->y > kScreenHeight) { offset->y = kScreenHeight; }
+    // TODO(2013-09-09/JM): Add render offset checks
 
     SDL_Rect rect = { (int)offset->x - (int)camera_->x_position(), (int)offset->y - (int)camera_->y_position(), (int)offset->w, (int)offset->h };
 
@@ -91,11 +87,7 @@ void Screen::render_texture(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect *
 ////////////////////////////////////////////////////////////////////////////////
 void Screen::render_texture_rotate(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect * clip, double angle)
 {
-    // TODO(2013-08-28/JM): Set constants for the rendering boundaries
-    //if(offset->x < 0) { offset->x = 0; }
-    //if(offset->x > kScreenWidth) { offset->x = kScreenWidth; }
-    //if(offset->y < 0) { offset->y = 0; }
-    //if(offset->y > kScreenHeight) { offset->y = kScreenHeight; }
+    // TODO(2013-09-09/JM): Add render offset checks
 
     SDL_Rect rect = { (int)offset->x - (int)camera_->x_position(), (int)offset->y - (int)camera_->y_position(), (int)offset->w, (int)offset->h };
 
@@ -145,7 +137,7 @@ void Screen::clear(Color clear_color)
 ////////////////////////////////////////////////////////////////////////////////
 void Screen::update()
 {
-    if(debug_) debug_frame_->render();
+    //if(debug_) debug_frame_->render();
     SDL_RenderPresent(renderer_);
 }
 
@@ -157,7 +149,10 @@ void Screen::update()
 void Screen::clean_up()
 {
     // TODO(2013-08-23/JM): Move this elsewhere, cleanup function for whole game
-    TTF_Quit();
+
+    //NOTE/TODO: Uncomment this when SDL_ttf is installed
+    //TTF_Quit();
+
     SDL_Quit();
 }
 
