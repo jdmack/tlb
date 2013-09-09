@@ -21,10 +21,8 @@ const bool kDebugFrame = false;
 class Screen
 {
     private:
-        bool debug_;
         SDL_Window * window_;
         SDL_Renderer * renderer_;
-        DebugFrame * debug_frame_;
         Camera * camera_;
 
     public:
@@ -33,7 +31,6 @@ class Screen
         // accessors
         SDL_Window * window() const { return window_; }
         SDL_Renderer * renderer() const { return renderer_; }
-        DebugFrame * debug_frame() const { return debug_frame_; }
         Camera * camera() const { return camera_; }
 
         // mutators
