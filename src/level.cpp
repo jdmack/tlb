@@ -2,10 +2,12 @@
 #include <fstream>
 #include "SDL2/SDL.h"
 #include "level.h"
-#include "tile.h"
-#include "game_object.h"
-#include "screen.h"
 #include "game.h"
+#include "game_object.h"
+#include "grid.h"
+#include "grid_node.h"
+#include "screen.h"
+#include "tile.h"
 #include "utils/logger.h"
 
 Level::Level(Game * game)
@@ -93,6 +95,9 @@ bool Level::load(std::string filename)
 
     map.close();
     Logger::write("Level loaded");
+    
+    build_grid();
+
     return true;
 }
 
@@ -123,3 +128,14 @@ void Level::render()
         (*tile_iterator)->render();
     }
 }
+
+void Level::build_grid()
+{
+    Logger::write("Building Grid");
+    int rows = (int) ceil(width_ / kGridNodeWidth);
+    int columns = (int) ceil(height_ / kGridNodeHeight);
+
+    grid_ = new Grid(rows, columns);
+}
+
+
