@@ -7,9 +7,12 @@ TARGET := TLB
 SRCEXT := cpp
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS := -g3 -O0 -std=c++0x -L/usr/local/lib -static # -Wall
+CFLAGS := -g3 -O0 -std=c++0x #-Wall
+LIB := -lSDL2 -lSDL2_image -static-libgcc 
+ 
 #LIB := -lSDL2 -lSDL2_image -lSDL_ttf -lSDL_mixer -static-libgcc
-LIB := -lSDL2 -lSDL2_image -static-libgcc
+
+
 INC := -I include
 
 $(TARGET): $(OBJECTS)
