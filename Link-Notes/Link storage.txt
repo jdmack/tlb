@@ -1,0 +1,11 @@
+Hexagonal grids http://www-cs-students.stanford.edu/~amitp/gameprog.html#hex
+tech review of mobil game http://www.thecareergamer.com/braaaains-zombieville-usa-tech-review/
+2d game art tips http://www.gamedev.net/page/resources/_/creative/visual-arts/the-total-beginner%E2%80%99s-guide-to-better-2d-game-art-r2959
+game development/publishing steps http://www.mugshotgames.com/2013/08/publishing-your-first-game-in-40-not-so-easy-steps/
+game development/publishing steps http://www.mugshotgames.com/2013/08/publishing-your-first-game-in-40-not-so-easy-steps/
+gamedev.net
+
+3D Modeling Software that can convert models to sprites http://www.garagegames.com/community/forums/viewthread/74149
+Exporting 3D Models as 2D Sprites video http://www.studica.com/blog/exporting-3d-models-as-2d-sprites
+simple block creation http://www.digitalwhitespace.net/spriteHowTo/index.html
+
