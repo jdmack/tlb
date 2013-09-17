@@ -18,9 +18,6 @@ class Movement : public Action
         Vector maximum_velocity_;
 
     public:
-        Movement();
-        Movement(Vector vector); 
-        Movement(double magnitude, double direction);
         Movement(Vector vector, Coordinate destination);
 
         // accessors

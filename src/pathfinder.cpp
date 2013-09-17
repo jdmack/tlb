@@ -1,5 +1,6 @@
 
 #include <list>
+#include <cmath>
 #include "pathfinder.h"
 #include "grid.h"
 #include "grid_node.h"
@@ -140,7 +141,7 @@ void Pathfinder::reset()
 bool Pathfinder::open_list_contains(GridNode * node)
 {
     std::list<GridNode *>::iterator it = open_list.begin();
-    for(int i = 0; i < open_list.size(); i++) {
+    for(unsigned int i = 0; i < open_list.size(); i++) {
         if(((*it)->row() == node->row()) && ((*it)->column() == node->column())) {
             return true;
         }
@@ -153,7 +154,7 @@ bool Pathfinder::open_list_contains(GridNode * node)
 bool Pathfinder::closed_list_contains(GridNode * node)
 {
     std::list<GridNode *>::iterator it = closed_list.begin();
-    for(int i = 0; i < closed_list.size(); i++) {
+    for(unsigned int i = 0; i < closed_list.size(); i++) {
         if(((*it)->row() == node->row()) && ((*it)->column() == node->column())) {
             return true;
         }

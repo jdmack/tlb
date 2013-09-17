@@ -1,5 +1,6 @@
 #include <string>
 #include <fstream>
+#include <cmath>
 #include "SDL2/SDL.h"
 #include "level.h"
 #include "game.h"
@@ -132,8 +133,8 @@ void Level::render()
 void Level::build_grid()
 {
     Logger::write("Building Grid");
-    int rows = (int) ceil(width_ / kGridNodeWidth);
-    int columns = (int) ceil(height_ / kGridNodeHeight);
+    int rows = (int) std::ceil(width_ / kGridNodeWidth);
+    int columns = (int) std::ceil(height_ / kGridNodeHeight);
 
     grid_ = new Grid(rows, columns);
 }
