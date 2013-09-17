@@ -1,10 +1,13 @@
 #include "grid.h"
 #include "grid_node.h"
+#include "point.h"
 
 Grid::Grid()
 {
     rows_    = 0;
     columns_ = 0;
+    node_width_ = kGridNodeWidth;
+    node_height_ = kGridNodeWidth;
 
     nodes_ = new std::vector<GridNode *>();
 }
@@ -37,4 +40,9 @@ GridNode * Grid::node(int row, int column)
 void Grid::add_node() 
 {
     nodes_->push_back(new GridNode(rows_, columns_++ ));
+}
+
+GridNode * Grid::node_at_point(Point point)
+{
+	return node(point.x() / node_width_, point.y() / node_height_);
 }

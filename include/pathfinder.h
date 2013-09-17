@@ -27,7 +27,7 @@ class Pathfinder
         // mutators
         void set_level(Level * level) { level_ = level; }
 
-        std::list<GridNode *> run(GridNode * start_node, GridNode * end_node);
+        std::list<GridNode *> * run(GridNode * start_node, GridNode * end_node);
         void reset();
 
         // list

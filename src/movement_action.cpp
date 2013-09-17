@@ -1,17 +1,29 @@
 #include <cmath>
+#include <vector>
+
 #include "movement_action.h"
-#include "point.h"
+
 #include "game_object.h"
+#include "grid.h"
+#include "level.h"
+#include "movement.h"
+#include "point.h"
 #include "pathfinder.h"
 #include "utils/logger.h"
 
-MovementAction::MovementAction()
+MovementAction::MovementAction(Point start, Point end, Level * level)
 {
+	start_ = start;
+	end_ = end;
+	level_ = level;
+
 	path_ = new std::vector<Movement *>();
 }
 
-MovementAction::MovementAction(std::vector<Movement *> path)
+void MovementAction::find_path()
 {
-	path_ = path;
-	current_ = path_.begin();
+	Pathfinder pathfinder(level_);
+
+	std::list<GridNode *> * nodes;
+	nodes = pathfinder.run(level_->grid()->node_at_point(start_), level_->grid()->node_at_point(end_));
 }

@@ -11,7 +11,7 @@ Pathfinder::Pathfinder(Level * level)
     level_ = level;
 }
 
-std::list<GridNode *> Pathfinder::run(GridNode * start_node, GridNode * end_node)
+std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_node)
 {
     reset();
 
@@ -20,7 +20,7 @@ std::list<GridNode *> Pathfinder::run(GridNode * start_node, GridNode * end_node
 
     GridNode * current_node = nullptr;
 
-    std::list<GridNode *> path;
+    std::list<GridNode *> * path;
 
     // 2. Repeat the following:
     while(true) {
@@ -35,7 +35,7 @@ std::list<GridNode *> Pathfinder::run(GridNode * start_node, GridNode * end_node
         }
         else { 
             // Return empty list for "no path"
-            return std::list<GridNode *>();
+            return new std::list<GridNode *>();
         }
 
         // b) Switch it to the closed list.
@@ -125,7 +125,7 @@ std::list<GridNode *> Pathfinder::run(GridNode * start_node, GridNode * end_node
     // until you reach the starting square. That is your path.
     GridNode * node = end_node;
     while(end_node->parent() != nullptr) {
-        path.push_front(node);
+        path->push_front(node);
         node = node->parent();
     }
 

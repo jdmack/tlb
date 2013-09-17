@@ -4,12 +4,15 @@
 #include <vector>
 
 class GridNode;
+class Point;
 
 class Grid
 {
     private:
         int rows_;
         int columns_;
+        int node_width_;
+        int node_height_;
 
         std::vector<GridNode *> * nodes_;
 
@@ -29,6 +32,7 @@ class Grid
 
         GridNode * node(int row, int column);
         void add_node();
+        GridNode * node_at_point(Point point);
 };
 
 #endif

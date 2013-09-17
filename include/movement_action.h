@@ -3,22 +3,29 @@
 
 #include <vector>
 #include "action.h"
+#include "point.h"
 
 class GameObject;
+class Level;
+class Movement;
 
 class MovementAction : public Action
 {
     private:
-		std::vector<Movement *> path_;
+		Point start_;
+		Point end_;
+		Level * level_;
+
+		std::vector<Movement *> * path_;
 		std::vector<Movement *>::iterator current_;
 
     public:
-        MovementAction();
-        MovementAction(std::vector<Movement *> path);
+        MovementAction(Point start, Point end, Level * level);
 
         // accessors
-		std::vector<Movement *> path() const { return path_; }
+		std::vector<Movement *> * path() const { return path_; }
 
+		void find_path();
 };
 
 #endif
