@@ -4,7 +4,7 @@
 
 #include "dot.h"
 #include "assets.h"
-#include "coordinate.h"
+#include "point.h"
 #include "game.h"
 #include "level.h"
 #include "movement.h"
@@ -124,13 +124,13 @@ void Dot::update(int delta_ticks)
                 y_position_ = game_->level()->height() - (height_ / 2);
             }
 
-            double distance = Movement::calculate_distance(Coordinate(movement_command->destination().x_position(), movement_command->destination().y_position()), Coordinate(x_position_, y_position_));
+            double distance = Movement::calculate_distance(Point(movement_command->destination().x(), movement_command->destination().y()), Point(x_position_, y_position_));
 
             if(distance > movement_command->distance()) {
                 Logger::write("STOPPING: Movement distance travelled");
                 stop();
-                x_position_ = movement_command->destination().x_position();
-                y_position_ = movement_command->destination().y_position();
+                x_position_ = movement_command->destination().x();
+                y_position_ = movement_command->destination().y();
             }
             else {
                 movement_command->set_distance(distance);
@@ -172,10 +172,10 @@ void Dot::deselect()
 
 void Dot::move(double x, double y)
 {
-    current_action_ = new Movement(Vector(x_position_, y_position_, x, y), Coordinate(x, y));
+    current_action_ = new Movement(Vector(x_position_, y_position_, x, y), Point(x, y));
 
     Movement * movement_command = static_cast<Movement*>(current_action_);
-    movement_command->set_distance(Movement::calculate_distance(Coordinate(movement_command->destination().x_position(), movement_command->destination().y_position()), Coordinate(x_position_, y_position_)));
+    movement_command->set_distance(Movement::calculate_distance(Point(movement_command->destination().x(), movement_command->destination().y()), Point(x_position_, y_position_)));
 
     double dir = movement_command->vector().direction() - rotation_;
     if((dir > 0) && (std::abs(dir) <= 180)) { movement_command->set_clockwise(false); }
@@ -200,7 +200,7 @@ void Dot::move(double x, double y)
     y_velocity_ = 0;
     x_acceleration_ = acceleration.x_component();
     y_acceleration_ = acceleration.y_component();
-    Logger::write(Logger::string_stream << "Move - (x,y): (" << movement_command->destination().x_position() << "," << movement_command->destination().x_position()
+    Logger::write(Logger::string_stream << "Move - (x,y): (" << movement_command->destination().x() << "," << movement_command->destination().y()
             << ") direction: " << movement_command->vector().direction());
 
 }

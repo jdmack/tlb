@@ -1,10 +1,10 @@
 #include <cmath>
 #include "movement.h"
-#include "coordinate.h"
+#include "point.h"
 #include "game_object.h"
 #include "utils/logger.h"
 
-Movement::Movement(Vector vector, Coordinate destination)
+Movement::Movement(Vector vector, Point destination)
 {
     vector_ = vector;
     destination_ = destination;
@@ -13,10 +13,10 @@ Movement::Movement(Vector vector, Coordinate destination)
     degrees_ = 0;
 }
 
-double Movement::calculate_distance(Coordinate point1, Coordinate point2)
+double Movement::calculate_distance(Point point1, Point point2)
 {
-    double x = point2.x_position() - point1.x_position();
-    double y = point2.y_position() - point1.y_position();
+    double x = point2.x() - point1.x();
+    double y = point2.y() - point1.y();
 
     return std::sqrt(std::pow(x, 2) + std::pow(y, 2));
 }

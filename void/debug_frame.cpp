@@ -1,7 +1,7 @@
 #include <sstream>
 #include "debug_frame.h"
 #include "assets.h"
-#include "coordinate.h"
+#include "point.h"
 #include "evengent.h"
 #include "utils/logger.h"
 
@@ -35,7 +35,7 @@ void DebugFrame::render()
     SDL_RenderFillRect(screen_->renderer(), &background_);
 
     // Create mouse message surface
-    Coordinate mouse = Evengent::mouse_position();
+    Point mouse = Evengent::mouse_position();
     std::stringstream message;
     message << "Mouse: (" << mouse.x_position() << "," << mouse.y_position() << ")";
     SDL_Surface * surface = TTF_RenderText_Solid(font_, message.str().c_str(), fg_color_);

@@ -1,6 +1,6 @@
 #include <cmath>
 #include "movement_action.h"
-#include "coordinate.h"
+#include "point.h"
 #include "game_object.h"
 #include "pathfinder.h"
 #include "utils/logger.h"

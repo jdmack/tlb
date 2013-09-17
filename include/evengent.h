@@ -3,7 +3,7 @@
 #ifndef TLB_EVENGENT_H_
 #define TLB_EVENGENT_H_
 
-#include "coordinate.h"
+#include "point.h"
 #include "utils/timer.h"
 
 class Game;
@@ -20,7 +20,7 @@ class Evengent
         Evengent(Game * game);
         void handle_events();
 
-        static Coordinate mouse_position();
+        static Point mouse_position();
 };
 
 #endif

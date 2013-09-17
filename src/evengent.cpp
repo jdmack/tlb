@@ -7,7 +7,7 @@
 #include "game.h"
 #include "game_object.h"
 #include "utils/logger.h"
-#include "coordinate.h"
+#include "point.h"
 #include "dot.h"
 #include "camera.h"
 
@@ -75,7 +75,7 @@ void Evengent::handle_events()
                 break;
 
             case SDL_MOUSEBUTTONDOWN: {
-                // mouse coordinates adjusted to camera position
+                // mouse Points adjusted to camera position
                 int mouse_x = event.button.x + game_->camera()->x_position();
                 int mouse_y = event.button.y + game_->camera()->y_position();
 
@@ -127,9 +127,9 @@ void Evengent::handle_events()
     }
 }
 
-Coordinate Evengent::mouse_position()
+Point Evengent::mouse_position()
 {
     int x, y = 0;
     SDL_GetMouseState(&x, &y);
-    return Coordinate(x, y);
+    return Point(x, y);
 }
