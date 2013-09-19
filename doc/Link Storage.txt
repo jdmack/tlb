@@ -8,3 +8,5 @@ gamedev.net
 3D Modeling Software that can convert models to sprites http://www.garagegames.com/community/forums/viewthread/74149
 Exporting 3D Models as 2D Sprites video http://www.studica.com/blog/exporting-3d-models-as-2d-sprites
 simple block creation http://www.digitalwhitespace.net/spriteHowTo/index.html
+
+3d rigging basics http://www.cgmotionbox.com/2011/10/maya-joint-rigging-smooth-skin-bind-basic-tutorial/
