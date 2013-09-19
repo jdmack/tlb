@@ -3,8 +3,8 @@
 
 #include "SDL2/SDL.h"
 
-const double kTileWidth = 80;
-const double kTileHeight = 80;
+const double kTileWidth = 32;
+const double kTileHeight = 32;
 const int kTileSprites = 12;
 
 const int kTileRed         = 0;

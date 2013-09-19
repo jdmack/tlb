@@ -172,11 +172,16 @@ void Dot::deselect()
 
 void Dot::move(double x, double y)
 {
-    current_action_ = new Movement(Vector(x_position_, y_position_, x, y), Point(x, y));
-
+	// Create MovementAction
+    Vector vector = Vector(x_position_, y_position_, x, y);
+    Point point = Point(x, y);
+    current_action_ = new Movement(vector, point);
     Movement * movement_command = static_cast<Movement*>(current_action_);
+
+    // Set distance to destination
     movement_command->set_distance(Movement::calculate_distance(Point(movement_command->destination().x(), movement_command->destination().y()), Point(x_position_, y_position_)));
 
+    // Determine and set rotation direction
     double dir = movement_command->vector().direction() - rotation_;
     if((dir > 0) && (std::abs(dir) <= 180)) { movement_command->set_clockwise(false); }
     if((dir > 0) && (std::abs(dir) > 180)) { movement_command->set_clockwise(true); }

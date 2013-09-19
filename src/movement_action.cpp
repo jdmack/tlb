@@ -24,6 +24,12 @@ void MovementAction::find_path()
 {
 	Pathfinder pathfinder(level_);
 
+	// Get path as list of nodes
 	std::list<GridNode *> * nodes;
 	nodes = pathfinder.run(level_->grid()->node_at_point(start_), level_->grid()->node_at_point(end_));
+
+	// Convert node path into Movement path
+
+
+
 }

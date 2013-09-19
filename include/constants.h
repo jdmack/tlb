@@ -3,8 +3,9 @@
 
 #include <string>
 
-const int kScreenWidth  = 1120;
-const int kScreenHeight = 630;
+const int kScreenWidth  = 1024;
+const int kScreenHeight = 768;
+
 
 /* Strings */
 const std::string kWindowName = "The Left Behind";

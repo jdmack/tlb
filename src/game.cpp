@@ -39,7 +39,7 @@ int Game::run()
 
     // Load level
     level_ = new Level(this);
-    if(!level_->load(kMapTest80x45)) {
+    if(!level_->load(kMapTest32x24)) {
         Logger::write(Logger::string_stream << "Failed to load map");
         exit_code_ = 1;
         return exit_code_;
@@ -58,7 +58,7 @@ int Game::run()
 void Game::game_loop()
 {
     // Create a dot
-    Dot * dot1 = new Dot(this, level_->width() / 2, level_->height() / 2, 0);
+    Dot * dot1 = new Dot(this, level_->width() / 3, level_->height() / 3, 0);
     entigent_->add_object(dot1);
 
     // Main Loop

@@ -25,7 +25,8 @@ const std::string kAssetArtHexagon = kPathSprites + "hexagon.png";
 const std::string kAssetArtHexagonOutline = kPathSprites + "hexagon_outline.png";
 
 /* Tiles */
-const std::string kAssetArtTiles = kPathTiles + "tiles.png";
+const std::string kAssetArtTiles80 = kPathTiles + "tiles_80.png";
+const std::string kAssetArtTiles32 = kPathTiles + "tiles_32.png";
 
 /* Fonts */
 const std::string kAssetFontPsychoPoetry = kPathFont + "psychopoetry.ttf";
@@ -33,6 +34,7 @@ const std::string kAssetFontConsolas = kPathFont + "consola.ttf";
 
 /* Maps */
 const std::string kMapTest20x12 = kPathMap + "test_20x12.map";
+const std::string kMapTest32x24 = kPathMap + "test_32x24.map";
 const std::string kMapTest80x45 = kPathMap + "test_80x45.map";
 
 #endif
