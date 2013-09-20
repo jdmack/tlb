@@ -96,44 +96,45 @@ void Dot::update(int delta_ticks)
 
                 stop();
             }
-
-            // TODO(2013-09-05/JM): Create function for checking screen boundary collisions
-            // Check left boundary
-            if(x_position_ - (width_ / 2) < 0) {
-                Logger::write("STOPPING: Collision with LEFT screen boundary");
-                stop();
-                x_position_ = 0 + (width_ / 2);
-            }
-            // Check right boundary
-            else if(x_position_ + (width_ / 2) > game_->level()->width()) {
-                Logger::write("STOPPING: Collision with RIGHT screen boundary");
-                stop();
-                x_position_ = game_->level()->width() - (width_ / 2);
-            }
-
-            // Check top boundary
-            if(y_position_ - (height_ / 2) < 0) {
-                Logger::write("STOPPING: Collision with TOP screen boundary");
-                stop();
-                y_position_ = 0 + (height_ / 2);
-            }
-            // Check bottom boundary
-            else if(y_position_ + (height_ / 2) > game_->level()->height()) {
-                Logger::write("STOPPING: Collision with BOTTOM screen boundary");
-                stop();
-                y_position_ = game_->level()->height() - (height_ / 2);
-            }
-
-            double distance = Movement::calculate_distance(Point(movement_command->destination().x(), movement_command->destination().y()), Point(x_position_, y_position_));
-
-            if(distance > movement_command->distance()) {
-                Logger::write("STOPPING: Movement distance travelled");
-                stop();
-                x_position_ = movement_command->destination().x();
-                y_position_ = movement_command->destination().y();
-            }
             else {
-                movement_command->set_distance(distance);
+                // TODO(2013-09-05/JM): Create function for checking screen boundary collisions
+                // Check left boundary
+                if(x_position_ - (width_ / 2) < 0) {
+                    Logger::write("STOPPING: Collision with LEFT screen boundary");
+                    stop();
+                    x_position_ = 0 + (width_ / 2);
+                }
+                // Check right boundary
+                else if(x_position_ + (width_ / 2) > game_->level()->width()) {
+                    Logger::write("STOPPING: Collision with RIGHT screen boundary");
+                    stop();
+                    x_position_ = game_->level()->width() - (width_ / 2);
+                }
+
+                // Check top boundary
+                if(y_position_ - (height_ / 2) < 0) {
+                    Logger::write("STOPPING: Collision with TOP screen boundary");
+                    stop();
+                    y_position_ = 0 + (height_ / 2);
+                }
+                // Check bottom boundary
+                else if(y_position_ + (height_ / 2) > game_->level()->height()) {
+                    Logger::write("STOPPING: Collision with BOTTOM screen boundary");
+                    stop();
+                    y_position_ = game_->level()->height() - (height_ / 2);
+                }
+
+                double distance = Movement::calculate_distance(Point(movement_command->destination().x(), movement_command->destination().y()), Point(x_position_, y_position_));
+
+                if(distance > movement_command->distance()) {
+                    Logger::write("STOPPING: Movement distance travelled");
+                    stop();
+                    x_position_ = movement_command->destination().x();
+                    y_position_ = movement_command->destination().y();
+                }
+                else {
+                    movement_command->set_distance(distance);
+                }
             }
 
             if(stopped()) {
@@ -172,6 +173,11 @@ void Dot::deselect()
 
 void Dot::move(double x, double y)
 {
+    bool currently_moving = false;
+    if(current_action_ != nullptr) {
+        currently_moving = true;
+    }
+
 	// Create MovementAction
     Vector vector = Vector(x_position_, y_position_, x, y);
     Point point = Point(x, y);
@@ -201,10 +207,19 @@ void Dot::move(double x, double y)
 
     movement_command->set_maximum_velocity(Vector(kDotVelocity, movement_command->vector().direction()));
 
-    x_velocity_ = 0;
-    y_velocity_ = 0;
-    x_acceleration_ = acceleration.x_component();
-    y_acceleration_ = acceleration.y_component();
+    if(currently_moving) {
+        // TODO(2013-09-19/JM): Change this to instead check what the total velocity was and use that as
+        // it currently instantly accelerates to full speed even if it's barely moving when you click a new move
+        // Write a function (possibly a Velocity class) to return total velocity when given x/y components
+        x_velocity_ = movement_command->maximum_velocity().x_component();
+        y_velocity_ = movement_command->maximum_velocity().y_component();
+    }
+    else {
+        x_velocity_ = 0;
+        y_velocity_ = 0;
+        x_acceleration_ = acceleration.x_component();
+        y_acceleration_ = acceleration.y_component();
+    }
     Logger::write(Logger::string_stream << "Move - (x,y): (" << movement_command->destination().x() << "," << movement_command->destination().y()
             << ") direction: " << movement_command->vector().direction());
 

@@ -58,7 +58,7 @@ int Game::run()
 void Game::game_loop()
 {
     // Create a dot
-    Dot * dot1 = new Dot(this, level_->width() / 3, level_->height() / 3, 0);
+    Dot * dot1 = new Dot(this, 48 * 7, 48 * 4, 0);
     entigent_->add_object(dot1);
 
     // Main Loop

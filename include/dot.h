@@ -8,7 +8,7 @@ const int kDotHeight = 40;
 
 const double kDotVelocity     = 400;
 const double kDotAcceleration = 800;
-const double kDotRotationVelocity = 200;
+const double kDotRotationVelocity = 600;
 //const double kDotVelocity     = 1000;
 //const double kDotAcceleration = 6000;
 //const double kDotRotationVelocity = 1000;
