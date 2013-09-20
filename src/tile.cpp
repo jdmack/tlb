@@ -24,65 +24,65 @@ Tile::Tile(double x, double y, int type, Level * level)
 
     level_ = level;
 
-    clips_[kTileRed].x = 0;
-    clips_[kTileRed].y = 0;
-    clips_[kTileRed].w = kTileWidth;
-    clips_[kTileRed].h = kTileHeight;
+    clips_[kTileRed].x = 0 * width_;
+    clips_[kTileRed].y = 0 * height_;
+    clips_[kTileRed].w = width_;
+    clips_[kTileRed].h = height_;
 
-    clips_[kTileGreen].x = 0;
-    clips_[kTileGreen].y = 32;
-    clips_[kTileGreen].w = kTileWidth;
-    clips_[kTileGreen].h = kTileHeight;
+    clips_[kTileGreen].x = 0 * width_;
+    clips_[kTileGreen].y = 1 * height_;
+    clips_[kTileGreen].w = width_;
+    clips_[kTileGreen].h = height_;
 
-    clips_[kTileBlue].x = 0;
-    clips_[kTileBlue].y = 64;
-    clips_[kTileBlue].w = kTileWidth;
-    clips_[kTileBlue].h = kTileHeight;
+    clips_[kTileBlue].x = 0 * width_;
+    clips_[kTileBlue].y = 2 * height_;
+    clips_[kTileBlue].w = width_;
+    clips_[kTileBlue].h = height_;
 
-    clips_[kTileTopLeft].x = 32;
-    clips_[kTileTopLeft].y = 0;
-    clips_[kTileTopLeft].w = kTileWidth;
-    clips_[kTileTopLeft].h = kTileHeight;
+    clips_[kTileTopLeft].x = 1 * width_;
+    clips_[kTileTopLeft].y = 0 * height_;
+    clips_[kTileTopLeft].w = width_;
+    clips_[kTileTopLeft].h = height_;
 
-    clips_[kTileLeft].x = 32;
-    clips_[kTileLeft].y = 32;
-    clips_[kTileLeft].w = kTileWidth;
-    clips_[kTileLeft].h = kTileHeight;
+    clips_[kTileLeft].x = 1 * width_;
+    clips_[kTileLeft].y = 1 * height_;
+    clips_[kTileLeft].w = width_;
+    clips_[kTileLeft].h = height_;
 
-    clips_[kTileBottomLeft].x = 32;
-    clips_[kTileBottomLeft].y = 64;
-    clips_[kTileBottomLeft].w = kTileWidth;
-    clips_[kTileBottomLeft].h = kTileHeight;
+    clips_[kTileBottomLeft].x = 1 * width_;
+    clips_[kTileBottomLeft].y = 2 * height_;
+    clips_[kTileBottomLeft].w = width_;
+    clips_[kTileBottomLeft].h = height_;
 
-    clips_[kTileTop].x = 64;
-    clips_[kTileTop].y = 0;
-    clips_[kTileTop].w = kTileWidth;
-    clips_[kTileTop].h = kTileHeight;
+    clips_[kTileTop].x = 2 * width_;
+    clips_[kTileTop].y = 0 * height_;
+    clips_[kTileTop].w = width_;
+    clips_[kTileTop].h = height_;
 
-    clips_[kTileCenter].x = 64;
-    clips_[kTileCenter].y = 32;
-    clips_[kTileCenter].w = kTileWidth;
-    clips_[kTileCenter].h = kTileHeight;
+    clips_[kTileCenter].x = 2 * width_;
+    clips_[kTileCenter].y = 1 * height_;
+    clips_[kTileCenter].w = width_;
+    clips_[kTileCenter].h = height_;
 
-    clips_[kTileBottom].x = 64;
-    clips_[kTileBottom].y = 64;
-    clips_[kTileBottom].w = kTileWidth;
-    clips_[kTileBottom].h = kTileHeight;
+    clips_[kTileBottom].x = 2 * width_;
+    clips_[kTileBottom].y = 2 * height_;
+    clips_[kTileBottom].w = width_;
+    clips_[kTileBottom].h = height_;
 
-    clips_[kTileTopRight].x = 96;
-    clips_[kTileTopRight].y = 0;
-    clips_[kTileTopRight].w = kTileWidth;
-    clips_[kTileTopRight].h = kTileHeight;
+    clips_[kTileTopRight].x = 3 * width_;
+    clips_[kTileTopRight].y = 0 * height_;
+    clips_[kTileTopRight].w = width_;
+    clips_[kTileTopRight].h = height_;
 
-    clips_[kTileRight].x = 96;
-    clips_[kTileRight].y = 32;
-    clips_[kTileRight].w = kTileWidth;
-    clips_[kTileRight].h =	kTileHeight;
+    clips_[kTileRight].x = 3 * width_;
+    clips_[kTileRight].y = 1 * height_;
+    clips_[kTileRight].w = width_;
+    clips_[kTileRight].h =	height_;
 
-    clips_[kTileBottomRight].x = 96;
-    clips_[kTileBottomRight].y = 64;
-    clips_[kTileBottomRight].w = kTileWidth;
-    clips_[kTileBottomRight].h = kTileHeight;
+    clips_[kTileBottomRight].x = 3 * width_;
+    clips_[kTileBottomRight].y = 2 * height_;
+    clips_[kTileBottomRight].w = width_;
+    clips_[kTileBottomRight].h = height_;
 }
 
 SDL_Rect Tile::box()

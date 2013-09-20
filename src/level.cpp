@@ -19,11 +19,13 @@ Level::Level(Game * game)
 
     game_ = game;
 
-    texture_ = game_->screen()->load_texture(kAssetArtTiles32);
+    texture_ = game_->screen()->load_texture(kAssetArtTiles48);
 
     tiles_ = new std::vector<Tile *>();
 }
 
+
+// TODO(2013-09-19/JM): Update the map file standard
 bool Level::load(std::string filename)
 {
     Logger::write(Logger::string_stream << "Loading map: " << filename);
@@ -38,7 +40,7 @@ bool Level::load(std::string filename)
         return false;
     }
 
-    game_->screen()->load_texture(kAssetArtTiles32);
+    game_->screen()->load_texture(kAssetArtTiles48);
 
     map >> width_;
         if(map.fail() == true) {

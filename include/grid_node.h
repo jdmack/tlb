@@ -1,8 +1,8 @@
 #ifndef TLB_GRID_NODE_H_
 #define TLB_GRID_NODE_H_
 
-const int kGridNodeWidth  = 80;
-const int kGridNodeHeight = 80;
+const int kGridNodeWidth  = 48;
+const int kGridNodeHeight = 48;
 
 class GridNode
 {
