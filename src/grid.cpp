@@ -1,6 +1,7 @@
 #include "grid.h"
 #include "grid_node.h"
 #include "point.h"
+#include "utils/logger.h"
 
 Grid::Grid()
 {
@@ -16,6 +17,8 @@ Grid::Grid(int rows, int columns)
 {
     rows_    = rows;
     columns_ = columns;
+    node_width_ = kGridNodeWidth;
+    node_height_ = kGridNodeWidth;
 
     nodes_ = new std::vector<GridNode *>();
 
@@ -44,5 +47,10 @@ void Grid::add_node()
 
 GridNode * Grid::node_at_point(Point point)
 {
-	return node(point.x() / node_width_, point.y() / node_height_);
+    int col = point.x() / node_width_;
+	int row = point.y() / node_height_;
+
+	Logger::write(Logger::string_stream << "return node: (" << row << "," << col << ")");
+
+	return node(row, col);
 }

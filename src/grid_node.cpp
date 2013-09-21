@@ -1,13 +1,19 @@
 
 #include "grid_node.h"
+#include "point.h"
 
 GridNode::GridNode()
 {
     row_     = 0;
     column_  = 0;
+    width_   = kGridNodeWidth;
+    height_  = kGridNodeHeight;
     f_score_ = 0;
     g_score_ = 0;
     h_score_ = 0;
+
+    walkable_ = true;
+    parent_   = nullptr;
 }
 
 GridNode::GridNode(int row, int column)
@@ -17,6 +23,9 @@ GridNode::GridNode(int row, int column)
     f_score_ = 0;
     g_score_ = 0;
     h_score_ = 0;
+
+    walkable_ = true;
+    parent_   = nullptr;
 }
 
 void GridNode::set_scores(int f_score, int g_score, int h_score)
@@ -37,4 +46,9 @@ int GridNode::compare(GridNode * node)
     else {
         return 0;
     }
+}
+
+Point GridNode::center_point()
+{
+    return Point(((column_ * width_) + (width_ / 2)), ((row_ * height_) + (height_ / 2)));
 }

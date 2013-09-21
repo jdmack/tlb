@@ -7,6 +7,7 @@
 #include "point.h"
 #include "game.h"
 #include "level.h"
+#include "movement_action.h"
 #include "movement.h"
 #include "screen.h"
 #include "sprite.h"
@@ -39,23 +40,42 @@ Dot::Dot(Game * game, double x, double y, double rot) : GameObject(game, x, y, r
 
 void Dot::update(int delta_ticks)
 {
+    /*
     if((x_velocity_ == 0) && (y_velocity_ == 0)) {
         if((x_acceleration_ == 0) && (y_acceleration_ == 0)) {
             return;
         }
     }
+    */
 
     // TODO(2013-09-06/JM): Bug: Moving only on 1 axis causes a jump
     if((current_action_ != nullptr) && (current_action_->is_movement())) {
 
-        Movement * movement_command = (static_cast<Movement*>(current_action_));
+        MovementAction * movement_command = (static_cast<MovementAction *>(current_action_));
 
         // Check rotation
-        if(rotation_ != movement_command->vector().direction()) {
+        if(rotation_ != movement_command->current()->vector().direction()) {
+
+            // Determine and set rotation direction
+            double dir = movement_command->current()->vector().direction() - rotation_;
+            if((dir > 0) && (std::abs(dir) <= 180)) { movement_command->current()->set_clockwise(false); }
+            if((dir > 0) && (std::abs(dir) > 180)) { movement_command->current()->set_clockwise(true); }
+            if((dir < 0) && (std::abs(dir) <= 180)) { movement_command->current()->set_clockwise(true); }
+            if((dir < 0) && (std::abs(dir) > 180)) { movement_command->current()->set_clockwise(false); }
+
+            //dir += (dir > 180) ? -360 : (dir < -180) ? 360 : 0;
+            if(dir > 180) {
+                dir -= 360;
+            }
+            else if(dir < -180) {
+                dir += 360;
+            }
+
+            movement_command->current()->set_degrees(std::abs(dir));
 
             double degrees  = kDotRotationVelocity * (delta_ticks / 1000.f);
             // Turn CW
-            if(movement_command->clockwise()) {
+            if(movement_command->current()->clockwise()) {
                 rotation_ -= degrees;
             }
             // Turn CCW
@@ -64,18 +84,18 @@ void Dot::update(int delta_ticks)
             }
 
             // check if turned far enough
-            movement_command->set_degrees(movement_command->degrees() - degrees);
-            if(movement_command->degrees() < 0) {
-                rotation_ = movement_command->vector().direction();
+            movement_command->current()->set_degrees(movement_command->current()->degrees() - degrees);
+            if(movement_command->current()->degrees() < 0) {
+                rotation_ = movement_command->current()->vector().direction();
             }
         }
         else {
 
             // Accelerate
-            if((std::abs(x_velocity_) < std::abs(movement_command->maximum_velocity().x_component())) || ( std::abs(y_velocity_) < std::abs(movement_command->maximum_velocity().y_component())) ) {
-                x_velocity_ += x_acceleration_ * (delta_ticks / 1000.f);
-                y_velocity_ += y_acceleration_ * (delta_ticks / 1000.f);
-            }
+            //if((std::abs(x_velocity_) < std::abs(movement_command->current()->maximum_velocity().x_component())) || ( std::abs(y_velocity_) < std::abs(movement_command->current()->maximum_velocity().y_component())) ) {
+            //    x_velocity_ += x_acceleration_ * (delta_ticks / 1000.f);
+            //    y_velocity_ += y_acceleration_ * (delta_ticks / 1000.f);
+            //}
 
             // Move left/right
             x_position_ += x_velocity_ * (delta_ticks / 1000.f);
@@ -124,22 +144,28 @@ void Dot::update(int delta_ticks)
                     y_position_ = game_->level()->height() - (height_ / 2);
                 }
 
-                double distance = Movement::calculate_distance(Point(movement_command->destination().x(), movement_command->destination().y()), Point(x_position_, y_position_));
+                double distance = Movement::calculate_distance(Point(movement_command->current()->destination().x(), movement_command->current()->destination().y()), Point(x_position_, y_position_));
 
-                if(distance > movement_command->distance()) {
+                if(distance > movement_command->current()->distance()) {
                     Logger::write("STOPPING: Movement distance travelled");
                     stop();
-                    x_position_ = movement_command->destination().x();
-                    y_position_ = movement_command->destination().y();
+                    x_position_ = movement_command->current()->destination().x();
+                    y_position_ = movement_command->current()->destination().y();
                 }
                 else {
-                    movement_command->set_distance(distance);
+                    movement_command->current()->set_distance(distance);
                 }
             }
 
             if(stopped()) {
-                delete current_action_;
-                current_action_ = nullptr;
+                if(movement_command->next_movement()) {
+                    x_velocity_ = movement_command->current()->maximum_velocity().x_component();
+                    y_velocity_ = movement_command->current()->maximum_velocity().y_component();
+                }
+                else {
+                    delete current_action_;
+                    current_action_ = nullptr;
+                }
             }
         }
     }
@@ -173,54 +199,33 @@ void Dot::deselect()
 
 void Dot::move(double x, double y)
 {
-    bool currently_moving = false;
+    Logger::write(Logger::string_stream << "Move - (x,y): (" << x_position_ << "," << y_position_);
+
+    // Delete current action if one exists
     if(current_action_ != nullptr) {
-        currently_moving = true;
+        delete current_action_;
+        current_action_ = nullptr;
     }
+    Logger::write("Here 1");
 
-	// Create MovementAction
-    Vector vector = Vector(x_position_, y_position_, x, y);
-    Point point = Point(x, y);
-    current_action_ = new Movement(vector, point);
-    Movement * movement_command = static_cast<Movement*>(current_action_);
+    // Create movement action
+    MovementAction * movement_action = new MovementAction(Point(x_position_, y_position_), Point(x, y), game_->level());
+    Logger::write("Here 2");
+    //current_action_ = (static_cast<Movement*>(current_action_));
+    current_action_ = movement_action;
+    // Start the first movement
+    Logger::write("Here 3");
 
-    // Set distance to destination
-    movement_command->set_distance(Movement::calculate_distance(Point(movement_command->destination().x(), movement_command->destination().y()), Point(x_position_, y_position_)));
+    // Set distance to destination (for determining if we arrive when actually doing the movement)
+    movement_action->current()->set_distance(Movement::calculate_distance(movement_action->start(), movement_action->end()));
+    movement_action->current()->set_maximum_velocity(Vector(kDotVelocity, movement_action->current()->vector().direction()));
+    Logger::write("Here 4");
 
-    // Determine and set rotation direction
-    double dir = movement_command->vector().direction() - rotation_;
-    if((dir > 0) && (std::abs(dir) <= 180)) { movement_command->set_clockwise(false); }
-    if((dir > 0) && (std::abs(dir) > 180)) { movement_command->set_clockwise(true); }
-    if((dir < 0) && (std::abs(dir) <= 180)) { movement_command->set_clockwise(true); }
-    if((dir < 0) && (std::abs(dir) > 180)) { movement_command->set_clockwise(false); }
-
-    //dir += (dir > 180) ? -360 : (dir < -180) ? 360 : 0;
-    if(dir > 180) {
-        dir -= 360;
-    }
-    else if(dir < -180) {
-        dir += 360;
-    }
-    movement_command->set_degrees(std::abs(dir));
-
-    Vector acceleration(kDotAcceleration, movement_command->vector().direction());
-
-    movement_command->set_maximum_velocity(Vector(kDotVelocity, movement_command->vector().direction()));
-
-    if(currently_moving) {
-        // TODO(2013-09-19/JM): Change this to instead check what the total velocity was and use that as
-        // it currently instantly accelerates to full speed even if it's barely moving when you click a new move
-        // Write a function (possibly a Velocity class) to return total velocity when given x/y components
-        x_velocity_ = movement_command->maximum_velocity().x_component();
-        y_velocity_ = movement_command->maximum_velocity().y_component();
-    }
-    else {
-        x_velocity_ = 0;
-        y_velocity_ = 0;
-        x_acceleration_ = acceleration.x_component();
-        y_acceleration_ = acceleration.y_component();
-    }
-    Logger::write(Logger::string_stream << "Move - (x,y): (" << movement_command->destination().x() << "," << movement_command->destination().y()
-            << ") direction: " << movement_command->vector().direction());
+    //Vector acceleration(kDotAcceleration, movement_action->current()->vector().direction());
+    x_velocity_ = movement_action->current()->maximum_velocity().x_component();
+    y_velocity_ = movement_action->current()->maximum_velocity().y_component();
+    //x_acceleration_ = acceleration.x_component();
+    //y_acceleration_ = acceleration.y_component();
+    Logger::write("Here 5");
 
 }

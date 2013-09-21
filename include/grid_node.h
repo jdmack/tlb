@@ -4,6 +4,8 @@
 const int kGridNodeWidth  = 48;
 const int kGridNodeHeight = 48;
 
+class Point;
+
 class GridNode
 {
     // TODO(2013-09-11/JM): Remove the scores to a different object
@@ -11,6 +13,8 @@ class GridNode
     private:
         int row_;
         int column_;
+        double width_;
+        double height_;
         int f_score_;
         int g_score_;
         int h_score_;
@@ -43,6 +47,8 @@ class GridNode
         void set_scores(int f_score, int g_score, int h_score);
 
         int compare(GridNode * node);
+
+        Point center_point();
 };
 
 

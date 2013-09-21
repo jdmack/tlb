@@ -23,9 +23,13 @@ class MovementAction : public Action
         MovementAction(Point start, Point end, Level * level);
 
         // accessors
+		Point start() const { return start_; }
+		Point end() const { return end_; }
 		std::vector<Movement *> * path() const { return path_; }
+		Movement * current() const { return *current_; }
 
 		void find_path();
+		bool next_movement();
 };
 
 #endif
