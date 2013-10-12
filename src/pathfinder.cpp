@@ -35,7 +35,8 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
         }
         else { 
             // Return empty list for "no path"
-            return new std::list<GridNode *>();
+            //return new std::list<GridNode *>();
+            break;
         }
 
         // b) Switch it to the closed list.

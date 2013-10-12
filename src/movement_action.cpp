@@ -26,11 +26,14 @@ MovementAction::MovementAction(Point start, Point end, Level * level)
 
 void MovementAction::find_path()
 {
+	Logger::write(Logger::string_stream << "Blah 1");
 	Pathfinder pathfinder(level_);
+	Logger::write(Logger::string_stream << "Blah 2");
 
 	// Get path as list of nodes
 	std::list<GridNode *> * nodes;
 	nodes = pathfinder.run(level_->grid()->node_at_point(start_), level_->grid()->node_at_point(end_));
+	Logger::write(Logger::string_stream << "Blah 3");
 
 	// Convert node path into Movement path
 	while(nodes->size() >= 2)
@@ -50,6 +53,7 @@ void MovementAction::find_path()
 
         path_->push_back(this_movement);
 	}
+	Logger::write(Logger::string_stream << "Blah 4");
 
 	// Set current movement to beginning
 	current_ = path_->begin();
