@@ -60,6 +60,10 @@ void MovementAction::find_path()
 
 	Logger::write(Logger::string_stream << "Path created: " << path_->size() << " movements");
 
+    // Print path
+    for(std::vector<T>::iterator it = v.begin(); it != v.end(); ++it) {
+            /* std::cout << *it; ... */
+    }
 }
 
 bool MovementAction::next_movement()

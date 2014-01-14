@@ -37,6 +37,7 @@ Grid::Grid(int rows, int columns)
 
 GridNode * Grid::node(int row, int column)
 {
+    Logger::write(Logger::string_stream << "grid: node at (" << row << "," << column);
     return nodes_->at((columns_ * row) + column);
 }
 

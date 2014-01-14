@@ -5,6 +5,7 @@
 #include "grid.h"
 #include "grid_node.h"
 #include "level.h"
+#include "utils/logger.h"
 
 Pathfinder::Pathfinder(Level * level)
 {
@@ -13,6 +14,7 @@ Pathfinder::Pathfinder(Level * level)
 
 std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_node)
 {
+    Logger::write(Logger::string_stream << "Pathfinder start");
     reset();
 
     // 1. Add the starting square (or node) to the open list.
@@ -20,7 +22,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
 
     GridNode * current_node = nullptr;
 
-    std::list<GridNode *> * path;
+    std::list<GridNode *> * path = new std::list<GridNode *>();
 
     // 2. Repeat the following:
     while(true) {
@@ -46,36 +48,69 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
         GridNode * adjacent_node = nullptr;
         int g_cost_inc = 0;
         for(int i = 0; i < 8; i++) {
+            Logger::write(Logger::string_stream << "\ti: " << i);
             switch(i) {
                 case 0:
+                    if((current_node->row() - 1 < 0) || (current_node->column() - 1 < 0)) {
+                        // invalid node
+                        continue;
+                    }
                     adjacent_node = level_->grid()->node(current_node->row() - 1, current_node->column() - 1);
                     g_cost_inc = kNodeCostDia;
                     break;
                 case 1:
+                    if(current_node->row() - 1 < 0) {
+                        // invalid node
+                        continue;
+                    }
                     adjacent_node = level_->grid()->node(current_node->row() - 1, current_node->column());
                     g_cost_inc = kNodeCostVer;
                     break;
                 case 2:
+                    if((current_node->row() - 1 < 0)/* || (current_node->column() - 1 < 0)*/) { // TODO: Finish the upper bound check for column
+                        // invalid node
+                        continue;
+                    }
                     adjacent_node = level_->grid()->node(current_node->row() - 1, current_node->column() + 1);
                     g_cost_inc = kNodeCostDia;
                     break;
                 case 3:
+                    if(current_node->column() - 1 < 0) {
+                        // invalid node
+                        continue;
+                    }
                     adjacent_node = level_->grid()->node(current_node->row(), current_node->column() - 1);
                     g_cost_inc = kNodeCostHor;
                     break;
                 case 4:
+                    //if(current_node->column() + 1 < 0) { // TODO: Finish the upper bound check for column
+                    //    // invalid node
+                    //    continue;
+                    //}
                     adjacent_node = level_->grid()->node(current_node->row(), current_node->column() + 1);
                     g_cost_inc = kNodeCostHor;
                     break;
                 case 5:
+                    if(/*(current_node->row() - 1 < 0) || */(current_node->column() - 1 < 0)) { // TODO: Finish the upper bound check for row
+                        // invalid node
+                        continue;
+                    }
                     adjacent_node = level_->grid()->node(current_node->row() + 1, current_node->column() - 1);
                     g_cost_inc = kNodeCostDia;
                     break;
                 case 6:
+                    //if(current_node->row() - 1 < 0) { // TODO: Finish the upper bound check for row
+                    //    // invalid node
+                    //    continue;
+                    //}
                     adjacent_node = level_->grid()->node(current_node->row() + 1, current_node->column());
                     g_cost_inc = kNodeCostVer;
                     break;
                 case 7:
+                    //if((current_node->row() + 1 > BLAH) || (current_node->column() + 1 < BLAH)) { // TODO: Finish upper bound check for row/column
+                    //    // invalid node
+                    //    continue;
+                    //}
                     adjacent_node = level_->grid()->node(current_node->row() + 1, current_node->column() + 1);
                     g_cost_inc = kNodeCostDia;
                     break;
@@ -125,7 +160,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
     // 3.  Save the path. Working backwards from the target square, go from each square to its parent square
     // until you reach the starting square. That is your path.
     GridNode * node = end_node;
-    while(end_node->parent() != nullptr) {
+    while(node->parent() != nullptr) {
         path->push_front(node);
         node = node->parent();
     }
