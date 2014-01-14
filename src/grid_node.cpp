@@ -20,6 +20,8 @@ GridNode::GridNode(int row, int column)
 {
     row_     = row;
     column_  = column;
+    width_   = kGridNodeWidth;
+    height_  = kGridNodeHeight;
     f_score_ = 0;
     g_score_ = 0;
     h_score_ = 0;

@@ -12,6 +12,7 @@
 #include "point.h"
 #include "pathfinder.h"
 #include "utils/logger.h"
+#include "dot.h"
 
 MovementAction::MovementAction(Point start, Point end, Level * level)
 {
@@ -26,40 +27,48 @@ MovementAction::MovementAction(Point start, Point end, Level * level)
 
 void MovementAction::find_path()
 {
-	Logger::write(Logger::string_stream << "Blah 1");
 	Pathfinder pathfinder(level_);
-	Logger::write(Logger::string_stream << "Blah 2");
 
 	// Get path as list of nodes
 	std::list<GridNode *> * nodes;
 	nodes = pathfinder.run(level_->grid()->node_at_point(start_), level_->grid()->node_at_point(end_));
-	Logger::write(Logger::string_stream << "Blah 3");
+
+	Logger::string_stream << "Path: ";
+	for (std::list<GridNode *>::iterator iterator = nodes->begin(), end = nodes->end(); iterator != end; ++iterator) {
+	    Logger::string_stream << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
+	}
+	Logger::write(Logger::string_stream);
 
 	// Convert node path into Movement path
-	while(nodes->size() >= 2)
-	{
+	if(nodes->size() >= 2) {
+        while(nodes->size() > 1)
+        {
+            // TODO(2013-09-20/JM): Add code to filter straight line paths into a single movement
 
-	    // TODO(2013-09-20/JM): Add code to filter straight line paths into a single movement
+            GridNode * start_node = nodes->front();
+            nodes->pop_front();
+            GridNode * end_node = nodes->front();
 
-	    GridNode * start_node = nodes->front();
-	    nodes->pop_front();
-	    GridNode * end_node = nodes->front();
+            // Create movement vectore
+            Vector vector = Vector(start_node->center_point().x(), start_node->center_point().y(), end_node->center_point().x(), end_node->center_point().y());
 
-        // Create movement vectore
-        Vector vector = Vector(start_node->center_point().x(), start_node->center_point().y(), end_node->center_point().x(), end_node->center_point().y());
+            // Create movement
+            Movement * this_movement = new Movement(vector, start_node->center_point(), end_node->center_point());
 
-        // Create movement
-        Movement * this_movement = new Movement(vector, end_node->center_point());
-
-        path_->push_back(this_movement);
+            // Set distance to destination (for determining if we arrive when actually doing the movement)
+            this_movement->set_distance(Movement::calculate_distance(this_movement->start(), this_movement->destination()));
+            this_movement->set_maximum_velocity(Vector(kDotVelocity, this_movement->vector().direction()));
+            path_->push_back(this_movement);
+        }
 	}
-	Logger::write(Logger::string_stream << "Blah 4");
+	else {
+
+	}
 
 	// Set current movement to beginning
 	current_ = path_->begin();
 
 	Logger::write(Logger::string_stream << "Path created: " << path_->size() << " movements");
-
 }
 
 bool MovementAction::next_movement()

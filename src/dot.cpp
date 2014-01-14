@@ -206,26 +206,19 @@ void Dot::move(double x, double y)
         delete current_action_;
         current_action_ = nullptr;
     }
-    Logger::write("Here 1");
 
     // Create movement action
     MovementAction * movement_action = new MovementAction(Point(x_position_, y_position_), Point(x, y), game_->level());
-    Logger::write("Here 2");
     //current_action_ = (static_cast<Movement*>(current_action_));
     current_action_ = movement_action;
     // Start the first movement
-    Logger::write("Here 3");
 
-    // Set distance to destination (for determining if we arrive when actually doing the movement)
-    movement_action->current()->set_distance(Movement::calculate_distance(movement_action->start(), movement_action->end()));
-    movement_action->current()->set_maximum_velocity(Vector(kDotVelocity, movement_action->current()->vector().direction()));
-    Logger::write("Here 4");
+
 
     //Vector acceleration(kDotAcceleration, movement_action->current()->vector().direction());
     x_velocity_ = movement_action->current()->maximum_velocity().x_component();
     y_velocity_ = movement_action->current()->maximum_velocity().y_component();
     //x_acceleration_ = acceleration.x_component();
     //y_acceleration_ = acceleration.y_component();
-    Logger::write("Here 5");
 
 }
