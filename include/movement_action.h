@@ -30,6 +30,7 @@ class MovementAction : public Action
 
 		void find_path();
 		bool next_movement();
+        bool is_movement() const { return true; }
 };
 
 #endif
