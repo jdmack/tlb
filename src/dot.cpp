@@ -40,6 +40,9 @@ Dot::Dot(Game * game, double x, double y, double rot) : GameObject(game, x, y, r
 
 void Dot::update(int delta_ticks)
 {
+    if(delta_ticks <= 0) {
+        return;
+    }
     /*
     if((x_velocity_ == 0) && (y_velocity_ == 0)) {
         if((x_acceleration_ == 0) && (y_acceleration_ == 0)) {
@@ -50,6 +53,7 @@ void Dot::update(int delta_ticks)
 
     // TODO(2013-09-06/JM): Bug: Moving only on 1 axis causes a jump
     if((current_action_ != nullptr) && (current_action_->is_movement())) {
+        Logger::write(Logger::string_stream << "Dot Update - delta_ticks: " << delta_ticks);
 
         MovementAction * movement_command = (static_cast<MovementAction *>(current_action_));
 
@@ -97,14 +101,20 @@ void Dot::update(int delta_ticks)
             //    y_velocity_ += y_acceleration_ * (delta_ticks / 1000.f);
             //}
 
-            // Move left/right
-            x_position_ += x_velocity_ * (delta_ticks / 1000.f);
+            // Move left/right and up/down
+            //x_position_ += x_velocity_ * (delta_ticks / 1000.f);
+            //y_position_ += y_velocity_ * (delta_ticks / 1000.f);
 
-            // Move up/down
-            y_position_ += y_velocity_ * (delta_ticks / 1000.f);
+            // Debugging version of movement code
+            int x_movement_amount = x_velocity_ * (delta_ticks / 1000.f);
+            x_position_ += x_movement_amount;
+            int y_movement_amount = y_velocity_ * (delta_ticks / 1000.f);
+            y_position_ += y_movement_amount;
+            Logger::write(Logger::string_stream << "Moving: (" << x_movement_amount << ", " << y_movement_amount << ")");
 
             // Check collisions
             //TODO(2013-09-05/JM): Create a rectangle class like SDL_Rect to replace all instances outside SDL specific code with it
+            /*
             SDL_Rect rect;
             if(game_->level()->touches_wall(this, &rect)) {
                 fix_collision(rect);
@@ -144,17 +154,62 @@ void Dot::update(int delta_ticks)
                     y_position_ = game_->level()->height() - (height_ / 2);
                 }
 
-                double distance = Movement::calculate_distance(Point(movement_command->current()->destination().x(), movement_command->current()->destination().y()), Point(x_position_, y_position_));
+            }
+            */
+            bool past_point = false;
 
-                if(distance > movement_command->current()->distance()) {
-                    Logger::write("STOPPING: Movement distance travelled");
-                    stop();
-                    x_position_ = movement_command->current()->destination().x();
-                    y_position_ = movement_command->current()->destination().y();
+            if((x_velocity_ > 0) && (y_velocity_ > 0)) {
+                if((x_position_ >= movement_command->current()->destination().x()) || (y_position_ >= movement_command->current()->destination().y())) {
+                    past_point = true;
                 }
-                else {
-                    movement_command->current()->set_distance(distance);
+            }
+            else if((x_velocity_ > 0) && (y_velocity_ < 0)) {
+                if((x_position_ >= movement_command->current()->destination().x()) || (y_position_ <= movement_command->current()->destination().y())) {
+                    past_point = true;
                 }
+            }
+            else if((x_velocity_ < 0) && (y_velocity_ > 0)) {
+                if((x_position_ <= movement_command->current()->destination().x()) || (y_position_ >= movement_command->current()->destination().y())) {
+                    past_point = true;
+                }
+            }
+            else if((x_velocity_ < 0) && (y_velocity_ < 0)) {
+                if((x_position_ <= movement_command->current()->destination().x()) || (y_position_ <= movement_command->current()->destination().y())) {
+                    past_point = true;
+                }
+            }
+            else if(x_velocity_ == 0) {
+                if(y_velocity_ > 0) {
+                    if(y_position_ >= movement_command->current()->destination().y()) {
+                        past_point = true;
+                    }
+                }
+                else if(y_velocity_ < 0) {
+                    if(y_position_ <= movement_command->current()->destination().y()) {
+                        past_point = true;
+                    }
+                }
+            }
+            else if(y_velocity_ == 0) {
+                if(x_velocity_ > 0) {
+                    if(x_position_ >= movement_command->current()->destination().x()) {
+                        past_point = true;
+                    }
+                }
+                else if(x_velocity_ < 0) {
+                    if(x_position_ <= movement_command->current()->destination().x()) {
+                        past_point = true;
+                    }
+                }
+            }
+
+
+            if(past_point) {
+                Logger::write("STOPPING: Moved past point");
+                stop();
+                x_position_ = movement_command->current()->destination().x();
+                y_position_ = movement_command->current()->destination().y();
+                Logger::write(Logger::string_stream << "Destination: (" << movement_command->current()->destination().x() << ", " << movement_command->current()->destination().y() << ")");
             }
 
             if(stopped()) {
@@ -163,7 +218,7 @@ void Dot::update(int delta_ticks)
                     y_velocity_ = movement_command->current()->maximum_velocity().y_component();
                 }
                 else {
-                    delete current_action_;
+                    //delete current_action_;
                     current_action_ = nullptr;
                 }
             }
@@ -209,11 +264,9 @@ void Dot::move(double x, double y)
 
     // Create movement action
     MovementAction * movement_action = new MovementAction(Point(x_position_, y_position_), Point(x, y), game_->level());
-    //current_action_ = (static_cast<Movement*>(current_action_));
     current_action_ = movement_action;
+
     // Start the first movement
-
-
 
     //Vector acceleration(kDotAcceleration, movement_action->current()->vector().direction());
     x_velocity_ = movement_action->current()->maximum_velocity().x_component();
@@ -221,4 +274,20 @@ void Dot::move(double x, double y)
     //x_acceleration_ = acceleration.x_component();
     //y_acceleration_ = acceleration.y_component();
 
+}
+
+void Dot::stop()
+{
+    x_velocity_ = 0;
+    y_velocity_ = 0;
+    x_acceleration_ = 0;
+    y_acceleration_ = 0;
+}
+
+bool Dot::stopped()
+{
+    if((x_velocity_ == 0) && (y_velocity_ == 0) && (x_acceleration_ == 0) && (y_acceleration_ == 0)) {
+        return true;
+    }
+    return false;
 }

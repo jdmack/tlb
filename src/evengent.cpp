@@ -45,7 +45,8 @@ void Evengent::handle_events()
                             // something is selected, can now give it an order
                             std::vector<GameObject *> * selected = game_->entigent()->selected();
                             for(std::vector<GameObject *>::iterator selected_iterator = selected->begin(); selected_iterator < selected->end(); ++selected_iterator) {
-                                (*selected_iterator)->stop();
+                                //(*selected_iterator)->stop();
+                                // TODO(2014-01-23/JM): Fix stop
                             }
                         }
                         break;

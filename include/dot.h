@@ -28,6 +28,9 @@ class Dot : public GameObject
         void move(double x, double y);
 
         void update(int deltaTicks);
+        void stop();
+
+        bool stopped();
 
         // accessors
 };

@@ -55,8 +55,6 @@ void MovementAction::find_path()
             // Create movement
             Movement * this_movement = new Movement(vector, start_node->center_point(), end_node->center_point());
 
-            // Set distance to destination (for determining if we arrive when actually doing the movement)
-            this_movement->set_distance(Movement::calculate_distance(this_movement->start(), this_movement->destination()));
             this_movement->set_maximum_velocity(Vector(kDotVelocity, this_movement->vector().direction()));
             path_->push_back(this_movement);
         }
@@ -71,9 +69,9 @@ void MovementAction::find_path()
 	Logger::write(Logger::string_stream << "Path created: " << path_->size() << " movements");
 
     // Print path
-    for(std::vector<T>::iterator it = v.begin(); it != v.end(); ++it) {
-            /* std::cout << *it; ... */
-    }
+    //for(std::vector<T>::iterator it = v.begin(); it != v.end(); ++it) {
+    //        /* std::cout << *it; ... */
+    //}
 }
 
 bool MovementAction::next_movement()
