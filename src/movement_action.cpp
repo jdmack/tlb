@@ -1,5 +1,6 @@
 #include <cmath>
 #include <list>
+#include <iostream>
 #include <vector>
 
 #include "movement_action.h"
@@ -27,12 +28,14 @@ MovementAction::MovementAction(Point start, Point end, Level * level)
 
 void MovementAction::find_path()
 {
+    // Create Pathfinder
 	Pathfinder pathfinder(level_);
 
 	// Get path as list of nodes
 	std::list<GridNode *> * nodes;
 	nodes = pathfinder.run(level_->grid()->node_at_point(start_), level_->grid()->node_at_point(end_));
 
+    // Print the path to log
 	Logger::string_stream << "Path: ";
 	for (std::list<GridNode *>::iterator iterator = nodes->begin(), end = nodes->end(); iterator != end; ++iterator) {
 	    Logger::string_stream << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
@@ -40,13 +43,20 @@ void MovementAction::find_path()
 	Logger::write(Logger::string_stream);
 
 	// Convert node path into Movement path
-	if(nodes->size() >= 2) {
-        while(nodes->size() > 1)
-        {
+    while(nodes->size() > 1) {
+	    if(nodes->size() >= 2) {
             // TODO(2013-09-20/JM): Add code to filter straight line paths into a single movement
 
             GridNode * start_node = nodes->front();
+            if(nodes->empty()) {
+                Logger::write(Logger::string_stream << "Uh oh, list is empty dude!\n");
+                break;
+            }
             nodes->pop_front();
+            if(nodes->empty()) {
+                Logger::write(Logger::string_stream << "Uh oh, list is empty dude!\n");
+                break;
+            }
             GridNode * end_node = nodes->front();
 
             // Create movement vectore
@@ -60,20 +70,16 @@ void MovementAction::find_path()
             this_movement->set_maximum_velocity(Vector(kDotVelocity, this_movement->vector().direction()));
             path_->push_back(this_movement);
         }
-	}
-	else {
-
+	    else {
+            // shouldn't ever run this
+            break;
+	    }
 	}
 
 	// Set current movement to beginning
 	current_ = path_->begin();
 
 	Logger::write(Logger::string_stream << "Path created: " << path_->size() << " movements");
-
-    // Print path
-    for(std::vector<T>::iterator it = v.begin(); it != v.end(); ++it) {
-            /* std::cout << *it; ... */
-    }
 }
 
 bool MovementAction::next_movement()
