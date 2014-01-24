@@ -1,6 +1,8 @@
 #ifndef TLB_Point_H_
 #define TLB_Point_H_
 
+#include <string>
+
 class Point
 {
     private:
@@ -17,6 +19,8 @@ class Point
         // mutators
         void set_x(double x) { x_= x; }
         void set_y(double y) { y_= y; }
+
+        std::string to_string();
 };
 
 #endif
