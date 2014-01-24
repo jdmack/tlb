@@ -2,6 +2,7 @@
 #define TLB_MOVEMENT_ACTION_H_
 
 #include <vector>
+#include <string>
 #include "action.h"
 #include "point.h"
 
@@ -31,6 +32,7 @@ class MovementAction : public Action
 		void find_path();
 		bool next_movement();
         bool is_movement() const { return true; }
+        std::string to_string();
 };
 
 #endif

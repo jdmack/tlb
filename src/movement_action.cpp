@@ -2,6 +2,8 @@
 #include <list>
 #include <iostream>
 #include <vector>
+#include <sstream>
+#include <string>
 
 #include "movement_action.h"
 
@@ -89,5 +91,10 @@ bool MovementAction::next_movement()
         current_++;
         return true;
     }
+}
+
+std::string MovementAction::to_string()
+{
+
 }
 
