@@ -9,5 +9,6 @@ tlb_log.txt
 *.dll
 /Debug
 tlb.log
+log_tlb.log
 tlb
 /Default
