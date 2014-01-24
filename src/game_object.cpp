@@ -113,14 +113,6 @@ void GameObject::move(double x, double y)
 
 }
 
-void GameObject::stop()
-{
-    x_velocity_ = 0;
-    y_velocity_ = 0;
-    x_acceleration_ = 0;
-    y_acceleration_ = 0;
-}
-
 SDL_Rect GameObject::rect()
 {
     SDL_Rect rect = { (int)x_position_, (int)y_position_, (int)width_, (int)height_ };
@@ -169,11 +161,5 @@ void GameObject::fix_collision(SDL_Rect rect)
 
 }
 
-bool GameObject::stopped()
-{
-    if((x_velocity_ == 0) && (y_velocity_ == 0) && (x_acceleration_ == 0) && (y_acceleration_ == 0)) {
-        return true;
-    }
-    return false;
-}
+
 

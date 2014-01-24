@@ -48,7 +48,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
         GridNode * adjacent_node = nullptr;
         int g_cost_inc = 0;
         for(int i = 0; i < 8; i++) {
-            Logger::write(Logger::string_stream << "\ti: " << i);
+            //Logger::write(Logger::string_stream << "\ti: " << i);
             switch(i) {
                 case 0:
                     if((current_node->row() - 1 < 0) || (current_node->column() - 1 < 0)) {

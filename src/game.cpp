@@ -68,9 +68,11 @@ void Game::game_loop()
         evengent_->handle_events();
 
         // Update
-        dot1->update(delta_timer_.get_ticks());
+        if(delta_timer_.get_ticks() >= 33) {
+            dot1->update(delta_timer_.get_ticks());
+            delta_timer_.start();
+        }
 
-        delta_timer_.start();
 
         // center camera
         camera_->center(dot1);

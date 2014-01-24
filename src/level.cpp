@@ -18,6 +18,7 @@ Level::Level(Game * game)
     total_tiles_ = 0;
 
     game_ = game;
+    grid_ = nullptr;
 
     texture_ = game_->screen()->load_texture(kAssetArtTiles48);
 
