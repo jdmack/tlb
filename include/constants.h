@@ -9,7 +9,7 @@ const int kScreenHeight = 864;
 
 /* Strings */
 const std::string kWindowName = "The Left Behind";
-const std::string kLogFilename = "tlb.log";
+const std::string kLogFilename = "log_tlb.log";
 
 const int kRedMask   = 0xff000000;
 const int kGreenMask = 0x00ff0000;
