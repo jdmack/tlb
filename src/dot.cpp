@@ -53,7 +53,7 @@ void Dot::update(int delta_ticks)
 
     // TODO(2013-09-06/JM): Bug: Moving only on 1 axis causes a jump
     if((current_action_ != nullptr) && (current_action_->is_movement())) {
-        Logger::write(Logger::string_stream << "Dot Update - delta_ticks: " << delta_ticks);
+        //Logger::write(Logger::string_stream << "Dot Update - delta_ticks: " << delta_ticks);
 
         MovementAction * movement_command = (static_cast<MovementAction *>(current_action_));
 
@@ -110,7 +110,7 @@ void Dot::update(int delta_ticks)
             x_position_ += x_movement_amount;
             int y_movement_amount = y_velocity_ * (delta_ticks / 1000.f);
             y_position_ += y_movement_amount;
-            Logger::write(Logger::string_stream << "Moving: (" << x_movement_amount << ", " << y_movement_amount << ")");
+            //Logger::write(Logger::string_stream << "Moving: (" << x_movement_amount << ", " << y_movement_amount << ")");
 
             // Check collisions
             //TODO(2013-09-05/JM): Create a rectangle class like SDL_Rect to replace all instances outside SDL specific code with it
@@ -209,7 +209,7 @@ void Dot::update(int delta_ticks)
                 stop();
                 x_position_ = movement_command->current()->destination().x();
                 y_position_ = movement_command->current()->destination().y();
-                Logger::write(Logger::string_stream << "Destination: (" << movement_command->current()->destination().x() << ", " << movement_command->current()->destination().y() << ")");
+                Logger::write(Logger::string_stream << "Destination:" << movement_command->current()->destination().to_string());
             }
 
             if(stopped()) {

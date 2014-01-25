@@ -85,16 +85,21 @@ void MovementAction::find_path()
 bool MovementAction::next_movement()
 {
     if(current_ == path_->end()) {
+        Logger::write(Logger::string_stream << "MovementAction::next_movement(): No more Movements");
         return false;
     }
     else {
         current_++;
+        Logger::write(Logger::string_stream << "MovementAction::next_movement(): " << (*current_)->to_string());
         return true;
     }
 }
 
 std::string MovementAction::to_string()
 {
+	for (std::list<GridNode *>::iterator iterator = nodes->begin(), end = nodes->end(); iterator != end; ++iterator) {
+	    Logger::string_stream << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
+	}
 
 }
 
