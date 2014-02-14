@@ -254,7 +254,7 @@ void Dot::deselect()
 
 void Dot::move(double x, double y)
 {
-    Logger::write(Logger::string_stream << "Move - (x,y): (" << x_position_ << "," << y_position_);
+    Logger::write(Logger::string_stream << "Move - (x,y): (" << x_position_ << "," << y_position_ << ")");
 
     // Delete current action if one exists
     if(current_action_ != nullptr) {

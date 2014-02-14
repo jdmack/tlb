@@ -33,6 +33,7 @@ class Grid
         GridNode * node(int row, int column);
         void add_node();
         GridNode * node_at_point(Point point);
+        void reset_pathfinding();
 };
 
 #endif

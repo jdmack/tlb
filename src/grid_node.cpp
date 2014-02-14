@@ -54,3 +54,9 @@ Point GridNode::center_point()
 {
     return Point(((column_ * width_) + (width_ / 2)), ((row_ * height_) + (height_ / 2)));
 }
+
+void GridNode::reset()
+{
+    set_scores(0,0,0);
+    parent_ = nullptr;
+}

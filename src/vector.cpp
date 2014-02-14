@@ -10,7 +10,7 @@ Vector::Vector()
     direction_ = 0;
     magnitude_ = 0;
 
-    Logger::write(Logger::string_stream << "creating vector (0)");
+    //Logger::write(Logger::string_stream << "creating vector (0)");
 }
 
 Vector::Vector(double x1, double y1, double x2, double y2)
@@ -26,13 +26,13 @@ Vector::Vector(double x1, double y1, double x2, double y2)
 
     set_component_signs(direction_);
 
-    Logger::write(Logger::string_stream << "creating vector:");
-    Logger::write(Logger::string_stream << "\t\tmagnitude: " << magnitude_);
-    Logger::write(Logger::string_stream << "\t\tdirection: " << direction_);
-    Logger::write(Logger::string_stream << "\t\tx_component: " << x_component_);
-    Logger::write(Logger::string_stream << "\t\ty_component: " << y_component_);
-    Logger::write(Logger::string_stream << "\t\tquadrant: " << quadrant);
-    Logger::write(Logger::string_stream << "\t\t(" << x1 << "," << y1 << ") & (" << x2 << "," << y2 << ")");
+    Logger::write(Logger::string_stream << "creating vector:\t" <<
+        "magnitude: " << magnitude_ <<
+        ", direction: " << direction_ <<
+        ", x_component: " << x_component_ <<
+        ", y_component: " << y_component_ <<
+        ", quadrant: " << quadrant <<
+        ", (" << x1 << "," << y1 << ") & (" << x2 << "," << y2 << ")");
 }
 
 Vector::Vector(double magnitude, double direction)
@@ -45,11 +45,11 @@ Vector::Vector(double magnitude, double direction)
     magnitude_ = magnitude;
     direction_ = direction;
 
-    Logger::write(Logger::string_stream << "creating vector:");
-    Logger::write(Logger::string_stream << "\t\tmagnitude: " << magnitude_);
-    Logger::write(Logger::string_stream << "\t\tdirection: " << direction_);
-    Logger::write(Logger::string_stream << "\t\tx_component: " << x_component_);
-    Logger::write(Logger::string_stream << "\t\ty_component: " << y_component_);
+    Logger::write(Logger::string_stream << "creating vector:" <<
+    ", magnitude: " << magnitude_ <<
+    ", direction: " << direction_ <<
+    ", x_component: " << x_component_ <<
+    ", y_component: " << y_component_);
 }
 
 double Vector::radians_to_degrees(double radians)
@@ -87,25 +87,25 @@ void Vector::set_component_signs(double direction)
 {
     // Quadrant IV
     if(direction > 270.0) {
-        Logger::write(Logger::string_stream << "set_component_signs - quadrant: IV");
+        //Logger::write(Logger::string_stream << "set_component_signs - quadrant: IV");
         make_positive(x_component_);
         make_positive(y_component_);
     }
     // Quadrant III
     else if(direction > 180.0) {
-        Logger::write(Logger::string_stream << "set_component_signs - quadrant: III");
+        //Logger::write(Logger::string_stream << "set_component_signs - quadrant: III");
         make_negative(x_component_);
         make_positive(y_component_);
     }
     // Quadrant II
     else if(direction > 90.0) {
-        Logger::write(Logger::string_stream << "set_component_signs - quadrant: II");
+        //Logger::write(Logger::string_stream << "set_component_signs - quadrant: II");
         make_negative(x_component_);
         make_negative(y_component_);
     }
     // Quadrant I
     else  {
-        Logger::write(Logger::string_stream << "set_component_signs - quadrant: I");
+        //Logger::write(Logger::string_stream << "set_component_signs - quadrant: I");
         make_positive(x_component_);
         make_negative(y_component_);
     }

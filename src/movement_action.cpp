@@ -1,5 +1,4 @@
-#include <cmath>
-#include <list>
+#include <cmath> #include <list>
 #include <iostream>
 #include <vector>
 #include <sstream>
@@ -19,13 +18,27 @@
 
 MovementAction::MovementAction(Point start, Point end, Level * level)
 {
+    bool use_pathfinding = true;
+
 	start_ = start;
 	end_ = end;
 	level_ = level;
 
 	path_ = new std::vector<Movement *>();
 
-	find_path();
+	if(use_pathfinding) {
+	    find_path();
+	}
+	else {
+        // Create movement vectore
+        Vector vector = Vector(start.x(), start.y(), end.x(), end.y());
+
+        // Create movement
+        Movement * this_movement = new Movement(vector, start, end);
+        this_movement->set_maximum_velocity(Vector(kDotVelocity, this_movement->vector().direction()));
+        path_->push_back(this_movement);
+        current_ = path_->begin();
+	}
 }
 
 void MovementAction::find_path()
@@ -80,16 +93,20 @@ void MovementAction::find_path()
 	current_ = path_->begin();
 
 	Logger::write(Logger::string_stream << "Path created: " << path_->size() << " movements");
+
+	// reset grid
+	level_->grid()->reset_pathfinding();
 }
 
 bool MovementAction::next_movement()
 {
+    current_++;
     if(current_ == path_->end()) {
         Logger::write(Logger::string_stream << "MovementAction::next_movement(): No more Movements");
         return false;
     }
     else {
-        current_++;
+        //current_++;
         Logger::write(Logger::string_stream << "MovementAction::next_movement(): " << (*current_)->to_string());
         return true;
     }
@@ -97,9 +114,9 @@ bool MovementAction::next_movement()
 
 std::string MovementAction::to_string()
 {
-	for (std::list<GridNode *>::iterator iterator = nodes->begin(), end = nodes->end(); iterator != end; ++iterator) {
-	    Logger::string_stream << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
-	}
-
+	//for (std::list<GridNode *>::iterator iterator = nodes->begin(), end = nodes->end(); iterator != end; ++iterator) {
+	//    Logger::string_stream << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
+	//}
+	return "";
 }
 

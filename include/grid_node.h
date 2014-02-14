@@ -49,6 +49,8 @@ class GridNode
         int compare(GridNode * node);
 
         Point center_point();
+
+        void reset();
 };
 
 

@@ -51,7 +51,15 @@ GridNode * Grid::node_at_point(Point point)
     int col = point.x() / node_width_;
 	int row = point.y() / node_height_;
 
-	Logger::write(Logger::string_stream << "return node: (" << row << "," << col << ")");
+	//Logger::write(Logger::string_stream << "return node: (" << row << "," << col << ")");
 
 	return node(row, col);
 }
+
+void Grid::reset_pathfinding()
+{
+    for(std::vector<GridNode *>::iterator it = nodes_->begin(); it != nodes_->end(); ++it) {
+        (*it)->reset();
+    }
+}
+
