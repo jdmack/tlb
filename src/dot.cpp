@@ -218,7 +218,7 @@ void Dot::update(int delta_ticks)
                     y_velocity_ = movement_command->current()->maximum_velocity().y_component();
                 }
                 else {
-                    //delete current_action_;
+                    delete current_action_;
                     current_action_ = nullptr;
                 }
             }

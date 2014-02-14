@@ -16,14 +16,12 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
 {
     Logger::write(Logger::string_stream << "Pathfinder start");
     reset();
-    Logger::write(Logger::string_stream << "Here 1");
     // 1. Add the starting square (or node) to the open list.
     open_list.push_back(start_node);
 
     GridNode * current_node = nullptr;
 
     std::list<GridNode *> * path = new std::list<GridNode *>();
-    Logger::write(Logger::string_stream << "Here 2");
 
     // 2. Repeat the following:
     while(true) {
@@ -157,7 +155,6 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
             break;
         }
     }
-    Logger::write(Logger::string_stream << "Here 3");
 
     // 3.  Save the path. Working backwards from the target square, go from each square to its parent square
     // until you reach the starting square. That is your path.
@@ -167,7 +164,6 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
         node = node->parent();
     }
     path->push_front(start_node);
-    Logger::write(Logger::string_stream << "Here 4");
 
     return path;
 }
