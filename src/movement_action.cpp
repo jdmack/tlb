@@ -43,6 +43,7 @@ void MovementAction::find_path()
 	    Logger::string_stream << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
 	}
 	Logger::write(Logger::string_stream);
+    Logger::write(Logger::string_stream << "# of nodes: " << nodes->size());
 
 	// Convert node path into Movement path
     while(nodes->size() > 1) {
@@ -61,10 +62,12 @@ void MovementAction::find_path()
             }
             GridNode * end_node = nodes->front();
 
-            // Create movement vectore
+            // Create movement vector
             Vector vector = Vector(start_node->center_point().x(), start_node->center_point().y(), end_node->center_point().x(), end_node->center_point().y());
 
             // Create movement
+            Logger::write(Logger::string_stream << "Start Point: " << start_node->center_point().to_string());
+            Logger::write(Logger::string_stream << "End Point: " << end_node->center_point().to_string());
             Movement * this_movement = new Movement(vector, start_node->center_point(), end_node->center_point());
 
             this_movement->set_maximum_velocity(Vector(kDotVelocity, this_movement->vector().direction()));
@@ -78,6 +81,7 @@ void MovementAction::find_path()
 
 	// Set current movement to beginning
 	current_ = path_->begin();
+    Logger::write(Logger::string_stream << "MovementAction::first_movement(): " << (*current_)->to_string());
 
 	Logger::write(Logger::string_stream << "Path created: " << path_->size() << " movements");
 }
@@ -97,9 +101,9 @@ bool MovementAction::next_movement()
 
 std::string MovementAction::to_string()
 {
-	for (std::list<GridNode *>::iterator iterator = nodes->begin(), end = nodes->end(); iterator != end; ++iterator) {
-	    Logger::string_stream << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
-	}
+	//for (std::list<GridNode *>::iterator iterator = nodes->begin(), end = nodes->end(); iterator != end; ++iterator) {
+	//    Logger::string_stream << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
+	//}
 
 }
 

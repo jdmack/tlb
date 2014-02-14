@@ -164,6 +164,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
         path->push_front(node);
         node = node->parent();
     }
+    path->push_front(start_node);
 
     return path;
 }
