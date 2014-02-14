@@ -14,6 +14,7 @@ Pathfinder::Pathfinder(Level * level)
 
 std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_node)
 {
+    bool allow_diagonals = false;
     Logger::write(Logger::string_stream << "Pathfinder start");
     reset();
     // 1. Add the starting square (or node) to the open list.
@@ -50,6 +51,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
             //Logger::write(Logger::string_stream << "\ti: " << i);
             switch(i) {
                 case 0:
+                    if(!allow_diagonals) continue;
                     if((current_node->row() - 1 < 0) || (current_node->column() - 1 < 0)) {
                         // invalid node
                         continue;
@@ -66,6 +68,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                     g_cost_inc = kNodeCostVer;
                     break;
                 case 2:
+                    if(!allow_diagonals) continue;
                     if((current_node->row() - 1 < 0)/* || (current_node->column() - 1 < 0)*/) { // TODO: Finish the upper bound check for column
                         // invalid node
                         continue;
@@ -90,6 +93,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                     g_cost_inc = kNodeCostHor;
                     break;
                 case 5:
+                    if(!allow_diagonals) continue;
                     if(/*(current_node->row() - 1 < 0) || */(current_node->column() - 1 < 0)) { // TODO: Finish the upper bound check for row
                         // invalid node
                         continue;
@@ -106,6 +110,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                     g_cost_inc = kNodeCostVer;
                     break;
                 case 7:
+                    if(!allow_diagonals) continue;
                     //if((current_node->row() + 1 > BLAH) || (current_node->column() + 1 < BLAH)) { // TODO: Finish upper bound check for row/column
                     //    // invalid node
                     //    continue;
@@ -201,6 +206,16 @@ bool Pathfinder::closed_list_contains(GridNode * node)
 }
 
 /*
+  ____________
+ |   |   |   |
+ | 0 | 1 | 2 |
+ |___|___|___|
+ |   |   |   |
+ | 3 |   | 4 |
+ |___|___|___|
+ |   |   |   |
+ | 5 | 6 | 7 |
+ |___|___|___|
   _____________________________ 
  |         |         |         |
  | row - 1 | row - 1 | row - 1 |

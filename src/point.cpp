@@ -22,3 +22,12 @@ std::string Point::to_string()
     std::ostringstream convert;
     return static_cast<std::ostringstream*>( &(std::ostringstream() << "(" << x_ << "," << y_ << ")") )->str();
 }
+
+bool Point::operator==(const Point &other) const {
+    if((x_ == other.x()) && (y_ == other.y())) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}

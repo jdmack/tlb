@@ -12,6 +12,8 @@ const int kQuadrantII  = 2;
 const int kQuadrantIII = 3;
 const int kQuadrantIV  = 4;
 
+class Point;
+
 class Vector
 {
     private:
@@ -22,7 +24,7 @@ class Vector
 
     public:
         Vector();
-        Vector(double x1, double y1, double x2, double y2);
+        Vector(Point start, Point end);
         Vector(double magnitude, double direction);
 
         // accessors
@@ -36,7 +38,7 @@ class Vector
         double radians_to_degrees(double radians);
         double degrees_to_radians(double degrees);
 
-        int determine_quadrant(double x1, double y1, double x2, double y2);
+        int determine_quadrant(Point start, Point end);
         void set_component_signs(double direction);
         double determine_direction(int quadrant, double theta);
         void make_positive(double & number);

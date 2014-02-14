@@ -160,32 +160,38 @@ void Dot::update(int delta_ticks)
 
             if((x_velocity_ > 0) && (y_velocity_ > 0)) {
                 if((x_position_ >= movement_command->current()->destination().x()) || (y_position_ >= movement_command->current()->destination().y())) {
+                    Logger::write("(x > 0) (y > 0)");
                     past_point = true;
                 }
             }
             else if((x_velocity_ > 0) && (y_velocity_ < 0)) {
                 if((x_position_ >= movement_command->current()->destination().x()) || (y_position_ <= movement_command->current()->destination().y())) {
+                    Logger::write("(x > 0) (y < 0)");
                     past_point = true;
                 }
             }
             else if((x_velocity_ < 0) && (y_velocity_ > 0)) {
                 if((x_position_ <= movement_command->current()->destination().x()) || (y_position_ >= movement_command->current()->destination().y())) {
+                    Logger::write("(x < 0) (y > 0)");
                     past_point = true;
                 }
             }
             else if((x_velocity_ < 0) && (y_velocity_ < 0)) {
                 if((x_position_ <= movement_command->current()->destination().x()) || (y_position_ <= movement_command->current()->destination().y())) {
+                    Logger::write("(x < 0) (y < 0)");
                     past_point = true;
                 }
             }
             else if(x_velocity_ == 0) {
                 if(y_velocity_ > 0) {
                     if(y_position_ >= movement_command->current()->destination().y()) {
+                        Logger::write("(x == 0) (y > 0)");
                         past_point = true;
                     }
                 }
                 else if(y_velocity_ < 0) {
                     if(y_position_ <= movement_command->current()->destination().y()) {
+                        Logger::write("(x == 0) (y < 0)");
                         past_point = true;
                     }
                 }
@@ -193,11 +199,13 @@ void Dot::update(int delta_ticks)
             else if(y_velocity_ == 0) {
                 if(x_velocity_ > 0) {
                     if(x_position_ >= movement_command->current()->destination().x()) {
+                        Logger::write("(x > 0) (y == 0)");
                         past_point = true;
                     }
                 }
                 else if(x_velocity_ < 0) {
                     if(x_position_ <= movement_command->current()->destination().x()) {
+                        Logger::write("(x < 0) (y == 0)");
                         past_point = true;
                     }
                 }

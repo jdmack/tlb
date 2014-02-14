@@ -20,6 +20,8 @@ class Point
         void set_x(double x) { x_= x; }
         void set_y(double y) { y_= y; }
 
+        bool operator==(const Point &other) const;
+
         std::string to_string();
 };
 

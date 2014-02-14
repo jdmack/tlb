@@ -1,4 +1,5 @@
-#include <cmath> #include <list>
+#include <cmath>
+#include <list>
 #include <iostream>
 #include <vector>
 #include <sstream>
@@ -31,7 +32,7 @@ MovementAction::MovementAction(Point start, Point end, Level * level)
 	}
 	else {
         // Create movement vectore
-        Vector vector = Vector(start.x(), start.y(), end.x(), end.y());
+        Vector vector = Vector(start, end);
 
         // Create movement
         Movement * this_movement = new Movement(vector, start, end);
@@ -76,7 +77,7 @@ void MovementAction::find_path()
             GridNode * end_node = nodes->front();
 
             // Create movement vector
-            Vector vector = Vector(start_node->center_point().x(), start_node->center_point().y(), end_node->center_point().x(), end_node->center_point().y());
+            Vector vector = Vector(start_node->center_point(), end_node->center_point());
 
             // Create movement
             Logger::write(Logger::string_stream << "Start Point: " << start_node->center_point().to_string());
