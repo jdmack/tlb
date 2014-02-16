@@ -47,6 +47,6 @@ void Sprite::render()
     offset.y = object_->y_position() - (object_->height() / 2);
     offset.h = height_;
     offset.w = width_;
-    screen_->render_texture_rotate(texture_, &offset, nullptr, object_->rotation());
+    screen_->render_texture_rotate(texture_, &offset, nullptr, -object_->rotation());
     //screen_->render_texture(texture_, &offset);
 }

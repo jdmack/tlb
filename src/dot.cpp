@@ -59,7 +59,7 @@ void Dot::update(int delta_ticks)
 
         // Check rotation
         if(rotation_ != movement_command->current()->vector().direction()) {
-
+            Logger::write(Logger::string_stream << "Rotation: " << rotation_ << ", Direction: " << movement_command->current()->vector().direction());
             // Determine and set rotation direction
             double dir = movement_command->current()->vector().direction() - rotation_;
             if((dir > 0) && (std::abs(dir) <= 180)) { movement_command->current()->set_clockwise(false); }
