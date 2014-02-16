@@ -33,6 +33,7 @@ class MovementAction : public Action
 		bool next_movement();
         bool is_movement() const { return true; }
         std::string to_string();
+        bool empty_path();
 };
 
 #endif

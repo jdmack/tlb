@@ -272,6 +272,9 @@ void Dot::move(double x, double y)
 
     // Create movement action
     MovementAction * movement_action = new MovementAction(Point(x_position_, y_position_), Point(x, y), game_->level());
+    if(movement_action->empty_path()) {
+        return;
+    }
     current_action_ = movement_action;
 
     // Start the first movement

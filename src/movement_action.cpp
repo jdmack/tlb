@@ -96,8 +96,9 @@ void MovementAction::find_path()
 
 	// Set current movement to beginning
 	current_ = path_->begin();
-    Logger::write(Logger::string_stream << "MovementAction::first_movement(): " << (*current_)->to_string());
-
+	if(!path_->empty()) {
+	    Logger::write(Logger::string_stream << "MovementAction::first_movement(): " << (*current_)->to_string());
+	}
 	Logger::write(Logger::string_stream << "Path created: " << path_->size() << " movements");
 
 	// reset grid
@@ -124,5 +125,14 @@ std::string MovementAction::to_string()
 	//    Logger::string_stream << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
 	//}
 	return "";
+}
+
+bool MovementAction::empty_path()
+{
+    if(path_->empty()) {
+        return true;
+    }
+    return false;
+
 }
 
