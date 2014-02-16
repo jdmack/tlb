@@ -22,6 +22,8 @@ class Level
         SDL_Texture * texture_;
         Grid * grid_;
 
+        bool thing;
+
     public:
         Level(Game * game);
 
@@ -39,6 +41,8 @@ class Level
 
         void render();
         void build_grid();
+
+        bool is_walkable(int row, int col);
 };
 
 #endif

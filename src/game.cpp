@@ -39,6 +39,7 @@ int Game::run()
 
     // Load level
     level_ = new Level(this);
+    //if(!level_->load(kMapTest24x18Blank)) {
     if(!level_->load(kMapTest24x18)) {
         Logger::write(Logger::string_stream << "Failed to load map");
         exit_code_ = 1;

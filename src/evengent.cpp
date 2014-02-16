@@ -115,12 +115,12 @@ void Evengent::handle_events()
             case SDL_WINDOWEVENT:
                 if(event.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
                     focus_timer_.start();
-                    Logger::write("focus_timer started");
+                    //Logger::write("focus_timer started");
                 }
                 if(event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
                     if(focus_timer_.started()) {
                         focus_timer_.stop();
-                        Logger::write("focus_timer stopped");
+                        //Logger::write("focus_timer stopped");
                     }
                 }
                 break;

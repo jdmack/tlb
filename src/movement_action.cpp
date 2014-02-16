@@ -54,7 +54,8 @@ void MovementAction::find_path()
     // Print the path to log
 	Logger::string_stream << "Path: ";
 	for (std::list<GridNode *>::iterator iterator = nodes->begin(), end = nodes->end(); iterator != end; ++iterator) {
-	    Logger::string_stream << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
+	    //Logger::string_stream << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
+	    Logger::string_stream << (*iterator)->to_string() << " ";
 	}
 	Logger::write(Logger::string_stream);
     Logger::write(Logger::string_stream << "# of nodes: " << nodes->size());

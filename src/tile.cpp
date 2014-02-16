@@ -12,6 +12,9 @@ Tile::Tile()
     height_ = kTileHeight;
     type_ = 0;
     level_ = nullptr;
+
+    row_ = -1;
+    column_ = -1;
 }
 
 Tile::Tile(double x, double y, int type, Level * level)
@@ -21,6 +24,9 @@ Tile::Tile(double x, double y, int type, Level * level)
     width_ = kTileWidth;
     height_ = kTileHeight;
     type_ = type;
+
+    row_ = y_position_ / kTileHeight;
+    column_ = x_position_ / kTileWidth;
 
     level_ = level;
 

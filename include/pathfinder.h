@@ -2,6 +2,7 @@
 #define TLB_PATHFINDER_H_
 
 #include <list>
+#include <string>
 
 const int kNodeCostHor = 10;
 const int kNodeCostVer = kNodeCostHor;
@@ -33,6 +34,9 @@ class Pathfinder
         // list
         bool open_list_contains(GridNode * node);
         bool closed_list_contains(GridNode * node);
+
+        std::string open_list_to_string();
+        //void closed_list_to_string();
 
 };
 #endif

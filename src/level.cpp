@@ -23,6 +23,8 @@ Level::Level(Game * game)
     texture_ = game_->screen()->load_texture(kAssetArtTiles48);
 
     tiles_ = new std::vector<Tile *>();
+
+    thing = true;
 }
 
 
@@ -86,6 +88,7 @@ bool Level::load(std::string filename)
             map.close();
             return false;
         }
+        //Logger::write(Logger::string_stream << "Read in tile (" << y / kTileHeight << "," << x / kTileWidth << ") Type: " << tile_type);
 
         // Move to next tile spot
         x += kTileWidth;
@@ -130,16 +133,33 @@ void Level::render()
 {
     for(std::vector<Tile *>::iterator tile_iterator = tiles_->begin(); tile_iterator != tiles_->end(); ++tile_iterator) {
         (*tile_iterator)->render();
+        //if(thing) Logger::write(Logger::string_stream << "Rendering tile: (" << (*tile_iterator)->row() << "," << (*tile_iterator)->column() << ")");
     }
+    //if(thing) thing = false;
 }
 
 void Level::build_grid()
 {
     Logger::write("Building Grid");
-    int rows = (int) std::ceil(width_ / kGridNodeWidth);
-    int columns = (int) std::ceil(height_ / kGridNodeHeight);
+    int rows = (int) std::ceil(height_ / kGridNodeHeight);
+    int columns = (int) std::ceil(width_ / kGridNodeWidth);
 
-    grid_ = new Grid(rows, columns);
+    grid_ = new Grid(rows, columns, this);
+    //Logger::write(Logger::string_stream << "Rows:" << rows << ", Columns: " << columns);
 }
 
+bool Level::is_walkable(int row, int col)
+{
+    int columns = (int) std::ceil(width_ / kGridNodeWidth);
 
+    Tile * this_tile = tiles_->at((columns * row) + col);
+
+    if(this_tile->type() >= 3) {
+        //Logger::write(Logger::string_stream << "Returning walkable false: (" << row << "," << col << ") Type: " << this_tile->type());
+        //Logger::write(Logger::string_stream << "Recorded: (" << this_tile->row() << "," << this_tile->column() << ")");
+        return false;
+    }
+    //Logger::write(Logger::string_stream << "Returning walkable true: (" << row << "," << col << ") Type: " << this_tile->type());
+    //Logger::write(Logger::string_stream << "Recorded: (" << this_tile->row() << "," << this_tile->column() << ")");
+    return true;
+}

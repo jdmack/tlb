@@ -1,6 +1,9 @@
 
 #include <list>
 #include <cmath>
+#include <sstream>
+#include <string>
+
 #include "pathfinder.h"
 #include "grid.h"
 #include "grid_node.h"
@@ -29,11 +32,13 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
         // a) Look for the lowest F cost square on the open list. We refer to this as the current square.
         if(!open_list.empty()) {
 
-            open_list.sort();
+            open_list.sort([](const GridNode* a, const GridNode* b) { return a->f_score() < b->f_score(); });
+            //Logger::write(Logger::string_stream << open_list_to_string());
 
             current_node = open_list.front();
             open_list.pop_front();
 
+            Logger::write(Logger::string_stream << "current_node: " << current_node->to_string());
         }
         else { 
             // Return empty list for "no path"
@@ -119,9 +124,16 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                     g_cost_inc = kNodeCostDia;
                     break;
             }
+            Logger::write(Logger::string_stream << "\tConsidering Node: " << adjacent_node->to_string());
         
             // If it is not walkable or if it is on the closed list, ignore it. Otherwise do the following.
-            if((!adjacent_node->walkable()) || (closed_list_contains(adjacent_node))) {
+            //if(closed_list_contains(adjacent_node)) {
+            if(!adjacent_node->walkable()) {
+                Logger::write(Logger::string_stream << "\t\tNode not walkable");
+                continue;
+            }
+            if(closed_list_contains(adjacent_node)) {
+                Logger::write(Logger::string_stream << "\t\tNode already on closed list");
                 continue;
             }
 
@@ -203,6 +215,21 @@ bool Pathfinder::closed_list_contains(GridNode * node)
     }
 
     return false;
+}
+
+std::string Pathfinder::open_list_to_string()
+{
+    std::ostringstream convert;
+    convert << "open_list: \n";
+    if(!open_list.empty()) {
+        for(std::list<GridNode *>::iterator it = open_list.begin(); it != open_list.end(); ++it) {
+            convert << "\t" << (*it)->to_string() << " f_score: " << (*it)->f_score() << std::endl;
+        }
+    }
+    else {
+        convert << "empty";
+    }
+    return static_cast<std::ostringstream*>( &(convert) )->str();
 }
 
 /*

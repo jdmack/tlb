@@ -1,4 +1,6 @@
 
+#include <sstream>
+
 #include "grid_node.h"
 #include "point.h"
 
@@ -59,4 +61,20 @@ void GridNode::reset()
 {
     set_scores(0,0,0);
     parent_ = nullptr;
+}
+
+bool GridNode::operator>(const GridNode &other) const {
+
+    if(f_score_ > other.f_score()) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+std::string GridNode::to_string()
+{
+    return static_cast<std::ostringstream*>( &(std::ostringstream() << "GridNode(" << row_ << "," << column_
+        << ")") )->str();
 }

@@ -29,6 +29,8 @@ class Tile
         double y_position_;
         double width_;
         double height_;
+        int row_;
+        int column_;
         int type_;
         Level * level_;
         SDL_Rect clips_[kTileSprites];
@@ -40,6 +42,8 @@ class Tile
         double y_position() const { return y_position_; }
         double width() const { return width_; }
         double height() const { return height_; }
+        int row() const { return row_; }
+        int column() const { return column_; }
         int type() const { return type_; }
         SDL_Rect box();
         void render();

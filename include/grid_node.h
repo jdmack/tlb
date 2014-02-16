@@ -1,8 +1,11 @@
 #ifndef TLB_GRID_NODE_H_
 #define TLB_GRID_NODE_H_
 
+#include <string>
+
 const int kGridNodeWidth  = 48;
 const int kGridNodeHeight = 48;
+
 
 class Point;
 
@@ -43,6 +46,10 @@ class GridNode
         void set_g_score(int g_score) { g_score_ = g_score; }
         void set_h_score(int h_score) { h_score_ = h_score; }
         void set_parent(GridNode * parent) { parent_ = parent; }
+        void set_walkable(bool walkable) { walkable_ = walkable; }
+
+        bool operator>(const GridNode &other) const;
+
 
         void set_scores(int f_score, int g_score, int h_score);
 
@@ -51,6 +58,8 @@ class GridNode
         Point center_point();
 
         void reset();
+        std::string to_string();
+
 };
 
 

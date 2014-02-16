@@ -39,4 +39,6 @@ const std::string kMapTest24x18 = kPathMap + "test_24x18.map";
 const std::string kMapTest32x24 = kPathMap + "test_32x24.map";
 const std::string kMapTest80x45 = kPathMap + "test_80x45.map";
 
+const std::string kMapTest24x18Blank = kPathMap + "test_24x18_blank.map";
+
 #endif
