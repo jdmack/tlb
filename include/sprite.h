@@ -1,8 +1,11 @@
 #ifndef TLB_SPRITE_H_
 #define TLB_SPRITE_H_
 
+#include <map>
 #include <string>
+#include "utils/timer.h"
 #include "SDL2/SDL.h"
+#include "animation.h"
 
 class GameObject;
 class Screen;
@@ -18,6 +21,10 @@ class Sprite
         std::string select_art_asset_;
         GameObject * object_;
 
+        Animation current_animation_;
+        std::map<std::string, Animation> animations_;
+
+        Timer animation_timer_;
 
     public:
         Sprite(GameObject * object, std::string asset, std::string select_asset);
@@ -28,6 +35,7 @@ class Sprite
         std::string art_asset() const { return art_asset_; }
         SDL_Texture * texture() const { return texture_; }
         Screen * screen() const { return screen_; }
+        std::map<std::string, Animation> animations() const { return animations_; }
 
         // mutators
         void set_texture(SDL_Texture * texture) { texture_ = texture; }
@@ -37,6 +45,7 @@ class Sprite
         void render();
         void select();
         void deselect();
+        void update();
 };
 
 #endif
