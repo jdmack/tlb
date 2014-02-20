@@ -20,6 +20,8 @@ class Sprite
         std::string art_asset_;
         std::string select_art_asset_;
         GameObject * object_;
+        std::string current_action_;
+        double current_direction_;
 
         Animation current_animation_;
         std::map<std::string, Animation> animations_;

@@ -38,7 +38,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
             current_node = open_list.front();
             open_list.pop_front();
 
-            Logger::write(Logger::string_stream << "current_node: " << current_node->to_string());
+            //Logger::write(Logger::string_stream << "current_node: " << current_node->to_string());
         }
         else { 
             // Return empty list for "no path"
@@ -139,7 +139,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                     g_cost_inc = kNodeCostDia;
                     break;
             }
-            Logger::write(Logger::string_stream << "\tConsidering Node: " << adjacent_node->to_string());
+            //Logger::write(Logger::string_stream << "\tConsidering Node: " << adjacent_node->to_string());
         
             // If it is not walkable or if it is on the closed list, ignore it. Otherwise do the following.
             //if(closed_list_contains(adjacent_node)) {

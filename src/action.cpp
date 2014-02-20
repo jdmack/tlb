@@ -2,7 +2,7 @@
 
 Action::Action()
 {
-
+    type_ = kActionEmpty;
 }
 
 Action::~Action()
