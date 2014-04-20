@@ -10,6 +10,8 @@
 #include "level.h"
 #include "utils/logger.h"
 
+static int compare_GridNodes (const GridNode* a, const GridNode* b);
+
 Pathfinder::Pathfinder(Level * level)
 {
     level_ = level;
@@ -32,7 +34,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
         // a) Look for the lowest F cost square on the open list. We refer to this as the current square.
         if(!open_list.empty()) {
 
-            open_list.sort([](const GridNode* a, const GridNode* b) { return a->f_score() < b->f_score(); });
+            open_list.sort(compare_GridNodes);
             //Logger::write(Logger::string_stream << open_list_to_string());
 
             current_node = open_list.front();
@@ -245,6 +247,11 @@ std::string Pathfinder::open_list_to_string()
         convert << "empty";
     }
     return static_cast<std::ostringstream*>( &(convert) )->str();
+}
+
+static int compare_GridNodes (const GridNode* a, const GridNode* b)
+{
+    return a->f_score() < b->f_score();
 }
 
 /*
