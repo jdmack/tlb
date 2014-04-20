@@ -144,7 +144,12 @@ void Level::build_grid()
     int rows = (int) std::ceil(height_ / kGridNodeHeight);
     int columns = (int) std::ceil(width_ / kGridNodeWidth);
 
-    grid_ = new Grid(rows, columns, this);
+    grid_ = new Grid(rows, columns);
+
+    for(int r = 0; r < rows ; r++)
+        for(int c = 0; c < columns ; c++)
+           grid_->node(r, c)->set_walkable(is_walkable(r, c));
+
     //Logger::write(Logger::string_stream << "Rows:" << rows << ", Columns: " << columns);
 }
 
