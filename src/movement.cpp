@@ -17,8 +17,8 @@ Movement::Movement(Vector vector, Point start, Point destination)
 
 std::string Movement::to_string()
 {
-    std::ostringstream convert;
-    return static_cast<std::ostringstream*>( &(std::ostringstream() << "Movement(Start:" << start_.to_string() 
-        << ", Destination:" << destination_.to_string() << ")") )->str();
+    std::stringstream ss;
+    ss << "Movement(Start:" << start_.to_string() << ", Destination:" << destination_.to_string() << ")";
+    return ss.str();
 
 }

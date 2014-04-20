@@ -75,6 +75,7 @@ bool GridNode::operator>(const GridNode &other) const {
 
 std::string GridNode::to_string()
 {
-    return static_cast<std::ostringstream*>( &(std::ostringstream() << "GridNode(" << row_ << "," << column_
-        << ")") )->str();
+    std::stringstream ss;
+    ss << "GridNode(" << row_ << "," << column_ << ")";
+    return ss.str();
 }

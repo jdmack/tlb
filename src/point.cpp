@@ -19,8 +19,9 @@ Point::Point(double x, double y)
 
 std::string Point::to_string()
 {
-    std::ostringstream convert;
-    return static_cast<std::ostringstream*>( &(std::ostringstream() << "(" << x_ << "," << y_ << ")") )->str();
+    std::stringstream ss;
+    ss << "(" << x_ << "," << y_ << ")";
+    return ss.str();
 }
 
 bool Point::operator==(const Point &other) const {
