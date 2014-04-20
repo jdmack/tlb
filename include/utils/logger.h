@@ -13,7 +13,7 @@ namespace Logger
     void write(std::string message);
     void write(std::basic_ostream<char>&);
     void close();
-};
+}
 
 
 #endif
