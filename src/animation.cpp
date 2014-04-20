@@ -22,11 +22,6 @@ void Animation::insert_frame(std::string frame_key, SDL_Rect frame)
     //current_ = frames_.begin();
 }
 
-SDL_Rect Animation::get_frame(std::string frame_key)
-{
-    //return frames_[frame_key];
-}
-
 SDL_Rect Animation::current_frame()
 {
     return frames_.at(current_);
