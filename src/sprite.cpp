@@ -119,8 +119,10 @@ void Sprite::deselect()
 void Sprite::render()
 {
     update();
+
+    // convert floating-point positions to integers for drawing
     //SDL_Rect offset = { object_->x_position() - (object_->width() / 2), object_->y_position() - (object_->height() / 2), height_, width_ };
-    SDL_Rect offset = { object_->x_position() - (object_->width() / 2), object_->y_position() - (object_->height() / 2), 32, 35 };
+    SDL_Rect offset = { (int)object_->x_position() - ((int)object_->width() / 2), (int)object_->y_position() - ((int)object_->height() / 2), 32, 35 };
     //screen_->render_texture_rotate(texture_, &offset, nullptr, -object_->rotation());
     //screen_->render_texture(texture_, &offset, &(current_animation_.current()->second));
     //screen_->render_texture(texture_, &offset, &(*(current_animation_.current())));
