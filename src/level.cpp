@@ -36,7 +36,7 @@ bool Level::load(std::string filename)
     int x = 0;
     int y = 0;
 
-    std::ifstream map(filename);
+    std::ifstream map(filename.c_str());
 
     if(map == nullptr) {
         Logger::write(Logger::string_stream << "Failed to open file: " << filename);
