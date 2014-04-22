@@ -1,6 +1,5 @@
 
 #include <list>
-#include <cmath>
 #include <sstream>
 #include <string>
 
@@ -162,7 +161,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
 
                 // Record the F, G, and H costs of the square.
                 adjacent_node->set_g_score(current_node->g_score() + g_cost_inc);
-                adjacent_node->set_h_score((std::abs(adjacent_node->row() - end_node->row()) + std::abs(adjacent_node->column() - 
+                adjacent_node->set_h_score((abs(adjacent_node->row() - end_node->row()) + abs(adjacent_node->column() - 
                     end_node->column())) * kNodeCostHor);
                 adjacent_node->set_f_score(adjacent_node->g_score() + adjacent_node->h_score());
             }
