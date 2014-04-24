@@ -5,7 +5,6 @@
 
 class GridNode;
 class Point;
-class Level;
 
 class Grid
 {
@@ -14,14 +13,13 @@ class Grid
         int columns_;
         int node_width_;
         int node_height_;
-        Level * level_;
 
         std::vector<GridNode *> * nodes_;
 
     public:
         // constructors
         Grid();
-        Grid(int rows, int columns, Level * level);
+        Grid(int rows, int columns);
 
         // accessors
         int rows() const { return rows_; }
