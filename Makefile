@@ -12,6 +12,8 @@ LIB := -lSDL2 -lSDL2_image -static-libgcc
  
 #LIB := -lSDL2 -lSDL2_image -lSDL_ttf -lSDL_mixer -static-libgcc
 
+# Uncomment on CentOS 6 (GCC 4.4)
+#CFLAGS += -Dnullptr='(NULL)'
 
 INC := -I include
 

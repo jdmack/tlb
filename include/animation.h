@@ -15,7 +15,7 @@ class Animation
         //std::map<std::string, SDL_Rect>::iterator current_;
         std::vector<SDL_Rect> frames_;
         //std::vector<SDL_Rect>::iterator current_;
-        int current_;
+        unsigned current_;
 
     public:
         Animation();
