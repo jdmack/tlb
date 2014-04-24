@@ -1,14 +1,20 @@
 CC := g++ # This is the main compiler
 # CC := clang --analyze # and comment out the linker last line for sanity
 SRCDIR := src
+TESTDIR := tests
 BUILDDIR := build
 TARGET := tlb
+TESTER := tester
  
 SRCEXT := cpp
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
+TESTS   := $(shell find $(TESTDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
+TESTOBJ := $(patsubst $(TESTDIR)/%,$(BUILDDIR)/%,$(TESTS:.$(SRCEXT)=.o)) $(filter-out build/main.o,$(OBJECTS))
+
 CFLAGS := -g3 -O0 -std=c++0x #-Wall
 LIB := -lSDL2 -lSDL2_image -static-libgcc 
+TESTLIB := -lgtest -lgtest_main -lpthread
  
 #LIB := -lSDL2 -lSDL2_image -lSDL_ttf -lSDL_mixer -static-libgcc
 
@@ -28,12 +34,18 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 
 clean:
 	@echo " Cleaning..."; 
-	@echo " $(RM) -r $(BUILDDIR) $(TARGET)"; $(RM) -r $(BUILDDIR) $(TARGET)
+	@echo " $(RM) -r $(BUILDDIR) $(TARGET) $(TESTER)"; $(RM) -r $(BUILDDIR) $(TARGET) $(TESTER)
 
 # Tests
-#tester:
-#	$(CC) $(CFLAGS) test/tester.cpp $(INC) $(LIB) -o bin/tester
-#
+$(BUILDDIR)/%.o: $(TESTDIR)/%.$(SRCEXT)
+	@mkdir -p $(BUILDDIR)
+	@echo " $(CC) $(CFLAGS) $(INC) -c -o $@ $<"; $(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+$(TESTER): $(OBJECTS) $(TESTOBJ)
+	$(CC) $(CFLAGS) $(INC) $(TESTOBJ) -o $(TESTER) $(LIB) $(TESTLIB)
+
+test: tester
+	./tester
 
 .PHONY: clean
 
