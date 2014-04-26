@@ -47,7 +47,7 @@ MovementAction::MovementAction(Point start, Point end, Level * level)
 void MovementAction::find_path()
 {
     // Create Pathfinder
-	Pathfinder pathfinder(level_);
+	Pathfinder pathfinder(level_->grid());
 
 	// Get path as list of nodes
 	std::list<GridNode *> * nodes;

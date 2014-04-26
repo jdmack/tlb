@@ -8,25 +8,27 @@ const int kNodeCostHor = 10;
 const int kNodeCostVer = kNodeCostHor;
 const int kNodeCostDia = 14;
 
-class Level;
+class Grid;
 class GridNode;
 
 class Pathfinder
 {
     private:
-        Level * level_;
+        Grid * grid_;
         std::list<GridNode *> open_list;
         std::list<GridNode *> closed_list;
 
+        bool is_walkable(int row, int col);
+
     public:
         // constructors
-        Pathfinder(Level * level);
+        Pathfinder(Grid * grid);
 
         // accessors
-        Level * level() const { return level_; }
+        Grid * grid() const { return grid_; }
 
         // mutators
-        void set_level(Level * level) { level_ = level; }
+        void set_grid(Grid * grid) { grid_ = grid; }
 
         std::list<GridNode *> * run(GridNode * start_node, GridNode * end_node);
         void reset();

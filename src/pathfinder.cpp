@@ -2,18 +2,18 @@
 #include <list>
 #include <sstream>
 #include <string>
+#include <stdlib.h>
 
 #include "pathfinder.h"
 #include "grid.h"
 #include "grid_node.h"
-#include "level.h"
 #include "utils/logger.h"
 
 static int compare_GridNodes (const GridNode* a, const GridNode* b);
 
-Pathfinder::Pathfinder(Level * level)
+Pathfinder::Pathfinder(Grid * grid)
 {
-    level_ = level;
+    grid_ = grid;
 }
 
 std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_node)
@@ -62,10 +62,10 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                         continue;
                     }
                     // Go diagonal only if the two corner nodes are walkable (don't cut corners)
-                    if((!level_->is_walkable(current_node->row(), current_node->column() - 1)) ||(!level_->is_walkable(current_node->row() - 1, current_node->column()))) {
+                    if((!is_walkable(current_node->row(), current_node->column() - 1)) ||(!is_walkable(current_node->row() - 1, current_node->column()))) {
                         continue;
                     }
-                    adjacent_node = level_->grid()->node(current_node->row() - 1, current_node->column() - 1);
+                    adjacent_node = grid_->node(current_node->row() - 1, current_node->column() - 1);
                     g_cost_inc = kNodeCostDia;
                     break;
                 case 1:
@@ -73,7 +73,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                         // invalid node
                         continue;
                     }
-                    adjacent_node = level_->grid()->node(current_node->row() - 1, current_node->column());
+                    adjacent_node = grid_->node(current_node->row() - 1, current_node->column());
                     g_cost_inc = kNodeCostVer;
                     break;
                 case 2:
@@ -83,10 +83,10 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                         continue;
                     }
                     // Go diagonal only if the two corner nodes are walkable (don't cut corners)
-                    if((!level_->is_walkable(current_node->row() - 1, current_node->column())) ||(!level_->is_walkable(current_node->row(), current_node->column() + 1))) {
+                    if((!is_walkable(current_node->row() - 1, current_node->column())) ||(!is_walkable(current_node->row(), current_node->column() + 1))) {
                         continue;
                     }
-                    adjacent_node = level_->grid()->node(current_node->row() - 1, current_node->column() + 1);
+                    adjacent_node = grid_->node(current_node->row() - 1, current_node->column() + 1);
                     g_cost_inc = kNodeCostDia;
                     break;
                 case 3:
@@ -94,7 +94,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                         // invalid node
                         continue;
                     }
-                    adjacent_node = level_->grid()->node(current_node->row(), current_node->column() - 1);
+                    adjacent_node = grid_->node(current_node->row(), current_node->column() - 1);
                     g_cost_inc = kNodeCostHor;
                     break;
                 case 4:
@@ -102,7 +102,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                     //    // invalid node
                     //    continue;
                     //}
-                    adjacent_node = level_->grid()->node(current_node->row(), current_node->column() + 1);
+                    adjacent_node = grid_->node(current_node->row(), current_node->column() + 1);
                     g_cost_inc = kNodeCostHor;
                     break;
                 case 5:
@@ -112,10 +112,10 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                         continue;
                     }
                     // Go diagonal only if the two corner nodes are walkable (don't cut corners)
-                    if((!level_->is_walkable(current_node->row() + 1, current_node->column())) ||(!level_->is_walkable(current_node->row(), current_node->column() - 1))) {
+                    if((!is_walkable(current_node->row() + 1, current_node->column())) ||(!is_walkable(current_node->row(), current_node->column() - 1))) {
                         continue;
                     }
-                    adjacent_node = level_->grid()->node(current_node->row() + 1, current_node->column() - 1);
+                    adjacent_node = grid_->node(current_node->row() + 1, current_node->column() - 1);
                     g_cost_inc = kNodeCostDia;
                     break;
                 case 6:
@@ -123,7 +123,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                     //    // invalid node
                     //    continue;
                     //}
-                    adjacent_node = level_->grid()->node(current_node->row() + 1, current_node->column());
+                    adjacent_node = grid_->node(current_node->row() + 1, current_node->column());
                     g_cost_inc = kNodeCostVer;
                     break;
                 case 7:
@@ -133,10 +133,10 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                     //    continue;
                     //}
                     // Go diagonal only if the two corner nodes are walkable (don't cut corners)
-                    if((!level_->is_walkable(current_node->row(), current_node->column() + 1)) ||(!level_->is_walkable(current_node->row() + 1, current_node->column()))) {
+                    if((!is_walkable(current_node->row(), current_node->column() + 1)) ||(!is_walkable(current_node->row() + 1, current_node->column()))) {
                         continue;
                     }
-                    adjacent_node = level_->grid()->node(current_node->row() + 1, current_node->column() + 1);
+                    adjacent_node = grid_->node(current_node->row() + 1, current_node->column() + 1);
                     g_cost_inc = kNodeCostDia;
                     break;
             }
@@ -251,6 +251,11 @@ std::string Pathfinder::open_list_to_string()
 static int compare_GridNodes (const GridNode* a, const GridNode* b)
 {
     return a->f_score() < b->f_score();
+}
+
+bool Pathfinder::is_walkable(int row, int col)
+{
+    return grid_->node(row, col)->walkable();
 }
 
 /*
