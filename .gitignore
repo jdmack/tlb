@@ -12,3 +12,6 @@ tlb.log
 log_tlb.log
 tlb
 /Default
+*.log
+.libs
+config.status
