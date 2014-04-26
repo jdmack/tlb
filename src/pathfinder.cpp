@@ -76,12 +76,9 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                 // up/left
                 case 0:
                     if(!allow_diagonals) continue;
-                    if((current_node->row() - 1 < 0) || (current_node->column() - 1 < 0)) {
-                        // invalid node
-                        continue;
-                    }
+
                     // Go diagonal only if the two corner nodes are walkable (don't cut corners)
-                    if((!can_go_left) ||(!can_go_up)) {
+                    if((!can_go_left) || (!can_go_up)) {
                         continue;
                     }
                     adjacent_node = grid_->node(current_node->row() - 1, current_node->column() - 1);
@@ -89,6 +86,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                     break;
                 // up
                 case 1:
+                    // Check falling off top
                     if(current_node->row() - 1 < 0) {
                         // invalid node
                         continue;
@@ -99,10 +97,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                 // up/right
                 case 2:
                     if(!allow_diagonals) continue;
-                    if((current_node->row() - 1 < 0) || (current_node->column() + 1 >= grid_->columns())) {
-                        // invalid node
-                        continue;
-                    }
+
                     // Go diagonal only if the two corner nodes are walkable (don't cut corners)
                     if((!can_go_up) || (!can_go_right)) {
                         continue;
@@ -112,6 +107,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                     break;
                 // left
                 case 3:
+                    // Check falling off left
                     if(current_node->column() - 1 < 0) {
                         // invalid node
                         continue;
@@ -121,6 +117,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                     break;
                 // right
                 case 4:
+                    // Check falling off right
                     if(current_node->column() + 1 >= grid_->columns()) {
                         // invalid node
                         continue;
@@ -131,10 +128,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                 // down/left
                 case 5:
                     if(!allow_diagonals) continue;
-                    if((current_node->row() + 1 >= grid_->rows()) || (current_node->column() - 1 < 0)) {
-                        // invalid node
-                        continue;
-                    }
+
                     // Go diagonal only if the two corner nodes are walkable (don't cut corners)
                     if((!can_go_down) || (!can_go_left)) {
                         continue;
@@ -144,6 +138,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                     break;
                 // down
                 case 6:
+                    // Check falling off bottom
                     if(current_node->row() + 1 >= grid_->rows()) {
                         // invalid node
                         continue;
@@ -154,10 +149,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                 // down/right
                 case 7:
                     if(!allow_diagonals) continue;
-                    if((current_node->row() + 1 >= grid_->rows()) || (current_node->column() + 1 >= grid_->columns())) {
-                        // invalid node
-                        continue;
-                    }
+
                     // Go diagonal only if the two corner nodes are walkable (don't cut corners)
                     if((!can_go_down) || (!can_go_right)) {
                         continue;
