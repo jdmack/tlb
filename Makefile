@@ -14,7 +14,8 @@ TESTOBJ := $(patsubst $(TESTDIR)/%,$(BUILDDIR)/%,$(TESTS:.$(SRCEXT)=.o)) $(filte
 
 CFLAGS := -g3 -O0 -std=c++0x #-Wall
 LIB := -lSDL2 -lSDL2_image -static-libgcc 
-TESTLIB := -lgtest -lgtest_main -lpthread
+TESTLIB := -L gtest/lib/.libs -lgtest -lgtest_main -lpthread
+GTESTLIB := gtest/lib/libgtest.a
  
 #LIB := -lSDL2 -lSDL2_image -lSDL_ttf -lSDL_mixer -static-libgcc
 
@@ -41,11 +42,17 @@ $(BUILDDIR)/%.o: $(TESTDIR)/%.$(SRCEXT)
 	@mkdir -p $(BUILDDIR)
 	@echo " $(CC) $(CFLAGS) $(INC) -c -o $@ $<"; $(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-$(TESTER): $(OBJECTS) $(TESTOBJ)
+# Tester - test driver and main
+$(TESTER): $(OBJECTS) $(TESTOBJ) $(GTESTLIB)
 	$(CC) $(CFLAGS) $(INC) $(TESTOBJ) -o $(TESTER) $(LIB) $(TESTLIB)
 
+# Build Google Test library
+$(GTESTLIB):
+	(cd gtest && ./configure && make)
+
+# Run tests
 test: tester
-	./tester
+	LD_LIBRARY_PATH=gtest/lib/.libs DYLD_LIBRARY_PATH=gtest/lib/.libs ./tester
 
 .PHONY: clean
 
