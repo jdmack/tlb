@@ -15,6 +15,7 @@ tester
 *.log
 **/.libs/**
 config.status
-*/.deps
+**/.deps/**
 *.la
 gtest-1.7.0/libtool
+*.cache
