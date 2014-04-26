@@ -56,3 +56,25 @@ TEST(Pathfinder,DiagPath)
 
 }
 
+TEST(Pathfinder,UShape)
+{
+
+    Grid grid(3,3);
+    Pathfinder pathfinder(&grid);
+
+    for (int r = 0; r < 3; r++)
+        for (int c = 0; c < 3; c++)
+            EXPECT_TRUE (grid.node(r,c)->walkable());
+
+    grid.node(0,1)->set_walkable(false);
+    grid.node(1,1)->set_walkable(false);
+
+    GridNode * start_node = grid.node(0,0);
+    GridNode * end_node = grid.node(0,2);
+
+    std::list<GridNode *> * moves;
+    moves = pathfinder.run(start_node, end_node);
+    EXPECT_EQ (moves->size(), 7);
+
+}
+
