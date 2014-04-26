@@ -15,7 +15,7 @@ TESTOBJ := $(patsubst $(TESTDIR)/%,$(BUILDDIR)/%,$(TESTS:.$(SRCEXT)=.o)) $(filte
 CFLAGS := -g -O0 -std=c++0x #-Wall
 LIB := -lSDL2 -lSDL2_image -static-libgcc 
 TESTLIB := -L gtest/lib/.libs -lgtest -lgtest_main -lpthread
-GTESTLIB := gtest/lib/libgtest.a
+GTESTLIB := gtest/lib/.libs/libgtest.a
  
 #LIB := -lSDL2 -lSDL2_image -lSDL_ttf -lSDL_mixer -static-libgcc
 
