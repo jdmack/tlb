@@ -54,7 +54,26 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
         GridNode * adjacent_node = nullptr;
         int g_cost_inc = 0;
         for(int i = 0; i < 8; i++) {
+            bool can_go_left  = false;
+            bool can_go_right = false;
+            bool can_go_up    = false;
+            bool can_go_down  = false;
+
+            if(current_node->column() > 0) {
+                can_go_left = is_walkable(current_node->row(), current_node->column() - 1);
+            }
+            if(current_node->column() + 1 < grid_->columns()) {
+                can_go_right = is_walkable(current_node->row(), current_node->column() + 1);;
+            }
+            if(current_node->row() > 0) {
+                can_go_up = is_walkable(current_node->row() - 1, current_node->column());;
+            }
+            if(current_node->row() + 1 < grid_->rows()) {
+                can_go_down = is_walkable(current_node->row() + 1, current_node->column());;
+            }
+
             switch(i) {
+                // up/left
                 case 0:
                     if(!allow_diagonals) continue;
                     if((current_node->row() - 1 < 0) || (current_node->column() - 1 < 0)) {
@@ -62,12 +81,13 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                         continue;
                     }
                     // Go diagonal only if the two corner nodes are walkable (don't cut corners)
-                    if((!is_walkable(current_node->row(), current_node->column() - 1)) ||(!is_walkable(current_node->row() - 1, current_node->column()))) {
+                    if((!can_go_left) ||(!can_go_up)) {
                         continue;
                     }
                     adjacent_node = grid_->node(current_node->row() - 1, current_node->column() - 1);
                     g_cost_inc = kNodeCostDia;
                     break;
+                // up
                 case 1:
                     if(current_node->row() - 1 < 0) {
                         // invalid node
@@ -76,19 +96,21 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                     adjacent_node = grid_->node(current_node->row() - 1, current_node->column());
                     g_cost_inc = kNodeCostVer;
                     break;
+                // up/right
                 case 2:
                     if(!allow_diagonals) continue;
-                    if((current_node->row() - 1 < 0) || (current_node->column() + 1 >= grid_->columns())) { // TODO: Finish the upper bound check for column - THINK THIS IS DONE
+                    if((current_node->row() - 1 < 0) || (current_node->column() + 1 >= grid_->columns())) {
                         // invalid node
                         continue;
                     }
                     // Go diagonal only if the two corner nodes are walkable (don't cut corners)
-                    if((!is_walkable(current_node->row() - 1, current_node->column())) ||(!is_walkable(current_node->row(), current_node->column() + 1))) {
+                    if((!can_go_up) || (!can_go_right)) {
                         continue;
                     }
                     adjacent_node = grid_->node(current_node->row() - 1, current_node->column() + 1);
                     g_cost_inc = kNodeCostDia;
                     break;
+                // left
                 case 3:
                     if(current_node->column() - 1 < 0) {
                         // invalid node
@@ -97,43 +119,47 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
                     adjacent_node = grid_->node(current_node->row(), current_node->column() - 1);
                     g_cost_inc = kNodeCostHor;
                     break;
+                // right
                 case 4:
-                    if(current_node->column() + 1 >= grid_->columns()) { // TODO: Finish the upper bound check for column - THINK THIS IS DONE
+                    if(current_node->column() + 1 >= grid_->columns()) {
                         // invalid node
                         continue;
                     }
                     adjacent_node = grid_->node(current_node->row(), current_node->column() + 1);
                     g_cost_inc = kNodeCostHor;
                     break;
+                // down/left
                 case 5:
                     if(!allow_diagonals) continue;
-                    if((current_node->row() + 1 >= grid_->rows()) || (current_node->column() - 1 < 0)) { // TODO: Finish the upper bound check for row - THINK THIS IS DONE
+                    if((current_node->row() + 1 >= grid_->rows()) || (current_node->column() - 1 < 0)) {
                         // invalid node
                         continue;
                     }
                     // Go diagonal only if the two corner nodes are walkable (don't cut corners)
-                    if((!is_walkable(current_node->row() + 1, current_node->column())) ||(!is_walkable(current_node->row(), current_node->column() - 1))) {
+                    if((!can_go_down) || (!can_go_left)) {
                         continue;
                     }
                     adjacent_node = grid_->node(current_node->row() + 1, current_node->column() - 1);
                     g_cost_inc = kNodeCostDia;
                     break;
+                // down
                 case 6:
-                    if(current_node->row() + 1 >= grid_->rows()) { // TODO: Finish the upper bound check for row - THINK THIS IS DONE
+                    if(current_node->row() + 1 >= grid_->rows()) {
                         // invalid node
                         continue;
                     }
                     adjacent_node = grid_->node(current_node->row() + 1, current_node->column());
                     g_cost_inc = kNodeCostVer;
                     break;
+                // down/right
                 case 7:
                     if(!allow_diagonals) continue;
-                    if((current_node->row() + 1 >= grid_->rows()) || (current_node->column() + 1 >= grid_->columns())) { // TODO: Finish upper bound check for row/column - THINK THIS IS DONE
+                    if((current_node->row() + 1 >= grid_->rows()) || (current_node->column() + 1 >= grid_->columns())) {
                         // invalid node
                         continue;
                     }
                     // Go diagonal only if the two corner nodes are walkable (don't cut corners)
-                    if((!is_walkable(current_node->row(), current_node->column() + 1)) ||(!is_walkable(current_node->row() + 1, current_node->column()))) {
+                    if((!can_go_down) || (!can_go_right)) {
                         continue;
                     }
                     adjacent_node = grid_->node(current_node->row() + 1, current_node->column() + 1);
