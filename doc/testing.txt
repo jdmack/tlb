@@ -1,0 +1,10 @@
+
+Google Test Documentation
+https://code.google.com/p/googletest/wiki/V1_5_Primer
+
+Please target version 1.5 of the framework for now, even if you have a 
+later version installed. It will work, just don't use brand-new features.
+
+Fedora:  sudo yum install gtest gtest-devel
+Ubuntu:  sudo apt-get install libgtest-dev
+
