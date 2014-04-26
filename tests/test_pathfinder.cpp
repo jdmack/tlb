@@ -1,21 +1,14 @@
 
 #include <gtest/gtest.h>
 #include "pathfinder.h"
-#include "game.h"
 #include "grid.h"
 #include "grid_node.h"
-#include "level.h"
 
 TEST(Pathfinder,Basic)
 {
 
     Grid grid(3,3);
-
-    Game * game = new Game();
-    Level * level = new Level(game);
-    level->load ("test_20x12.map");
-
-    Pathfinder pathfinder(level);
+    Pathfinder pathfinder(&grid);
 
     for (int r = 0; r < 3; r++)
         for (int c = 0; c < 3; c++)
