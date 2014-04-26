@@ -12,7 +12,7 @@ TESTS   := $(shell find $(TESTDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 TESTOBJ := $(patsubst $(TESTDIR)/%,$(BUILDDIR)/%,$(TESTS:.$(SRCEXT)=.o)) $(filter-out build/main.o,$(OBJECTS))
 
-CFLAGS := -g3 -O0 -std=c++0x #-Wall
+CFLAGS := -g -O0 -std=c++0x #-Wall
 LIB := -lSDL2 -lSDL2_image -static-libgcc 
 TESTLIB := -L gtest/lib/.libs -lgtest -lgtest_main -lpthread
 GTESTLIB := gtest/lib/libgtest.a
