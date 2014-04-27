@@ -4,6 +4,7 @@
 #include "screen.h"
 #include "game_object.h"
 #include "utils/logger.h"
+#include "rapidxml/rapidxml.hpp"
 
 Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
 {
@@ -19,66 +20,73 @@ Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
     current_action_ = kActionIdle;
     current_direction_ = object_->rotation();
 
-    // temporary animation build code
-    // walk_right
-    Animation walk_right("walk_right", 100);
-    SDL_Rect walk_right_1 = { 0, 36, 32, 35 };
-    SDL_Rect walk_right_2 = { 46, 36, 32, 35 };
-    SDL_Rect walk_right_3 = { 92, 36, 32, 35 };
-    walk_right.insert_frame("walk_right_1", walk_right_1);
-    walk_right.insert_frame("walk_right_2", walk_right_2);
-    walk_right.insert_frame("walk_right_3", walk_right_3);
-    walk_right.insert_frame("walk_right_2", walk_right_2);
-    animations_.insert(std::pair<std::string, Animation>("walk_right", walk_right));
+    // open xml doc
+    rapidxml::xml_document<> doc;
+    std::ifstream file(kAssetSpriteXMLZombie1);
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    file.close();
+    std::string content(buffer.str());
+    doc.parse<0>(&content[0]);
 
-    // walk down
-    Animation walk_down("walk_down", 100);
-    SDL_Rect walk_down_1 = { 0, 0, 32, 35 };
-    SDL_Rect walk_down_2 = { 46, 0, 32, 35 };
-    SDL_Rect walk_down_3 = { 92, 0, 32, 35 };
-    walk_down.insert_frame("walk_down_1", walk_down_1);
-    walk_down.insert_frame("walk_down_2", walk_down_2);
-    walk_down.insert_frame("walk_down_3", walk_down_3);
-    walk_down.insert_frame("walk_down_2", walk_down_2);
-    animations_.insert(std::pair<std::string, Animation>("walk_down", walk_down));
+    rapidxml::xml_node<> *sprite = doc.first_node();     // this is the sprite element
 
-    // walk left
-    Animation walk_left("walk_left", 100);
-    SDL_Rect walk_left_1 = { 0, 108, 32, 35 };
-    SDL_Rect walk_left_2 = { 46, 108, 32, 35 };
-    SDL_Rect walk_left_3 = { 92, 108, 32, 35 };
-    walk_left.insert_frame("walk_left_1", walk_left_1);
-    walk_left.insert_frame("walk_left_2", walk_left_2);
-    walk_left.insert_frame("walk_left_3", walk_left_3);
-    walk_left.insert_frame("walk_left_2", walk_left_2);
-    animations_.insert(std::pair<std::string, Animation>("walk_left", walk_left));
+    // Iterate through animations
+    for(rapidxml::xml_node<> *animation = sprite->first_node("animation"); animation; animation = animation->next_sibling()) {
 
-    // walk up
-    Animation walk_up("walk_up", 100);
-    SDL_Rect walk_up_1 = { 0, 72, 32, 35 };
-    SDL_Rect walk_up_2 = { 46, 72, 32, 35 };
-    SDL_Rect walk_up_3 = { 92, 72, 32, 35 };
-    walk_up.insert_frame("walk_up_1", walk_up_1);
-    walk_up.insert_frame("walk_up_2", walk_up_2);
-    walk_up.insert_frame("walk_up_3", walk_up_3);
-    walk_up.insert_frame("walk_up_2", walk_up_2);
-    animations_.insert(std::pair<std::string, Animation>("walk_up", walk_up));
+        std::string animation_key;
+        int animation_time;
 
-    Animation idle_down("idle_down", 200);
-    idle_down.insert_frame("idle_down_1", walk_down_2);
-    animations_.insert(std::pair<std::string, Animation>("idle_down", idle_down));
+        for (rapidxml::xml_attribute<> *attribute = animation->first_attribute(); attribute; attribute = attribute->next_attribute()) {
 
-    Animation idle_right("idle_right", 200);
-    idle_right.insert_frame("idle_right_1", walk_right_2);
-    animations_.insert(std::pair<std::string, Animation>("idle_right", idle_right));
+                std::string attribute_name = attribute->name();
 
-    Animation idle_up("idle_up", 200);
-    idle_up.insert_frame("idle_up_1", walk_up_2);
-    animations_.insert(std::pair<std::string, Animation>("idle_up", idle_up));
+                if(attribute_name.compare("key") == 0) {
+                    animation_key = attribute->value();
+                }
+                else if(attribute_name.compare("time") == 0) {
+                    animation_time = atoi(attribute->value());
+                }
 
-    Animation idle_left("idle_left", 200);
-    idle_left.insert_frame("idle_left_1", walk_left_2);
-    animations_.insert(std::pair<std::string, Animation>("idle_left", idle_left));
+        }
+
+        Animation this_animation(animation_key, animation_time);
+
+        // Iterate through frames
+        for(rapidxml::xml_node<> *frame = animation->first_node("frame"); frame; frame = frame->next_sibling()) {
+
+            std::string frame_key;
+            int frame_x, frame_y, frame_width, frame_height;
+
+            // Iterate through attributes
+            for (rapidxml::xml_attribute<> *attribute = frame->first_attribute(); attribute; attribute = attribute->next_attribute()) {
+
+                std::string attribute_name = attribute->name();
+
+                if(attribute_name.compare("key") == 0) {
+                    frame_key = attribute->value();
+                }
+                else if(attribute_name.compare("x") == 0) {
+                    frame_x = atoi(attribute->value());
+                }
+                else if(attribute_name.compare("y") == 0) {
+                    frame_y = atoi(attribute->value());
+                }
+                else if(attribute_name.compare("width") == 0) {
+                    frame_width = atoi(attribute->value());
+                }
+                else if(attribute_name.compare("height") == 0) {
+                    frame_height = atoi(attribute->value());
+                }
+            }
+
+            SDL_Rect this_frame = { frame_x, frame_y, frame_width, frame_height };
+            this_animation.insert_frame(animation_key + frame_key, this_frame);
+        }
+
+    animations_.insert(std::pair<std::string, Animation>(animation_key, this_animation));
+
+    }
 
     animation_timer_.start();
     //current_animation_ = idle_right;
@@ -220,11 +228,9 @@ void Sprite::update()
         }
     }
 
-
     // update frame of current animation
     if(animation_timer_.get_ticks() >= current_animation_.time()) {
         current_animation_.next_frame();
         animation_timer_.start();
     }
-
 }
