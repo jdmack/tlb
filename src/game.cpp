@@ -2,7 +2,7 @@
 
 // Project Files
 #include "game.h"
-#include "dot.h"
+#include "entity.h"
 #include "assets.h"
 #include "screen.h"
 #include "entigent.h"
@@ -59,8 +59,8 @@ int Game::run()
 void Game::game_loop()
 {
     // Create a dot
-    Dot * dot1 = new Dot(this, 48 * 5 + 24, 48 * 3 + 24, 0);
-    entigent_->add_object(dot1);
+    Entity * char1 = new Entity(this, 48 * 5 + 24, 48 * 3 + 24, 0);
+    entigent_->add_object(char1);
 
     // Main Loop
     while(quit_ == false) {
@@ -70,23 +70,23 @@ void Game::game_loop()
 
         // Update
         if(delta_timer_.get_ticks() >= 33) {
-            dot1->update(delta_timer_.get_ticks());
+            char1->update(delta_timer_.get_ticks());
             delta_timer_.start();
         }
 
 
         // center camera
-        camera_->center(dot1);
+        camera_->center(char1);
 
         // Draw
         screen_->clear();
         level_->render();
-        dot1->render();
+        char1->render();
 
         screen_->update();
     }
 
-    delete dot1;
+    delete char1;
 }
 
 // placeholder functions (not implemented yet)

@@ -3,23 +3,23 @@
 
 #include "game_object.h"
 
-const int kDotWidth  = 40;
-const int kDotHeight = 40;
+const int kEntityWidth  = 40;
+const int kEntityHeight = 40;
 
-const double kDotVelocity     = 100;
-const double kDotAcceleration = 800;
-const double kDotRotationVelocity = 1000;
+const double kEntityVelocity     = 100;
+const double kEntityAcceleration = 800;
+const double kEntityRotationVelocity = 1000;
 
 class Game;
 
-class Dot : public GameObject
+class Entity : public GameObject
 {
     private:
 
     public:
         // constructors/destructors
-        Dot(Game * game);
-        Dot(Game * game, double x, double y, double rot);
+        Entity(Game * game);
+        Entity(Game * game, double x, double y, double rot);
 
         // overridden
         void select();

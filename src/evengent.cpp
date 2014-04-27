@@ -8,7 +8,7 @@
 #include "game_object.h"
 #include "utils/logger.h"
 #include "point.h"
-#include "dot.h"
+#include "entity.h"
 #include "camera.h"
 
 Evengent::Evengent(Game * game)

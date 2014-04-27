@@ -2,7 +2,7 @@
 
 #include "SDL2/SDL.h"
 
-#include "dot.h"
+#include "entity.h"
 #include "assets.h"
 #include "point.h"
 #include "game.h"
@@ -14,31 +14,31 @@
 #include "vector.h"
 #include "utils/logger.h"
 
-Dot::Dot(Game * game) : GameObject(game)
+Entity::Entity(Game * game) : GameObject(game)
 {
     x_velocity_ = 0;
     y_velocity_ = 0;
 
-    width_  = kDotWidth;
-    height_ = kDotHeight;
+    width_  = kEntityWidth;
+    height_ = kEntityHeight;
 
     selectable_ = true;
     sprite_ = new Sprite(this, kAssetArtHexagon, kAssetArtHexagonOutline);
 }
 
-Dot::Dot(Game * game, double x, double y, double rot) : GameObject(game, x, y, rot)
+Entity::Entity(Game * game, double x, double y, double rot) : GameObject(game, x, y, rot)
 {
     x_velocity_ = 0;
     y_velocity_ = 0;
 
-    width_  = kDotWidth;
-    height_ = kDotHeight;
+    width_  = kEntityWidth;
+    height_ = kEntityHeight;
 
     selectable_ = true;
     sprite_ = new Sprite(this, kAssetArtHexagon, kAssetArtHexagonOutline);
 }
 
-void Dot::update(int delta_ticks)
+void Entity::update(int delta_ticks)
 {
     if(delta_ticks <= 0) {
         return;
@@ -53,7 +53,7 @@ void Dot::update(int delta_ticks)
 
     // TODO(2013-09-06/JM): Bug: Moving only on 1 axis causes a jump
     if((current_action_ != nullptr) && (current_action_->is_movement())) {
-        //Logger::write(Logger::string_stream << "Dot Update - delta_ticks: " << delta_ticks);
+        //Logger::write(Logger::string_stream << "Entity Update - delta_ticks: " << delta_ticks);
 
         MovementAction * movement_command = (static_cast<MovementAction *>(current_action_));
 
@@ -77,7 +77,7 @@ void Dot::update(int delta_ticks)
 
             movement_command->current()->set_degrees(std::abs(dir));
 
-            double degrees  = kDotRotationVelocity * (delta_ticks / 1000.f);
+            double degrees  = kEntityRotationVelocity * (delta_ticks / 1000.f);
             // Turn CW
             if(movement_command->current()->clockwise()) {
                 rotation_ -= degrees;
@@ -234,7 +234,7 @@ void Dot::update(int delta_ticks)
     }
 }
 
-bool Dot::contains_point(double x, double y)
+bool Entity::contains_point(double x, double y)
 {
     if((x < (x_position_ - (width_ / 2))) || (x > (x_position_ + (width_ / 2)))) {
         return false;
@@ -246,21 +246,21 @@ bool Dot::contains_point(double x, double y)
     return true;
 }
 
-void Dot::select()
+void Entity::select()
 {
-    Logger::write(Logger::string_stream << "Dot::select object_id: " << object_id_ << " (x,y): (" << x_position_ << ", " <<  y_position_ << ")");
+    Logger::write(Logger::string_stream << "Entity::select object_id: " << object_id_ << " (x,y): (" << x_position_ << ", " <<  y_position_ << ")");
     GameObject::select();
     sprite_->select();
 }
 
-void Dot::deselect()
+void Entity::deselect()
 {
-    Logger::write("Dot::deselect");
+    Logger::write("Entity::deselect");
     GameObject::deselect();
     sprite_->deselect();
 }
 
-void Dot::move(double x, double y)
+void Entity::move(double x, double y)
 {
     Logger::write(Logger::string_stream << "Move - (x,y): (" << x_position_ << "," << y_position_ << ")");
 
@@ -279,7 +279,7 @@ void Dot::move(double x, double y)
 
     // Start the first movement
 
-    //Vector acceleration(kDotAcceleration, movement_action->current()->vector().direction());
+    //Vector acceleration(kEntityAcceleration, movement_action->current()->vector().direction());
     x_velocity_ = movement_action->current()->maximum_velocity().x_component();
     y_velocity_ = movement_action->current()->maximum_velocity().y_component();
     //x_acceleration_ = acceleration.x_component();
@@ -287,7 +287,7 @@ void Dot::move(double x, double y)
 
 }
 
-void Dot::stop()
+void Entity::stop()
 {
     x_velocity_ = 0;
     y_velocity_ = 0;
@@ -295,7 +295,7 @@ void Dot::stop()
     y_acceleration_ = 0;
 }
 
-bool Dot::stopped()
+bool Entity::stopped()
 {
     if((x_velocity_ == 0) && (y_velocity_ == 0) && (x_acceleration_ == 0) && (y_acceleration_ == 0)) {
         return true;

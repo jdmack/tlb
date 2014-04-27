@@ -89,9 +89,7 @@ Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
     }
 
     animation_timer_.start();
-    //current_animation_ = idle_right;
     current_animation_ = animations_["idle_right"];
-    //current_animation_ = walk_right;
 }
 
 void Sprite::select()

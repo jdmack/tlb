@@ -15,7 +15,7 @@
 #include "point.h"
 #include "pathfinder.h"
 #include "utils/logger.h"
-#include "dot.h"
+#include "entity.h"
 
 MovementAction::MovementAction(Point start, Point end, Level * level)
 {
@@ -38,7 +38,7 @@ MovementAction::MovementAction(Point start, Point end, Level * level)
 
         // Create movement
         Movement * this_movement = new Movement(vector, start, end);
-        this_movement->set_maximum_velocity(Vector(kDotVelocity, this_movement->vector().direction()));
+        this_movement->set_maximum_velocity(Vector(kEntityVelocity, this_movement->vector().direction()));
         path_->push_back(this_movement);
         current_ = path_->begin();
 	}
@@ -87,7 +87,7 @@ void MovementAction::find_path()
             Logger::write(Logger::string_stream << "End Point: " << end_node->center_point().to_string());
             Movement * this_movement = new Movement(vector, start_node->center_point(), end_node->center_point());
 
-            this_movement->set_maximum_velocity(Vector(kDotVelocity, this_movement->vector().direction()));
+            this_movement->set_maximum_velocity(Vector(kEntityVelocity, this_movement->vector().direction()));
             path_->push_back(this_movement);
         }
 	    else {
