@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sprite>
+    <animation key="idle_right" time="200">
+        <frame key="1" x="46" y="36" width="32" height="35" />
+    </animation>
+    <animation key="walk_right" time="100">
+        <frame key="1" x="0"  y="36" width="32" height="35" />
+        <frame key="2" x="46" y="36" width="32" height="35" />
+        <frame key="3" x="92" y="36" width="32" height="35" />
+        <frame key="4" x="46" y="36" width="32" height="35" />
+    </animation>
+
+
+    <animation key="idle_down" time="200">
+        <frame key="1" x="46" y="0" width="32" height="35" />
+    </animation>
+    <animation key="walk_down" time="100">
+        <frame key="1" x="0"  y="0"  width="32" height="35" />
+        <frame key="2" x="46" y="0" width="32" height="35" />
+        <frame key="3" x="92" y="0" width="32" height="35" />
+        <frame key="4" x="46" y="0" width="32" height="35" />
+    </animation>
+
+
+    <animation key="idle_left" time="200">
+        <frame key="1" x="46" y="108" width="32" height="35" />
+    </animation>
+    <animation key="walk_left" time="100">
+        <frame key="1" x="0"  y="108" width="32" height="35" />
+        <frame key="2" x="46" y="108" width="32" height="35" />
+        <frame key="3" x="92" y="108" width="32" height="35" />
+        <frame key="4" x="46" y="108" width="32" height="35" />
+    </animation>
+
+
+    <animation key="idle_up" time="200">
+        <frame key="1" x="46" y="72" width="32" height="35" />
+    </animation>
+    <animation key="walk_up" time="100">
+        <frame key="1" x="0"  y="72" width="32" height="35" />
+        <frame key="2" x="46" y="72" width="32" height="35" />
+        <frame key="3" x="92" y="72" width="32" height="35" />
+        <frame key="4" x="46" y="72" width="32" height="35" />
+    </animation>
+
+</document>
