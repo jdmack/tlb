@@ -8,7 +8,7 @@ const int kDotHeight = 40;
 
 const double kDotVelocity     = 100;
 const double kDotAcceleration = 800;
-const double kDotRotationVelocity = 600;
+const double kDotRotationVelocity = 1000;
 
 class Game;
 
