@@ -26,6 +26,7 @@ const std::string kAssetArtHexagonOutline = kPathSprites + "hexagon_outline.png"
 
 /* Sprites */
 const std::string kAssetSpriteZombie1 = kPathSprites + "zombie1.png";
+const std::string kAssetSpriteXMLZombie1 = kPathSprites + "zombie1.xml";
 
 /* Tiles */
 const std::string kAssetArtTiles80 = kPathTiles + "tiles_80.png";
