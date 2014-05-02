@@ -7,6 +7,8 @@ const std::string kActionMovement = "MovementAction";
 const std::string kActionIdle    = "IdleAction";
 const std::string kActionEmpty    = "EmptyAction";
 
+class Entity;
+
 class Action
 {
     protected:
@@ -19,6 +21,7 @@ class Action
 
         virtual ~Action();
         virtual bool is_movement() const { return false; }
+        virtual void update(Entity * entity, int delta_ticks);
 
 };
 

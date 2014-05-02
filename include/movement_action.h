@@ -6,6 +6,7 @@
 #include "action.h"
 #include "point.h"
 
+class Entity;
 class GameObject;
 class Level;
 class Movement;
@@ -34,6 +35,9 @@ class MovementAction : public Action
         bool is_movement() const { return true; }
         std::string to_string();
         bool empty_path();
+
+        // overridden
+        void update(Entity * entity, int delta_ticks);
 };
 
 #endif
