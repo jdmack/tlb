@@ -1,0 +1,5 @@
+- invalid bKGD length in:
+    - tiles_32.png
+    - tiles_48.png
+    - tiles_48_key.png
+
