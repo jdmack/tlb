@@ -10,7 +10,7 @@ Action::~Action()
 
 }
 
-void Action::update(Entity * entity, int delta_ticks)
+bool Action::update(Entity * entity, int delta_ticks)
 {
-
+    return true;
 }

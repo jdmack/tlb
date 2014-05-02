@@ -138,8 +138,10 @@ bool MovementAction::empty_path()
 
 }
 
-void MovementAction::update(Entity * entity, int delta_ticks)
+bool MovementAction::update(Entity * entity, int delta_ticks)
 {
+    bool return_value = true;
+
     // Grab variables from entity to manipulate here, will update them at end
     double width = entity->width();
     double height = entity->height();
@@ -152,7 +154,7 @@ void MovementAction::update(Entity * entity, int delta_ticks)
     double rotation = entity->rotation();
 
     if(delta_ticks <= 0) {
-        return;
+        return return_value;
     }
 
     //if((x_velocity == 0) && (y_velocity == 0)) {
@@ -333,6 +335,7 @@ void MovementAction::update(Entity * entity, int delta_ticks)
                 y_velocity = (*current_)->maximum_velocity().y_component();
             }
             else {
+                return_value = false;
                 //delete current_action_;
                 //current_action_ = nullptr;
             }
@@ -349,4 +352,6 @@ void MovementAction::update(Entity * entity, int delta_ticks)
     entity->set_x_acceleration(x_acceleration);
     entity->set_y_acceleration(y_acceleration);
     entity->set_rotation(rotation);
+
+    return return_value;
 }

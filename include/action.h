@@ -21,7 +21,7 @@ class Action
 
         virtual ~Action();
         virtual bool is_movement() const { return false; }
-        virtual void update(Entity * entity, int delta_ticks);
+        virtual bool update(Entity * entity, int delta_ticks);
 
 };
 

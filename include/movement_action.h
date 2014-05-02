@@ -37,7 +37,7 @@ class MovementAction : public Action
         bool empty_path();
 
         // overridden
-        void update(Entity * entity, int delta_ticks);
+        bool update(Entity * entity, int delta_ticks);
 };
 
 #endif
