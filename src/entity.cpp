@@ -40,6 +40,7 @@ Entity::Entity(Game * game, double x, double y, double rot) : GameObject(game, x
 
 void Entity::update(int delta_ticks)
 {
+    current_action_->update(this, delta_ticks);
 }
 
 bool Entity::contains_point(double x, double y)

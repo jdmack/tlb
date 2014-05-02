@@ -54,6 +54,17 @@ class GameObject
         Sprite * sprite() const { return sprite_; }
         SDL_Rect rect();
 
+        // mutators
+        void set_x_position(double x_position) { x_position_ = x_position; }
+        void set_y_position(double y_position) { y_position_ = y_position; }
+        void set_x_velocity(double x_velocity) { x_velocity_ = x_velocity; }
+        void set_y_velocity(double y_velocity) { y_velocity_ = y_velocity; }
+        void set_x_acceleration(double x_acceleration) { x_acceleration_ = x_acceleration; }
+        void set_y_acceleration(double y_acceleration) { y_acceleration_ = y_acceleration; }
+        void set_rotation(double rotation) { rotation_ = rotation; }
+        void set_width(double width) { width_ = width; }
+        void set_height(double height) { height_ = height; }
+
         virtual void select();
         virtual void deselect();
         virtual bool contains_point(double x, double y);

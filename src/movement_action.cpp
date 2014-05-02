@@ -140,199 +140,213 @@ bool MovementAction::empty_path()
 
 void MovementAction::update(Entity * entity, int delta_ticks)
 {
-    /*
+    // Grab variables from entity to manipulate here, will update them at end
+    double width = entity->width();
+    double height = entity->height();
+    double x_position = entity->x_position();
+    double y_position = entity->y_position();
+    double x_velocity = entity->x_velocity();
+    double y_velocity = entity->y_velocity();
+    double x_acceleration = entity->x_acceleration();
+    double y_acceleration = entity->y_acceleration();
+    double rotation = entity->rotation();
+
     if(delta_ticks <= 0) {
         return;
     }
 
-    //if((x_velocity_ == 0) && (y_velocity_ == 0)) {
-    //    if((x_acceleration_ == 0) && (y_acceleration_ == 0)) {
+    //if((x_velocity == 0) && (y_velocity == 0)) {
+    //    if((x_acceleration == 0) && (y_acceleration == 0)) {
     //        return;
     //    }
     //}
 
     // TODO(2013-09-06/JM): Bug: Moving only on 1 axis causes a jump
-    if((current_action_ != nullptr) && (current_action_->is_movement())) {
-        //Logger::write(Logger::string_stream << "Entity Update - delta_ticks: " << delta_ticks);
+    //Logger::write(Logger::string_stream << "Entity Update - delta_ticks: " << delta_ticks);
 
-        MovementAction * movement_command = (static_cast<MovementAction *>(current_action_));
+    // Check rotation
+    if(rotation != (*current_)->vector().direction()) {
+        Logger::write(Logger::string_stream << "Rotation: " << rotation << ", Direction: " << (*current_)->vector().direction());
+        // Determine and set rotation direction
+        double dir = (*current_)->vector().direction() - rotation;
+        if((dir > 0) && (std::abs(dir) <= 180)) { (*current_)->set_clockwise(false); }
+        if((dir > 0) && (std::abs(dir) > 180)) { (*current_)->set_clockwise(true); }
+        if((dir < 0) && (std::abs(dir) <= 180)) { (*current_)->set_clockwise(true); }
+        if((dir < 0) && (std::abs(dir) > 180)) { (*current_)->set_clockwise(false); }
 
-        // Check rotation
-        if(rotation_ != movement_command->current()->vector().direction()) {
-            Logger::write(Logger::string_stream << "Rotation: " << rotation_ << ", Direction: " << movement_command->current()->vector().direction());
-            // Determine and set rotation direction
-            double dir = movement_command->current()->vector().direction() - rotation_;
-            if((dir > 0) && (std::abs(dir) <= 180)) { movement_command->current()->set_clockwise(false); }
-            if((dir > 0) && (std::abs(dir) > 180)) { movement_command->current()->set_clockwise(true); }
-            if((dir < 0) && (std::abs(dir) <= 180)) { movement_command->current()->set_clockwise(true); }
-            if((dir < 0) && (std::abs(dir) > 180)) { movement_command->current()->set_clockwise(false); }
+        //dir += (dir > 180) ? -360 : (dir < -180) ? 360 : 0;
+        if(dir > 180) {
+            dir -= 360;
+        }
+        else if(dir < -180) {
+            dir += 360;
+        }
 
-            //dir += (dir > 180) ? -360 : (dir < -180) ? 360 : 0;
-            if(dir > 180) {
-                dir -= 360;
-            }
-            else if(dir < -180) {
-                dir += 360;
-            }
+        (*current_)->set_degrees(std::abs(dir));
 
-            movement_command->current()->set_degrees(std::abs(dir));
+        double degrees  = kEntityRotationVelocity * (delta_ticks / 1000.f);
+        // Turn CW
+        if((*current_)->clockwise()) {
+            rotation -= degrees;
+        }
+        // Turn CCW
+        else {
+            rotation += degrees;
+        }
 
-            double degrees  = kEntityRotationVelocity * (delta_ticks / 1000.f);
-            // Turn CW
-            if(movement_command->current()->clockwise()) {
-                rotation_ -= degrees;
-            }
-            // Turn CCW
-            else {
-                rotation_ += degrees;
-            }
+        // check if turned far enough
+        (*current_)->set_degrees((*current_)->degrees() - degrees);
+        if((*current_)->degrees() < 0) {
+            rotation = (*current_)->vector().direction();
+        }
+    }
+    else {
 
-            // check if turned far enough
-            movement_command->current()->set_degrees(movement_command->current()->degrees() - degrees);
-            if(movement_command->current()->degrees() < 0) {
-                rotation_ = movement_command->current()->vector().direction();
-            }
+        // Accelerate
+        //if((std::abs(x_velocity) < std::abs((*current_)->maximum_velocity().x_component())) || ( std::abs(y_velocity) < std::abs((*current_)->maximum_velocity().y_component())) ) {
+        //    x_velocity += x_acceleration * (delta_ticks / 1000.f);
+        //    y_velocity += y_acceleration * (delta_ticks / 1000.f);
+        //}
+
+        // Move left/right and up/down
+        //x_position += x_velocity * (delta_ticks / 1000.f);
+        //y_position += y_velocity * (delta_ticks / 1000.f);
+
+        // Debugging version of movement code
+        int x_movement_amount = x_velocity * (delta_ticks / 1000.f);
+        x_position += x_movement_amount;
+        int y_movement_amount = y_velocity * (delta_ticks / 1000.f);
+        y_position += y_movement_amount;
+        //Logger::write(Logger::string_stream << "Moving: (" << x_movement_amount << ", " << y_movement_amount << ")");
+
+        // Check collisions
+        //TODO(2013-09-05/JM): Create a rectangle class like SDL_Rect to replace all instances outside SDL specific code with it
+
+        /*
+        SDL_Rect rect;
+        if(game_->level()->touches_wall(this, &rect)) {
+            fix_collision(rect);
+            Logger::write("STOPPING: Collision with wall");
+            // Go back
+            // TODO(2013-09-05/JM): Change this to move 1 pixel away from the collided object
+            x_position -= x_velocity * (delta_ticks / 1000.f);
+            y_position -= y_velocity * (delta_ticks / 1000.f);
+
+            entity->stop();
         }
         else {
+            // TODO(2013-09-05/JM): Create function for checking screen boundary collisions
+            // Check left boundary
+            if(x_position - (width / 2) < 0) {
+                Logger::write("STOPPING: Collision with LEFT screen boundary");
+                entity->stop();
+                x_position = 0 + (width / 2);
+            }
+            // Check right boundary
+            else if(x_position + (width / 2) > game_->level()->width()) {
+                Logger::write("STOPPING: Collision with RIGHT screen boundary");
+                entity->stop();
+                x_position = game_->level()->width() - (width / 2);
+            }
 
-            // Accelerate
-            //if((std::abs(x_velocity_) < std::abs(movement_command->current()->maximum_velocity().x_component())) || ( std::abs(y_velocity_) < std::abs(movement_command->current()->maximum_velocity().y_component())) ) {
-            //    x_velocity_ += x_acceleration_ * (delta_ticks / 1000.f);
-            //    y_velocity_ += y_acceleration_ * (delta_ticks / 1000.f);
-            //}
+            // Check top boundary
+            if(y_position - (height / 2) < 0) {
+                Logger::write("STOPPING: Collision with TOP screen boundary");
+                entity->stop();
+                y_position = 0 + (height / 2);
+            }
+            // Check bottom boundary
+            else if(y_position + (height / 2) > game_->level()->height()) {
+                Logger::write("STOPPING: Collision with BOTTOM screen boundary");
+                entity->stop();
+                y_position = game_->level()->height() - (height / 2);
+            }
 
-            // Move left/right and up/down
-            //x_position_ += x_velocity_ * (delta_ticks / 1000.f);
-            //y_position_ += y_velocity_ * (delta_ticks / 1000.f);
+        }
+        */
+        bool past_point = false;
 
-            // Debugging version of movement code
-            int x_movement_amount = x_velocity_ * (delta_ticks / 1000.f);
-            x_position_ += x_movement_amount;
-            int y_movement_amount = y_velocity_ * (delta_ticks / 1000.f);
-            y_position_ += y_movement_amount;
-            //Logger::write(Logger::string_stream << "Moving: (" << x_movement_amount << ", " << y_movement_amount << ")");
+        if((x_velocity > 0) && (y_velocity > 0)) {
+            if((x_position >= (*current_)->destination().x()) || (y_position >= (*current_)->destination().y())) {
+                Logger::write("(x > 0) (y > 0)");
+                past_point = true;
+            }
+        }
+        else if((x_velocity > 0) && (y_velocity < 0)) {
+            if((x_position >= (*current_)->destination().x()) || (y_position <= (*current_)->destination().y())) {
+                Logger::write("(x > 0) (y < 0)");
+                past_point = true;
+            }
+        }
+        else if((x_velocity < 0) && (y_velocity > 0)) {
+            if((x_position <= (*current_)->destination().x()) || (y_position >= (*current_)->destination().y())) {
+                Logger::write("(x < 0) (y > 0)");
+                past_point = true;
+            }
+        }
+        else if((x_velocity < 0) && (y_velocity < 0)) {
+            if((x_position <= (*current_)->destination().x()) || (y_position <= (*current_)->destination().y())) {
+                Logger::write("(x < 0) (y < 0)");
+                past_point = true;
+            }
+        }
+        else if(x_velocity == 0) {
+            if(y_velocity > 0) {
+                if(y_position >= (*current_)->destination().y()) {
+                    Logger::write("(x == 0) (y > 0)");
+                    past_point = true;
+                }
+            }
+            else if(y_velocity < 0) {
+                if(y_position <= (*current_)->destination().y()) {
+                    Logger::write("(x == 0) (y < 0)");
+                    past_point = true;
+                }
+            }
+        }
+        else if(y_velocity == 0) {
+            if(x_velocity > 0) {
+                if(x_position >= (*current_)->destination().x()) {
+                    Logger::write("(x > 0) (y == 0)");
+                    past_point = true;
+                }
+            }
+            else if(x_velocity < 0) {
+                if(x_position <= (*current_)->destination().x()) {
+                    Logger::write("(x < 0) (y == 0)");
+                    past_point = true;
+                }
+            }
+        }
 
-            // Check collisions
-            //TODO(2013-09-05/JM): Create a rectangle class like SDL_Rect to replace all instances outside SDL specific code with it
-            */
-            /*
-            SDL_Rect rect;
-            if(game_->level()->touches_wall(this, &rect)) {
-                fix_collision(rect);
-                Logger::write("STOPPING: Collision with wall");
-                // Go back
-                // TODO(2013-09-05/JM): Change this to move 1 pixel away from the collided object
-                x_position_ -= x_velocity_ * (delta_ticks / 1000.f);
-                y_position_ -= y_velocity_ * (delta_ticks / 1000.f);
+        if(past_point) {
+            Logger::write("STOPPING: Moved past point");
+            entity->stop();
+            x_position = (*current_)->destination().x();
+            y_position = (*current_)->destination().y();
+            Logger::write(Logger::string_stream << "Destination:" << (*current_)->destination().to_string());
+        }
 
-                stop();
+        if(entity->stopped()) {
+            if(next_movement()) {
+                x_velocity = (*current_)->maximum_velocity().x_component();
+                y_velocity = (*current_)->maximum_velocity().y_component();
             }
             else {
-                // TODO(2013-09-05/JM): Create function for checking screen boundary collisions
-                // Check left boundary
-                if(x_position_ - (width_ / 2) < 0) {
-                    Logger::write("STOPPING: Collision with LEFT screen boundary");
-                    stop();
-                    x_position_ = 0 + (width_ / 2);
-                }
-                // Check right boundary
-                else if(x_position_ + (width_ / 2) > game_->level()->width()) {
-                    Logger::write("STOPPING: Collision with RIGHT screen boundary");
-                    stop();
-                    x_position_ = game_->level()->width() - (width_ / 2);
-                }
-
-                // Check top boundary
-                if(y_position_ - (height_ / 2) < 0) {
-                    Logger::write("STOPPING: Collision with TOP screen boundary");
-                    stop();
-                    y_position_ = 0 + (height_ / 2);
-                }
-                // Check bottom boundary
-                else if(y_position_ + (height_ / 2) > game_->level()->height()) {
-                    Logger::write("STOPPING: Collision with BOTTOM screen boundary");
-                    stop();
-                    y_position_ = game_->level()->height() - (height_ / 2);
-                }
-
-            }
-            */
-            /*
-            bool past_point = false;
-
-            if((x_velocity_ > 0) && (y_velocity_ > 0)) {
-                if((x_position_ >= movement_command->current()->destination().x()) || (y_position_ >= movement_command->current()->destination().y())) {
-                    Logger::write("(x > 0) (y > 0)");
-                    past_point = true;
-                }
-            }
-            else if((x_velocity_ > 0) && (y_velocity_ < 0)) {
-                if((x_position_ >= movement_command->current()->destination().x()) || (y_position_ <= movement_command->current()->destination().y())) {
-                    Logger::write("(x > 0) (y < 0)");
-                    past_point = true;
-                }
-            }
-            else if((x_velocity_ < 0) && (y_velocity_ > 0)) {
-                if((x_position_ <= movement_command->current()->destination().x()) || (y_position_ >= movement_command->current()->destination().y())) {
-                    Logger::write("(x < 0) (y > 0)");
-                    past_point = true;
-                }
-            }
-            else if((x_velocity_ < 0) && (y_velocity_ < 0)) {
-                if((x_position_ <= movement_command->current()->destination().x()) || (y_position_ <= movement_command->current()->destination().y())) {
-                    Logger::write("(x < 0) (y < 0)");
-                    past_point = true;
-                }
-            }
-            else if(x_velocity_ == 0) {
-                if(y_velocity_ > 0) {
-                    if(y_position_ >= movement_command->current()->destination().y()) {
-                        Logger::write("(x == 0) (y > 0)");
-                        past_point = true;
-                    }
-                }
-                else if(y_velocity_ < 0) {
-                    if(y_position_ <= movement_command->current()->destination().y()) {
-                        Logger::write("(x == 0) (y < 0)");
-                        past_point = true;
-                    }
-                }
-            }
-            else if(y_velocity_ == 0) {
-                if(x_velocity_ > 0) {
-                    if(x_position_ >= movement_command->current()->destination().x()) {
-                        Logger::write("(x > 0) (y == 0)");
-                        past_point = true;
-                    }
-                }
-                else if(x_velocity_ < 0) {
-                    if(x_position_ <= movement_command->current()->destination().x()) {
-                        Logger::write("(x < 0) (y == 0)");
-                        past_point = true;
-                    }
-                }
-            }
-
-
-            if(past_point) {
-                Logger::write("STOPPING: Moved past point");
-                stop();
-                x_position_ = movement_command->current()->destination().x();
-                y_position_ = movement_command->current()->destination().y();
-                Logger::write(Logger::string_stream << "Destination:" << movement_command->current()->destination().to_string());
-            }
-
-            if(stopped()) {
-                if(movement_command->next_movement()) {
-                    x_velocity_ = movement_command->current()->maximum_velocity().x_component();
-                    y_velocity_ = movement_command->current()->maximum_velocity().y_component();
-                }
-                else {
-                    delete current_action_;
-                    current_action_ = nullptr;
-                }
+                //delete current_action_;
+                //current_action_ = nullptr;
             }
         }
     }
-*/
+
+    // Update new values of variables
+    entity->set_width(width);
+    entity->set_height(height);
+    entity->set_x_position(x_position);
+    entity->set_y_position(y_position);
+    entity->set_x_velocity(x_velocity);
+    entity->set_y_velocity(y_velocity);
+    entity->set_x_acceleration(x_acceleration);
+    entity->set_y_acceleration(y_acceleration);
+    entity->set_rotation(rotation);
 }
