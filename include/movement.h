@@ -4,7 +4,7 @@
 #include <string>
 #include "vector.h"
 #include "point.h"
-#include "action.h"
+#include "actions/action.h"
 
 class GameObject;
 

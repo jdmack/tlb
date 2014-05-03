@@ -7,7 +7,7 @@
 #include "point.h"
 #include "game.h"
 #include "level.h"
-#include "movement_action.h"
+#include "actions/movement_action.h"
 #include "movement.h"
 #include "screen.h"
 #include "sprite.h"

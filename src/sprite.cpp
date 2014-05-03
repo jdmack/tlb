@@ -1,5 +1,5 @@
 #include "assets.h"
-#include "action.h"
+#include "actions/action.h"
 #include "sprite.h"
 #include "screen.h"
 #include "game_object.h"

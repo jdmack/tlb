@@ -17,11 +17,15 @@ class Action
     public:
         Action();
 
+        // accessors
         std::string type() const { return type_; }
 
         virtual ~Action();
-        virtual bool is_movement() const { return false; }
         virtual bool update(Entity * entity, int delta_ticks);
+
+        // determination functions
+        virtual bool is_idle() const { return false; }
+        virtual bool is_movement() const { return false; }
 
 };
 
