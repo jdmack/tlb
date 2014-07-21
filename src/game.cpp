@@ -4,7 +4,7 @@
 #include "game.h"
 #include "entity.h"
 #include "assets.h"
-#include "screen.h"
+#include "renderer.h"
 #include "entity_manager.h"
 #include "event_manager.h"
 #include "utils/logger.h"
@@ -16,24 +16,24 @@ Game::Game()
 {
     exit_code_ = 0;
     quit_ = false;
-    screen_ = new Screen();
+    renderer_ = new Renderer();
     entity_manager_ = new EntityManager(this);
     event_manager_ = new EventManager(this);
     camera_ = new Camera(this);
-    screen_->set_camera(camera_);
+    renderer_->set_camera(camera_);
     level_ = nullptr;
 }
 
 Game::~Game()
 {
-    delete screen_;
+    delete renderer_;
 }
 
 int Game::run()
 {
     Logger::write("Game running");
 
-    if(screen_->init() == false) {
+    if(renderer_->init() == false) {
         return 1;
     }
 
@@ -50,7 +50,7 @@ int Game::run()
     game_loop();
 
     //Clean up
-    screen_->clean_up();
+    renderer_->clean_up();
 
     Logger::write("Game shutting down");
     return exit_code_;
@@ -79,11 +79,11 @@ void Game::game_loop()
         camera_->center(char1);
 
         // Draw
-        screen_->clear();
+        renderer_->clear();
         level_->render();
         char1->render();
 
-        screen_->update();
+        renderer_->update();
     }
 
     delete char1;

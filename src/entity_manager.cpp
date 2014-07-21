@@ -1,7 +1,7 @@
 /* Entity Agent */
 
 #include "entity_manager.h"
-#include "screen.h"
+#include "renderer.h"
 #include "game.h"
 #include "game_object.h"
 #include "utils/logger.h"
@@ -16,7 +16,7 @@ EntityManager::EntityManager(Game * game)
 void EntityManager::add_object(GameObject * object)
 {
     objects_->push_back(object);
-    game_->screen()->init_object(object);
+    game_->renderer()->init_object(object);
 
     // TODO(2013-08-24/JM): Add function to remove object from the vector
     // or add an "active" field to distinguish elements that haven't been deleted yet

@@ -1,6 +1,6 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
-#include "screen.h"
+#include "renderer.h"
 #include "camera.h"
 #include "color.h"
 #include "game_object.h"
@@ -13,7 +13,7 @@
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-Screen::Screen()
+Renderer::Renderer()
 {
     window_ = nullptr;
     renderer_ = nullptr;
@@ -25,7 +25,7 @@ Screen::Screen()
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-bool Screen::init()
+bool Renderer::init()
 {
     // Initialize SDL
     // TODO(2013-08-23/JM): Move this elsewhere, init function for whole game
@@ -40,11 +40,11 @@ bool Screen::init()
     }
     */
 
-    // Setup screen
-    window_ = SDL_CreateWindow(kWindowName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, kScreenWidth, kScreenHeight, SDL_WINDOW_SHOWN);
+    // Setup renderer
+    window_ = SDL_CreateWindow(kWindowName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, kRendererWidth, kRendererHeight, SDL_WINDOW_SHOWN);
     renderer_ = SDL_CreateRenderer(window_, -1, 0);
 
-    // Check screen was setup successfully
+    // Check renderer was setup successfully
     if((window_ == nullptr) || (renderer_ == nullptr)) {
         return false;
     }
@@ -67,7 +67,7 @@ bool Screen::init()
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Screen::render_texture(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect * clip)
+void Renderer::render_texture(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect * clip)
 {
     // TODO(2013-09-09/JM): Add render offset checks
 
@@ -85,7 +85,7 @@ void Screen::render_texture(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect *
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Screen::render_texture_rotate(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect * clip, double angle)
+void Renderer::render_texture_rotate(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect * clip, double angle)
 {
     // TODO(2013-09-09/JM): Add render offset checks
 
@@ -103,7 +103,7 @@ void Screen::render_texture_rotate(SDL_Texture * texture, SDL_Rect * offset, SDL
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Screen::apply_surface(SDL_Surface * source, SDL_Surface * destination, SDL_Rect * offset, SDL_Rect * clip)
+void Renderer::apply_surface(SDL_Surface * source, SDL_Surface * destination, SDL_Rect * offset, SDL_Rect * clip)
 {
     SDL_BlitSurface(source, clip, destination, offset );
 }
@@ -113,7 +113,7 @@ void Screen::apply_surface(SDL_Surface * source, SDL_Surface * destination, SDL_
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Screen::clear()
+void Renderer::clear()
 {
     SDL_SetRenderDrawColor(renderer_, kDefaultClearColor.red(), kDefaultClearColor.green(), kDefaultClearColor.blue(), 255);
     SDL_RenderClear(renderer_);
@@ -124,7 +124,7 @@ void Screen::clear()
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Screen::clear(Color clear_color)
+void Renderer::clear(Color clear_color)
 {
     SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 255);
     SDL_RenderClear(renderer_);
@@ -135,7 +135,7 @@ void Screen::clear(Color clear_color)
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Screen::update()
+void Renderer::update()
 {
     //if(debug_) debug_frame_->render();
     SDL_RenderPresent(renderer_);
@@ -146,7 +146,7 @@ void Screen::update()
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Screen::clean_up()
+void Renderer::clean_up()
 {
     // TODO(2013-08-23/JM): Move this elsewhere, cleanup function for whole game
 
@@ -161,7 +161,7 @@ void Screen::clean_up()
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-SDL_Surface * Screen::load_image(std::string filename)
+SDL_Surface * Renderer::load_image(std::string filename)
 {
     SDL_Surface* loaded_image    = nullptr;
 
@@ -183,7 +183,7 @@ SDL_Surface * Screen::load_image(std::string filename)
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-SDL_Surface * Screen::load_image_alpha(std::string filename)
+SDL_Surface * Renderer::load_image_alpha(std::string filename)
 {
     SDL_Surface* loaded_image = nullptr;
 
@@ -199,7 +199,7 @@ SDL_Surface * Screen::load_image_alpha(std::string filename)
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-SDL_Texture * Screen::load_texture(std::string filename)
+SDL_Texture * Renderer::load_texture(std::string filename)
 {
     SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer_, load_image(filename));
 
@@ -215,7 +215,7 @@ SDL_Texture * Screen::load_texture(std::string filename)
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-SDL_Texture * Screen::load_texture_alpha(std::string filename)
+SDL_Texture * Renderer::load_texture_alpha(std::string filename)
 {
     SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer_, load_image_alpha(filename));
 
@@ -230,8 +230,8 @@ SDL_Texture * Screen::load_texture_alpha(std::string filename)
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Screen::init_object(GameObject * object)
+void Renderer::init_object(GameObject * object)
 {
     object->sprite()->set_texture(load_texture_alpha(object->sprite()->art_asset()));
-    object->sprite()->set_screen(this);
+    object->sprite()->set_renderer(this);
 }

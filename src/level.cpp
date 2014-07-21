@@ -7,7 +7,7 @@
 #include "game_object.h"
 #include "grid.h"
 #include "grid_node.h"
-#include "screen.h"
+#include "renderer.h"
 #include "tile.h"
 #include "utils/logger.h"
 
@@ -20,7 +20,7 @@ Level::Level(Game * game)
     game_ = game;
     grid_ = nullptr;
 
-    texture_ = game_->screen()->load_texture(kAssetArtTiles48);
+    texture_ = game_->renderer()->load_texture(kAssetArtTiles48);
 
     tiles_ = new std::vector<Tile *>();
 
@@ -43,7 +43,7 @@ bool Level::load(std::string filename)
         return false;
     }
 
-    game_->screen()->load_texture(kAssetArtTiles48);
+    game_->renderer()->load_texture(kAssetArtTiles48);
 
     map >> width_;
         if(map.fail() == true) {

@@ -9,16 +9,16 @@ class GameObject;
 class DebugFrame;
 class Camera;
 
-/* Screen Attributes */
-//const int kScreenWidth        = 800;
-//const int kScreenHeight       = 600;
+/* Renderer Attributes */
+//const int kRendererWidth        = 800;
+//const int kRendererHeight       = 600;
 
 const Color kDefaultClearColor = kColorWhite;
 //const Color kDefaultClearColor = kColorBlack;
 
 const bool kDebugFrame = false;
 
-class Screen
+class Renderer
 {
     private:
         SDL_Window * window_;
@@ -26,7 +26,7 @@ class Screen
         Camera * camera_;
 
     public:
-        Screen();
+        Renderer();
 
         // accessors
         SDL_Window * window() const { return window_; }

@@ -1,7 +1,7 @@
 #include "tile.h"
 #include "level.h"
 #include "camera.h"
-#include "screen.h"
+#include "renderer.h"
 #include "game.h"
 
 Tile::Tile()
@@ -99,8 +99,8 @@ SDL_Rect Tile::box()
 
 void Tile::render()
 {
-    if(level_->game()->screen()->camera()->contains(box())) {
+    if(level_->game()->renderer()->camera()->contains(box())) {
         SDL_Rect offset = box();
-        level_->game()->screen()->render_texture(level_->texture(), &offset, &clips_[type_]);
+        level_->game()->renderer()->render_texture(level_->texture(), &offset, &clips_[type_]);
     }
 }

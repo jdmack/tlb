@@ -3,8 +3,8 @@
 
 #include <string>
 
-const int kScreenWidth  = 1152;
-const int kScreenHeight = 864;
+const int kRendererWidth  = 1152;
+const int kRendererHeight = 864;
 
 
 /* Strings */

@@ -3,12 +3,12 @@
 
 #include "SDL2/SDL.h"
 #include "constants.h"
-#include "screen.h"
+#include "renderer.h"
 
 const int kDebugFrameWidth = 200;
 const int kDebugFrameHeight = 50;
-const int kDebugFrameXPosition = kScreenWidth - kDebugFrameWidth;
-const int kDebugFrameYPosition = kScreenHeight - kDebugFrameHeight;
+const int kDebugFrameXPosition = kRendererWidth - kDebugFrameWidth;
+const int kDebugFrameYPosition = kRendererHeight - kDebugFrameHeight;
 const int kDebugFrameFontSize = 12;
 const int kDebugFrameBorder = 5;
 
@@ -25,11 +25,11 @@ class DebugFrame
         //TTF_Font * font_;
         SDL_Texture * texture_;
         SDL_Rect background_;
-        Screen * screen_;
+        Renderer * renderer_;
 
 
     public:
-        DebugFrame(Screen * screen);
+        DebugFrame(Renderer * renderer);
         ~DebugFrame();
 
         // accessors

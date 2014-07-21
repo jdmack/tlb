@@ -1,7 +1,7 @@
 #include "assets.h"
 #include "actions/action.h"
 #include "sprite.h"
-#include "screen.h"
+#include "renderer.h"
 #include "game_object.h"
 #include "utils/logger.h"
 #include "rapidxml/rapidxml.hpp"
@@ -13,7 +13,7 @@ Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
     art_asset_ = kAssetSpriteZombie1;
     select_art_asset_ = select_asset;
     texture_ = nullptr;
-    screen_ = nullptr;
+    renderer_ = nullptr;
     height_ = object->height();
     width_ = object->width();
 
@@ -97,8 +97,8 @@ void Sprite::select()
     /*
     SDL_DestroyTexture(texture_);
 
-    SDL_Surface * surface = screen_->load_image_alpha(art_asset_);
-    SDL_Surface * select_surface = screen_->load_image_alpha(select_art_asset_);
+    SDL_Surface * surface = renderer_->load_image_alpha(art_asset_);
+    SDL_Surface * select_surface = renderer_->load_image_alpha(select_art_asset_);
 
     SDL_Rect offset;
     offset.x = 0;
@@ -106,9 +106,9 @@ void Sprite::select()
     offset.w = width_;
     offset.h = height_;
 
-    screen_->apply_surface(select_surface, surface, &offset);
+    renderer_->apply_surface(select_surface, surface, &offset);
 
-    texture_ = SDL_CreateTextureFromSurface(screen_->renderer(), surface);
+    texture_ = SDL_CreateTextureFromSurface(renderer_->renderer(), surface);
     SDL_FreeSurface(select_surface);
     */
 }
@@ -118,7 +118,7 @@ void Sprite::deselect()
     /*
     SDL_DestroyTexture(texture_);
     texture_ = nullptr;
-    texture_ = screen_->load_texture_alpha(art_asset_);
+    texture_ = renderer_->load_texture_alpha(art_asset_);
     */
 }
 
@@ -129,11 +129,11 @@ void Sprite::render()
     // convert floating-point positions to integers for drawing
     //SDL_Rect offset = { object_->x_position() - (object_->width() / 2), object_->y_position() - (object_->height() / 2), height_, width_ };
     SDL_Rect offset = { (int)object_->x_position() - ((int)object_->width() / 2), (int)object_->y_position() - ((int)object_->height() / 2), 32, 35 };
-    //screen_->render_texture_rotate(texture_, &offset, nullptr, -object_->rotation());
-    //screen_->render_texture(texture_, &offset, &(current_animation_.current()->second));
-    //screen_->render_texture(texture_, &offset, &(*(current_animation_.current())));
+    //renderer_->render_texture_rotate(texture_, &offset, nullptr, -object_->rotation());
+    //renderer_->render_texture(texture_, &offset, &(current_animation_.current()->second));
+    //renderer_->render_texture(texture_, &offset, &(*(current_animation_.current())));
     SDL_Rect clip = current_animation_.current_frame();
-    screen_->render_texture(texture_, &offset, &clip);
+    renderer_->render_texture(texture_, &offset, &clip);
     Logger::write(Logger::string_stream << "Frame: " << current_animation_.current());
 }
 

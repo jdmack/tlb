@@ -4,7 +4,7 @@
 
 Point::Point()
 {
-	// Default location is center of screen
+	// Default location is center of renderer
     x_= 0;
     y_= 0;
 }

@@ -6,8 +6,8 @@
 
 const double kCameraInitialX = 0;
 const double kCameraInitialY = 0;
-const double kCameraWidth = kScreenWidth;
-const double kCameraHeight = kScreenHeight;
+const double kCameraWidth = kRendererWidth;
+const double kCameraHeight = kRendererHeight;
 
 class GameObject;
 class Game;

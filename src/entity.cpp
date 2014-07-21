@@ -9,7 +9,7 @@
 #include "level.h"
 #include "actions/movement_action.h"
 #include "movement.h"
-#include "screen.h"
+#include "renderer.h"
 #include "sprite.h"
 #include "vector.h"
 #include "utils/logger.h"

@@ -237,29 +237,29 @@ bool MovementAction::update(Entity * entity, int delta_ticks)
             entity->stop();
         }
         else {
-            // TODO(2013-09-05/JM): Create function for checking screen boundary collisions
+            // TODO(2013-09-05/JM): Create function for checking renderer boundary collisions
             // Check left boundary
             if(x_position - (width / 2) < 0) {
-                Logger::write("STOPPING: Collision with LEFT screen boundary");
+                Logger::write("STOPPING: Collision with LEFT renderer boundary");
                 entity->stop();
                 x_position = 0 + (width / 2);
             }
             // Check right boundary
             else if(x_position + (width / 2) > game_->level()->width()) {
-                Logger::write("STOPPING: Collision with RIGHT screen boundary");
+                Logger::write("STOPPING: Collision with RIGHT renderer boundary");
                 entity->stop();
                 x_position = game_->level()->width() - (width / 2);
             }
 
             // Check top boundary
             if(y_position - (height / 2) < 0) {
-                Logger::write("STOPPING: Collision with TOP screen boundary");
+                Logger::write("STOPPING: Collision with TOP renderer boundary");
                 entity->stop();
                 y_position = 0 + (height / 2);
             }
             // Check bottom boundary
             else if(y_position + (height / 2) > game_->level()->height()) {
-                Logger::write("STOPPING: Collision with BOTTOM screen boundary");
+                Logger::write("STOPPING: Collision with BOTTOM renderer boundary");
                 entity->stop();
                 y_position = game_->level()->height() - (height / 2);
             }

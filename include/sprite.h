@@ -8,7 +8,7 @@
 #include "animation.h"
 
 class GameObject;
-class Screen;
+class Renderer;
 
 class Sprite
 {
@@ -16,7 +16,7 @@ class Sprite
         double width_;
         double height_;
         SDL_Texture * texture_;
-        Screen * screen_;
+        Renderer * renderer_;
         std::string art_asset_;
         std::string select_art_asset_;
         GameObject * object_;
@@ -36,12 +36,12 @@ class Sprite
         double height() const { return height_; }
         std::string art_asset() const { return art_asset_; }
         SDL_Texture * texture() const { return texture_; }
-        Screen * screen() const { return screen_; }
+        Renderer * renderer() const { return renderer_; }
         std::map<std::string, Animation> animations() const { return animations_; }
 
         // mutators
         void set_texture(SDL_Texture * texture) { texture_ = texture; }
-        void set_screen(Screen * screen) { screen_ = screen; }
+        void set_renderer(Renderer * renderer) { renderer_ = renderer; }
         void set_object(GameObject * object) { object_ = object; }
 
         void render();

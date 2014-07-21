@@ -1,5 +1,5 @@
 #include "game_object.h"
-#include "screen.h"
+#include "renderer.h"
 #include "utils/logger.h"
 #include "vector.h"
 #include "actions/action.h"
@@ -69,8 +69,8 @@ void GameObject::render()
     // Draw line showing movement command
     /*
     if((current_action_ != nullptr) && (current_action_->is_movement())) {
-        SDL_SetRenderDrawColor(game_->screen()->renderer(), 0, 255, 0, 0);
-        SDL_RenderDrawLine(game_->screen()->renderer(), game_->camera()->x_adjust(x_position_), game_->camera()->y_adjust(y_position_), game_->camera()->x_adjust((static_cast<Movement*>(current_action_))->destination().x()), game_->camera()->y_adjust((static_cast<Movement*>(current_action_))->destination().y()));
+        SDL_SetRenderDrawColor(game_->renderer()->renderer(), 0, 255, 0, 0);
+        SDL_RenderDrawLine(game_->renderer()->renderer(), game_->camera()->x_adjust(x_position_), game_->camera()->y_adjust(y_position_), game_->camera()->x_adjust((static_cast<Movement*>(current_action_))->destination().x()), game_->camera()->y_adjust((static_cast<Movement*>(current_action_))->destination().y()));
     }
     */
 }
@@ -88,8 +88,8 @@ void GameObject::select()
         selected_ = true;
 
         // TODO (2013-08-26/JM) Put back in the select graphic code
-        //SDL_Surface * select_surface = screen_->load_image_alpha(kAssetArtDotCircle);
-        //screen_->apply_surface(0, 0, select_surface, surface_);
+        //SDL_Surface * select_surface = renderer_->load_image_alpha(kAssetArtDotCircle);
+        //renderer_->apply_surface(0, 0, select_surface, surface_);
         //SDL_FreeSurface(select_surface);
     }
 }
@@ -103,7 +103,7 @@ void GameObject::deselect()
         // TODO (2013-08-26/JM) Put back in the select graphic code
         //SDL_FreeSurface(surface_);
         //surface_ = nullptr;
-        //surface_ = screen_->load_image_alpha(art_asset_);
+        //surface_ = renderer_->load_image_alpha(art_asset_);
     }
 }
 

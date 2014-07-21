@@ -5,7 +5,7 @@
 #include "event_manager.h"
 #include "utils/logger.h"
 
-DebugFrame::DebugFrame(Screen * screen)
+DebugFrame::DebugFrame(Renderer * renderer)
 {
     x_position_ = kDebugFrameXPosition;
     y_position_ = kDebugFrameYPosition;
@@ -15,7 +15,7 @@ DebugFrame::DebugFrame(Screen * screen)
     fg_color_ = { 255, 0, 255 };
     //font_ = TTF_OpenFont(kAssetFontConsolas.c_str(), kDebugFrameFontSize);
     texture_ = nullptr;
-    screen_ = screen;
+    renderer_ = renderer;
     shown_ = true;
 
     background_ = { x_position_ - 2 * kDebugFrameBorder, y_position_ - 2 * kDebugFrameBorder, width_ + 2 * kDebugFrameBorder, height_ + 2 * kDebugFrameBorder };
@@ -31,8 +31,8 @@ DebugFrame::~DebugFrame()
 void DebugFrame::render()
 {
     // Draw background rectangle
-    SDL_SetRenderDrawColor(screen_->renderer(), 20, 20, 20, 200);
-    SDL_RenderFillRect(screen_->renderer(), &background_);
+    SDL_SetRenderDrawColor(renderer_->renderer(), 20, 20, 20, 200);
+    SDL_RenderFillRect(renderer_->renderer(), &background_);
 
     // Create mouse message surface
     Point mouse = EventManager::mouse_position();
@@ -58,12 +58,12 @@ void DebugFrame::render()
 
     // Render debug frame
     SDL_Rect offset = { x_position_, y_position_, surface->w, surface->h };
-    texture_ = SDL_CreateTextureFromSurface(screen_->renderer(), surface);
+    texture_ = SDL_CreateTextureFromSurface(renderer_->renderer(), surface);
     if(texture_ == nullptr) {
         Logger::write(Logger::string_stream << "DebugFrame Texture: " << SDL_GetError());
     }
     else {
-        screen_->render_texture(texture_, &offset, nullptr);
+        renderer_->render_texture(texture_, &offset, nullptr);
     }
 
     SDL_FreeSurface(surface);

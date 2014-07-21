@@ -8,7 +8,7 @@ class Camera;
 class EntityManager;
 class EventManager;
 class Level;
-class Screen;
+class Renderer;
 
 class Game
 {
@@ -16,7 +16,7 @@ class Game
         int exit_code_;
         bool quit_;
         Timer delta_timer_;
-        Screen * screen_;
+        Renderer * renderer_;
         EntityManager * entity_manager_;
         EventManager * event_manager_;
         Camera * camera_;
@@ -30,7 +30,7 @@ class Game
         void process_arguments(int argc, char * argv[]);
 
         // accessors
-        Screen * screen() const { return screen_; }
+        Renderer * renderer() const { return renderer_; }
         EntityManager * entity_manager() const { return entity_manager_; }
         EventManager * event_manager() const { return event_manager_; }
         Camera * camera() const { return camera_; }
