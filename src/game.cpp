@@ -17,7 +17,7 @@ Game::Game()
     exit_code_ = 0;
     quit_ = false;
     renderer_ = new Renderer();
-    entity_manager_ = new EntityManager(this);
+    entity_manager_ = new EntityManager();
     event_manager_ = new EventManager(this);
     camera_ = new Camera(this);
     renderer_->set_camera(camera_);
@@ -61,6 +61,7 @@ void Game::game_loop()
     // Create a dot
     Entity * char1 = new Entity(this, 48 * 5 + 24, 48 * 3 + 24, 0);
     entity_manager_->add_object(char1);
+    renderer_->init_object(char1);
 
     // Main Loop
     while(quit_ == false) {

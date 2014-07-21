@@ -5,19 +5,16 @@
 
 #include <vector>
 
-class Game;
 class GameObject;
 
 class EntityManager
 {
     private:
-        Game * game_;
         std::vector<GameObject *> * objects_;
         std::vector<GameObject *> * selected_;
 
-
     public:
-        EntityManager(Game * game);
+        EntityManager();
 
         // accessors
         std::vector<GameObject *> * objects() const { return objects_; }
