@@ -2,6 +2,7 @@
 #define TLB_DOT_H_
 
 #include "game_object.h"
+#include "hit_point.h"
 
 const int kEntityWidth  = 40;
 const int kEntityHeight = 40;
@@ -15,6 +16,7 @@ class Game;
 class Entity : public GameObject
 {
     private:
+        HitPoint * hp_;
 
     public:
         // constructors/destructors
@@ -33,6 +35,8 @@ class Entity : public GameObject
         bool stopped();
 
         // accessors
+        HitPoint * hp() const { return hp_; }
+
 };
 
 #endif
