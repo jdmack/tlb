@@ -22,6 +22,8 @@ Entity::Entity(Game * game) : GameObject(game)
     width_  = kEntityWidth;
     height_ = kEntityHeight;
 
+    hp_ = new HitPoint(10);
+
     selectable_ = true;
     sprite_ = new Sprite(this, kAssetArtHexagon, kAssetArtHexagonOutline);
 }
@@ -33,6 +35,8 @@ Entity::Entity(Game * game, double x, double y, double rot) : GameObject(game, x
 
     width_  = kEntityWidth;
     height_ = kEntityHeight;
+
+    hp_ = new HitPoint(10);
 
     selectable_ = true;
     sprite_ = new Sprite(this, kAssetArtHexagon, kAssetArtHexagonOutline);

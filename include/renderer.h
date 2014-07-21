@@ -6,6 +6,7 @@
 #include "color.h"
 
 class GameObject;
+class Entity;
 class DebugFrame;
 class Camera;
 
@@ -52,6 +53,8 @@ class Renderer
         SDL_Surface * load_image_alpha(std::string);
         SDL_Texture * load_texture(std::string);
         SDL_Texture * load_texture_alpha(std::string);
+
+        void draw_life_bar(Entity * entity);
 };
 
 #endif

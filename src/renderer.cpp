@@ -7,6 +7,9 @@
 #include "sprite.h"
 #include "utils/logger.h"
 
+#include "hit_point.h"
+#include "entity.h"
+
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -235,3 +238,73 @@ void Renderer::init_object(GameObject * object)
     object->sprite()->set_texture(load_texture_alpha(object->sprite()->art_asset()));
     object->sprite()->set_renderer(this);
 }
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//
+//
+////////////////////////////////////////////////////////////////////////////////
+void Renderer::draw_life_bar(Entity * entity)
+{
+    int kBorderRed   = 0x00;
+    int kBorderGreen = 0x00;
+    int kBorderBlue  = 0x00;
+    int kBorderAlpha = 0xFF;
+
+    int kPositiveRed   = 0x00;
+    int kPositiveGreen = 0xFF;
+    int kPositiveBlue  = 0x00;
+    int kPositiveAlpha = 0xFF;
+
+    int kNegativeRed   = 0xFF;
+    int kNegativeGreen = 0x00;
+    int kNegativeBlue  = 0x00;
+    int kNegativeAlpha = 0xFF;
+
+    int width_per_point = 4;
+
+    int total_hp = entity->hp()->total();
+    int current_hp = entity->hp()->current();
+
+    int width = total_hp * width_per_point;
+    int height = 5;
+    int x = entity->x_position() - (total_hp * width_per_point / 2);
+    int y = entity->y_position() - (entity->height() / 2) - height;
+
+    SDL_Rect borderRect = {
+        x - 1,
+        y - 1,
+        width + 2,
+        height + 2
+    };
+
+    SDL_Rect positiveRect = {
+        x,
+        y,
+        current_hp * width_per_point,
+        height
+    };
+
+    SDL_Rect negativeRect = {
+        x + current_hp * width_per_point,
+        y,
+        (total_hp - current_hp) * width_per_point,
+        height
+    };
+
+    // Border
+    SDL_SetRenderDrawColor(renderer_, kBorderRed, kBorderGreen, kBorderBlue, kBorderAlpha);
+    SDL_RenderDrawRect(renderer_, &borderRect );
+
+    // Negative
+    SDL_SetRenderDrawColor(renderer_, kNegativeRed, kNegativeGreen, kNegativeBlue, kNegativeAlpha);
+    SDL_RenderFillRect(renderer_, &negativeRect );
+
+    // Positive
+    SDL_SetRenderDrawColor(renderer_, kPositiveRed, kPositiveGreen, kPositiveBlue, kPositiveAlpha);
+    SDL_RenderFillRect(renderer_, &positiveRect );
+}
+
+
+
+

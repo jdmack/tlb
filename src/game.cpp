@@ -83,6 +83,7 @@ void Game::game_loop()
         renderer_->clear();
         level_->render();
         char1->render();
+        renderer_->draw_life_bar(char1);
 
         renderer_->update();
     }

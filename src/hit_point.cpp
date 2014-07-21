@@ -5,7 +5,6 @@
 
 HitPoint::HitPoint()
 {
-	// Default location is center of renderer
     total_= 0;
     current_= 0;
 }
