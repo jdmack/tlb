@@ -2,8 +2,8 @@
 
 #include <vector>
 #include "SDL2/SDL.h"
-#include "evengent.h"
-#include "entigent.h"
+#include "event_manager.h"
+#include "entity_manager.h"
 #include "game.h"
 #include "game_object.h"
 #include "utils/logger.h"
@@ -11,12 +11,12 @@
 #include "entity.h"
 #include "camera.h"
 
-Evengent::Evengent(Game * game)
+EventManager::EventManager(Game * game)
 {
     game_ = game;
 }
 
-void Evengent::handle_events()
+void EventManager::handle_events()
 {
     SDL_Event event;
     while(SDL_PollEvent(&event)) {
@@ -41,9 +41,9 @@ void Evengent::handle_events()
                         break;
 
                     case SDLK_s:    // S
-                        if(!game_->entigent()->selected()->empty()) {
+                        if(!game_->entity_manager()->selected()->empty()) {
                             // something is selected, can now give it an order
-                            std::vector<GameObject *> * selected = game_->entigent()->selected();
+                            std::vector<GameObject *> * selected = game_->entity_manager()->selected();
                             for(std::vector<GameObject *>::iterator selected_iterator = selected->begin(); selected_iterator < selected->end(); ++selected_iterator) {
                                 //(*selected_iterator)->stop();
                                 // TODO(2014-01-23/JM): Fix stop
@@ -84,17 +84,17 @@ void Evengent::handle_events()
                 if(event.button.button == SDL_BUTTON_LEFT)
                 {
                     // 2 cases
-                    GameObject * clicked_on = game_->entigent()->get_object_at(mouse_x, mouse_y);
+                    GameObject * clicked_on = game_->entity_manager()->get_object_at(mouse_x, mouse_y);
                     // 1. clicking on nothing
                     if(clicked_on == nullptr) {
                         // NOTE: left clicking on anything deselects_all with current functionality
-                        game_->entigent()->deselect_all();
+                        game_->entity_manager()->deselect_all();
                     }
                     // 2. clicking on something
                     else {
-                        if(!clicked_on->selected() || game_->entigent()->objects()->size() != 1) {
-                            game_->entigent()->deselect_all();
-                            game_->entigent()->select(clicked_on);
+                        if(!clicked_on->selected() || game_->entity_manager()->objects()->size() != 1) {
+                            game_->entity_manager()->deselect_all();
+                            game_->entity_manager()->select(clicked_on);
                         }
                     }
 
@@ -102,9 +102,9 @@ void Evengent::handle_events()
                 // SDL_BUTTON_RIGHT - Command
                 else if(event.button.button == SDL_BUTTON_RIGHT)
                 {
-                    if(!game_->entigent()->selected()->empty()) {
+                    if(!game_->entity_manager()->selected()->empty()) {
                         // something is selected, can now give it an order
-                        std::vector<GameObject *> * selected = game_->entigent()->selected();
+                        std::vector<GameObject *> * selected = game_->entity_manager()->selected();
                         for(std::vector<GameObject *>::iterator selected_iterator = selected->begin(); selected_iterator < selected->end(); ++selected_iterator) {
                             (*selected_iterator)->move(mouse_x, mouse_y);
                         }
@@ -128,7 +128,7 @@ void Evengent::handle_events()
     }
 }
 
-Point Evengent::mouse_position()
+Point EventManager::mouse_position()
 {
     int x, y = 0;
     SDL_GetMouseState(&x, &y);

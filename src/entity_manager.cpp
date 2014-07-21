@@ -1,19 +1,19 @@
 /* Entity Agent */
 
-#include "entigent.h"
+#include "entity_manager.h"
 #include "screen.h"
 #include "game.h"
 #include "game_object.h"
 #include "utils/logger.h"
 
-Entigent::Entigent(Game * game)
+EntityManager::EntityManager(Game * game)
 {
     game_ = game;
     objects_ = new std::vector<GameObject *>();
     selected_ = new std::vector<GameObject *>();
 }
 
-void Entigent::add_object(GameObject * object)
+void EntityManager::add_object(GameObject * object)
 {
     objects_->push_back(object);
     game_->screen()->init_object(object);
@@ -22,7 +22,7 @@ void Entigent::add_object(GameObject * object)
     // or add an "active" field to distinguish elements that haven't been deleted yet
 }
 
-GameObject * Entigent::get_object_at(double x, double y)
+GameObject * EntityManager::get_object_at(double x, double y)
 {
     for(std::vector<GameObject *>::iterator object_iterator = objects_->begin(); object_iterator != objects_->end(); ++object_iterator) {
         if((*object_iterator)->contains_point(x, y)) {
@@ -33,13 +33,13 @@ GameObject * Entigent::get_object_at(double x, double y)
     return nullptr;
 }
 
-void Entigent::select(GameObject * object)
+void EntityManager::select(GameObject * object)
 {
     object->select();
     selected_->push_back(object);
 }
 
-void Entigent::deselect(GameObject * object)
+void EntityManager::deselect(GameObject * object)
 {
     object->deselect();
     for(std::vector<GameObject *>::iterator selected_iterator = selected_->begin(); selected_iterator != selected_->end(); ++selected_iterator) {
@@ -51,7 +51,7 @@ void Entigent::deselect(GameObject * object)
     }
 }
 
-void Entigent::deselect_all()
+void EntityManager::deselect_all()
 {
     if(!selected_->empty()) {
         for(std::vector<GameObject *>::iterator selected_iterator = selected_->begin(); selected_iterator < selected_->end(); ++selected_iterator) {

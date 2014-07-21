@@ -5,8 +5,8 @@
 #include "utils/timer.h"
 
 class Camera;
-class Entigent;
-class Evengent;
+class EntityManager;
+class EventManager;
 class Level;
 class Screen;
 
@@ -17,8 +17,8 @@ class Game
         bool quit_;
         Timer delta_timer_;
         Screen * screen_;
-        Entigent * entigent_;
-        Evengent * evengent_;
+        EntityManager * entity_manager_;
+        EventManager * event_manager_;
         Camera * camera_;
         Level * level_;
 
@@ -31,8 +31,8 @@ class Game
 
         // accessors
         Screen * screen() const { return screen_; }
-        Entigent * entigent() const { return entigent_; }
-        Evengent * evengent() const { return evengent_; }
+        EntityManager * entity_manager() const { return entity_manager_; }
+        EventManager * event_manager() const { return event_manager_; }
         Camera * camera() const { return camera_; }
         Level * level() const { return level_; }
 

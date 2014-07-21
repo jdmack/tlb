@@ -8,7 +8,7 @@
 class Game;
 class GameObject;
 
-class Entigent
+class EntityManager
 {
     private:
         Game * game_;
@@ -17,7 +17,7 @@ class Entigent
 
 
     public:
-        Entigent(Game * game);
+        EntityManager(Game * game);
 
         // accessors
         std::vector<GameObject *> * objects() const { return objects_; }

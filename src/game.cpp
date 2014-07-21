@@ -5,8 +5,8 @@
 #include "entity.h"
 #include "assets.h"
 #include "screen.h"
-#include "entigent.h"
-#include "evengent.h"
+#include "entity_manager.h"
+#include "event_manager.h"
 #include "utils/logger.h"
 #include "camera.h"
 #include "level.h"
@@ -17,8 +17,8 @@ Game::Game()
     exit_code_ = 0;
     quit_ = false;
     screen_ = new Screen();
-    entigent_ = new Entigent(this);
-    evengent_ = new Evengent(this);
+    entity_manager_ = new EntityManager(this);
+    event_manager_ = new EventManager(this);
     camera_ = new Camera(this);
     screen_->set_camera(camera_);
     level_ = nullptr;
@@ -60,13 +60,13 @@ void Game::game_loop()
 {
     // Create a dot
     Entity * char1 = new Entity(this, 48 * 5 + 24, 48 * 3 + 24, 0);
-    entigent_->add_object(char1);
+    entity_manager_->add_object(char1);
 
     // Main Loop
     while(quit_ == false) {
 
         // Handle Events
-        evengent_->handle_events();
+        event_manager_->handle_events();
 
         // Update
         if(delta_timer_.get_ticks() >= 33) {
