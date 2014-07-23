@@ -9,8 +9,7 @@
 Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
 {
     object_ = object;
-    //art_asset_ = asset;
-    art_asset_ = kAssetSpriteZombie1;
+    art_asset_ = asset;
     select_art_asset_ = select_asset;
     texture_ = nullptr;
     renderer_ = nullptr;
@@ -22,7 +21,8 @@ Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
 
     // open xml doc
     rapidxml::xml_document<> doc;
-    std::ifstream file(kAssetSpriteXMLZombie1);
+    //std::ifstream file(kAssetSpriteXMLZombie);
+    std::ifstream file(kAssetSpriteXMLHuman);
     std::stringstream buffer;
     buffer << file.rdbuf();
     file.close();

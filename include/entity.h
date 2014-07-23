@@ -17,11 +17,12 @@ class Entity : public GameObject
 {
     private:
         HitPoint * hp_;
+        bool controllable_;
 
     public:
         // constructors/destructors
         Entity(Game * game);
-        Entity(Game * game, double x, double y, double rot);
+        Entity(Game * game, Point position, double rot);
 
         // overridden
         void select();
@@ -36,7 +37,10 @@ class Entity : public GameObject
 
         // accessors
         HitPoint * hp() const { return hp_; }
+        bool controllable() const { return controllable_; }
 
+        // mutators
+        void set_controllable(bool controllable) { controllable_ = controllable; }
 };
 
 #endif

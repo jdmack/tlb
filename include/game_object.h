@@ -34,7 +34,7 @@ class GameObject
     public:
         // constructors/destructors
         GameObject(Game * game);
-        GameObject(Game * game, double x, double y, double rot);
+        GameObject(Game * game, Point position, double rot);
         virtual ~GameObject();
 
         // accessors
@@ -64,6 +64,8 @@ class GameObject
         void set_rotation(double rotation) { rotation_ = rotation; }
         void set_width(double width) { width_ = width; }
         void set_height(double height) { height_ = height; }
+
+        void create_sprite(std::string asset);
 
         virtual void select();
         virtual void deselect();

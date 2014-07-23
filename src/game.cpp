@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <time.h>
 #include "SDL2/SDL.h"
 
 // Project Files
@@ -59,9 +61,9 @@ int Game::run()
 void Game::game_loop()
 {
     // Create a dot
-    Entity * char1 = new Entity(this, 48 * 5 + 24, 48 * 3 + 24, 0);
-    entity_manager_->add_object(char1);
-    renderer_->init_object(char1);
+    Entity * char1 = spawn_entity(PLAYER, Point(48 * 5 + 24, 48 * 3 + 24), 0);
+    Entity * zombie1 = spawn_entity(ZOMBIE, Point(48 * 8 + 24, 48 * 3 + 24), 0);
+
 
     // Main Loop
     while(quit_ == false) {
@@ -72,6 +74,8 @@ void Game::game_loop()
         // Update
         if(delta_timer_.get_ticks() >= 33) {
             char1->update(delta_timer_.get_ticks());
+            zombie1->update(delta_timer_.get_ticks());
+
             delta_timer_.start();
         }
 
@@ -83,13 +87,57 @@ void Game::game_loop()
         renderer_->clear();
         level_->render();
         char1->render();
+        zombie1->render();
         renderer_->draw_life_bar(char1);
 
         renderer_->update();
     }
 
     delete char1;
+    delete zombie1;
 }
+
+Entity * Game::spawn_entity(EntityType type, Point position, double rotation)
+{
+    Entity * entity = new Entity(this, position, rotation);
+    if(type == PLAYER) {
+        entity->set_controllable(true);
+        entity->create_sprite(kAssetSpriteHuman1);
+    }
+    else if(type == HUMAN) {
+        entity->set_controllable(false);
+        entity->create_sprite(kAssetSpriteHuman1);
+    }
+    else if(type == ZOMBIE) {
+        entity->set_controllable(false);
+
+
+        /*
+        srand((unsigned) time(NULL));
+        int random_num = rand() % 5 + 1;
+
+        std::string asset;
+        switch(random_num) {
+            case 1: asset = kAssetSpriteZombie1; break;
+            case 2: asset = kAssetSpriteZombie2; break;
+            case 3: asset = kAssetSpriteZombie3; break;
+            case 4: asset = kAssetSpriteZombie4; break;
+            case 5: asset = kAssetSpriteZombie5; break;
+            case 6: asset = kAssetSpriteZombie6; break;
+            default: asset = kAssetSpriteZombie1; break;
+        }
+        entity->create_sprite(asset);
+         */
+        entity->create_sprite(kAssetSpriteZombie1);
+    }
+
+    entity_manager_->add_object(entity);
+    renderer_->init_object(entity);
+
+    return entity;
+}
+
+
 
 // placeholder functions (not implemented yet)
 

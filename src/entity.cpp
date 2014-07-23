@@ -25,10 +25,10 @@ Entity::Entity(Game * game) : GameObject(game)
     hp_ = new HitPoint(10);
 
     selectable_ = true;
-    sprite_ = new Sprite(this, kAssetArtHexagon, kAssetArtHexagonOutline);
+    controllable_ = false;
 }
 
-Entity::Entity(Game * game, double x, double y, double rot) : GameObject(game, x, y, rot)
+Entity::Entity(Game * game, Point position, double rot) : GameObject(game, position, rot)
 {
     x_velocity_ = 0;
     y_velocity_ = 0;
@@ -39,7 +39,7 @@ Entity::Entity(Game * game, double x, double y, double rot) : GameObject(game, x
     hp_ = new HitPoint(10);
 
     selectable_ = true;
-    sprite_ = new Sprite(this, kAssetArtHexagon, kAssetArtHexagonOutline);
+    controllable_ = false;
 }
 
 void Entity::update(int delta_ticks)

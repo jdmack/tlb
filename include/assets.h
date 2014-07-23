@@ -26,7 +26,15 @@ const std::string kAssetArtHexagonOutline = kPathSprites + "hexagon_outline.png"
 
 /* Sprites */
 const std::string kAssetSpriteZombie1 = kPathSprites + "zombie1.png";
-const std::string kAssetSpriteXMLZombie1 = kPathSprites + "zombie1.xml";
+const std::string kAssetSpriteZombie2 = kPathSprites + "zombie2.png";
+const std::string kAssetSpriteZombie3 = kPathSprites + "zombie3.png";
+const std::string kAssetSpriteZombie4 = kPathSprites + "zombie4.png";
+const std::string kAssetSpriteZombie5 = kPathSprites + "zombie5.png";
+const std::string kAssetSpriteZombie6 = kPathSprites + "zombie6.png";
+const std::string kAssetSpriteXMLZombie = kPathSprites + "zombie.xml";
+
+const std::string kAssetSpriteHuman1 = kPathSprites + "human1.png";
+const std::string kAssetSpriteXMLHuman = kPathSprites + "human.xml";
 
 /* Tiles */
 const std::string kAssetArtTiles80 = kPathTiles + "tiles_80.png";

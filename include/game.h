@@ -4,11 +4,20 @@
 #include "SDL2/SDL.h"
 #include "utils/timer.h"
 
+#include "point.h"
+
 class Camera;
 class EntityManager;
 class EventManager;
 class Level;
 class Renderer;
+class Entity;
+
+enum EntityType {
+    PLAYER,
+    ZOMBIE,
+    HUMAN
+};
 
 class Game
 {
@@ -28,6 +37,7 @@ class Game
         int run();
         void game_loop();
         void process_arguments(int argc, char * argv[]);
+        Entity * spawn_entity(EntityType type, Point position, double rotation);
 
         // accessors
         Renderer * renderer() const { return renderer_; }
@@ -39,6 +49,7 @@ class Game
         // mutators
         void set_quit(bool quit) { quit_ = quit; }
         void level(Level * level) { level_ = level; }
+
 };
 
 #endif

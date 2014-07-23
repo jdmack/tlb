@@ -32,13 +32,14 @@ GameObject::GameObject(Game * game)
 
     current_action_ = nullptr;
     game_ = game;
+
     sprite_ = nullptr;
 }
 
-GameObject::GameObject(Game * game, double x, double y, double rot)
+GameObject::GameObject(Game * game, Point position, double rot)
 {
-    x_position_ = x;
-    y_position_ = y;
+    x_position_ = position.x();
+    y_position_ = position.y();
     x_velocity_ = 0;
     y_velocity_ = 0;
     x_acceleration_ = 0;
@@ -54,12 +55,19 @@ GameObject::GameObject(Game * game, double x, double y, double rot)
 
     current_action_ = nullptr;
     game_ = game;
+
     sprite_ = nullptr;
+
 }
 
 GameObject::~GameObject()
 {
 
+}
+
+void GameObject::create_sprite(std::string asset)
+{
+    sprite_ = new Sprite(this, asset, kAssetArtHexagonOutline);
 }
 
 void GameObject::render()
