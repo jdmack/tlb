@@ -17,8 +17,8 @@ class EntityManager
         EntityManager();
 
         // accessors
-        std::vector<GameObject *> * objects() const { return objects_; }
-        std::vector<GameObject *> * selected() const { return selected_; }
+        std::vector<GameObject *> * objects() { return objects_; }
+        std::vector<GameObject *> * selected() { return selected_; }
 
         void add_object(GameObject * object);
         void select(GameObject * object);

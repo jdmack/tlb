@@ -35,6 +35,8 @@ int Game::run()
 {
     Logger::write("Game running");
 
+    srand((unsigned) time(NULL));
+
     if(renderer_->init() == false) {
         return 1;
     }
@@ -63,8 +65,14 @@ void Game::game_loop()
     // Create a dot
     Entity * char1 = spawn_entity(PLAYER, Point(48 * 5 + 24, 48 * 3 + 24), 0);
     Entity * zombie1 = spawn_entity(ZOMBIE, Point(48 * 8 + 24, 48 * 3 + 24), 0);
+    Entity * zombie2 = spawn_entity(ZOMBIE, Point(48 * 9 + 24, 48 * 3 + 24), 0);
+    Entity * zombie3 = spawn_entity(ZOMBIE, Point(48 * 10 + 24, 48 * 3 + 24), 0);
+    Entity * zombie4 = spawn_entity(ZOMBIE, Point(48 * 11 + 24, 48 * 3 + 24), 0);
+    Entity * zombie5 = spawn_entity(ZOMBIE, Point(48 * 12 + 24, 48 * 3 + 24), 0);
+    Entity * zombie6 = spawn_entity(ZOMBIE, Point(48 * 13 + 24, 48 * 3 + 24), 0);
 
 
+    //std::vector<GameObject *> objects = entity_manager_->objects();
     // Main Loop
     while(quit_ == false) {
 
@@ -75,6 +83,11 @@ void Game::game_loop()
         if(delta_timer_.get_ticks() >= 33) {
             char1->update(delta_timer_.get_ticks());
             zombie1->update(delta_timer_.get_ticks());
+            zombie2->update(delta_timer_.get_ticks());
+            zombie3->update(delta_timer_.get_ticks());
+            zombie4->update(delta_timer_.get_ticks());
+            zombie5->update(delta_timer_.get_ticks());
+            zombie6->update(delta_timer_.get_ticks());
 
             delta_timer_.start();
         }
@@ -88,11 +101,19 @@ void Game::game_loop()
         level_->render();
         char1->render();
         zombie1->render();
+        zombie2->render();
+        zombie3->render();
+        zombie4->render();
+        zombie5->render();
+        zombie6->render();
         renderer_->draw_life_bar(char1);
 
         renderer_->update();
     }
 
+    //for(std::vector<GameObject *>::iterator object_iterator = objects->begin(); object_iterator != objects->end(); ++object_iterator) {
+    //    *object_iterator
+    //}
     delete char1;
     delete zombie1;
 }
@@ -111,9 +132,6 @@ Entity * Game::spawn_entity(EntityType type, Point position, double rotation)
     else if(type == ZOMBIE) {
         entity->set_controllable(false);
 
-
-        /*
-        srand((unsigned) time(NULL));
         int random_num = rand() % 5 + 1;
 
         std::string asset;
@@ -127,8 +145,7 @@ Entity * Game::spawn_entity(EntityType type, Point position, double rotation)
             default: asset = kAssetSpriteZombie1; break;
         }
         entity->create_sprite(asset);
-         */
-        entity->create_sprite(kAssetSpriteZombie1);
+        //entity->create_sprite(kAssetSpriteZombie1);
     }
 
     entity_manager_->add_object(entity);
