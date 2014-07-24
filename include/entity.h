@@ -41,6 +41,9 @@ class Entity : public GameObject
 
         // mutators
         void set_controllable(bool controllable) { controllable_ = controllable; }
+
+        bool is_entity() const { return true; }
+
 };
 
 #endif

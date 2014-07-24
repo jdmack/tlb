@@ -78,6 +78,7 @@ class GameObject
         bool check_collision(SDL_Rect rect);
         void fix_collision(SDL_Rect rect);
 
+        virtual bool is_entity() const { return false; }
 };
 
 #endif
