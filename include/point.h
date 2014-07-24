@@ -22,6 +22,8 @@ class Point
 
         bool operator==(const Point &other) const;
 
+        double distance_from(Point point);
+
         std::string to_string();
 };
 

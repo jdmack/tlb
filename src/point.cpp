@@ -1,5 +1,6 @@
 
 #include <sstream>
+#include <cmath>
 #include "point.h"
 
 Point::Point()
@@ -29,4 +30,10 @@ bool Point::operator==(const Point &other) const {
     else {
         return false;
     }
+}
+double Point::distance_from(Point point)
+{
+    double x_distance = point.x() - x_;
+    double y_distance = point.y() - y_;
+    return sqrt((x_distance * x_distance) + (y_distance * y_distance));
 }

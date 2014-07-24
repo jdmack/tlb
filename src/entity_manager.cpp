@@ -5,6 +5,8 @@
 #include "game.h"
 #include "game_object.h"
 #include "utils/logger.h"
+#include "point.h"
+#include "entity.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -44,6 +46,29 @@ GameObject * EntityManager::get_object_at(double x, double y)
     }
 
     return nullptr;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//
+//
+////////////////////////////////////////////////////////////////////////////////
+std::vector<Entity *> EntityManager::get_entities_near(Point position, double radius)
+{
+    std::vector<Entity *> entities;
+    for(std::vector<GameObject *>::iterator object_iterator = objects_->begin(); object_iterator != objects_->end(); ++object_iterator) {
+        GameObject * object = *object_iterator;
+        if(object->is_entity()) {
+            Entity * entity = static_cast<Entity *>(object);
+            Point p = Point(entity->x_position(), entity->y_position());
+            double distance = p.distance_from(position);
+            if(distance <= radius) {
+                entities.push_back(entity);
+            }
+        }
+    }
+
+    return entities;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
