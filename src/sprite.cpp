@@ -148,6 +148,14 @@ void Sprite::update()
     }
     else {
         action_type = object_->current_action()->type();
+        if(action_type == kActionZombie) {
+            if(object_->current_action()->is_movement()) {
+                action_type = kActionMovement;
+            }
+            else {
+                action_type = kActionIdle;
+            }
+        }
     }
 
     if(action_type != current_action_) {

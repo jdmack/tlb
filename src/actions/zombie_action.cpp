@@ -22,6 +22,7 @@ ZombieAction::ZombieAction()
     entity_manager_ = nullptr;
     movement_action_ = nullptr;
     game_ = nullptr;
+    type_ = kActionZombie;
 }
 
 bool ZombieAction::update(Entity * entity, int delta_ticks)
