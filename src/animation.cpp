@@ -34,10 +34,10 @@ void Animation::next_frame()
     //if(frames_.size() == 1) {
         //return;
     //}
-    Logger::write("Next Frame");
+    //Logger::write("Next Frame");
     ++current_;
     if(current_ >= frames_.size()) {
-        Logger::write(Logger::string_stream << key_ << " - Starting over, frames_.size(): " << frames_.size());
+        //Logger::write(Logger::string_stream << key_ << " - Starting over, frames_.size(): " << frames_.size());
         current_ = 0;
 
     }

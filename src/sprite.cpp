@@ -135,7 +135,7 @@ void Sprite::render()
     //renderer_->render_texture(texture_, &offset, &(*(current_animation_.current())));
     SDL_Rect clip = current_animation_.current_frame();
     renderer_->render_texture(texture_, &offset, &clip);
-    Logger::write(Logger::string_stream << "Frame: " << current_animation_.current());
+    //Logger::write(Logger::string_stream << "Frame: " << current_animation_.current());
 }
 
 void Sprite::update()
@@ -153,7 +153,9 @@ void Sprite::update()
     if(action_type != current_action_) {
         current_action_ = action_type;
 
+        // TODO(2014-07-24/JM): Change to use is_movement() and other functions (because of compound actions, action type is bad way of doing it))
         if(action_type == kActionMovement) {
+        //if(object_->current_action()->is_movement()) {
             // determine direction
             double rotation = object_->rotation();
 
@@ -171,6 +173,7 @@ void Sprite::update()
             }
         }
         else if(action_type == kActionIdle) {
+        //if((object_->current_action() == nullptr) || (object_->current_action()->is_idle())) {
             // determine direction
             double rotation = object_->rotation();
 

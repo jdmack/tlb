@@ -15,6 +15,8 @@ class EntityManager
         std::vector<GameObject *> * objects_;
         std::vector<GameObject *> * selected_;
 
+
+
     public:
         EntityManager();
 

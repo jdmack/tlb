@@ -56,6 +56,7 @@ GameObject * EntityManager::get_object_at(double x, double y)
 std::vector<Entity *> EntityManager::get_entities_near(Point position, double radius)
 {
     std::vector<Entity *> entities;
+
     for(std::vector<GameObject *>::iterator object_iterator = objects_->begin(); object_iterator != objects_->end(); ++object_iterator) {
         GameObject * object = *object_iterator;
         if(object->is_entity()) {
