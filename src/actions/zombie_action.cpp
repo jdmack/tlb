@@ -64,24 +64,41 @@ bool ZombieAction::update(Entity * entity, int delta_ticks)
                state_ = IDLE;
                break;
            }
-
-           // Start the first movement
-           //entity->set_x_velocity(movement_action_->current()->maximum_velocity().x_component());
-           //entity->set_y_velocity(movement_action_->current()->maximum_velocity().y_component());
+           target_last_position = Point(target_->x_position(), target_->y_position());
 
             break;
 
         case SEEK:
             if(movement_action_ != nullptr) {
+                // check if target has exceeded leash range
+                if(position.distance_from(Point(target_->x_position(), target_->y_position())) >= kZombieLeashRadius) {
+                    target_ = nullptr;
+                    delete movement_action_;
+                    movement_action_ = nullptr;
+                    state_ = IDLE;
+                    break;
+                }
+
+                // check if target has moved far from we think it is
+                if(target_last_position.distance_from(Point(target_->x_position(), target_->y_position())) >= 20) {
+                    delete movement_action_;
+                   // Create movement action
+                   movement_action_ = new MovementAction(position, Point(target_->x_position(), target_->y_position()), game_->level());
+                   if(movement_action_->empty_path()) {
+                       state_ = IDLE;
+                       break;
+                   }
+                   target_last_position = Point(target_->x_position(), target_->y_position());
+
+                }
+
+                // Perform movement
                 bool keep_action = movement_action_->update(entity, delta_ticks);
 
                 if(!keep_action) {
                     delete movement_action_;
                     movement_action_ = nullptr;
                     state_ = IDLE;
-                    if(position.distance_from(Point(target_->x_position(), target_->y_position())) >= kZombieLeashRadius) {
-                        target_ = nullptr;
-                    }
                 }
             }
 

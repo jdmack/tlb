@@ -7,7 +7,7 @@
 #include "entity_manager.h"
 
 const double kZombieAggroRadius = 75;
-const double kZombieLeashRadius = 100;
+const double kZombieLeashRadius = 150;
 
 class Entity;
 class GameObject;
@@ -27,6 +27,8 @@ class ZombieAction : public Action
         EntityManager * entity_manager_;
         Entity * target_;
         Game * game_;
+
+        Point target_last_position;
 
         MovementAction * movement_action_;
 

@@ -64,6 +64,7 @@ class GameObject
         void set_rotation(double rotation) { rotation_ = rotation; }
         void set_width(double width) { width_ = width; }
         void set_height(double height) { height_ = height; }
+        void set_selectable(bool selectable) { selectable_ = selectable; }
 
         void create_sprite(std::string asset);
 

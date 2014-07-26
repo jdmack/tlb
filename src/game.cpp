@@ -131,7 +131,9 @@ Entity * Game::spawn_entity(EntityType type, Point position, double rotation)
         entity->create_sprite(kAssetSpriteHuman1);
     }
     else if(type == ZOMBIE) {
+        entity->set_selectable(false);
         entity->set_controllable(false);
+        entity->set_maximum_speed(kEntityDefaultVelocity - 30);
 
         int random_num = rand() % 5 + 1;
 
