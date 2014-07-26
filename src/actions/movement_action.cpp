@@ -157,11 +157,12 @@ bool MovementAction::update(Entity * entity, int delta_ticks)
         current_max_velocity_ = Vector(entity->maximum_speed(), (*current_)->vector().direction());
         x_velocity = current_max_velocity_.x_component();
         y_velocity = current_max_velocity_.y_component();
+        entity->set_x_velocity(x_velocity);
+        entity->set_y_velocity(y_velocity);
 
         //Vector acceleration(kEntityAcceleration, movement_action->current()->vector().direction());
         //x_acceleration_ = acceleration.x_component();
         //y_acceleration_ = acceleration.y_component();
-
     }
 
     if(delta_ticks <= 0) {
