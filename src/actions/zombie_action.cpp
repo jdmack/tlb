@@ -79,6 +79,9 @@ bool ZombieAction::update(Entity * entity, int delta_ticks)
                     delete movement_action_;
                     movement_action_ = nullptr;
                     state_ = IDLE;
+                    if(position.distance_from(Point(target_->x_position(), target_->y_position())) >= kZombieLeashRadius) {
+                        target_ = nullptr;
+                    }
                 }
             }
 
