@@ -16,7 +16,6 @@ class Movement : public Action
         Vector vector_;
         Point start_;
         Point destination_;
-        Vector maximum_velocity_;
 
     public:
         Movement(Vector vector, Point start, Point destination);
@@ -27,7 +26,6 @@ class Movement : public Action
         Vector vector() const { return vector_; }
         Point start() const { return start_; }
         Point destination() const { return destination_; }
-        Vector maximum_velocity() const { return maximum_velocity_; }
 
         // mutators
         void set_clockwise(bool clockwise) { clockwise_ = clockwise; }
@@ -35,7 +33,6 @@ class Movement : public Action
         void set_vector(Vector vector) { vector_ = vector; }
         void set_start(Point start) { start_ = start; }
         void set_destination(Point destination) { destination_ = destination; }
-        void set_maximum_velocity(Vector maximum_velocity) { maximum_velocity_ = maximum_velocity; }
 
         std::string to_string();
 };

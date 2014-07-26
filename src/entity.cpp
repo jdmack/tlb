@@ -26,6 +26,8 @@ Entity::Entity(Game * game) : GameObject(game)
 
     selectable_ = true;
     controllable_ = false;
+
+    maximum_speed_ = kEntityDefaultVelocity;
 }
 
 Entity::Entity(Game * game, Point position, double rot) : GameObject(game, position, rot)
@@ -40,6 +42,8 @@ Entity::Entity(Game * game, Point position, double rot) : GameObject(game, posit
 
     selectable_ = true;
     controllable_ = false;
+
+    maximum_speed_ = kEntityDefaultVelocity;
 }
 
 void Entity::update(int delta_ticks)
@@ -96,15 +100,6 @@ void Entity::move(double x, double y)
         return;
     }
     current_action_ = movement_action;
-
-    // Start the first movement
-
-    //Vector acceleration(kEntityAcceleration, movement_action->current()->vector().direction());
-    x_velocity_ = movement_action->current()->maximum_velocity().x_component();
-    y_velocity_ = movement_action->current()->maximum_velocity().y_component();
-    //x_acceleration_ = acceleration.x_component();
-    //y_acceleration_ = acceleration.y_component();
-
 }
 
 void Entity::stop()

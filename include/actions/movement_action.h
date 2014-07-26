@@ -5,6 +5,7 @@
 #include <string>
 #include "action.h"
 #include "point.h"
+#include "vector.h"
 
 class Entity;
 class GameObject;
@@ -17,6 +18,8 @@ class MovementAction : public Action
 		Point start_;
 		Point end_;
 		Level * level_;
+		Vector current_max_velocity_;
+		bool started_;
 
 		std::vector<Movement *> * path_;
 		std::vector<Movement *>::iterator current_;
@@ -37,6 +40,10 @@ class MovementAction : public Action
 
         // overridden
         bool update(Entity * entity, int delta_ticks);
+
+		Vector current_max_velocity() const { return current_max_velocity_; }
+		void set_current_max_velocity(Vector vector) { current_max_velocity_ = vector; }
+
 };
 
 #endif

@@ -24,6 +24,7 @@ MovementAction::MovementAction(Point start, Point end, Level * level)
 	start_ = start;
 	end_ = end;
 	level_ = level;
+	started_ = false;
 
 	type_ = ACTION_MOVEMENT;
 
@@ -33,14 +34,14 @@ MovementAction::MovementAction(Point start, Point end, Level * level)
 	    find_path();
 	}
 	else {
-        // Create movement vectore
+        // Create movement vector
         Vector vector = Vector(start, end);
 
         // Create movement
         Movement * this_movement = new Movement(vector, start, end);
-        this_movement->set_maximum_velocity(Vector(kEntityVelocity, this_movement->vector().direction()));
         path_->push_back(this_movement);
         current_ = path_->begin();
+
 	}
 }
 
@@ -87,7 +88,6 @@ void MovementAction::find_path()
             Logger::write(Logger::string_stream << "End Point: " << end_node->center_point().to_string());
             Movement * this_movement = new Movement(vector, start_node->center_point(), end_node->center_point());
 
-            this_movement->set_maximum_velocity(Vector(kEntityVelocity, this_movement->vector().direction()));
             path_->push_back(this_movement);
         }
 	    else {
@@ -115,7 +115,6 @@ bool MovementAction::next_movement()
         return false;
     }
     else {
-        //current_++;
         Logger::write(Logger::string_stream << "MovementAction::next_movement(): " << (*current_)->to_string());
         return true;
     }
@@ -153,18 +152,21 @@ bool MovementAction::update(Entity * entity, int delta_ticks)
     double y_acceleration = entity->y_acceleration();
     double rotation = entity->rotation();
 
+    if(started_ == false) {
+        started_ = true;
+        current_max_velocity_ = Vector(entity->maximum_speed(), (*current_)->vector().direction());
+        x_velocity = current_max_velocity_.x_component();
+        y_velocity = current_max_velocity_.y_component();
+
+        //Vector acceleration(kEntityAcceleration, movement_action->current()->vector().direction());
+        //x_acceleration_ = acceleration.x_component();
+        //y_acceleration_ = acceleration.y_component();
+
+    }
+
     if(delta_ticks <= 0) {
         return return_value;
     }
-
-    //if((x_velocity == 0) && (y_velocity == 0)) {
-    //    if((x_acceleration == 0) && (y_acceleration == 0)) {
-    //        return;
-    //    }
-    //}
-
-    // TODO(2013-09-06/JM): Bug: Moving only on 1 axis causes a jump
-    //Logger::write(Logger::string_stream << "Entity Update - delta_ticks: " << delta_ticks);
 
     // Check rotation
     if(rotation != (*current_)->vector().direction()) {
@@ -205,6 +207,7 @@ bool MovementAction::update(Entity * entity, int delta_ticks)
     else {
 
         // Accelerate
+        // TODO(2014-07-25/JM): Change use of maximum_velocity calls here to use speed variable in Entity
         //if((std::abs(x_velocity) < std::abs((*current_)->maximum_velocity().x_component())) || ( std::abs(y_velocity) < std::abs((*current_)->maximum_velocity().y_component())) ) {
         //    x_velocity += x_acceleration * (delta_ticks / 1000.f);
         //    y_velocity += y_acceleration * (delta_ticks / 1000.f);
@@ -331,8 +334,9 @@ bool MovementAction::update(Entity * entity, int delta_ticks)
 
         if(entity->stopped()) {
             if(next_movement()) {
-                x_velocity = (*current_)->maximum_velocity().x_component();
-                y_velocity = (*current_)->maximum_velocity().y_component();
+                current_max_velocity_ = Vector(entity->maximum_speed(), (*current_)->vector().direction());
+                x_velocity = current_max_velocity_.x_component();
+                y_velocity = current_max_velocity_.y_component();
             }
             else {
                 return_value = false;

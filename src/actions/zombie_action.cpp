@@ -66,8 +66,8 @@ bool ZombieAction::update(Entity * entity, int delta_ticks)
            }
 
            // Start the first movement
-           entity->set_x_velocity(movement_action_->current()->maximum_velocity().x_component());
-           entity->set_y_velocity(movement_action_->current()->maximum_velocity().y_component());
+           //entity->set_x_velocity(movement_action_->current()->maximum_velocity().x_component());
+           //entity->set_y_velocity(movement_action_->current()->maximum_velocity().y_component());
 
             break;
 

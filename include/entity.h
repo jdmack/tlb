@@ -7,8 +7,8 @@
 const int kEntityWidth  = 40;
 const int kEntityHeight = 40;
 
-const double kEntityVelocity     = 100;
-const double kEntityAcceleration = 800;
+const double kEntityDefaultVelocity     = 100;
+const double kEntityDefaultAcceleration = 800;
 const double kEntityRotationVelocity = 1000;
 
 class Game;
@@ -18,6 +18,8 @@ class Entity : public GameObject
     private:
         HitPoint * hp_;
         bool controllable_;
+
+        double maximum_speed_;
 
     public:
         // constructors/destructors
@@ -38,9 +40,11 @@ class Entity : public GameObject
         // accessors
         HitPoint * hp() const { return hp_; }
         bool controllable() const { return controllable_; }
+        double maximum_speed() const { return maximum_speed_; }
 
         // mutators
         void set_controllable(bool controllable) { controllable_ = controllable; }
+        void set_maximum_speed(double maximum_speed) { maximum_speed_ = maximum_speed; }
 
         bool is_entity() const { return true; }
 
