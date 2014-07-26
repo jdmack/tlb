@@ -64,13 +64,13 @@ int Game::run()
 void Game::game_loop()
 {
     // Create a dot
-    Entity * char1 = spawn_entity(PLAYER, Point(48 * 5 + 24, 48 * 3 + 24), 0);
-    Entity * zombie1 = spawn_entity(ZOMBIE, Point(48 * 8 + 24, 48 * 3 + 24), 0);
-    //Entity * zombie2 = spawn_entity(ZOMBIE, Point(48 * 9 + 24, 48 * 3 + 24), 0);
-    //Entity * zombie3 = spawn_entity(ZOMBIE, Point(48 * 10 + 24, 48 * 3 + 24), 0);
-    //Entity * zombie4 = spawn_entity(ZOMBIE, Point(48 * 11 + 24, 48 * 3 + 24), 0);
-    //Entity * zombie5 = spawn_entity(ZOMBIE, Point(48 * 12 + 24, 48 * 3 + 24), 0);
-    //Entity * zombie6 = spawn_entity(ZOMBIE, Point(48 * 13 + 24, 48 * 3 + 24), 0);
+    Entity * char1 = spawn_entity(PLAYER, Point(48 * 6 + 24, 48 * 4 + 24), 90);
+    Entity * zombie1 = spawn_entity(ZOMBIE, Point(48 * 4 + 24, 48 * 1 + 24), 180);
+    Entity * zombie2 = spawn_entity(ZOMBIE, Point(48 * 5 + 24, 48 * 1 + 24), 90);
+    Entity * zombie3 = spawn_entity(ZOMBIE, Point(48 * 6 + 24, 48 * 1 + 24), 90);
+    Entity * zombie4 = spawn_entity(ZOMBIE, Point(48 * 7 + 24, 48 * 1 + 24), 90);
+    Entity * zombie5 = spawn_entity(ZOMBIE, Point(48 * 8 + 24, 48 * 1 + 24), 0);
+    //Entity * zombie6 = spawn_entity(ZOMBIE, Point(48 * 7 + 24, 48 * 1 + 24), 0);
 
 
     //std::vector<GameObject *> objects = entity_manager_->objects();
@@ -84,10 +84,10 @@ void Game::game_loop()
         if(delta_timer_.get_ticks() >= 33) {
             char1->update(delta_timer_.get_ticks());
             zombie1->update(delta_timer_.get_ticks());
-            //zombie2->update(delta_timer_.get_ticks());
-            //zombie3->update(delta_timer_.get_ticks());
-            //zombie4->update(delta_timer_.get_ticks());
-            //zombie5->update(delta_timer_.get_ticks());
+            zombie2->update(delta_timer_.get_ticks());
+            zombie3->update(delta_timer_.get_ticks());
+            zombie4->update(delta_timer_.get_ticks());
+            zombie5->update(delta_timer_.get_ticks());
             //zombie6->update(delta_timer_.get_ticks());
 
             delta_timer_.start();
@@ -102,10 +102,10 @@ void Game::game_loop()
         level_->render();
         char1->render();
         zombie1->render();
-        //zombie2->render();
-        //zombie3->render();
-        //zombie4->render();
-        //zombie5->render();
+        zombie2->render();
+        zombie3->render();
+        zombie4->render();
+        zombie5->render();
         //zombie6->render();
         renderer_->draw_life_bar(char1);
 
@@ -117,6 +117,11 @@ void Game::game_loop()
     //}
     delete char1;
     delete zombie1;
+    delete zombie2;
+    delete zombie3;
+    delete zombie4;
+    delete zombie5;
+    //delete zombie6;
 }
 
 Entity * Game::spawn_entity(EntityType type, Point position, double rotation)
@@ -133,7 +138,7 @@ Entity * Game::spawn_entity(EntityType type, Point position, double rotation)
     else if(type == ZOMBIE) {
         entity->set_selectable(false);
         entity->set_controllable(false);
-        entity->set_maximum_speed(kEntityDefaultVelocity - 30);
+        entity->set_maximum_speed(kEntityDefaultVelocity - 10);
 
         int random_num = rand() % 5 + 1;
 

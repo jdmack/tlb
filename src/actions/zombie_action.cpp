@@ -46,6 +46,10 @@ bool ZombieAction::update(Entity * entity, int delta_ticks)
                     entities.pop_back();
                     continue;
                 }
+                if(entities.back()->type() == ZOMBIE) {
+                    entities.pop_back();
+                    continue;
+                }
                 target_ = entities.back();
                 entities.pop_back();
             }

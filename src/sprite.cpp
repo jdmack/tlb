@@ -90,6 +90,21 @@ Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
 
     animation_timer_.start();
     current_animation_ = animations_["idle_right"];
+
+    double rotation = object_->rotation();
+
+    if((rotation >= 45) && (rotation <= 135)) {
+        current_animation_ = animations_["idle_down"];
+    }
+    else if((rotation >= 135) && (rotation <= 225)) {
+        current_animation_ = animations_["idle_left"];
+    }
+    else if((rotation >= 225) && (rotation <= 315)) {
+        current_animation_ = animations_["idle_up"];
+    }
+    else {
+        current_animation_ = animations_["idle_right"];
+    }
 }
 
 void Sprite::select()
