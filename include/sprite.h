@@ -6,6 +6,7 @@
 #include "utils/timer.h"
 #include "SDL2/SDL.h"
 #include "animation.h"
+#include "actions/action.h"
 
 class GameObject;
 class Renderer;
@@ -20,7 +21,7 @@ class Sprite
         std::string art_asset_;
         std::string select_art_asset_;
         GameObject * object_;
-        std::string current_action_;
+        ActionType current_action_;
         double current_direction_;
 
         Animation current_animation_;

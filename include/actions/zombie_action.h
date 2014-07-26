@@ -44,7 +44,8 @@ class ZombieAction : public Action
 
         // overridden
         bool update(Entity * entity, int delta_ticks);
-        bool is_movement();
+        ActionType type();
+
 };
 
 #endif

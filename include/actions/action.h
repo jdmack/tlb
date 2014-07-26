@@ -8,25 +8,29 @@ const std::string kActionIdle    = "IdleAction";
 const std::string kActionEmpty    = "EmptyAction";
 const std::string kActionZombie   = "ZombieAction";
 
+enum ActionType {
+    ACTION_MOVEMENT,
+    ACTION_IDLE,
+    ACTION_ZOMBIE,
+    ACTION_SEEK,
+    ACTION_ATTACK
+};
+
 class Entity;
 
 class Action
 {
     protected:
-        std::string type_;
+        ActionType type_;
 
     public:
         Action();
 
         // accessors
-        std::string type() const { return type_; }
+        virtual ActionType type() { return type_; }
 
         virtual ~Action();
         virtual bool update(Entity * entity, int delta_ticks);
-
-        // determination functions
-        virtual bool is_idle() const { return false; }
-        virtual bool is_movement() const { return false; }
 
 };
 

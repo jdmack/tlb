@@ -4,6 +4,7 @@
 #include <sstream>
 #include <string>
 
+#include "actions/action.h"
 #include "actions/zombie_action.h"
 #include "actions/movement_action.h"
 
@@ -22,7 +23,7 @@ ZombieAction::ZombieAction()
     entity_manager_ = nullptr;
     movement_action_ = nullptr;
     game_ = nullptr;
-    type_ = kActionZombie;
+    type_ = ACTION_IDLE;
 }
 
 bool ZombieAction::update(Entity * entity, int delta_ticks)
@@ -89,14 +90,20 @@ bool ZombieAction::update(Entity * entity, int delta_ticks)
     return true;
 }
 
-bool ZombieAction::is_movement()
+ActionType ZombieAction::type()
 {
-    if(state_ == SEEK) {
-        return true;
+    switch(state_) {
+        case IDLE:
+            type_ = ACTION_IDLE;
+            break;
+        case SEEK:
+            type_ = ACTION_MOVEMENT;
+            break;
     }
 
-    return false;
+    return type_;
 }
+
 
 std::string ZombieAction::to_string()
 {

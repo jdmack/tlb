@@ -16,7 +16,7 @@ Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
     height_ = object->height();
     width_ = object->width();
 
-    current_action_ = kActionIdle;
+    current_action_ = ACTION_IDLE;
     current_direction_ = object_->rotation();
 
     // open xml doc
@@ -141,29 +141,19 @@ void Sprite::render()
 void Sprite::update()
 {
     // update current animation based on current action
-    std::string action_type;
+    ActionType action_type;
 
     if(object_->current_action() == nullptr) {
-        action_type = kActionIdle;
+        action_type = ACTION_IDLE;
     }
     else {
         action_type = object_->current_action()->type();
-        if(action_type == kActionZombie) {
-            if(object_->current_action()->is_movement()) {
-                action_type = kActionMovement;
-            }
-            else {
-                action_type = kActionIdle;
-            }
-        }
     }
 
     if(action_type != current_action_) {
         current_action_ = action_type;
 
-        // TODO(2014-07-24/JM): Change to use is_movement() and other functions (because of compound actions, action type is bad way of doing it))
-        if(action_type == kActionMovement) {
-        //if(object_->current_action()->is_movement()) {
+        if(action_type == ACTION_MOVEMENT) {
             // determine direction
             double rotation = object_->rotation();
 
@@ -180,7 +170,7 @@ void Sprite::update()
                 current_animation_ = animations_["walk_right"];
             }
         }
-        else if(action_type == kActionIdle) {
+        else if(action_type == ACTION_IDLE) {
         //if((object_->current_action() == nullptr) || (object_->current_action()->is_idle())) {
             // determine direction
             double rotation = object_->rotation();
@@ -202,7 +192,7 @@ void Sprite::update()
     }
     if(current_direction_ != object_->rotation()) {
         current_direction_ = object_->rotation();
-        if(action_type == kActionMovement) {
+        if(action_type == ACTION_MOVEMENT) {
             // determine direction
             double rotation = object_->rotation();
 
@@ -219,7 +209,7 @@ void Sprite::update()
                 current_animation_ = animations_["walk_right"];
             }
         }
-        else if(action_type == kActionIdle) {
+        else if(action_type == ACTION_IDLE) {
             // determine direction
             double rotation = object_->rotation();
 

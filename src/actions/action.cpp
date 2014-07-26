@@ -2,7 +2,7 @@
 
 Action::Action()
 {
-    type_ = kActionEmpty;
+    type_ = ACTION_IDLE;
 }
 
 Action::~Action()

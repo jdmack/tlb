@@ -5,7 +5,7 @@
 
 class Entity;
 
-class IdleAction
+class IdleAction : public Action
 {
     private:
 
@@ -13,8 +13,6 @@ class IdleAction
         IdleAction();
 
         bool update(Entity * entity, int delta_ticks);
-        bool is_idle() const { return true; }
-
 
 };
 
