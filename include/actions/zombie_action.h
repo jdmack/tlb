@@ -6,8 +6,8 @@
 #include "point.h"
 #include "entity_manager.h"
 
-const double kZombieAggroRadius = 75;
-const double kZombieLeashRadius = 150;
+const double kZombieAggroRadius = 96;
+const double kZombieLeashRadius = 144;
 
 class Entity;
 class GameObject;

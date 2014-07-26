@@ -32,14 +32,14 @@ bool ZombieAction::update(Entity * entity, int delta_ticks)
     std::vector<Entity *> entities;
     switch(state_) {
         case IDLE:
-            Logger::write(Logger::string_stream << "ZombieAction: IDLE");
+            //Logger::write(Logger::string_stream << "ZombieAction: IDLE");
 
             entities = entity_manager_->get_entities_near(position, kZombieAggroRadius);
 
             //TODO(2014-07-24/JM): Choose way of selecting target if there are multiple
             while(target_ == nullptr) {
                 if(entities.empty()) {
-                    Logger::write(Logger::string_stream << "Found nothing nearby");
+                    //Logger::write(Logger::string_stream << "Found nothing nearby");
                     return true;
                 }
                 if(entities.back()->object_id() == entity->object_id()) {
@@ -80,7 +80,7 @@ bool ZombieAction::update(Entity * entity, int delta_ticks)
                 }
 
                 // check if target has moved far from we think it is
-                if(target_last_position.distance_from(Point(target_->x_position(), target_->y_position())) >= 20) {
+                if(target_last_position.distance_from(Point(target_->x_position(), target_->y_position())) >= 12) {
                     delete movement_action_;
                    // Create movement action
                    movement_action_ = new MovementAction(position, Point(target_->x_position(), target_->y_position()), game_->level());

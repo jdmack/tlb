@@ -14,8 +14,10 @@
 #include "vector.h"
 #include "utils/logger.h"
 
-Entity::Entity(Game * game) : GameObject(game)
+Entity::Entity(Game * game, EntityType type) : GameObject(game)
 {
+    type_ = type;
+
     x_velocity_ = 0;
     y_velocity_ = 0;
 
@@ -30,8 +32,10 @@ Entity::Entity(Game * game) : GameObject(game)
     maximum_speed_ = kEntityDefaultVelocity;
 }
 
-Entity::Entity(Game * game, Point position, double rot) : GameObject(game, position, rot)
+Entity::Entity(Game * game, EntityType type, Point position, double rot) : GameObject(game, position, rot)
 {
+    type_ = type;
+
     x_velocity_ = 0;
     y_velocity_ = 0;
 

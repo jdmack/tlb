@@ -5,19 +5,13 @@
 #include "utils/timer.h"
 
 #include "point.h"
+#include "entity.h"
 
 class Camera;
 class EntityManager;
 class EventManager;
 class Level;
 class Renderer;
-class Entity;
-
-enum EntityType {
-    PLAYER,
-    ZOMBIE,
-    HUMAN
-};
 
 class Game
 {
