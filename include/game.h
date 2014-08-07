@@ -1,29 +1,29 @@
-#ifndef TLB_TLB_GAME_H_
-#define TLB_TLB_GAME_H_
+#ifndef TLB_GAME_H_
+#define TLB_GAME_H_
 
 #include "SDL2/SDL.h"
 #include "utils/timer.h"
-
-#include "point.h"
-#include "entity.h"
 
 class Camera;
 class EntityManager;
 class EventManager;
 class Level;
 class Renderer;
+class GameState;
 
 class Game
 {
     private:
         int exit_code_;
         bool quit_;
+
         Timer delta_timer_;
         Renderer * renderer_;
         EntityManager * entity_manager_;
         EventManager * event_manager_;
         Camera * camera_;
         Level * level_;
+        GameState * current_state_;
 
     public:
         Game();
@@ -31,7 +31,6 @@ class Game
         int run();
         void game_loop();
         void process_arguments(int argc, char * argv[]);
-        Entity * spawn_entity(EntityType type, Point position, double rotation);
 
         // accessors
         Renderer * renderer() const { return renderer_; }
@@ -39,10 +38,11 @@ class Game
         EventManager * event_manager() const { return event_manager_; }
         Camera * camera() const { return camera_; }
         Level * level() const { return level_; }
+        GameState * state() const { return current_state_; }
 
         // mutators
         void set_quit(bool quit) { quit_ = quit; }
-        void level(Level * level) { level_ = level; }
+        void set_level(Level * level) { level_ = level; }
 
 };
 
