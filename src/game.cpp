@@ -5,14 +5,14 @@
 // Project Files
 #include "game.h"
 #include "entity.h"
-#include "assets.h"
 #include "renderer.h"
 #include "entity_manager.h"
 #include "event_manager.h"
 #include "utils/logger.h"
 #include "camera.h"
 #include "level.h"
-#include "actions/zombie_action.h"
+#include "gs_level.h"
+#include "game_state.h"
 
 
 Game::Game()
@@ -25,6 +25,8 @@ Game::Game()
     camera_ = new Camera(this);
     renderer_->set_camera(camera_);
     level_ = nullptr;
+
+    current_state_ = static_cast<GameState *>(new GSLevel(this));
 }
 
 Game::~Game()
@@ -42,14 +44,10 @@ int Game::run()
         return 1;
     }
 
-    // Load level
-    level_ = new Level(this);
-    //if(!level_->load(kMapTest24x18Blank)) {
-    if(!level_->load(kMapTest24x18)) {
-        Logger::write(Logger::string_stream << "Failed to load map");
-        exit_code_ = 1;
-        return exit_code_;
+    if(current_state_->init() == 1) {
+        return 1;
     }
+
     delta_timer_.start();
 
     game_loop();
@@ -63,17 +61,7 @@ int Game::run()
 
 void Game::game_loop()
 {
-    // Create a dot
-    Entity * char1 = spawn_entity(PLAYER, Point(48 * 6 + 24, 48 * 4 + 24), 90);
-    Entity * zombie1 = spawn_entity(ZOMBIE, Point(48 * 4 + 24, 48 * 1 + 24), 180);
-    Entity * zombie2 = spawn_entity(ZOMBIE, Point(48 * 5 + 24, 48 * 1 + 24), 90);
-    Entity * zombie3 = spawn_entity(ZOMBIE, Point(48 * 6 + 24, 48 * 1 + 24), 90);
-    Entity * zombie4 = spawn_entity(ZOMBIE, Point(48 * 7 + 24, 48 * 1 + 24), 90);
-    Entity * zombie5 = spawn_entity(ZOMBIE, Point(48 * 8 + 24, 48 * 1 + 24), 0);
-    //Entity * zombie6 = spawn_entity(ZOMBIE, Point(48 * 7 + 24, 48 * 1 + 24), 0);
-
-
-    //std::vector<GameObject *> objects = entity_manager_->objects();
+    //current_state_->init();
     // Main Loop
     while(quit_ == false) {
 
@@ -82,92 +70,23 @@ void Game::game_loop()
 
         // Update
         if(delta_timer_.get_ticks() >= 33) {
-            char1->update(delta_timer_.get_ticks());
-            zombie1->update(delta_timer_.get_ticks());
-            zombie2->update(delta_timer_.get_ticks());
-            zombie3->update(delta_timer_.get_ticks());
-            zombie4->update(delta_timer_.get_ticks());
-            zombie5->update(delta_timer_.get_ticks());
-            //zombie6->update(delta_timer_.get_ticks());
-
+            current_state_->update(delta_timer_.get_ticks());
             delta_timer_.start();
         }
 
 
         // center camera
-        camera_->center(char1);
+        //camera_->center(char1);
 
         // Draw
         renderer_->clear();
-        level_->render();
-        char1->render();
-        zombie1->render();
-        zombie2->render();
-        zombie3->render();
-        zombie4->render();
-        zombie5->render();
-        //zombie6->render();
-        renderer_->draw_life_bar(char1);
+        current_state_->render();
 
         renderer_->update();
     }
 
-    //for(std::vector<GameObject *>::iterator object_iterator = objects->begin(); object_iterator != objects->end(); ++object_iterator) {
-    //    *object_iterator
-    //}
-    delete char1;
-    delete zombie1;
-    delete zombie2;
-    delete zombie3;
-    delete zombie4;
-    delete zombie5;
-    //delete zombie6;
+    current_state_->end();
 }
-
-Entity * Game::spawn_entity(EntityType type, Point position, double rotation)
-{
-    Entity * entity = new Entity(this, type, position, rotation);
-    if(type == PLAYER) {
-        entity->set_controllable(true);
-        entity->create_sprite(kAssetSpriteHuman1);
-    }
-    else if(type == HUMAN) {
-        entity->set_controllable(false);
-        entity->create_sprite(kAssetSpriteHuman1);
-    }
-    else if(type == ZOMBIE) {
-        entity->set_selectable(false);
-        entity->set_controllable(false);
-        entity->set_maximum_speed(kEntityDefaultVelocity - 10);
-
-        int random_num = rand() % 5 + 1;
-
-        std::string asset;
-        switch(random_num) {
-            case 1: asset = kAssetSpriteZombie1; break;
-            case 2: asset = kAssetSpriteZombie2; break;
-            case 3: asset = kAssetSpriteZombie3; break;
-            case 4: asset = kAssetSpriteZombie4; break;
-            case 5: asset = kAssetSpriteZombie5; break;
-            case 6: asset = kAssetSpriteZombie6; break;
-            default: asset = kAssetSpriteZombie1; break;
-        }
-        entity->create_sprite(asset);
-
-        ZombieAction * zombie_action = new ZombieAction();
-        zombie_action->set_entity_manager(entity_manager_);
-        zombie_action->set_game(this);
-
-        entity->set_current_action(zombie_action);
-    }
-
-    entity_manager_->add_object(entity);
-    renderer_->init_object(entity);
-
-
-    return entity;
-}
-
 
 
 // placeholder functions (not implemented yet)
