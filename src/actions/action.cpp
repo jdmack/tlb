@@ -14,3 +14,8 @@ bool Action::update(Entity * entity, int delta_ticks)
 {
     return true;
 }
+
+void Action::stop()
+{
+
+}
