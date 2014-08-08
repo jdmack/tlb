@@ -1,4 +1,3 @@
-/* Event Agent */
 
 #include <list>
 #include "SDL2/SDL.h"
@@ -45,8 +44,13 @@ void EventManager::handle_events()
                             // something is selected, can now give it an order
                             std::list<GameObject *> * selected = game_->entity_manager()->selected();
                             for(std::list<GameObject *>::iterator selected_iterator = selected->begin(); selected_iterator != selected->end(); ++selected_iterator) {
-                                //(*selected_iterator)->stop();
-                                // TODO(2014-01-23/JM): Fix stop
+
+                                GameObject * object = *selected_iterator;
+                                if(object->is_entity()) {
+                                    Entity * entity = static_cast<Entity *>(object);
+                                    entity->stop();
+                                }
+
                             }
                         }
                         break;
