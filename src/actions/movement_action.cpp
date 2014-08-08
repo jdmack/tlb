@@ -238,33 +238,62 @@ bool MovementAction::update(Entity * entity, int delta_ticks)
             x_position -= x_velocity * (delta_ticks / 1000.f);
             y_position -= y_velocity * (delta_ticks / 1000.f);
 
-            entity->stop();
+            // TODO(2014-08-08/JM): Replace repeated instances of these 4 assignments to 0 with a better functionality
+            //entity->stop();
+            x_velocity = 0;
+            y_velocity = 0;
+            x_acceleration = 0;
+            y_acceleration = 0;
         }
         else {
             // TODO(2013-09-05/JM): Create function for checking renderer boundary collisions
             // Check left boundary
             if(x_position - (width / 2) < 0) {
                 Logger::write("STOPPING: Collision with LEFT renderer boundary");
-                entity->stop();
+
+                //entity->stop();
+                x_velocity = 0;
+                y_velocity = 0;
+                x_acceleration = 0;
+                y_acceleration = 0;
+
                 x_position = 0 + (width / 2);
             }
             // Check right boundary
             else if(x_position + (width / 2) > game_->level()->width()) {
                 Logger::write("STOPPING: Collision with RIGHT renderer boundary");
-                entity->stop();
+
+                //entity->stop();
+                x_velocity = 0;
+                y_velocity = 0;
+                x_acceleration = 0;
+                y_acceleration = 0;
+
                 x_position = game_->level()->width() - (width / 2);
             }
 
             // Check top boundary
             if(y_position - (height / 2) < 0) {
                 Logger::write("STOPPING: Collision with TOP renderer boundary");
-                entity->stop();
+
+                //entity->stop();
+                x_velocity = 0;
+                y_velocity = 0;
+                x_acceleration = 0;
+                y_acceleration = 0;
+
                 y_position = 0 + (height / 2);
             }
             // Check bottom boundary
             else if(y_position + (height / 2) > game_->level()->height()) {
                 Logger::write("STOPPING: Collision with BOTTOM renderer boundary");
-                entity->stop();
+
+                //entity->stop();
+                x_velocity = 0;
+                y_velocity = 0;
+                x_acceleration = 0;
+                y_acceleration = 0;
+
                 y_position = game_->level()->height() - (height / 2);
             }
 
@@ -327,7 +356,12 @@ bool MovementAction::update(Entity * entity, int delta_ticks)
 
         if(past_point) {
             Logger::write("STOPPING: Moved past point");
-            entity->stop();
+
+            x_velocity = 0;
+            y_velocity = 0;
+            x_acceleration = 0;
+            y_acceleration = 0;
+
             x_position = (*current_)->destination().x();
             y_position = (*current_)->destination().y();
             Logger::write(Logger::string_stream << "Destination:" << (*current_)->destination().to_string());
@@ -341,8 +375,6 @@ bool MovementAction::update(Entity * entity, int delta_ticks)
             }
             else {
                 return_value = false;
-                //delete current_action_;
-                //current_action_ = nullptr;
             }
         }
     }
@@ -360,3 +392,19 @@ bool MovementAction::update(Entity * entity, int delta_ticks)
 
     return return_value;
 }
+
+void MovementAction::stop()
+{
+    std::vector<Movement *>::iterator m_iterator = current_;
+    if(m_iterator != path_->end()) {
+
+        m_iterator++;
+
+        while(m_iterator != path_->end()) {
+            Movement * movement = *m_iterator;
+            m_iterator = path_->erase(m_iterator);
+            delete movement;
+        }
+    }
+}
+
