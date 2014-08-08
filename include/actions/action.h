@@ -26,6 +26,7 @@ class Action
 
         virtual ~Action();
         virtual bool update(Entity * entity, int delta_ticks);
+        virtual void stop();
 
 };
 
