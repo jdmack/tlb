@@ -3,11 +3,6 @@
 
 #include <string>
 
-const std::string kActionMovement = "MovementAction";
-const std::string kActionIdle    = "IdleAction";
-const std::string kActionEmpty    = "EmptyAction";
-const std::string kActionZombie   = "ZombieAction";
-
 enum ActionType {
     ACTION_MOVEMENT,
     ACTION_IDLE,
