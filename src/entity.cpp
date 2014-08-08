@@ -108,10 +108,9 @@ void Entity::move(double x, double y)
 
 void Entity::stop()
 {
-    x_velocity_ = 0;
-    y_velocity_ = 0;
-    x_acceleration_ = 0;
-    y_acceleration_ = 0;
+    if(current_action_ != nullptr) {
+        current_action_->stop();
+    }
 }
 
 bool Entity::stopped()
