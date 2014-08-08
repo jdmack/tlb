@@ -40,6 +40,7 @@ class MovementAction : public Action
 
         // overridden
         bool update(Entity * entity, int delta_ticks);
+        void stop();
 
 		Vector current_max_velocity() const { return current_max_velocity_; }
 		void set_current_max_velocity(Vector vector) { current_max_velocity_ = vector; }
