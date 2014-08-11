@@ -21,6 +21,7 @@ class Point
         void set_y(double y) { y_= y; }
 
         bool operator==(const Point &other) const;
+        bool operator!=(const Point &other) const;
 
         double distance_from(Point point);
 
