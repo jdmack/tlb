@@ -31,6 +31,12 @@ bool Point::operator==(const Point &other) const {
         return false;
     }
 }
+
+bool Point::operator==(const Point &other) const {
+{
+    return !(*this == other);
+}
+
 double Point::distance_from(Point point)
 {
     double x_distance = point.x() - x_;
