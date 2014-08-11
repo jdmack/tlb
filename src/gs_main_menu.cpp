@@ -13,7 +13,7 @@ GSMainMenu::GSMainMenu(Game * game)
     game_ = game;
 }
 
-int GSLevel::init()
+int GSMainMenu::init()
 {
     int return_code = 0;
 
@@ -21,18 +21,17 @@ int GSLevel::init()
     return return_code;
 }
 
-bool GSLevel::update(int delta_ticks)
+bool GSMainMenu::update(int delta_ticks)
 {
 
     return true;
 }
-void GSLevel::render()
+void GSMainMenu::render()
 {
 
 }
 
-void GSLevel::end()
+void GSMainMenu::end()
 {
 
 }
-
