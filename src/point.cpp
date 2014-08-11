@@ -23,7 +23,8 @@ std::string Point::to_string()
     return ss.str();
 }
 
-bool Point::operator==(const Point &other) const {
+bool Point::operator==(const Point &other) const
+{
     if((x_ == other.x()) && (y_ == other.y())) {
         return true;
     }
@@ -32,7 +33,7 @@ bool Point::operator==(const Point &other) const {
     }
 }
 
-bool Point::operator==(const Point &other) const {
+bool Point::operator!=(const Point &other) const
 {
     return !(*this == other);
 }
