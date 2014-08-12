@@ -96,6 +96,19 @@ void MovementAction::find_path()
 	    }
 	}
 
+    // Check if entity is located at the cneter point of the start grid
+    /*
+    GridNode * start_grid = level_->grid()->node_at_point(start_);
+    Point start_grid_center_point = start_grid->center_point();
+    Movement * first_movement = *path_->begin();
+
+    if(start_grid_center_point != start_) {
+        Vector vector = Vector(start_, first_movement->destination());
+        first_movement->set_vector(vector);
+        first_movement->set_start(start_);
+    }
+*/
+
 	// Set current movement to beginning
 	current_ = path_->begin();
 	if(!path_->empty()) {
