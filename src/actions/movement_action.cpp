@@ -13,7 +13,8 @@
 #include "level.h"
 #include "movement.h"
 #include "point.h"
-#include "pathfinder.h"
+#include "pathfinder_hex.h"
+#include "pathfinder_square.h"
 #include "utils/logger.h"
 #include "entity.h"
 
@@ -47,8 +48,8 @@ MovementAction::MovementAction(Point start, Point end, Level * level)
 
 void MovementAction::find_path()
 {
+    bool hex_grid = true;
     // Create Pathfinder
-	Pathfinder pathfinder(level_->grid());
 
 	// Get path as list of nodes
 	std::list<GridNode *> * nodes;
@@ -56,8 +57,14 @@ void MovementAction::find_path()
 	GridNode * start_node = level_->grid()->node_at_point(start_);
 	GridNode * end_node = level_->grid()->node_at_point(end_);
 
-	nodes = pathfinder.run(start_node, end_node);
-
+	if(hex_grid) {
+        PathfinderHex pathfinder(level_->grid());
+        nodes = pathfinder.run(start_node, end_node);
+	}
+	else {
+        PathfinderSquare pathfinder(level_->grid());
+        nodes = pathfinder.run(start_node, end_node);
+	}
     // Print the path to log
 	Logger::string_stream << "Path: ";
 	for (std::list<GridNode *>::iterator iterator = nodes->begin(), end = nodes->end(); iterator != end; ++iterator) {
@@ -429,6 +436,15 @@ void MovementAction::stop()
             m_iterator = path_->erase(m_iterator);
             delete movement;
         }
+    }
+}
+
+void MovementAction::remove_movements_end(int number)
+{
+    for(int i = 0; i < number; i++) {
+        Movement * this_movement = path_->back();
+        path_->pop_back();
+        delete this_movement;
     }
 }
 

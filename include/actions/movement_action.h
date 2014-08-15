@@ -44,6 +44,7 @@ class MovementAction : public Action
 
 		Vector current_max_velocity() const { return current_max_velocity_; }
 		void set_current_max_velocity(Vector vector) { current_max_velocity_ = vector; }
+		void remove_movements_end(int number);
 
 };
 

@@ -1,25 +1,24 @@
-/*
 #include <list>
 #include <sstream>
 #include <string>
 #include <stdlib.h>
 
-#include "pathfinder.h"
+#include "pathfinder_square.h"
 #include "grid.h"
 #include "grid_node.h"
 #include "utils/logger.h"
 
 static int compare_GridNodes (const GridNode* a, const GridNode* b);
 
-Pathfinder::Pathfinder(Grid * grid)
+PathfinderSquare::PathfinderSquare(Grid * grid)
 {
     grid_ = grid;
 }
 
-std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_node)
+std::list<GridNode *> * PathfinderSquare::run(GridNode * start_node, GridNode * end_node)
 {
     bool allow_diagonals = true;
-    Logger::write(Logger::string_stream << "Pathfinder start");
+    Logger::write(Logger::string_stream << "PathfinderSquare start");
     reset();
     // 1. Add the starting square (or node) to the open list.
     open_list.push_back(start_node);
@@ -219,13 +218,13 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
     return path;
 }
 
-void Pathfinder::reset()
+void PathfinderSquare::reset()
 {
     open_list.clear();
     closed_list.clear();
 }
 
-bool Pathfinder::open_list_contains(GridNode * node)
+bool PathfinderSquare::open_list_contains(GridNode * node)
 {
     std::list<GridNode *>::iterator it = open_list.begin();
     for(unsigned int i = 0; i < open_list.size(); i++) {
@@ -238,7 +237,7 @@ bool Pathfinder::open_list_contains(GridNode * node)
     return false;
 }
 
-bool Pathfinder::closed_list_contains(GridNode * node)
+bool PathfinderSquare::closed_list_contains(GridNode * node)
 {
     std::list<GridNode *>::iterator it = closed_list.begin();
     for(unsigned int i = 0; i < closed_list.size(); i++) {
@@ -251,7 +250,7 @@ bool Pathfinder::closed_list_contains(GridNode * node)
     return false;
 }
 
-std::string Pathfinder::open_list_to_string()
+std::string PathfinderSquare::open_list_to_string()
 {
     std::ostringstream convert;
     convert << "open_list: \n";
@@ -271,12 +270,11 @@ static int compare_GridNodes (const GridNode* a, const GridNode* b)
     return a->f_score() < b->f_score();
 }
 
-bool Pathfinder::is_walkable(int row, int col)
+bool PathfinderSquare::is_walkable(int row, int col)
 {
     return grid_->node(row, col)->walkable();
 }
 
-*/
 
 /*
   ____________

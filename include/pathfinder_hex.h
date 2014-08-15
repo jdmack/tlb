@@ -1,18 +1,16 @@
-#ifndef TLB_PATHFINDER_SQUARE_H_
-#define TLB_PATHFINDER_SQUARE_H_
+#ifndef TLB_PATHFINDER_HEX_H_
+#define TLB_PATHFINDER_HEX_H_
 
 #include <list>
 #include <string>
 #include "pathfinder.h"
 
-const int kNodeCostHor = 10;
-const int kNodeCostVer = 10;
-const int kNodeCostDia = 14;
+const int kNodeCostAdj = 10;
 
 class Grid;
 class GridNode;
 
-class PathfinderSquare : public Pathfinder
+class PathfinderHex : public Pathfinder
 {
     private:
         Grid * grid_;
@@ -23,7 +21,7 @@ class PathfinderSquare : public Pathfinder
 
     public:
         // constructors
-        PathfinderSquare(Grid * grid);
+        PathfinderHex(Grid * grid);
 
         // accessors
         Grid * grid() const { return grid_; }
@@ -45,3 +43,4 @@ class PathfinderSquare : public Pathfinder
 
 };
 #endif
+

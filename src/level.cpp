@@ -21,6 +21,7 @@ Level::Level(Game * game)
     grid_ = nullptr;
 
     texture_ = game_->renderer()->load_texture(kAssetArtTilesHexagon);
+    //texture_ = game_->renderer()->load_texture(kAssetArtTiles48);
 
     tiles_ = new std::vector<Tile *>();
 
@@ -31,6 +32,7 @@ Level::Level(Game * game)
 // TODO(2013-09-19/JM): Update the map file standard
 bool Level::load(std::string filename)
 {
+    bool hex_grid = true;
     Logger::write(Logger::string_stream << "Loading map: " << filename);
 
     std::ifstream map(filename.c_str());
@@ -95,13 +97,19 @@ bool Level::load(std::string filename)
         int x;
         int y;
 
-        x = tile_width_ * column;
+        if(hex_grid) {
+            x = tile_width_ * column;
 
-        if((row % 2) == 1) {
-            x += tile_width_ / 2;
+            if((row % 2) == 1) {
+                x += tile_width_ / 2;
+            }
+            // TODO(2014-08-13/JM): 12 is "h" part of hexagon, replace with actual calculation of value from map file
+            y = (tile_height_ - 12) * row;
         }
-        // TODO(2014-08-13/JM): 12 is "h" part of hexagon, replace with actual calculation of value from map file
-        y = (tile_height_ - 12) * row;
+        else {
+            x = tile_width_ * column;
+            y = tile_height_ * row;
+        }
 
         // If the number is a valid tile number
         if((tile_type >= 0 ) && (tile_type < kTileSprites)) {

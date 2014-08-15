@@ -55,7 +55,6 @@ bool ZombieAction::update(Entity * entity, int delta_ticks)
             }
             state_ = SEEK;
 
-
            // Delete current action if one exists
            if(movement_action_ != nullptr) {
                delete movement_action_;
@@ -84,6 +83,7 @@ bool ZombieAction::update(Entity * entity, int delta_ticks)
                 }
 
                 // check if target has moved far from we think it is
+                // TODO(2014-08-15/JM): Hard coded number 12 here for distance, change
                 if(target_last_position.distance_from(Point(target_->x_position(), target_->y_position())) >= 12) {
                     delete movement_action_;
                    // Create movement action
