@@ -1,4 +1,3 @@
-/*
 #ifndef TLB_LEVEL_SQUARE_H_
 #define TLB_LEVEL_SQUARE_H_
 
@@ -47,4 +46,3 @@ class LevelSquare
 };
 
 #endif
-*/

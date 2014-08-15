@@ -1,4 +1,3 @@
-/*
 #include <string>
 #include <fstream>
 #include <cmath>
@@ -169,4 +168,3 @@ bool LevelSquare::is_walkable(int row, int col)
     //Logger::write(Logger::string_stream << "Recorded: (" << this_tile->row() << "," << this_tile->column() << ")");
     return true;
 }
-*/
