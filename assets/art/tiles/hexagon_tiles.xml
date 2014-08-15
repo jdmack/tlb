@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tilesheet>
+    <tile key="red"     x="0" y="0" width="42" height="48" />
+    <tile key="green"   x="0" y="0" width="42" height="48" />
+    <tile key="blue"    x="0" y="0" width="42" height="48" />
+    <tile key="black1"  x="42" y="0" width="42" height="48" />
+    <tile key="black2"  x="42" y="0" width="42" height="48" />
+    <tile key="black3"  x="42" y="48" width="42" height="48" />
+    <tile key="black4"  x="84" y="48" width="42" height="48" />
+    <tile key="black5"  x="84" y="48" width="42" height="48" />
+    <tile key="black6"  x="84" y="48" width="42" height="48" />
+    <tile key="black7"  x="126" y="48" width="42" height="48" />
+    <tile key="black8"  x="126" y="96" width="42" height="48" />
+    <tile key="black9"  x="126" y="96" width="42" height="48" />
+    <tile key="black10" x="168" y="96" width="42" height="48" />
+    <tile key="black11" x="168" y="96" width="42" height="48" />
+    <tile key="black12" x="168" y="96" width="42" height="48" />
+</tilesheet>

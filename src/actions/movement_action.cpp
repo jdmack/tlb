@@ -52,7 +52,11 @@ void MovementAction::find_path()
 
 	// Get path as list of nodes
 	std::list<GridNode *> * nodes;
-	nodes = pathfinder.run(level_->grid()->node_at_point(start_), level_->grid()->node_at_point(end_));
+
+	GridNode * start_node = level_->grid()->node_at_point(start_);
+	GridNode * end_node = level_->grid()->node_at_point(end_);
+
+	nodes = pathfinder.run(start_node, end_node);
 
     // Print the path to log
 	Logger::string_stream << "Path: ";
@@ -152,6 +156,7 @@ bool MovementAction::empty_path()
 
 bool MovementAction::update(Entity * entity, int delta_ticks)
 {
+    bool correct_destination = true;
     bool return_value = true;
 
     // Grab variables from entity to manipulate here, will update them at end
@@ -232,9 +237,9 @@ bool MovementAction::update(Entity * entity, int delta_ticks)
         //y_position += y_velocity * (delta_ticks / 1000.f);
 
         // Debugging version of movement code
-        int x_movement_amount = x_velocity * (delta_ticks / 1000.f);
+        double x_movement_amount = x_velocity * (delta_ticks / 1000.f);
         x_position += x_movement_amount;
-        int y_movement_amount = y_velocity * (delta_ticks / 1000.f);
+        double y_movement_amount = y_velocity * (delta_ticks / 1000.f);
         y_position += y_movement_amount;
         //Logger::write(Logger::string_stream << "Moving: (" << x_movement_amount << ", " << y_movement_amount << ")");
 
@@ -375,8 +380,10 @@ bool MovementAction::update(Entity * entity, int delta_ticks)
             x_acceleration = 0;
             y_acceleration = 0;
 
-            x_position = (*current_)->destination().x();
-            y_position = (*current_)->destination().y();
+            if(correct_destination) {
+                x_position = (*current_)->destination().x();
+                y_position = (*current_)->destination().y();
+            }
             Logger::write(Logger::string_stream << "Destination:" << (*current_)->destination().to_string());
         }
 
@@ -388,9 +395,13 @@ bool MovementAction::update(Entity * entity, int delta_ticks)
             }
             else {
                 return_value = false;
+                //Logger::write(Logger::string_stream << "Actual Dest: (" << x_position << ", " << y_position << ")");
             }
         }
     }
+    // TODO(2014-08-14/JM): I believe the small pause we notice between Movements is because of going past the movement destination. We move back to the destination
+    // and then don't utilitize all that wasted distance we moved during that frame
+    //Logger::write(Logger::string_stream << "Current Pos: (" << x_position << ", " << y_position << ")");
 
     // Update new values of variables
     entity->set_width(width);

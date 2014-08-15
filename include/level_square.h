@@ -1,5 +1,6 @@
-#ifndef TLB_LEVEL_H_
-#define TLB_LEVEL_H_
+/*
+#ifndef TLB_LEVEL_SQUARE_H_
+#define TLB_LEVEL_SQUARE_H_
 
 #include <vector>
 #include <string>
@@ -11,15 +12,11 @@ class Camera;
 class Game;
 class Grid;
 
-class Level
+class LevelSquare
 {
     private:
         double width_;
         double height_;
-        double rows_;
-        double columns_;
-        double tile_width_;
-        double tile_height_;
         int total_tiles_;
         std::vector<Tile *> * tiles_;
         Game * game_;
@@ -29,7 +26,7 @@ class Level
         bool thing;
 
     public:
-        Level(Game * game);
+        LevelSquare(Game * game);
 
         // accessors
         double width() const { return width_; }
@@ -50,3 +47,4 @@ class Level
 };
 
 #endif
+*/

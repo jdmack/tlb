@@ -24,20 +24,20 @@ int GSLevel::init()
     // Load level
     Level * level = new Level(game_);
 
-    if(!level->load(kMapTest24x18)) {
+    if(!level->load(kMapTest28x24)) {
         Logger::write(Logger::string_stream << "Failed to load map");
         return_code = 1;
     }
 
     game_->set_level(level);
 
-    Entity * char1 = spawn_entity(PLAYER, Point(48 * 6 + 24, 48 * 4 + 24), 90);
+    Entity * char1 = spawn_entity(PLAYER, Point(42 * 2 + 21, 36 * 2 + 24), 90);
     Entity * zombie1 = spawn_entity(ZOMBIE, Point(48 * 4 + 24, 48 * 1 + 24), 180);
     Entity * zombie2 = spawn_entity(ZOMBIE, Point(48 * 5 + 24, 48 * 1 + 24), 90);
     Entity * zombie3 = spawn_entity(ZOMBIE, Point(48 * 6 + 24, 48 * 1 + 24), 90);
     Entity * zombie4 = spawn_entity(ZOMBIE, Point(48 * 7 + 24, 48 * 1 + 24), 90);
     Entity * zombie5 = spawn_entity(ZOMBIE, Point(48 * 8 + 24, 48 * 1 + 24), 0);
-    //Entity * zombie6 = spawn_entity(ZOMBIE, Point(48 * 7 + 24, 48 * 1 + 24), 0);
+    Entity * zombie6 = spawn_entity(ZOMBIE, Point(48 * 7 + 24, 48 * 1 + 24), 0);
 
     return return_code;
 }

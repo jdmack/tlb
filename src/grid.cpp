@@ -44,11 +44,60 @@ void Grid::add_node()
 
 GridNode * Grid::node_at_point(Point point)
 {
-    int col = point.x() / node_width_;
-	int row = point.y() / node_height_;
+    int col;
+	int row;
 
-	//Logger::write(Logger::string_stream << "return node: (" << row << "," << col << ")");
+	// TODO(2014-08-13/JM): Hard coded numbers here for h, s and r
+	int x_section = point.x() / (2 * 21);
+	int y_section = point.y() / (12 + 24);
 
+	int x_section_pixel = point.x() - x_section * (2 * 21);
+	int y_section_pixel = point.y() - y_section * (12 + 24);
+
+	// A section
+	if(y_section % 2 == 0) {
+
+	    // middle
+	    row = y_section;
+	    col = x_section;
+
+	    // left
+	    if(y_section_pixel < (12 - x_section_pixel * 12/21)) {
+	        row = y_section - 1;
+	        col = x_section - 1;
+	    }
+
+	    // right
+	    if(y_section_pixel < (-1 * (12 + x_section_pixel * 12/21))) {
+	        row = y_section - 1;
+	        col = x_section;
+	    }
+	}
+	else {
+	    // right
+	    if(x_section_pixel >= 21) {
+	        if(y_section_pixel < (2 * 12 - x_section_pixel * 12/21)) {
+	            row = y_section - 1;
+	            col = x_section - 1;
+	        }
+	        else {
+	            row = y_section;
+	            col = x_section;
+	        }
+	    }
+	    // left
+	    if(x_section_pixel < 21) {
+	        if(y_section_pixel < (x_section_pixel * 12/21)) {
+	            row = y_section - 1;
+	            col = x_section;
+	        }
+	        else {
+	            row = y_section;
+	            col = x_section - 1;
+	        }
+	    }
+	}
+	Logger::write(Logger::string_stream << "Returning node(" << col << ", " << row << ")");
 	return node(row, col);
 }
 

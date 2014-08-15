@@ -26,14 +26,16 @@ void Logger::open(std::string filename)
 void Logger::write(std::string message)
 {
     DateTime datetime;
-    Logger::output_file << datetime.timestamp() + message + "\n";
+    //Logger::output_file << datetime.timestamp() + message + "\n";
+    Logger::output_file << "  " + message + "\n";
     Logger::output_file.flush();
 }
 
 void Logger::write(std::basic_ostream<char>& message)
 {
     DateTime datetime;
-    Logger::output_file << datetime.timestamp() << string_stream.str() << "\n";
+    //Logger::output_file << datetime.timestamp() << string_stream.str() << "\n";
+    Logger::output_file << "  " << string_stream.str() << "\n";
     Logger::output_file.flush();
     Logger::string_stream.str(std::string());
 }

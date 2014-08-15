@@ -3,7 +3,7 @@
 
 #include <string>
 
-const int kRendererWidth  = 1152;
+const int kRendererWidth  = 1176;
 const int kRendererHeight = 864;
 
 

@@ -51,6 +51,7 @@ Vector::Vector(Point start, Point end)
     else {
 
         int quadrant = determine_quadrant(start, end);
+        //double theta = std::round(radians_to_degrees(acos(x_component_ / magnitude_)));
         double theta = radians_to_degrees(acos(x_component_ / magnitude_));
         Logger::write(Logger::string_stream << "Theta: " << theta);
         //direction_ = theta;
@@ -64,7 +65,7 @@ Vector::Vector(Point start, Point end)
         ", direction: " << direction_ <<
         ", x_component: " << x_component_ <<
         ", y_component: " << y_component_ <<
-        ", (" << start.x() << "," << start.y() << ") & (" << end.x() << "," << end.y() << ")");
+        ", start(" << start.x() << "," << start.y() << "),  end(" << end.x() << "," << end.y() << ")");
 }
 
 Vector::Vector(double magnitude, double direction)
@@ -179,7 +180,8 @@ double Vector::determine_direction(int quadrant, double theta)
             return theta;
             break;
         case kQuadrantIII:
-            return 90.0 + theta;
+            //return 90.0 + theta;
+            return 360.0 - theta;
             break;
         case kQuadrantIV:
             return 360.0 - theta;

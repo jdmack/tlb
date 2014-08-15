@@ -3,6 +3,7 @@
 
 #include "grid_node.h"
 #include "point.h"
+#include "utils/logger.h"
 
 GridNode::GridNode()
 {
@@ -54,7 +55,33 @@ int GridNode::compare(GridNode * node)
 
 Point GridNode::center_point()
 {
-    return Point(((column_ * width_) + (width_ / 2)), ((row_ * height_) + (height_ / 2)));
+    // Square grid center point code
+    //return Point(((column_ * width_) + (width_ / 2)), ((row_ * height_) + (height_ / 2)));
+
+    int x;
+    int y;
+
+    int width = 42;
+    int height = 48;
+    int radius = 21;
+    int side = 24;
+    int h = 12;
+
+    if(row_ % 2 == 0) {
+        x = column_ * 2 * radius;
+        y = row_ * (h + side);
+    }
+    else {
+        x = column_ * (2 * radius) + radius;
+        y = row_ * (h + side);
+    }
+
+    x += (width / 2);
+    y += (height / 2);
+
+    Logger::write(Logger::string_stream << "Center Point of GridNode(" << column_ << ", " << row_ <<" ): (" << x << ", " << y << ")");
+
+    return Point(x, y);
 }
 
 void GridNode::reset()
@@ -76,6 +103,6 @@ bool GridNode::operator>(const GridNode &other) const {
 std::string GridNode::to_string()
 {
     std::stringstream ss;
-    ss << "GridNode(" << row_ << "," << column_ << ")";
+    ss << "GridNode(" << column_ << "," << row_ << ")";
     return ss.str();
 }

@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include <stdlib.h>
+#include <cmath>
 
 #include "pathfinder.h"
 #include "grid.h"
@@ -18,8 +19,7 @@ Pathfinder::Pathfinder(Grid * grid)
 
 std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_node)
 {
-    bool allow_diagonals = true;
-    Logger::write(Logger::string_stream << "Pathfinder start");
+    //Logger::write(Logger::string_stream << "Pathfinder start");
     reset();
     // 1. Add the starting square (or node) to the open list.
     open_list.push_back(start_node);
@@ -53,109 +53,147 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
         // c) For each of the 8 squares adjacent to this current square
         GridNode * adjacent_node = nullptr;
         int g_cost_inc = 0;
-        for(int i = 0; i < 8; i++) {
-            bool can_go_left  = false;
-            bool can_go_right = false;
-            bool can_go_up    = false;
-            bool can_go_down  = false;
 
-            if(current_node->column() > 0) {
-                can_go_left = is_walkable(current_node->row(), current_node->column() - 1);
-            }
-            if(current_node->column() + 1 < grid_->columns()) {
-                can_go_right = is_walkable(current_node->row(), current_node->column() + 1);;
+        bool even_row = false;
+        if(current_node->row() % 2 == 0) {
+            even_row = true;
+        }
+
+        bool can_go_0 = false;
+        bool can_go_1 = false;
+        bool can_go_2 = false;
+        bool can_go_3 = false;
+        bool can_go_4 = false;
+        bool can_go_5 = false;
+
+        if(current_node->column() + 1 < grid_->columns()) {
+            can_go_2 = is_walkable(current_node->row(), current_node->column() + 1);
+        }
+        if(current_node->column() > 0) {
+            can_go_5 = is_walkable(current_node->row(), current_node->column() - 1);
+        }
+
+        if(even_row) {
+            if((current_node->row() > 0) && (current_node->column() > 0)) {
+                can_go_0 = is_walkable(current_node->row() - 1, current_node->column() - 1);
             }
             if(current_node->row() > 0) {
-                can_go_up = is_walkable(current_node->row() - 1, current_node->column());;
+                can_go_1 = is_walkable(current_node->row() - 1, current_node->column());
             }
             if(current_node->row() + 1 < grid_->rows()) {
-                can_go_down = is_walkable(current_node->row() + 1, current_node->column());;
+                can_go_3 = is_walkable(current_node->row() + 1, current_node->column());
             }
+            if((current_node->row() + 1 < grid_->rows()) && (current_node->column() > 0)) {
+                can_go_4 = is_walkable(current_node->row() + 1, current_node->column() - 1);
+            }
+        }
+        else {
+            if(current_node->row() > 0) {
+                can_go_0 = is_walkable(current_node->row() - 1, current_node->column());
+            }
+            if((current_node->row() > 0) && (current_node->column() + 1 < grid_->columns())) {
+                can_go_1 = is_walkable(current_node->row() - 1, current_node->column() + 1);
+            }
+            if((current_node->row() + 1 < grid_->rows()) && (current_node->column() + 1 < grid_->columns())) {
+                can_go_3 = is_walkable(current_node->row() + 1, current_node->column() + 1);
+            }
+            if(current_node->row() + 1 < grid_->rows()) {
+                can_go_4 = is_walkable(current_node->row() + 1, current_node->column());
+            }
+        }
+
+        //Logger::write(Logger::string_stream << "can_go_0: " << can_go_0);
+        //Logger::write(Logger::string_stream << "can_go_1: " << can_go_1);
+        //Logger::write(Logger::string_stream << "can_go_2: " << can_go_2);
+        //Logger::write(Logger::string_stream << "can_go_3: " << can_go_3);
+        //Logger::write(Logger::string_stream << "can_go_4: " << can_go_4);
+        //Logger::write(Logger::string_stream << "can_go_5: " << can_go_5);
+        //Logger::write(Logger::string_stream);
+
+        for(int i = 0; i < 6; i++) {
+/*
+    Offset coordinates
+            _____
+           /     \
+          /   1   \
+    ,----(  row-1  )----.
+   /  0   \ col+1 /  2   \
+  / row-1  \_____/  row   \
+  \ col    /     \  col+1 /
+   \      /       \      /
+    )----(         )----(
+   /  5   \       /  3   \
+  /  row   \_____/  row+1 \
+  \  col-1 /     \  col   /
+   \      /   4   \      /
+    `----(  row+1  )----'
+          \ col-1 /
+           \_____/
+*/
+
 
             switch(i) {
-                // up/left
                 case 0:
-                    if(!allow_diagonals) continue;
+                    if(!can_go_0) continue;
+                    //Logger::write(Logger::string_stream << "0");
 
-                    // Go diagonal only if the two corner nodes are walkable (don't cut corners)
-                    if((!can_go_left) || (!can_go_up)) {
-                        continue;
+                    if(even_row) {
+                        adjacent_node = grid_->node(current_node->row() - 1, current_node->column() - 1);
                     }
-                    adjacent_node = grid_->node(current_node->row() - 1, current_node->column() - 1);
-                    g_cost_inc = kNodeCostDia;
+                    else {
+                        adjacent_node = grid_->node(current_node->row() - 1, current_node->column());
+                    }
+                    g_cost_inc = kNodeCostAdj;
                     break;
-                // up
                 case 1:
-                    // Check falling off top
-                    if(current_node->row() - 1 < 0) {
-                        // invalid node
-                        continue;
+                    if(!can_go_1) continue;
+                    //Logger::write(Logger::string_stream << "1");
+
+                    if(even_row) {
+                        adjacent_node = grid_->node(current_node->row() - 1, current_node->column());
                     }
-                    adjacent_node = grid_->node(current_node->row() - 1, current_node->column());
-                    g_cost_inc = kNodeCostVer;
+                    else {
+                        adjacent_node = grid_->node(current_node->row() - 1, current_node->column() + 1);
+                    }
+                    g_cost_inc = kNodeCostAdj;
                     break;
-                // up/right
                 case 2:
-                    if(!allow_diagonals) continue;
+                    if(!can_go_2) continue;
+                    //Logger::write(Logger::string_stream << "2");
 
-                    // Go diagonal only if the two corner nodes are walkable (don't cut corners)
-                    if((!can_go_up) || (!can_go_right)) {
-                        continue;
-                    }
-                    adjacent_node = grid_->node(current_node->row() - 1, current_node->column() + 1);
-                    g_cost_inc = kNodeCostDia;
-                    break;
-                // left
-                case 3:
-                    // Check falling off left
-                    if(current_node->column() - 1 < 0) {
-                        // invalid node
-                        continue;
-                    }
-                    adjacent_node = grid_->node(current_node->row(), current_node->column() - 1);
-                    g_cost_inc = kNodeCostHor;
-                    break;
-                // right
-                case 4:
-                    // Check falling off right
-                    if(current_node->column() + 1 >= grid_->columns()) {
-                        // invalid node
-                        continue;
-                    }
                     adjacent_node = grid_->node(current_node->row(), current_node->column() + 1);
-                    g_cost_inc = kNodeCostHor;
+                    g_cost_inc = kNodeCostAdj;
                     break;
-                // down/left
+                case 3:
+                    if(!can_go_3) continue;
+                    //Logger::write(Logger::string_stream << "3");
+
+                    if(even_row) {
+                        adjacent_node = grid_->node(current_node->row() + 1, current_node->column());
+                    }
+                    else {
+                        adjacent_node = grid_->node(current_node->row() + 1, current_node->column() + 1);
+                    }
+                    g_cost_inc = kNodeCostAdj;
+                    break;
+                case 4:
+                    if(!can_go_4) continue;
+                    //Logger::write(Logger::string_stream << "4");
+
+                    if(even_row) {
+                        adjacent_node = grid_->node(current_node->row() + 1, current_node->column() - 1);
+                    }
+                    else {
+                        adjacent_node = grid_->node(current_node->row() + 1, current_node->column());
+                    }
+                    g_cost_inc = kNodeCostAdj;
+                    break;
                 case 5:
-                    if(!allow_diagonals) continue;
+                    if(!can_go_5) continue;
+                    //Logger::write(Logger::string_stream << "5");
 
-                    // Go diagonal only if the two corner nodes are walkable (don't cut corners)
-                    if((!can_go_down) || (!can_go_left)) {
-                        continue;
-                    }
-                    adjacent_node = grid_->node(current_node->row() + 1, current_node->column() - 1);
-                    g_cost_inc = kNodeCostDia;
-                    break;
-                // down
-                case 6:
-                    // Check falling off bottom
-                    if(current_node->row() + 1 >= grid_->rows()) {
-                        // invalid node
-                        continue;
-                    }
-                    adjacent_node = grid_->node(current_node->row() + 1, current_node->column());
-                    g_cost_inc = kNodeCostVer;
-                    break;
-                // down/right
-                case 7:
-                    if(!allow_diagonals) continue;
-
-                    // Go diagonal only if the two corner nodes are walkable (don't cut corners)
-                    if((!can_go_down) || (!can_go_right)) {
-                        continue;
-                    }
-                    adjacent_node = grid_->node(current_node->row() + 1, current_node->column() + 1);
-                    g_cost_inc = kNodeCostDia;
+                    adjacent_node = grid_->node(current_node->row(), current_node->column() - 1);
+                    g_cost_inc = kNodeCostAdj;
                     break;
             }
             //Logger::write(Logger::string_stream << "\tConsidering Node: " << adjacent_node->to_string());
@@ -163,11 +201,11 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
             // If it is not walkable or if it is on the closed list, ignore it. Otherwise do the following.
             //if(closed_list_contains(adjacent_node)) {
             if(!adjacent_node->walkable()) {
-                Logger::write(Logger::string_stream << "\t\tNode not walkable");
+                //Logger::write(Logger::string_stream << "\t\tNode not walkable");
                 continue;
             }
             if(closed_list_contains(adjacent_node)) {
-                Logger::write(Logger::string_stream << "\t\tNode already on closed list");
+                //Logger::write(Logger::string_stream << "\t\tNode already on closed list");
                 continue;
             }
 
@@ -179,8 +217,7 @@ std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_no
 
                 // Record the F, G, and H costs of the square.
                 adjacent_node->set_g_score(current_node->g_score() + g_cost_inc);
-                adjacent_node->set_h_score((abs(adjacent_node->row() - end_node->row()) + abs(adjacent_node->column() - 
-                    end_node->column())) * kNodeCostHor);
+                adjacent_node->set_h_score(calculate_h(adjacent_node, end_node));
                 adjacent_node->set_f_score(adjacent_node->g_score() + adjacent_node->h_score());
             }
 
@@ -261,8 +298,7 @@ std::string Pathfinder::open_list_to_string()
         }
     }
     else {
-        convert << "empty";
-    }
+        convert << "empty"; }
     return static_cast<std::ostringstream*>( &(convert) )->str();
 }
 
@@ -276,31 +312,63 @@ bool Pathfinder::is_walkable(int row, int col)
     return grid_->node(row, col)->walkable();
 }
 
+int Pathfinder::calculate_h(GridNode * start, GridNode * end)
+{
+    int start_column = start->column();
+    int start_row = start->row();
+    int end_column = end->column();
+    int end_row = end->row();
+
+    // Use Amit's page to determine distance
+    int start_x = start_column - (start_row - (start_row % 2)) / 2;
+    int start_z = start_row;
+    int start_y = - start_x - start_z;
+
+    int end_x = end_column - (end_row - (end_row % 2)) / 2;
+    int end_z = end_row;
+    int end_y = - end_x - end_z;
+
+    int distance = (std::abs(end_x - start_x) + std::abs(end_y - start_y) + std::abs(end_z - start_z)) / 2;
+
+    return distance;
+}
+
 /*
-  ____________
- |   |   |   |
- | 0 | 1 | 2 |
- |___|___|___|
- |   |   |   |
- | 3 |   | 4 |
- |___|___|___|
- |   |   |   |
- | 5 | 6 | 7 |
- |___|___|___|
-  _____________________________ 
- |         |         |         |
- | row - 1 | row - 1 | row - 1 |
- | col - 1 | col     | col + 1 |
- |         |         |         |
- |_________|_________|_________|
- |         |         |         |
- | row     | current | row     |
- | col - 1 |         | col + 1 |
- |         |         |         |
- |_________|_________|_________|
- |         |         |         |
- | row + 1 | row + 1 | row + 1 |
- | col - 1 | col     | col + 1 |
- |         |         |         |
- |_________|_________|_________|
+
+
+            _____
+           /     \
+          /       \
+    ,----(         )----.
+   /      \       /      \
+  /        \_____/        \
+  \        /     \        /
+   \      /       \      /
+    )----(         )----(
+   /      \       /      \
+  /        \_____/        \
+  \        /     \        /
+   \      /       \      /
+    `----(         )----'
+          \       /
+           \_____/
+
+    Axial Coordinates
+            _____
+           /     \
+          /   1   \
+    ,----(  row-1  )----.
+   /  0   \ col+1 /  2   \
+  / row-1  \_____/  row   \
+  \ col-1  /     \  col+1 /
+   \      /       \      /
+    )----(         )----(
+   /  5   \       /  3   \
+  /  row   \_____/  row+1 \
+  \  col-1 /     \  col+1 /
+   \      /   4   \      /
+    `----(  row+1  )----'
+          \ col   /
+           \_____/
+
 */

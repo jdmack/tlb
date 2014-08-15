@@ -1,8 +1,9 @@
+/*
 #include <string>
 #include <fstream>
 #include <cmath>
 #include "SDL2/SDL.h"
-#include "level.h"
+#include "level_square.h"
 #include "game.h"
 #include "game_object.h"
 #include "grid.h"
@@ -11,7 +12,7 @@
 #include "tile.h"
 #include "utils/logger.h"
 
-Level::Level(Game * game)
+LevelSquare::LevelSquare(Game * game)
 {
     width_ = 0;
     height_ = 0;
@@ -20,7 +21,7 @@ Level::Level(Game * game)
     game_ = game;
     grid_ = nullptr;
 
-    texture_ = game_->renderer()->load_texture(kAssetArtTilesHexagon);
+    texture_ = game_->renderer()->load_texture(kAssetArtTiles48);
 
     tiles_ = new std::vector<Tile *>();
 
@@ -29,9 +30,12 @@ Level::Level(Game * game)
 
 
 // TODO(2013-09-19/JM): Update the map file standard
-bool Level::load(std::string filename)
+bool LevelSquare::load(std::string filename)
 {
     Logger::write(Logger::string_stream << "Loading map: " << filename);
+
+    int x = 0;
+    int y = 0;
 
     std::ifstream map(filename.c_str());
 
@@ -40,45 +44,29 @@ bool Level::load(std::string filename)
         return false;
     }
 
-    map >> total_tiles_;
-    if(map.fail() == true) {
-        Logger::write("Failed to read total_tiles from file");
-        map.close();
-        return false;
-    }
-    map >> columns_;
-    if(map.fail() == true) {
-        Logger::write("Failed to read map columns from file");
-        map.close();
-        return false;
-    }
-    map >> rows_;
-    if(map.fail() == true) {
-        Logger::write("Failed to read map rows from file");
-        map.close();
-        return false;
-    }
-    map >> tile_width_;
-    if(map.fail() == true) {
-        Logger::write("Failed to read map tile_width from file");
-        map.close();
-        return false;
-    }
-    map >> tile_height_;
-    if(map.fail() == true) {
-        Logger::write("Failed to read map tile_height from file");
-        map.close();
-        return false;
-    }
-    width_ = rows_ * tile_width_;
-    height_ = columns_ * tile_height_;
+    game_->renderer()->load_texture(kAssetArtTiles48);
 
-    int row = 0;
-    int column = 0;
+    map >> width_;
+        if(map.fail() == true) {
+            Logger::write("Failed to read map width from file");
+            map.close();
+            return false;
+        }
+    map >> height_;
+        if(map.fail() == true) {
+            Logger::write("Failed to read map height from file");
+            map.close();
+            return false;
+        }
+    map >> total_tiles_;
+        if(map.fail() == true) {
+            Logger::write("Failed to read total_tiles from file");
+            map.close();
+            return false;
+        }
 
     // Initialize the tiles
     for(int t = 0; t < total_tiles_; t++) {
-
         // Determines what kind of tile will be made
         int tile_type = -1;
 
@@ -92,45 +80,36 @@ bool Level::load(std::string filename)
             return false;
         }
 
-        int x;
-        int y;
-
-        x = tile_width_ * column;
-
-        if((row % 2) == 1) {
-            x += tile_width_ / 2;
-        }
-        // TODO(2014-08-13/JM): 12 is "h" part of hexagon, replace with actual calculation of value from map file
-        y = (tile_height_ - 12) * row;
-
         // If the number is a valid tile number
         if((tile_type >= 0 ) && (tile_type < kTileSprites)) {
-            tiles_->push_back(new Tile(x, y, tile_type, this));
+            //tiles_->push_back(new Tile(x, y, tile_type, this));
         }
         else {
-            Logger::write("Level Load: Invalid tile type");
+            Logger::write("LevelSquare Load: Invalid tile type");
             map.close();
             return false;
         }
         //Logger::write(Logger::string_stream << "Read in tile (" << y / kTileHeight << "," << x / kTileWidth << ") Type: " << tile_type);
 
-        column++;
-        if(column >= columns_) {
-            column = 0;
-            row++;
-        }
+        // Move to next tile spot
+        x += kTileWidth;
 
+        // If we've gone too far
+        if(x >= width_) {
+            x = 0;
+            y += kTileHeight;
+        }
     }
 
     map.close();
-    Logger::write("Level loaded");
+    Logger::write("LevelSquare loaded");
     
     build_grid();
 
     return true;
 }
 
-bool Level::touches_wall(GameObject * object, SDL_Rect * rect)
+bool LevelSquare::touches_wall(GameObject * object, SDL_Rect * rect)
 {
     // Go through the tiles
     // TODO(2013-09-05/JM): Replace for loop with iterator
@@ -151,7 +130,7 @@ bool Level::touches_wall(GameObject * object, SDL_Rect * rect)
     return false;
 }
 
-void Level::render()
+void LevelSquare::render()
 {
     for(std::vector<Tile *>::iterator tile_iterator = tiles_->begin(); tile_iterator != tiles_->end(); ++tile_iterator) {
         (*tile_iterator)->render();
@@ -160,29 +139,34 @@ void Level::render()
     //if(thing) thing = false;
 }
 
-void Level::build_grid()
+void LevelSquare::build_grid()
 {
     Logger::write("Building Grid");
+    int rows = (int) std::ceil(height_ / kGridNodeHeight);
+    int columns = (int) std::ceil(width_ / kGridNodeWidth);
 
-    grid_ = new Grid(rows_, columns_);
+    grid_ = new Grid(rows, columns);
 
-    for(int r = 0; r < rows_ ; r++)
-        for(int c = 0; c < columns_ ; c++)
+    for(int r = 0; r < rows ; r++)
+        for(int c = 0; c < columns ; c++)
            grid_->node(r, c)->set_walkable(is_walkable(r, c));
 
-    //Logger::write(Logger::string_stream << "Rows:" << rows_ << ", Columns: " << columns_);
+    //Logger::write(Logger::string_stream << "Rows:" << rows << ", Columns: " << columns);
 }
 
-bool Level::is_walkable(int row, int col)
+bool LevelSquare::is_walkable(int row, int col)
 {
-    Tile * this_tile = tiles_->at((columns_ * row) + col);
+    int columns = (int) std::ceil(width_ / kGridNodeWidth);
+
+    Tile * this_tile = tiles_->at((columns * row) + col);
 
     if(this_tile->type() >= 3) {
-        //Logger::write(Logger::string_stream << "Returning walkable false: (" << col << "," << row << ") Type: " << this_tile->type());
+        //Logger::write(Logger::string_stream << "Returning walkable false: (" << row << "," << col << ") Type: " << this_tile->type());
         //Logger::write(Logger::string_stream << "Recorded: (" << this_tile->row() << "," << this_tile->column() << ")");
         return false;
     }
-    //Logger::write(Logger::string_stream << "Returning walkable true: (" << col << "," << row << ") Type: " << this_tile->type());
+    //Logger::write(Logger::string_stream << "Returning walkable true: (" << row << "," << col << ") Type: " << this_tile->type());
     //Logger::write(Logger::string_stream << "Recorded: (" << this_tile->row() << "," << this_tile->column() << ")");
     return true;
 }
+*/

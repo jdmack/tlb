@@ -1,10 +1,13 @@
+/*
 #ifndef TLB_PATHFINDER_H_
 #define TLB_PATHFINDER_H_
 
 #include <list>
 #include <string>
 
-const int kNodeCostAdj = 10;
+const int kNodeCostHor = 10;
+const int kNodeCostVer = kNodeCostHor;
+const int kNodeCostDia = 14;
 
 class Grid;
 class GridNode;
@@ -38,8 +41,7 @@ class Pathfinder
         std::string open_list_to_string();
         //void closed_list_to_string();
 
-        int calculate_h(GridNode * start, GridNode * end);
-
 };
 #endif
 
+*/
