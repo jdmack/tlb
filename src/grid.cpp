@@ -44,7 +44,7 @@ void Grid::add_node()
 
 GridNode * Grid::node_at_point(Point point)
 {
-    bool hex_grid = true;
+    bool hex_grid = false;
 
     int col;
 	int row;
@@ -105,7 +105,7 @@ GridNode * Grid::node_at_point(Point point)
 	    row = point.y() / node_height_;
 	}
 
-	Logger::write(Logger::string_stream << "Returning node(" << col << ", " << row << ")");
+	//Logger::write(Logger::string_stream << "Returning node(" << col << "," << row << ")");
 	return node(row, col);
 }
 

@@ -20,8 +20,8 @@ Level::Level(Game * game)
     game_ = game;
     grid_ = nullptr;
 
-    texture_ = game_->renderer()->load_texture(kAssetArtTilesHexagon);
-    //texture_ = game_->renderer()->load_texture(kAssetArtTiles48);
+    //texture_ = game_->renderer()->load_texture(kAssetArtTilesHexagon);
+    texture_ = game_->renderer()->load_texture(kAssetArtTiles48);
 
     tiles_ = new std::vector<Tile *>();
 
@@ -32,7 +32,7 @@ Level::Level(Game * game)
 // TODO(2013-09-19/JM): Update the map file standard
 bool Level::load(std::string filename)
 {
-    bool hex_grid = true;
+    bool hex_grid = false;
     Logger::write(Logger::string_stream << "Loading map: " << filename);
 
     std::ifstream map(filename.c_str());

@@ -48,7 +48,7 @@ MovementAction::MovementAction(Point start, Point end, Level * level)
 
 void MovementAction::find_path()
 {
-    bool hex_grid = true;
+    bool hex_grid = false;
     // Create Pathfinder
 
 	// Get path as list of nodes

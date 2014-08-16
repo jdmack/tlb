@@ -53,7 +53,7 @@ Vector::Vector(Point start, Point end)
         int quadrant = determine_quadrant(start, end);
         //double theta = std::round(radians_to_degrees(acos(x_component_ / magnitude_)));
         double theta = radians_to_degrees(acos(x_component_ / magnitude_));
-        Logger::write(Logger::string_stream << "Theta: " << theta);
+        //Logger::write(Logger::string_stream << "Theta: " << theta);
         //direction_ = theta;
         direction_ = determine_direction(quadrant, theta);
     }
@@ -108,24 +108,24 @@ int Vector::determine_quadrant(Point start, Point end)
     if(end.x() > start.x()) {
         if(end.y() > start.y()) {
             // (+,+)
-            Logger::write("determine_quadrant: I");
+            //Logger::write("determine_quadrant: I");
             return kQuadrantI;
         }
         else if(end.y() < start.y()) {
             // (+,-)
-            Logger::write("determine_quadrant: IV");
+            //Logger::write("determine_quadrant: IV");
             return kQuadrantIV;
         }
     }
     else if(end.x() < start.x()) {
         if(end.y() > start.y()) {
             // (+,+)
-            Logger::write("determine_quadrant: II");
+            //Logger::write("determine_quadrant: II");
             return kQuadrantII;
         }
         else if(end.y() < start.y()) {
             // (+,+)
-            Logger::write("determine_quadrant: III");
+            //Logger::write("determine_quadrant: III");
             return kQuadrantIII;
         }
     }
@@ -136,7 +136,7 @@ void Vector::set_component_signs(double direction)
 {
     // Quadrant IV (+,-)
     if(direction > 270.0) {
-        Logger::write(Logger::string_stream << "set_component_signs - quadrant: IV");
+        //Logger::write(Logger::string_stream << "set_component_signs - quadrant: IV");
         //make_positive(x_component_);
         //make_positive(y_component_);
         make_positive(x_component_);
@@ -144,7 +144,7 @@ void Vector::set_component_signs(double direction)
     }
     // Quadrant III (-,-)
     else if(direction > 180.0) {
-        Logger::write(Logger::string_stream << "set_component_signs - quadrant: III");
+        //Logger::write(Logger::string_stream << "set_component_signs - quadrant: III");
         //make_negative(x_component_);
         //make_positive(y_component_);
         make_negative(x_component_);
@@ -152,7 +152,7 @@ void Vector::set_component_signs(double direction)
     }
     // Quadrant II (-,+)
     else if(direction > 90.0) {
-        Logger::write(Logger::string_stream << "set_component_signs - quadrant: II");
+        //Logger::write(Logger::string_stream << "set_component_signs - quadrant: II");
         //make_negative(x_component_);
         //make_negative(y_component_);
         make_negative(x_component_);
@@ -160,7 +160,7 @@ void Vector::set_component_signs(double direction)
     }
     // Quadrant I (+,+)
     else  {
-        Logger::write(Logger::string_stream << "set_component_signs - quadrant: I");
+        //Logger::write(Logger::string_stream << "set_component_signs - quadrant: I");
         //make_positive(x_component_);
         //make_negative(y_component_);
         make_positive(x_component_);
@@ -170,7 +170,7 @@ void Vector::set_component_signs(double direction)
 
 double Vector::determine_direction(int quadrant, double theta)
 {
-    Logger::write(Logger::string_stream << "determine_direction - quadrant: " << quadrant << " theta: " << theta);
+    //Logger::write(Logger::string_stream << "determine_direction - quadrant: " << quadrant << " theta: " << theta);
     switch(quadrant) {
         case kQuadrantI:
             return theta;

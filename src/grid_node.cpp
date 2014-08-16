@@ -55,31 +55,37 @@ int GridNode::compare(GridNode * node)
 
 Point GridNode::center_point()
 {
-    // Square grid center point code
-    //return Point(((column_ * width_) + (width_ / 2)), ((row_ * height_) + (height_ / 2)));
+    bool hex_grid = false;
 
     int x;
     int y;
+    if(hex_grid) {
+        int width = 42;
+        int height = 48;
+        int radius = 21;
+        int side = 24;
+        int h = 12;
 
-    int width = 42;
-    int height = 48;
-    int radius = 21;
-    int side = 24;
-    int h = 12;
+        if(row_ % 2 == 0) {
+            x = column_ * 2 * radius;
+            y = row_ * (h + side);
+        }
+        else {
+            x = column_ * (2 * radius) + radius;
+            y = row_ * (h + side);
+        }
 
-    if(row_ % 2 == 0) {
-        x = column_ * 2 * radius;
-        y = row_ * (h + side);
+        x += (width / 2);
+        y += (height / 2);
     }
     else {
-        x = column_ * (2 * radius) + radius;
-        y = row_ * (h + side);
+        x = (column_ * width_) + (width_ / 2);
+        y = (row_ * height_) + (height_ / 2);
     }
 
-    x += (width / 2);
-    y += (height / 2);
+    // Square grid center point code
 
-    Logger::write(Logger::string_stream << "Center Point of GridNode(" << column_ << ", " << row_ <<" ): (" << x << ", " << y << ")");
+    Logger::write(Logger::string_stream << "Center Point of GridNode(" << column_ << "," << row_ <<"):(" << x << ", " << y << ")");
 
     return Point(x, y);
 }

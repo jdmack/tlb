@@ -20,6 +20,11 @@ std::list<GridNode *> * PathfinderSquare::run(GridNode * start_node, GridNode * 
     bool allow_diagonals = true;
     Logger::write(Logger::string_stream << "PathfinderSquare start");
     reset();
+
+    Logger::write(Logger::string_stream << "Start: " << start_node->to_string());
+    Logger::write(Logger::string_stream << "End: " << end_node->to_string());
+
+
     // 1. Add the starting square (or node) to the open list.
     open_list.push_back(start_node);
 
@@ -162,11 +167,11 @@ std::list<GridNode *> * PathfinderSquare::run(GridNode * start_node, GridNode * 
             // If it is not walkable or if it is on the closed list, ignore it. Otherwise do the following.
             //if(closed_list_contains(adjacent_node)) {
             if(!adjacent_node->walkable()) {
-                Logger::write(Logger::string_stream << "\t\tNode not walkable");
+                //Logger::write(Logger::string_stream << "\t\tNode not walkable");
                 continue;
             }
             if(closed_list_contains(adjacent_node)) {
-                Logger::write(Logger::string_stream << "\t\tNode already on closed list");
+                //Logger::write(Logger::string_stream << "\t\tNode already on closed list");
                 continue;
             }
 
