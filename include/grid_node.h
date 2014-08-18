@@ -3,8 +3,10 @@
 
 #include <string>
 
-const int kGridNodeWidth  = 48;
-const int kGridNodeHeight = 48;
+//const int kGridNodeWidth  = 48;
+//const int kGridNodeHeight = 48;
+const int kGridNodeWidth  = 24;
+const int kGridNodeHeight = 24;
 
 
 class Point;

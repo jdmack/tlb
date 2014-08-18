@@ -3,13 +3,14 @@
 #include "camera.h"
 #include "renderer.h"
 #include "game.h"
+#include "point.h"
 
 Tile::Tile()
 {
     x_position_ = 0;
     y_position_ = 0;
-    width_ = kTileWidth;
-    height_ = kTileHeight;
+    width_ = 0;
+    height_ = 0;
     type_ = 0;
     level_ = nullptr;
 
@@ -17,16 +18,16 @@ Tile::Tile()
     column_ = -1;
 }
 
-Tile::Tile(double x, double y, int type, Level * level)
+Tile::Tile(Point position, double width, double height, int type, Level * level)
 {
-    x_position_ = x;
-    y_position_ = y;
-    width_ = kTileWidth;
-    height_ = kTileHeight;
+    x_position_ = position.x();
+    y_position_ = position.y();
+    width_ = width;
+    height_ = height;
     type_ = type;
 
-    row_ = y_position_ / kTileHeight;
-    column_ = x_position_ / kTileWidth;
+    row_ = y_position_ / width_;
+    column_ = x_position_ / height_;
 
     level_ = level;
 
@@ -93,7 +94,11 @@ Tile::Tile(double x, double y, int type, Level * level)
 
 SDL_Rect Tile::box()
 {
-    SDL_Rect rect = { (int)x_position_, (int)y_position_, (int)width_, (int)height_ };
+    //SDL_Rect rect = { (int)x_position_, (int)y_position_, (int)width_, (int)height_ };
+    Point point = Point(x_position_, y_position_);
+    //point = level_->game()->renderer()->convert_to_isometric(point);
+    //point = level_->game()->renderer()->convert_to_cartesian(point);
+    SDL_Rect rect = { (int)point.x(), (int)point.y(), (int)width_, (int)height_ };
     return rect;
 }
 

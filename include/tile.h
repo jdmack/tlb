@@ -2,10 +2,12 @@
 #define TLB_TILE_H_
 
 #include "SDL2/SDL.h"
+#include "point.h"
 
 //const double kTileWidth = 42;
-const double kTileWidth = 48;
-const double kTileHeight = 48;
+//const double kTileWidth = 48;
+//const double kTileHeight = 48;
+//const double kTileHeight = 24;
 const int kTileSprites = 12;
 
 const int kTileRed         = 0;
@@ -38,7 +40,7 @@ class Tile
 
     public:
         Tile();
-        Tile(double x, double y, int type, Level * level);
+        Tile(Point point, double width, double height, int type, Level * level);
         double x_position() const { return x_position_; }
         double y_position() const { return y_position_; }
         double width() const { return width_; }
@@ -48,6 +50,9 @@ class Tile
         int type() const { return type_; }
         SDL_Rect box();
         void render();
+
+        void set_width(double width) { width_ = width; }
+        void set_height(double height) { height_ = height; }
 };
 
 #endif

@@ -1,15 +1,16 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
+
 #include "renderer.h"
 #include "camera.h"
 #include "color.h"
 #include "game_object.h"
 #include "sprite.h"
 #include "utils/logger.h"
-
+#include "point.h"
 #include "hit_point.h"
 #include "entity.h"
-
+#include "utils/math.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -73,8 +74,11 @@ bool Renderer::init()
 void Renderer::render_texture(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect * clip)
 {
     // TODO(2013-09-09/JM): Add render offset checks
+    Point point = Point(offset->x, offset->y);
+    point = Math::convert_to_isometric(point);
 
-    SDL_Rect rect = { (int)offset->x - (int)camera_->x_position(), (int)offset->y - (int)camera_->y_position(), (int)offset->w, (int)offset->h };
+    //SDL_Rect rect = { (int)offset->x - (int)camera_->x_position(), (int)offset->y - (int)camera_->y_position(), (int)offset->w, (int)offset->h };
+    SDL_Rect rect = { (int)point.x() - (int)camera_->x_position(), (int)point.y() - (int)camera_->y_position(), (int)offset->w, (int)offset->h };
 
     int return_code = SDL_RenderCopy(renderer_, texture, clip, &rect);
 
@@ -270,6 +274,13 @@ void Renderer::draw_life_bar(Entity * entity)
     int height = 5;
     int x = entity->x_position() - (total_hp * width_per_point / 2);
     int y = entity->y_position() - (entity->height() / 2) - height;
+    x = x - camera_->x_position();
+    y = y - camera_->y_position();
+
+    Point point = Point(x,y);
+    point = Math::convert_to_isometric(point);
+    x = point.x();
+    y = point.y();
 
     SDL_Rect borderRect = {
         x - 1,
@@ -304,7 +315,4 @@ void Renderer::draw_life_bar(Entity * entity)
     SDL_SetRenderDrawColor(renderer_, kPositiveRed, kPositiveGreen, kPositiveBlue, kPositiveAlpha);
     SDL_RenderFillRect(renderer_, &positiveRect );
 }
-
-
-
 

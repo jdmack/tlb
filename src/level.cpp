@@ -10,6 +10,7 @@
 #include "renderer.h"
 #include "tile.h"
 #include "utils/logger.h"
+#include "utils/math.h"
 
 Level::Level(Game * game)
 {
@@ -20,8 +21,9 @@ Level::Level(Game * game)
     game_ = game;
     grid_ = nullptr;
 
+    texture_ = game_->renderer()->load_texture(kAssetArtTilesIsometric);
     //texture_ = game_->renderer()->load_texture(kAssetArtTilesHexagon);
-    texture_ = game_->renderer()->load_texture(kAssetArtTiles48);
+    //texture_ = game_->renderer()->load_texture(kAssetArtTiles48);
 
     tiles_ = new std::vector<Tile *>();
 
@@ -32,6 +34,17 @@ Level::Level(Game * game)
 // TODO(2013-09-19/JM): Update the map file standard
 bool Level::load(std::string filename)
 {
+    Point p1 = Point (48, 48);
+    Point p2 = Point (96, 48);
+
+    p1 = Math::convert_to_isometric(p1);
+    p2 = Math::convert_to_isometric(p2);
+    //p1 = Math::convert_to_cartesian(p1);
+    //p2 = Math::convert_to_cartesian(p2);
+
+    double distance = p1.distance_from(p2);
+    Logger::write(Logger::string_stream << "Distance: " << distance);
+
     bool hex_grid = false;
     Logger::write(Logger::string_stream << "Loading map: " << filename);
 
@@ -107,13 +120,13 @@ bool Level::load(std::string filename)
             y = (tile_height_ - 12) * row;
         }
         else {
-            x = tile_width_ * column;
+            x = tile_width_ * column / 2;
             y = tile_height_ * row;
         }
 
         // If the number is a valid tile number
         if((tile_type >= 0 ) && (tile_type < kTileSprites)) {
-            tiles_->push_back(new Tile(x, y, tile_type, this));
+            tiles_->push_back(new Tile(Point(x, y), tile_width_, tile_height_, tile_type, this));
         }
         else {
             Logger::write("Level Load: Invalid tile type");

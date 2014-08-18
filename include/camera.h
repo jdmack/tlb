@@ -4,8 +4,10 @@
 #include "SDL2/SDL.h"
 #include "constants.h"
 
-const double kCameraInitialX = 0;
-const double kCameraInitialY = 0;
+//const double kCameraInitialX = 0;
+//const double kCameraInitialY = 0;
+const double kCameraInitialX = -400;
+const double kCameraInitialY = -100;
 const double kCameraWidth = kRendererWidth;
 const double kCameraHeight = kRendererHeight;
 

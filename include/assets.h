@@ -41,6 +41,7 @@ const std::string kAssetArtTiles80 = kPathTiles + "tiles_80.png";
 const std::string kAssetArtTiles48 = kPathTiles + "tiles_48.png";
 const std::string kAssetArtTiles32 = kPathTiles + "tiles_32.png";
 const std::string kAssetArtTilesHexagon = kPathTiles + "hexagon_tiles.png";
+const std::string kAssetArtTilesIsometric = kPathTiles + "tiles_isometric_48.png";
 
 /* Fonts */
 const std::string kAssetFontPsychoPoetry = kPathFont + "psychopoetry.ttf";
@@ -55,5 +56,6 @@ const std::string kMapTest80x45 = kPathMap + "test_80x45.map";
 const std::string kMapTest28x24Structure = kPathMap + "test_28x24_structure.map";
 
 const std::string kMapTest24x18Blank = kPathMap + "test_24x18_blank.map";
+const std::string kMapTest24x18Isometric = kPathMap + "test_24x18_isometric.map";
 
 #endif

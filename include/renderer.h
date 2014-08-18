@@ -4,6 +4,7 @@
 #include "SDL2/SDL.h"
 #include "constants.h"
 #include "color.h"
+#include "point.h"
 
 class GameObject;
 class Entity;

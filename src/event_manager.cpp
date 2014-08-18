@@ -81,8 +81,15 @@ void EventManager::handle_events()
 
             case SDL_MOUSEBUTTONDOWN: {
                 // mouse Points adjusted to camera position
-                int mouse_x = event.button.x + game_->camera()->x_position();
-                int mouse_y = event.button.y + game_->camera()->y_position();
+                double mouse_x = event.button.x + game_->camera()->x_position();
+                double mouse_y = event.button.y + game_->camera()->y_position();
+
+                double new_x = ((2 * mouse_y) + mouse_x) / 2;
+                double new_y = ((2 * mouse_y) - mouse_x) / 2;
+                mouse_x = new_x;
+                mouse_y = new_y;
+
+                //Logger::write(Logger::string_stream << "mouse: (" << mouse_x << "," << mouse_y << ")");
 
                 // SDL_BUTTON_LEFT - Selection
                 if(event.button.button == SDL_BUTTON_LEFT)
