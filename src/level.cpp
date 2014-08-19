@@ -21,7 +21,8 @@ Level::Level(Game * game)
     game_ = game;
     grid_ = nullptr;
 
-    texture_ = game_->renderer()->load_texture(kAssetArtTilesIsometric);
+    texture_ = game_->renderer()->load_texture(kAssetArtTilesHexIsometric);
+    //texture_ = game_->renderer()->load_texture(kAssetArtTilesIsometric);
     //texture_ = game_->renderer()->load_texture(kAssetArtTilesHexagon);
     //texture_ = game_->renderer()->load_texture(kAssetArtTiles48);
 
@@ -45,7 +46,7 @@ bool Level::load(std::string filename)
     double distance = p1.distance_from(p2);
     Logger::write(Logger::string_stream << "Distance: " << distance);
 
-    bool hex_grid = false;
+    bool hex_grid = true;
     Logger::write(Logger::string_stream << "Loading map: " << filename);
 
     std::ifstream map(filename.c_str());
@@ -117,7 +118,7 @@ bool Level::load(std::string filename)
                 x += tile_width_ / 2;
             }
             // TODO(2014-08-13/JM): 12 is "h" part of hexagon, replace with actual calculation of value from map file
-            y = (tile_height_ - 12) * row;
+            y = (tile_height_ - 6) * row;
         }
         else {
             x = tile_width_ * column / 2;

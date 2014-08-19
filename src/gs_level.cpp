@@ -26,7 +26,9 @@ int GSLevel::init()
 
     //if(!level->load(kMapTest28x24Structure)) {
     //if(!level->load(kMapTest24x18)) {
-    if(!level->load(kMapTest24x18Isometric)) {
+
+    //if(!level->load(kMapTest24x18Isometric)) {
+    if(!level->load(kMapTestHexIsometric)) {
         Logger::write(Logger::string_stream << "Failed to load map");
         return_code = 1;
     }

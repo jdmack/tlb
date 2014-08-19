@@ -3,9 +3,10 @@
 
 Point Math::convert_to_isometric(Point point)
 {
-    double x = point.x() - point.y();
-    double y = (point.x() + point.y()) / 2;
-
+    //double x = point.x() - point.y();
+    //double y = (point.x() + point.y()) / 2;
+    double x = point.x();
+    double y = point.y();// / 2;
     return Point(x, y);
 }
 Point Math::convert_to_cartesian(Point point)
