@@ -36,6 +36,7 @@ const std::string kAssetFontPsychoPoetry = kPathFont + "psychopoetry.ttf";
 const std::string kAssetFontConsolas = kPathFont + "consola.ttf";
 
 /* Maps */
-const std::string kMapTestHexIsometric = kPathMap + "test_24x18_hex_iso.map";
+const std::string kMapTest24x18HexIsometric = kPathMap + "test_24x18_hex_iso.map";
+const std::string kMapTestHexIsometric = kPathMap + "test_hex_iso.map";
 
 #endif
