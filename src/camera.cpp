@@ -10,10 +10,6 @@ Camera::Camera(Game * game)
 {
     x_position_ = kCameraInitialX;
     y_position_ = kCameraInitialY;
-    Point point = Point(x_position_, y_position_);
-    point = Math::convert_to_isometric(point);
-    //x_position_ = point.x();
-    //y_position_ = point.y();
 
     width_ = kCameraWidth;
     height_ = kCameraHeight;

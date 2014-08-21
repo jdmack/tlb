@@ -55,7 +55,7 @@ int GridNode::compare(GridNode * node)
 
 Point GridNode::center_point()
 {
-    bool hex_grid = false;
+    bool hex_grid = true;
 
     int x;
     int y;

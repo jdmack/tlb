@@ -9,6 +9,7 @@
 #include "point.h"
 #include "entity.h"
 #include "camera.h"
+#include "utils/math.h"
 
 EventManager::EventManager(Game * game)
 {
@@ -84,12 +85,13 @@ void EventManager::handle_events()
                 double mouse_x = event.button.x + game_->camera()->x_position();
                 double mouse_y = event.button.y + game_->camera()->y_position();
 
-                double new_x = ((2 * mouse_y) + mouse_x) / 2;
-                double new_y = ((2 * mouse_y) - mouse_x) / 2;
-                mouse_x = new_x;
-                mouse_y = new_y;
+                Point mouse_point = Point(mouse_x, mouse_y);
+                mouse_point = Math::convert_to_cartesian(mouse_point);
 
-                //Logger::write(Logger::string_stream << "mouse: (" << mouse_x << "," << mouse_y << ")");
+                mouse_x = mouse_point.x();
+                mouse_y = mouse_point.y();
+
+                Logger::write(Logger::string_stream << "mouse: (" << mouse_x << "," << mouse_y << ")");
 
                 // SDL_BUTTON_LEFT - Selection
                 if(event.button.button == SDL_BUTTON_LEFT)

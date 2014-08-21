@@ -67,7 +67,8 @@ GameObject::~GameObject()
 
 void GameObject::create_sprite(std::string asset)
 {
-    sprite_ = new Sprite(this, asset, kAssetArtHexagonOutline);
+    // TODO(2014-08-20/JM): Get rid of the selection asset string
+    sprite_ = new Sprite(this, asset, asset);
 }
 
 void GameObject::render()

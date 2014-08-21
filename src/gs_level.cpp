@@ -36,7 +36,7 @@ int GSLevel::init()
     game_->set_level(level);
 
     // (264,216)
-    Entity * char1 = spawn_entity(PLAYER, Point(24 * 3 + 12, 25 * 3 + 12), 90);
+    Entity * char1 = spawn_entity(PLAYER, Point(42 * 3 + 21, 48 * 3 + 24), 90);
     //Entity * zombie1 = spawn_entity(ZOMBIE, Point(42 * 14 + 21, 36 * 20 + 24), 270);
     //Entity * char1 = spawn_entity(PLAYER, Point(42 * 14 + 21, 36 * 6 + 24), 90);
     //Entity * zombie1 = spawn_entity(ZOMBIE, Point(42 * 14 + 21, 36 * 20 + 24), 270);
