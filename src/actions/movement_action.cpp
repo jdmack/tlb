@@ -439,9 +439,13 @@ void MovementAction::stop()
     }
 }
 
-void MovementAction::remove_movements_end(int number)
+void MovementAction::remove_movements_back(int number)
 {
     for(int i = 0; i < number; i++) {
+
+        if(path_->size() <= 0) {
+            return;
+        }
         Movement * this_movement = path_->back();
         path_->pop_back();
         delete this_movement;

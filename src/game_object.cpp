@@ -170,5 +170,16 @@ void GameObject::fix_collision(SDL_Rect rect)
 
 }
 
+Point GameObject::position()
+{
+    position_ = Point(x_position_, y_position_);
+    return position_;
+}
 
+void GameObject::set_position(Point position)
+{
+    position_ = position;
+    x_position_ = position_.x();
+    y_position_ = position_.y();
+}
 

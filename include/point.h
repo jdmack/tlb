@@ -1,5 +1,5 @@
-#ifndef TLB_Point_H_
-#define TLB_Point_H_
+#ifndef TLB_POINT_H_
+#define TLB_POINT_H_
 
 #include <string>
 

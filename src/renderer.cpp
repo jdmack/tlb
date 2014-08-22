@@ -297,12 +297,13 @@ void Renderer::draw_life_bar(Entity * entity)
     };
 
     SDL_Rect negativeRect = {
-        x + current_hp * width_per_point,
+        x + (current_hp * width_per_point),
         y,
         (total_hp - current_hp) * width_per_point,
         height
     };
-
+    // TODO(2014-08-21/JM): Red is showing when entity is at full life. Add is_full_life() and is_zero_life() to lifepoint
+    // and use those tests to determine if you should draw the part of the life bar that isn't needed
     // Border
     SDL_SetRenderDrawColor(renderer_, kBorderRed, kBorderGreen, kBorderBlue, kBorderAlpha);
     SDL_RenderDrawRect(renderer_, &borderRect );

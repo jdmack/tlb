@@ -33,9 +33,9 @@ int GSLevel::init()
     game_->set_level(level);
 
     // (264,216)
-    Entity * char1 = spawn_entity(PLAYER, Point(42 * 3 + 21, 48 * 3 + 24), 90);
-    //Entity * zombie1 = spawn_entity(ZOMBIE, Point(42 * 14 + 21, 36 * 20 + 24), 270);
-    //Entity * char1 = spawn_entity(PLAYER, Point(42 * 14 + 21, 36 * 6 + 24), 90);
+    Entity * char1   = spawn_entity(PLAYER, Point(42 * 14 + 21, 36 * 10 + 24), 90);
+    Entity * zombie1 = spawn_entity(ZOMBIE, Point(42 * 14 + 21, 36 * 14 + 24), 270);
+    //Entity * char1   = spawn_entity(PLAYER, Point(42 * 14 + 21, 36 * 6 + 24), 90);
     //Entity * zombie1 = spawn_entity(ZOMBIE, Point(42 * 14 + 21, 36 * 20 + 24), 270);
 
     //Entity * zombie2 = spawn_entity(ZOMBIE, Point(48 * 5 + 24, 48 * 1 + 24), 90);
@@ -68,7 +68,7 @@ void GSLevel::render()
     for(std::vector<Entity *>::iterator entity_iterator = entities.begin(); entity_iterator != entities.end(); ++entity_iterator) {
         (*entity_iterator)->render();
 
-        if((*entity_iterator)->type() == PLAYER) {
+        if(((*entity_iterator)->type() == PLAYER) || ((*entity_iterator)->type() == ZOMBIE)) {
             game_->renderer()->draw_life_bar(*entity_iterator);
         }
     }

@@ -1,0 +1,59 @@
+#include "actions/action.h"
+#include "actions/attack_action.h"
+#include "entity.h"
+#include "utils/logger.h"
+
+AttackAction::AttackAction()
+{
+    type_ = ACTION_ATTACK;
+
+    damage_ = 1;
+    cooldown_ = Cooldown(5000);
+    target_ = nullptr;
+    state_ = ATTACKING;
+}
+
+AttackAction::AttackAction(Entity * target)
+{
+    type_ = ACTION_ATTACK;
+
+    damage_ = 1;
+    cooldown_ = Cooldown(5000);
+    target_ = target;
+    state_ = ATTACKING;
+    duration_.start();
+
+}
+bool AttackAction::update(Entity * entity, int delta_ticks)
+{
+    bool return_value = true;
+
+    if(target_->dead()) {
+        return false;
+    }
+    Logger::write(Logger::string_stream << "Attacking");
+
+    switch(state_) {
+        case ATTACKING:
+            if(duration_.is_complete()) {
+                Logger::write(Logger::string_stream << "DAMAGE");
+                target_->hp()->minus_points(damage_);
+                cooldown_.reset();
+                state_ = COOLDOWN;
+            }
+            break;
+        case COOLDOWN:
+            if(cooldown_.ready()) {
+                // Perform attack
+                cooldown_.reset();
+                state_ = ATTACKING;
+                duration_.reset();
+            }
+
+           break;
+    }
+
+
+    return true;
+}
+

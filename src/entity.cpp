@@ -30,6 +30,8 @@ Entity::Entity(Game * game, EntityType type) : GameObject(game)
     controllable_ = false;
 
     maximum_speed_ = kEntityDefaultVelocity;
+
+    dead_ = false;
 }
 
 Entity::Entity(Game * game, EntityType type, Point position, double rot) : GameObject(game, position, rot)
@@ -48,10 +50,26 @@ Entity::Entity(Game * game, EntityType type, Point position, double rot) : GameO
     controllable_ = false;
 
     maximum_speed_ = kEntityDefaultVelocity;
+
+    dead_ = false;
 }
 
 void Entity::update(int delta_ticks)
 {
+    // TODO(2014-08-21/JM): Can create a DeadAction that contains a duration to trigger DYING animation
+    // and then will be a DEAD state
+
+    // Check if need to die
+    if(hp_->empty()) {
+        dead_ = true;
+        selectable_ = false;
+        controllable_ = false;
+        if(current_action_ != nullptr) {
+            delete current_action_;
+            current_action_ = nullptr;
+        }
+
+    }
     if(current_action_ != nullptr) {
         bool keep_action = current_action_->update(this, delta_ticks);
 

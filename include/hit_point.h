@@ -24,6 +24,8 @@ class HitPoint
         void add_points(int points);
         void minus_points(int points);
 
+        bool empty();
+
         std::string to_string();
 };
 

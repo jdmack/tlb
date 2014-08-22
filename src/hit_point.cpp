@@ -25,6 +25,13 @@ void HitPoint::minus_points(int points)
     current_ -= points;
 }
 
+bool HitPoint::empty()
+{
+    if(current_ <= 0) {
+        return true;
+    }
+    return false;
+}
 
 std::string HitPoint::to_string()
 {

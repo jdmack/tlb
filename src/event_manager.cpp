@@ -10,6 +10,7 @@
 #include "entity.h"
 #include "camera.h"
 #include "utils/math.h"
+#include "actions/rotate_action.h"
 
 EventManager::EventManager(Game * game)
 {
@@ -21,6 +22,7 @@ void EventManager::handle_events()
     SDL_Event event;
     while(SDL_PollEvent(&event)) {
 
+        const Uint8 * current_key_states = SDL_GetKeyboardState(NULL);
         // timer checks
         if((focus_timer_.started()) && (focus_timer_.get_ticks() >= kFocusTimeout)) {
             game_->set_quit(true);
@@ -51,7 +53,6 @@ void EventManager::handle_events()
                                     Entity * entity = static_cast<Entity *>(object);
                                     entity->stop();
                                 }
-
                             }
                         }
                         break;
@@ -96,6 +97,22 @@ void EventManager::handle_events()
                 // SDL_BUTTON_LEFT - Selection
                 if(event.button.button == SDL_BUTTON_LEFT)
                 {
+                    // Check if an entity is selected and R is being held down
+                    if(!game_->entity_manager()->selected()->empty()) {
+                        if(current_key_states[SDL_SCANCODE_R]) {
+                            std::list<GameObject *> * selected = game_->entity_manager()->selected();
+                            for(std::list<GameObject *>::iterator selected_iterator = selected->begin(); selected_iterator != selected->end(); ++selected_iterator) {
+                                GameObject * object = *selected_iterator;
+                                if(object->is_entity()) {
+                                    Entity * entity = static_cast<Entity *>(object);
+
+                                    RotateAction * rotate_action = new RotateAction(entity, mouse_point);
+                                    entity->set_current_action(rotate_action);
+                                }
+                            }
+
+                        }
+                    }
                     // 2 cases
                     GameObject * clicked_on = game_->entity_manager()->get_object_at(mouse_x, mouse_y);
                     // 1. clicking on nothing

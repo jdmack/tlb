@@ -4,6 +4,7 @@
 #include "SDL2/SDL.h"
 #include "assets.h"
 #include "vector.h"
+#include "point.h"
 
 class Action;
 class Sprite;
@@ -27,6 +28,7 @@ class GameObject
         bool selected_;
         // TODO(2013-09-06/JM): Create "to string" function for objects to use with logging
 
+        Point position_;
         Game * game_;
         Action * current_action_;
         Sprite * sprite_;
@@ -53,6 +55,7 @@ class GameObject
         Action * current_action() const { return current_action_; }
         Sprite * sprite() const { return sprite_; }
         SDL_Rect rect();
+        Point position();
 
         // mutators
         void set_x_position(double x_position) { x_position_ = x_position; }
@@ -65,6 +68,7 @@ class GameObject
         void set_width(double width) { width_ = width; }
         void set_height(double height) { height_ = height; }
         void set_selectable(bool selectable) { selectable_ = selectable; }
+        void set_position(Point position);
 
         void create_sprite(std::string asset);
 

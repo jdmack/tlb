@@ -110,12 +110,16 @@ bool Level::load(std::string filename)
 
         if(hex_grid) {
             x = tile_width_ * column;
+            // Shift tiles left to cover white space
+            x -= tile_width_ / 2;
 
             if((row % 2) == 1) {
                 x += tile_width_ / 2;
             }
             // TODO(2014-08-13/JM): 12 is "h" part of hexagon, replace with actual calculation of value from map file
             y = (tile_height_ - 12) * row;
+            // Shift tiles up to cover white space
+            y -= tile_height_ - 12;
         }
         else {
             x = tile_width_ * column / 2;

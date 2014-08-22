@@ -7,6 +7,8 @@
 #include "actions/action.h"
 #include "actions/zombie_action.h"
 #include "actions/movement_action.h"
+#include "actions/rotate_action.h"
+#include "actions/attack_action.h"
 
 #include "game_object.h"
 #include "point.h"
@@ -22,6 +24,8 @@ ZombieAction::ZombieAction()
     target_ = nullptr;
     entity_manager_ = nullptr;
     movement_action_ = nullptr;
+    rotate_action_ = nullptr;
+    attack_action_ = nullptr;
     game_ = nullptr;
     type_ = ACTION_IDLE;
 }
@@ -29,6 +33,7 @@ ZombieAction::ZombieAction()
 bool ZombieAction::update(Entity * entity, int delta_ticks)
 {
     Point position = Point(entity->x_position(), entity->y_position());
+    Point target_position;
     std::vector<Entity *> entities;
     switch(state_) {
         case IDLE:
@@ -63,6 +68,7 @@ bool ZombieAction::update(Entity * entity, int delta_ticks)
 
            // Create movement action
            movement_action_ = new MovementAction(position, Point(target_->x_position(), target_->y_position()), game_->level());
+           movement_action_->remove_movements_back();
            if(movement_action_->empty_path()) {
                state_ = IDLE;
                break;
@@ -88,6 +94,7 @@ bool ZombieAction::update(Entity * entity, int delta_ticks)
                     delete movement_action_;
                    // Create movement action
                    movement_action_ = new MovementAction(position, Point(target_->x_position(), target_->y_position()), game_->level());
+                   movement_action_->remove_movements_back();
                    if(movement_action_->empty_path()) {
                        state_ = IDLE;
                        break;
@@ -102,13 +109,71 @@ bool ZombieAction::update(Entity * entity, int delta_ticks)
                 if(!keep_action) {
                     delete movement_action_;
                     movement_action_ = nullptr;
-                    state_ = IDLE;
+                    state_ = ATTACK;
                 }
             }
 
             break;
 
         case ATTACK:
+            // Update rotate action if rotating
+            if(rotate_action_ != nullptr) {
+                bool keep_action = rotate_action_->update(entity, delta_ticks);
+                if(!keep_action) {
+                    delete rotate_action_;
+                    rotate_action_ = nullptr;
+                }
+            }
+
+            target_position = Point(target_->x_position(), target_->y_position());
+
+            // Check if we are in range
+            if(target_position.distance_from(position) > kZombieAttackRadius) {
+
+                if(attack_action_ != nullptr) {
+                    delete attack_action_;
+                    attack_action_ = nullptr;
+                }
+
+               // Create movement action
+               movement_action_ = new MovementAction(position, Point(target_->x_position(), target_->y_position()), game_->level());
+               movement_action_->remove_movements_back();
+               if(movement_action_->empty_path()) {
+                   break;
+               }
+               state_ = SEEK;
+               break;
+            }
+            // Check if we are facing the target
+            if(!RotateAction::facing(entity, target_)) {
+                // TODO(2014-08-21/JM): This rotation code will not result in the rotating being animated  because there is no change
+                // of state to a state of rotating.
+                if(attack_action_ != nullptr) {
+                    delete attack_action_;
+                    attack_action_ = nullptr;
+                }
+                rotate_action_ = new RotateAction(entity, target_->position());
+                bool keep_action = rotate_action_->update(entity, delta_ticks);
+
+                if(!keep_action) {
+                    delete rotate_action_;
+                    rotate_action_ = nullptr;
+                }
+                break;
+            }
+
+            // All checks good, attack
+            if(attack_action_ == nullptr) {
+                attack_action_ = new AttackAction(target_);
+            }
+            Logger::write(Logger::string_stream << "HERE");
+            bool keep_action = attack_action_->update(entity, delta_ticks);
+
+            if(!keep_action) {
+                delete attack_action_;
+                attack_action_ = nullptr;
+            }
+
             break;
     }
     return true;
@@ -122,6 +187,12 @@ ActionType ZombieAction::type()
             break;
         case SEEK:
             type_ = ACTION_MOVEMENT;
+            break;
+        case ATTACK_READY:
+            type_ = ACTION_IDLE;
+            break;
+        case ATTACK:
+            type_ = ACTION_IDLE;
             break;
     }
 
