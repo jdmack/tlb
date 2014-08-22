@@ -33,8 +33,9 @@ class AttackAction : public Action
         void set_damage(int damage) { damage_ = damage; }
         void set_target(Entity * target) { target_ = target; }
 
-
+        // overridden
         bool update(Entity * entity, int delta_ticks);
+        ActionType type();
 
 };
 

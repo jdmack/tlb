@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <sprite>
+
+
     <animation key="idle_right" time="200">
         <frame key="1" x="40" y="40" width="40" height="40" />
+    </animation>
+    <animation key="attack_right" time="200">
+        <frame key="1" x="0" y="200" width="40" height="40" />
+    </animation>
+    <animation key="dead_right" time="200">
+        <frame key="1" x="40" y="200" width="40" height="40" />
     </animation>
     <animation key="walk_right" time="100">
         <frame key="1" x="0"  y="40" width="40" height="40" />
@@ -14,6 +22,12 @@
     <animation key="idle_down" time="200">
         <frame key="1" x="40" y="0" width="40" height="40" />
     </animation>
+    <animation key="attack_down" time="200">
+        <frame key="1" x="0" y="160" width="40" height="40" />
+    </animation>
+    <animation key="dead_down" time="200">
+        <frame key="1" x="40" y="160" width="40" height="40" />
+    </animation>
     <animation key="walk_down" time="100">
         <frame key="1" x="0"  y="0"  width="40" height="40" />
         <frame key="2" x="40" y="0" width="40" height="40" />
@@ -25,6 +39,12 @@
     <animation key="idle_left" time="200">
         <frame key="1" x="40" y="120" width="40" height="40" />
     </animation>
+    <animation key="attack_left" time="200">
+        <frame key="1" x="0" y="280" width="40" height="40" />
+    </animation>
+    <animation key="dead_left" time="200">
+        <frame key="1" x="40" y="280" width="40" height="40" />
+    </animation>
     <animation key="walk_left" time="100">
         <frame key="1" x="0"  y="120" width="40" height="40" />
         <frame key="2" x="40" y="120" width="40" height="40" />
@@ -35,6 +55,12 @@
 
     <animation key="idle_up" time="200">
         <frame key="1" x="40" y="80" width="40" height="40" />
+    </animation>
+    <animation key="attack_up" time="200">
+        <frame key="1" x="0" y="240" width="40" height="40" />
+    </animation>
+    <animation key="dead_up" time="200">
+        <frame key="1" x="40" y="240" width="40" height="40" />
     </animation>
     <animation key="walk_up" time="100">
         <frame key="1" x="0"  y="80" width="40" height="40" />

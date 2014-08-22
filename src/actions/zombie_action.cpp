@@ -158,6 +158,7 @@ bool ZombieAction::update(Entity * entity, int delta_ticks)
                 if(!keep_action) {
                     delete rotate_action_;
                     rotate_action_ = nullptr;
+                    attack_action_ = new AttackAction(target_);
                 }
                 break;
             }
@@ -192,7 +193,12 @@ ActionType ZombieAction::type()
             type_ = ACTION_IDLE;
             break;
         case ATTACK:
-            type_ = ACTION_IDLE;
+            if(attack_action_ != nullptr) {
+                type_ = attack_action_->type();
+            }
+            else {
+                type_ = ACTION_IDLE;
+            }
             break;
     }
 

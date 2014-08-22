@@ -8,6 +8,7 @@
 #include "game.h"
 #include "level.h"
 #include "actions/movement_action.h"
+#include "actions/dead_action.h"
 #include "movement.h"
 #include "renderer.h"
 #include "sprite.h"
@@ -60,6 +61,9 @@ void Entity::update(int delta_ticks)
     // and then will be a DEAD state
 
     // Check if need to die
+    if((current_action_ != nullptr) && (current_action_->type() == ACTION_DEAD)) {
+        return;
+    }
     if(hp_->empty()) {
         dead_ = true;
         selectable_ = false;
@@ -68,7 +72,7 @@ void Entity::update(int delta_ticks)
             delete current_action_;
             current_action_ = nullptr;
         }
-
+        current_action_ = new DeadAction();
     }
     if(current_action_ != nullptr) {
         bool keep_action = current_action_->update(this, delta_ticks);

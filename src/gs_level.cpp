@@ -100,7 +100,9 @@ Entity * GSLevel::spawn_entity(EntityType type, Point position, double rotation)
         int random_num = rand() % 5 + 1;
 
         std::string asset;
-        switch(random_num) {
+        asset = kAssetSpriteZombie1;
+
+     /* switch(random_num) {
             case 1: asset = kAssetSpriteZombie1; break;
             case 2: asset = kAssetSpriteZombie2; break;
             case 3: asset = kAssetSpriteZombie3; break;
@@ -108,7 +110,7 @@ Entity * GSLevel::spawn_entity(EntityType type, Point position, double rotation)
             case 5: asset = kAssetSpriteZombie5; break;
             case 6: asset = kAssetSpriteZombie6; break;
             default: asset = kAssetSpriteZombie1; break;
-        }
+       } */
         entity->create_sprite(asset);
 
         ZombieAction * zombie_action = new ZombieAction();

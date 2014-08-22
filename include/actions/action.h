@@ -8,7 +8,8 @@ enum ActionType {
     ACTION_IDLE,
     ACTION_ZOMBIE,
     ACTION_SEEK,
-    ACTION_ATTACK
+    ACTION_ATTACK,
+    ACTION_DEAD
 };
 
 class Entity;

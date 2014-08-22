@@ -8,7 +8,8 @@ AttackAction::AttackAction()
     type_ = ACTION_ATTACK;
 
     damage_ = 1;
-    cooldown_ = Cooldown(5000);
+    cooldown_ = Cooldown(3000);
+    duration_ = Duration(1000);
     target_ = nullptr;
     state_ = ATTACKING;
 }
@@ -18,7 +19,8 @@ AttackAction::AttackAction(Entity * target)
     type_ = ACTION_ATTACK;
 
     damage_ = 1;
-    cooldown_ = Cooldown(5000);
+    cooldown_ = Cooldown(3000);
+    duration_ = Duration(1000);
     target_ = target;
     state_ = ATTACKING;
     duration_.start();
@@ -57,3 +59,16 @@ bool AttackAction::update(Entity * entity, int delta_ticks)
     return true;
 }
 
+ActionType AttackAction::type()
+{
+    switch(state_) {
+        case COOLDOWN:
+            type_ = ACTION_IDLE;
+            break;
+        case ATTACKING:
+            type_ = ACTION_ATTACK;
+            break;
+    }
+
+    return type_;
+}

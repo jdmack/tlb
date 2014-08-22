@@ -49,7 +49,7 @@ Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
                 }
 
         }
-
+        Logger::write(Logger::string_stream << "Reading Animation: " << animation_key);
         Animation this_animation(animation_key, animation_time);
 
         // Iterate through frames
@@ -179,6 +179,40 @@ void Sprite::update()
                 current_animation_ = animations_["walk_right"];
             }
         }
+        else if(action_type == ACTION_ATTACK) {
+            // determine direction
+            double rotation = object_->rotation();
+
+            if((rotation >= 45) && (rotation <= 135)) {
+                current_animation_ = animations_["attack_down"];
+            }
+            else if((rotation >= 135) && (rotation <= 225)) {
+                current_animation_ = animations_["attack_left"];
+            }
+            else if((rotation >= 225) && (rotation <= 315)) {
+                current_animation_ = animations_["attack_up"];
+            }
+            else {
+                current_animation_ = animations_["attack_right"];
+            }
+        }
+        else if(action_type == ACTION_DEAD) {
+            // determine direction
+            double rotation = object_->rotation();
+
+            if((rotation >= 45) && (rotation <= 135)) {
+                current_animation_ = animations_["dead_down"];
+            }
+            else if((rotation >= 135) && (rotation <= 225)) {
+                current_animation_ = animations_["dead_left"];
+            }
+            else if((rotation >= 225) && (rotation <= 315)) {
+                current_animation_ = animations_["dead_up"];
+            }
+            else {
+                current_animation_ = animations_["dead_right"];
+            }
+        }
         else if(action_type == ACTION_IDLE) {
             // determine direction
             double rotation = object_->rotation();
@@ -215,6 +249,40 @@ void Sprite::update()
             }
             else {
                 current_animation_ = animations_["walk_right"];
+            }
+        }
+        else if(action_type == ACTION_ATTACK) {
+            // determine direction
+            double rotation = object_->rotation();
+
+            if((rotation >= 45) && (rotation <= 135)) {
+                current_animation_ = animations_["attack_down"];
+            }
+            else if((rotation >= 135) && (rotation <= 225)) {
+                current_animation_ = animations_["attack_left"];
+            }
+            else if((rotation >= 225) && (rotation <= 315)) {
+                current_animation_ = animations_["attack_up"];
+            }
+            else {
+                current_animation_ = animations_["attack_right"];
+            }
+        }
+        else if(action_type == ACTION_DEAD) {
+            // determine direction
+            double rotation = object_->rotation();
+
+            if((rotation >= 45) && (rotation <= 135)) {
+                current_animation_ = animations_["dead_down"];
+            }
+            else if((rotation >= 135) && (rotation <= 225)) {
+                current_animation_ = animations_["dead_left"];
+            }
+            else if((rotation >= 225) && (rotation <= 315)) {
+                current_animation_ = animations_["dead_up"];
+            }
+            else {
+                current_animation_ = animations_["deadright"];
             }
         }
         else if(action_type == ACTION_IDLE) {

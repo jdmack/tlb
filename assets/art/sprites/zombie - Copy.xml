@@ -23,7 +23,7 @@
 
 
     <animation key="idle_left" time="200">
-        <frame key="1" x="46" y="108" width="32" height="35" />
+        <frame key="1" x="46" y="252" width="32" height="35" />
     </animation>
     <animation key="walk_left" time="100">
         <frame key="1" x="0"  y="108" width="32" height="35" />
@@ -44,3 +44,34 @@
     </animation>
 
 </sprite>
+
+
+
+    <animation key="dead_right" time="200">
+        <frame key="1" x="46" y="180" width="32" height="35" />
+    </animation>
+    <animation key="attack_right" time="200">
+        <frame key="1" x="0" y="180" width="32" height="35" />
+    </animation>
+
+    <animation key="attack_down" time="200">
+        <frame key="1" x="0" y="144" width="32" height="35" />
+    </animation>
+    <animation key="dead_down" time="200">
+        <frame key="1" x="46" y="144" width="32" height="35" />
+    </animation>
+
+    <animation key="attack_left" time="200">
+        <frame key="1" x="0" y="252" width="32" height="35" />
+    </animation>
+    <animation key="dead_left" time="200">
+        <frame key="1" x="46" y="108" width="32" height="35" />
+    </animation>
+    <animation key="attack_up" time="200">
+        <frame key="1" x="0" y="216" width="32" height="35" />
+    </animation>
+    <animation key="dead_up" time="200">
+        <frame key="1" x="46" y="216" width="32" height="35" />
+    </animation>
+
+
