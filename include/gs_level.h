@@ -5,12 +5,19 @@
 #include "entity.h"
 #include "game_state.h"
 
+
+// FOR TESTING
+#include "ui/panel.h"
+
 class Game;
 
 class GSLevel : public GameState
 {
     private:
         Game * game_;
+
+        // FOR TESTING
+        Panel panel;
 
     public:
         GSLevel(Game * game);

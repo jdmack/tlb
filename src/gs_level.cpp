@@ -11,6 +11,7 @@
 #include "assets.h"
 #include "utils/logger.h"
 
+#include "ui/panel.h"
 
 GSLevel::GSLevel(Game * game)
 {
@@ -35,14 +36,20 @@ int GSLevel::init()
     // (264,216)
     Entity * char1   = spawn_entity(PLAYER, Point(42 * 14 + 21, 36 * 10 + 24), 90);
     Entity * zombie1 = spawn_entity(ZOMBIE, Point(42 * 14 + 21, 36 * 14 + 24), 270);
-    //Entity * char1   = spawn_entity(PLAYER, Point(42 * 14 + 21, 36 * 6 + 24), 90);
-    //Entity * zombie1 = spawn_entity(ZOMBIE, Point(42 * 14 + 21, 36 * 20 + 24), 270);
 
     //Entity * zombie2 = spawn_entity(ZOMBIE, Point(48 * 5 + 24, 48 * 1 + 24), 90);
     //Entity * zombie3 = spawn_entity(ZOMBIE, Point(48 * 6 + 24, 48 * 1 + 24), 90);
     //Entity * zombie4 = spawn_entity(ZOMBIE, Point(48 * 7 + 24, 48 * 1 + 24), 90);
     //Entity * zombie5 = spawn_entity(ZOMBIE, Point(48 * 8 + 24, 48 * 1 + 24), 0);
     //Entity * zombie6 = spawn_entity(ZOMBIE, Point(48 * 7 + 24, 48 * 1 + 24), 0);
+
+    // FOR TESTING
+    panel = Panel(game_->renderer());
+    SDL_Color color = { 128, 128, 128, 255 };
+    panel.set_position(Point(100, 100));
+    panel.set_width(200);
+    panel.set_height(200);
+    panel.set_color(color);
 
     return return_code;
 }
@@ -72,6 +79,9 @@ void GSLevel::render()
             game_->renderer()->draw_life_bar(*entity_iterator);
         }
     }
+
+    // FOR TESTING
+    panel.render();
 }
 
 void GSLevel::end()
