@@ -1,14 +1,10 @@
-#ifndef TLB_ZOMBIE_ACTION_H_
-#define TLB_ZOMBIE_ACTION_H_
+#ifndef TLB_PLAYER_ACTION_H_
+#define TLB_PLAYER_ACTION_H_
 
 #include <string>
 #include "action.h"
 #include "point.h"
 #include "entity_manager.h"
-
-const double kZombieAggroRadius = 96;
-const double kZombieLeashRadius = 144;
-const double kZombieAttackRadius = 48;
 
 class Entity;
 class GameObject;
@@ -17,21 +13,22 @@ class MovementAction;
 class RotateAction;
 class AttackAction;
 
-enum ZombieState {
-    IDLE,
-    SEEK,
-    ATTACK,
-    ATTACK_READY,
-    CHANGE_ACTION,
-    BLANK
+const double kPlayerAttackRange = 200;
+const double kPlayerAttackDamage = 2;
+const double kPlayerAttackCooldown = 3000;
+const double kPlayerAttackDuration = 500;
 
+enum PlayerState {
+    IDLE,
+    MOVE,
+    ATTACK,
+    ROTATE
 };
 
-class ZombieAction : public Action
+class PlayerAction : public Action
 {
     private:
-        ZombieState state_;
-        ZombieState next_state_;
+        PlayerState state_;
         EntityManager * entity_manager_;
         Entity * target_;
         Game * game_;
@@ -44,7 +41,7 @@ class ZombieAction : public Action
         Action * next_action_;
 
     public:
-        ZombieAction();
+        PlayerAction();
 
         // accessors
         EntityManager * entity_manager() { return entity_manager_; }
@@ -53,8 +50,8 @@ class ZombieAction : public Action
         // mutators
         void  set_entity_manager(EntityManager * em) { entity_manager_ = em; }
         void  set_game(Game * game) { game_ = game; }
+        void set_next_action(Action * next_action) { next_action_ = next_action; }
 
-        void transition();
         std::string to_string();
 
         // overridden

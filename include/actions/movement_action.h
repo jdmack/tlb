@@ -32,6 +32,7 @@ class MovementAction : public Action
 		Point end() const { return end_; }
 		std::vector<Movement *> * path() const { return path_; }
 		Movement * current() const { return *current_; }
+		Level * level() const { return level_; }
 
 		void find_path();
 		bool next_movement();

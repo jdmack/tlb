@@ -3,6 +3,7 @@
 
 #include "game_object.h"
 #include "hit_point.h"
+#include "point.h"
 
 const int kEntityWidth  = 40;
 const int kEntityHeight = 40;
@@ -37,7 +38,7 @@ class Entity : public GameObject
         void select();
         void deselect();
         bool contains_point(double x, double y);
-        void move(double x, double y);
+        void move(Point point);
 
         void update(int deltaTicks);
         void stop();

@@ -75,7 +75,7 @@ class GameObject
         virtual void select();
         virtual void deselect();
         virtual bool contains_point(double x, double y);
-        virtual void move(double x, double y);
+        virtual void move(Point point);
         void render();
         void set_current_action(Action * action) { current_action_ = action; }
         void set_sprite(Sprite * sprite) { sprite_ = sprite; }

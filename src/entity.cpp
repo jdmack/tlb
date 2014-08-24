@@ -9,6 +9,8 @@
 #include "level.h"
 #include "actions/movement_action.h"
 #include "actions/dead_action.h"
+#include "actions/action.h"
+#include "actions/player_action.h"
 #include "movement.h"
 #include "renderer.h"
 #include "sprite.h"
@@ -33,6 +35,8 @@ Entity::Entity(Game * game, EntityType type) : GameObject(game)
     maximum_speed_ = kEntityDefaultVelocity;
 
     dead_ = false;
+
+    current_action_ = new PlayerAction();
 }
 
 Entity::Entity(Game * game, EntityType type, Point position, double rot) : GameObject(game, position, rot)
@@ -53,6 +57,7 @@ Entity::Entity(Game * game, EntityType type, Point position, double rot) : GameO
     maximum_speed_ = kEntityDefaultVelocity;
 
     dead_ = false;
+    current_action_ = new PlayerAction();
 }
 
 void Entity::update(int delta_ticks)
@@ -110,22 +115,17 @@ void Entity::deselect()
     sprite_->deselect();
 }
 
-void Entity::move(double x, double y)
+void Entity::move(Point point)
 {
-    Logger::write(Logger::string_stream << "Move - (x,y): (" << x_position_ << "," << y_position_ << ")");
-
-    // Delete current action if one exists
-    if(current_action_ != nullptr) {
-        delete current_action_;
-        current_action_ = nullptr;
-    }
+    Logger::write(Logger::string_stream << "Move - (x,y): (" << point.x() << "," << point.y() << ")");
 
     // Create movement action
-    MovementAction * movement_action = new MovementAction(Point(x_position_, y_position_), Point(x, y), game_->level());
+    MovementAction * movement_action = new MovementAction(Point(x_position_, y_position_), point, game_->level());
     if(movement_action->empty_path()) {
         return;
     }
-    current_action_ = movement_action;
+    PlayerAction * player_action = static_cast<PlayerAction *>(current_action_);
+    player_action->set_next_action(static_cast<Action *>(movement_action));
 }
 
 void Entity::stop()

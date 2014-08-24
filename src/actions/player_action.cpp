@@ -5,7 +5,7 @@
 #include <string>
 
 #include "actions/action.h"
-#include "actions/zombie_action.h"
+#include "actions/player_action.h"
 #include "actions/movement_action.h"
 #include "actions/rotate_action.h"
 #include "actions/attack_action.h"
@@ -18,30 +18,54 @@
 #include "game.h"
 #include "movement.h"
 
-ZombieAction::ZombieAction()
+PlayerAction::PlayerAction()
 {
     state_ = IDLE;
-    next_state_ = BLANK;
     target_ = nullptr;
     entity_manager_ = nullptr;
     movement_action_ = nullptr;
     rotate_action_ = nullptr;
-    attack_action_ = nullptr;
+    attack_action_ = new AttackAction();
+    attack_action_->set_damage(kPlayerAttackDamage);
+    attack_action_->set_cooldown_length(kPlayerAttackCooldown);
+    attack_action_->set_duration_length(kPlayerAttackDuration);
+    next_action_ = nullptr;
     game_ = nullptr;
     type_ = ACTION_IDLE;
 }
 
-bool ZombieAction::update(Entity * entity, int delta_ticks)
+bool PlayerAction::update(Entity * entity, int delta_ticks)
 {
-    bool keep_action = true;
     Point position = Point(entity->x_position(), entity->y_position());
     Point target_position;
     std::vector<Entity *> entities;
+
+    if(next_action_ != nullptr) {
+        switch(state_) {
+            case IDLE:
+                break;
+            case MOVE:
+                if(movement_action_ != nullptr) movement_action_->stop();
+                break;
+            case ATTACK:
+                //if(attack_action_ != nullptr) attack_action_->stop();
+                break;
+        }
+    }
+
     switch(state_) {
         case IDLE:
-            //Logger::write(Logger::string_stream << "ZombieAction: IDLE");
+            if(next_action_ != nullptr) {
+                if(next_action_->type() == ACTION_MOVEMENT) {
+                    movement_action_ = static_cast<MovementAction *>(next_action_);
+                    next_action_ = nullptr;
+                    state_ = MOVE;
+                }
+            }
 
-            entities = entity_manager_->get_entities_near(position, kZombieAggroRadius);
+            //Logger::write(Logger::string_stream << "PlayerAction: IDLE");
+           /*
+            entities = entity_manager_->get_entities_near(position, kPlayerAttackRange);
 
             //TODO(2014-07-24/JM): Choose way of selecting target if there are multiple
             while(target_ == nullptr) {
@@ -53,76 +77,47 @@ bool ZombieAction::update(Entity * entity, int delta_ticks)
                     entities.pop_back();
                     continue;
                 }
-                if(entities.back()->type() == ZOMBIE) {
+                if(entities.back()->type() == PLAYER) {
                     entities.pop_back();
                     continue;
                 }
                 target_ = entities.back();
                 entities.pop_back();
             }
-            state_ = SEEK;
-
-           // Delete current action if one exists
-           if(movement_action_ != nullptr) {
-               delete movement_action_;
-               movement_action_ = nullptr;
-           }
-
-           // Create movement action
-           movement_action_ = new MovementAction(position, Point(target_->x_position(), target_->y_position()), game_->level());
-           movement_action_->remove_movements_back();
-           if(movement_action_->empty_path()) {
-               state_ = IDLE;
-               break;
-           }
-           target_last_position = Point(target_->x_position(), target_->y_position());
-
+            state_ = ATTACK;
+            */
             break;
 
-        case SEEK:
-                // check if target has exceeded leash range
-                // TODO(2014-08-23/JM): Make it so it'll stop in a grid when it losses aggro
-                if(position.distance_from(Point(target_->x_position(), target_->y_position())) >= kZombieLeashRadius) {
-                    movement_action_->stop();
-                    next_state_ = IDLE;
-                }
-
-                // check if target has moved far from we think it is
-                // TODO(2014-08-15/JM): Hard coded number 12 here for distance, change
-                else if(target_last_position.distance_from(Point(target_->x_position(), target_->y_position())) >= 12) {
-                    if(next_state_ == BLANK) {
-                        movement_action_->stop();
-
-                       // Create movement action
-                       MovementAction * new_movement_action;
-                       new_movement_action = new MovementAction(position, Point(target_->x_position(), target_->y_position()), game_->level());
-                       new_movement_action->remove_movements_back();
-                       if(new_movement_action->empty_path()) {
-                           next_state_ = IDLE;
-                           delete new_movement_action;
-                       }
-                       next_action_ = static_cast<Action *>(new_movement_action);
-                       target_last_position = Point(target_->x_position(), target_->y_position());
-                    }
-
-                }
-
+        case MOVE:
+            if(movement_action_ != nullptr) {
                 // Perform movement
-                keep_action = movement_action_->update(entity, delta_ticks);
+                bool keep_action = movement_action_->update(entity, delta_ticks);
 
                 if(!keep_action) {
                     delete movement_action_;
                     movement_action_ = nullptr;
-                    if(next_state_ == BLANK) {
-                        next_state_ = ATTACK;
+                    state_ = IDLE;
+                    if(next_action_ != nullptr) {
+                        if(next_action_->type() == ACTION_MOVEMENT) {
+                            movement_action_ = static_cast<MovementAction *>(next_action_);
+                            next_action_ = nullptr;
+                            Point end = movement_action_->end();
+                            MovementAction * new_movement_action = new MovementAction(entity->position(), end, movement_action_->level());
+                            delete movement_action_;
+                            movement_action_ = new_movement_action;
+                            state_ = MOVE;
+                        }
                     }
                 }
+            }
+
             break;
 
         case ATTACK:
+            /*
             // Update rotate action if rotating
             if(rotate_action_ != nullptr) {
-                keep_action = rotate_action_->update(entity, delta_ticks);
+                bool keep_action = rotate_action_->update(entity, delta_ticks);
                 if(!keep_action) {
                     delete rotate_action_;
                     rotate_action_ = nullptr;
@@ -157,7 +152,7 @@ bool ZombieAction::update(Entity * entity, int delta_ticks)
                     attack_action_ = nullptr;
                 }
                 rotate_action_ = new RotateAction(entity, target_->position());
-                keep_action = rotate_action_->update(entity, delta_ticks);
+                bool keep_action = rotate_action_->update(entity, delta_ticks);
 
                 if(!keep_action) {
                     delete rotate_action_;
@@ -172,49 +167,27 @@ bool ZombieAction::update(Entity * entity, int delta_ticks)
                 attack_action_ = new AttackAction(target_);
             }
             Logger::write(Logger::string_stream << "HERE");
-            keep_action = attack_action_->update(entity, delta_ticks);
+            bool keep_action = attack_action_->update(entity, delta_ticks);
 
             if(!keep_action) {
                 delete attack_action_;
                 attack_action_ = nullptr;
             }
+               */
 
-            break;
-    }
-
-    // Setup next action
-    switch(next_state_) {
-        case IDLE:
-            if(movement_action_ == nullptr) {
-                state_ = IDLE;
-                next_state_ = BLANK;
-                target_ = nullptr;
-            }
-            break;
-        case SEEK:
-            break;
-        case ATTACK:
-            attack_action_ = new AttackAction(target_);
-            state_ = ATTACK;
-            next_state_ = BLANK;
-            break;
-        case BLANK:
             break;
     }
     return true;
 }
 
-ActionType ZombieAction::type()
+ActionType PlayerAction::type()
 {
     switch(state_) {
         case IDLE:
             type_ = ACTION_IDLE;
             break;
-        case SEEK:
+        case MOVE:
             type_ = ACTION_MOVEMENT;
-            break;
-        case ATTACK_READY:
-            type_ = ACTION_IDLE;
             break;
         case ATTACK:
             if(attack_action_ != nullptr) {
@@ -230,7 +203,7 @@ ActionType ZombieAction::type()
 }
 
 
-std::string ZombieAction::to_string()
+std::string PlayerAction::to_string()
 {
 	//for (std::list<GridNode *>::iterator iterator = nodes->begin(), end = nodes->end(); iterator != end; ++iterator) {
 	//    Logger::string_stream << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";

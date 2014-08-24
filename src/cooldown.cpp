@@ -3,13 +3,13 @@
 
 Cooldown::Cooldown()
 {
-    duration_ = 0;
+    length_ = 0;
 }
 // TODO(2014-08-21/JM): When you implement a pause button, you need to deal with all timers
 
-Cooldown::Cooldown(double duration)
+Cooldown::Cooldown(double length)
 {
-    duration_ = duration;
+    length_ = length;
 }
 
 void Cooldown::start()
@@ -35,7 +35,7 @@ bool Cooldown::ready()
 
 bool Cooldown::is_complete()
 {
-    if(timer_.get_ticks() >= duration_) {
+    if(timer_.get_ticks() >= length_) {
         return true;
     }
     return false;

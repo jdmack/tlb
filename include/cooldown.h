@@ -7,17 +7,17 @@ class Cooldown
 {
     private:
         Timer timer_;
-        double duration_;
+        double length_;
 
     public:
         Cooldown();
-        Cooldown(double duration);
+        Cooldown(double length);
 
         // accessors
-        double duration() const { return duration_; }
+        double length() const { return length_; }
 
         // mutators
-        void set_duration(double duration) { duration_ = duration; }
+        void set_length(double length) { length_ = length; }
 
         void start();
         void reset();

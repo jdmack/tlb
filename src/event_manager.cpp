@@ -136,7 +136,7 @@ void EventManager::handle_events()
                         // something is selected, can now give it an order
                         std::list<GameObject *> * selected = game_->entity_manager()->selected();
                         for(std::list<GameObject *>::iterator selected_iterator = selected->begin(); selected_iterator != selected->end(); ++selected_iterator) {
-                            (*selected_iterator)->move(mouse_x, mouse_y);
+                            (*selected_iterator)->move(Point(mouse_x, mouse_y));
                         }
                     }
                 }

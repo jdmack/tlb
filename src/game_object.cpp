@@ -116,7 +116,7 @@ void GameObject::deselect()
     }
 }
 
-void GameObject::move(double x, double y)
+void GameObject::move(Point point)
 {
     // TODO(2013-08-27/JM): Handle rotating
 

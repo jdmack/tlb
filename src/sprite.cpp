@@ -49,7 +49,7 @@ Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
                 }
 
         }
-        Logger::write(Logger::string_stream << "Reading Animation: " << animation_key);
+        //Logger::write(Logger::string_stream << "Reading Animation: " << animation_key);
         Animation this_animation(animation_key, animation_time);
 
         // Iterate through frames
