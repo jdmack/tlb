@@ -22,7 +22,7 @@ enum ZombieState {
     SEEK,
     ATTACK,
     ATTACK_READY,
-    CHANGE_ACTION,
+    ROTATE,
     BLANK
 
 };

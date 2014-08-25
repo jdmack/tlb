@@ -38,7 +38,7 @@ bool AttackAction::update(Entity * entity, int delta_ticks)
     switch(state_) {
         case ATTACKING:
             if(duration_.is_complete()) {
-                Logger::write(Logger::string_stream << "DAMAGE");
+                //Logger::write(Logger::string_stream << "DAMAGE");
                 target_->hp()->minus_points(damage_);
                 cooldown_.reset();
                 state_ = COOLDOWN;
@@ -53,8 +53,10 @@ bool AttackAction::update(Entity * entity, int delta_ticks)
             }
 
            break;
+        case STOPPED:
+            return false;
+            break;
     }
-
 
     return true;
 }
@@ -71,4 +73,15 @@ ActionType AttackAction::type()
     }
 
     return type_;
+}
+
+void AttackAction::reset()
+{
+    cooldown_.reset();
+    duration_.start();
+    state_ = ATTACKING;
+}
+void AttackAction::stop()
+{
+    state_ = STOPPED;
 }

@@ -60,12 +60,12 @@ Vector::Vector(Point start, Point end)
 
     set_component_signs(direction_);
 
-    Logger::write(Logger::string_stream << "creating vector: " <<
-        "magnitude: " << magnitude_ <<
-        ", direction: " << direction_ <<
-        ", x_component: " << x_component_ <<
-        ", y_component: " << y_component_ <<
-        ", start(" << start.x() << "," << start.y() << "),  end(" << end.x() << "," << end.y() << ")");
+    //Logger::write(Logger::string_stream << "creating vector: " <<
+    //    "magnitude: " << magnitude_ <<
+    //    ", direction: " << direction_ <<
+    //    ", x_component: " << x_component_ <<
+    //    ", y_component: " << y_component_ <<
+    //    ", start(" << start.x() << "," << start.y() << "),  end(" << end.x() << "," << end.y() << ")");
 }
 
 Vector::Vector(double magnitude, double direction)
@@ -86,11 +86,11 @@ Vector::Vector(double magnitude, double direction)
     magnitude_ = magnitude;
     direction_ = direction;
 
-    Logger::write(Logger::string_stream << "creating vector: " <<
-    "magnitude: " << magnitude_ <<
-    ", direction: " << direction_ <<
-    ", x_component: " << x_component_ <<
-    ", y_component: " << y_component_);
+    //Logger::write(Logger::string_stream << "creating vector: " <<
+    //"magnitude: " << magnitude_ <<
+    //", direction: " << direction_ <<
+    //", x_component: " << x_component_ <<
+    //", y_component: " << y_component_);
 }
 
 double Vector::radians_to_degrees(double radians)

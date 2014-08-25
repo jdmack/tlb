@@ -7,7 +7,8 @@
 
 enum AttackState {
     ATTACKING,
-    COOLDOWN
+    COOLDOWN,
+    STOPPED
 };
 
 class Entity;
@@ -36,6 +37,9 @@ class AttackAction : public Action
         void set_cooldown_length(int cooldown_length) { cooldown_length_ = cooldown_length; cooldown_.set_length(cooldown_length_);}
         void set_duration_length(int duration_length) { duration_length_ = duration_length; duration_.set_length(duration_length_);}
         void set_target(Entity * target) { target_ = target; }
+
+        void reset();
+        void stop();
 
         // overridden
         bool update(Entity * entity, int delta_ticks);

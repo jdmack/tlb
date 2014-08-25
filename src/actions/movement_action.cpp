@@ -66,13 +66,13 @@ void MovementAction::find_path()
         nodes = pathfinder.run(start_node, end_node);
 	}
     // Print the path to log
-	Logger::string_stream << "Path: ";
+	//Logger::string_stream << "Path: ";
 	for (std::list<GridNode *>::iterator iterator = nodes->begin(), end = nodes->end(); iterator != end; ++iterator) {
 	    //Logger::string_stream << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
-	    Logger::string_stream << (*iterator)->to_string() << " ";
+	    //Logger::string_stream << (*iterator)->to_string() << " ";
 	}
-	Logger::write(Logger::string_stream);
-    Logger::write(Logger::string_stream << "# of nodes: " << nodes->size());
+	//Logger::write(Logger::string_stream);
+    //Logger::write(Logger::string_stream << "# of nodes: " << nodes->size());
 
 	// Convert node path into Movement path
     while(nodes->size() > 1) {
@@ -81,12 +81,12 @@ void MovementAction::find_path()
 
             GridNode * start_node = nodes->front();
             if(nodes->empty()) {
-                Logger::write(Logger::string_stream << "Uh oh, list is empty dude!\n");
+                //Logger::write(Logger::string_stream << "Uh oh, list is empty dude!\n");
                 break;
             }
             nodes->pop_front();
             if(nodes->empty()) {
-                Logger::write(Logger::string_stream << "Uh oh, list is empty dude!\n");
+                //Logger::write(Logger::string_stream << "Uh oh, list is empty dude!\n");
                 break;
             }
             GridNode * end_node = nodes->front();
@@ -95,8 +95,8 @@ void MovementAction::find_path()
             Vector vector = Vector(start_node->center_point(), end_node->center_point());
 
             // Create movement
-            Logger::write(Logger::string_stream << "Start Point: " << start_node->center_point().to_string());
-            Logger::write(Logger::string_stream << "End Point: " << end_node->center_point().to_string());
+            //Logger::write(Logger::string_stream << "Start Point: " << start_node->center_point().to_string());
+            //Logger::write(Logger::string_stream << "End Point: " << end_node->center_point().to_string());
             Movement * this_movement = new Movement(vector, start_node->center_point(), end_node->center_point());
 
             path_->push_back(this_movement);
@@ -123,9 +123,9 @@ void MovementAction::find_path()
 	// Set current movement to beginning
 	current_ = path_->begin();
 	if(!path_->empty()) {
-	    Logger::write(Logger::string_stream << "MovementAction::first_movement(): " << (*current_)->to_string());
+	    //Logger::write(Logger::string_stream << "MovementAction::first_movement(): " << (*current_)->to_string());
 	}
-	Logger::write(Logger::string_stream << "Path created: " << path_->size() << " movements");
+	//Logger::write(Logger::string_stream << "Path created: " << path_->size() << " movements");
 
 	// reset grid
 	level_->grid()->reset_pathfinding();
@@ -135,11 +135,11 @@ bool MovementAction::next_movement()
 {
     current_++;
     if(current_ == path_->end()) {
-        Logger::write(Logger::string_stream << "MovementAction::next_movement(): No more Movements");
+        //Logger::write(Logger::string_stream << "MovementAction::next_movement(): No more Movements");
         return false;
     }
     else {
-        Logger::write(Logger::string_stream << "MovementAction::next_movement(): " << (*current_)->to_string());
+        //Logger::write(Logger::string_stream << "MovementAction::next_movement(): " << (*current_)->to_string());
         return true;
     }
 }
@@ -178,6 +178,7 @@ bool MovementAction::update(Entity * entity, int delta_ticks)
     double rotation = entity->rotation();
 
     if(started_ == false) {
+        if(path_->size() <= 0) return false;
         started_ = true;
         current_max_velocity_ = Vector(entity->maximum_speed(), (*current_)->vector().direction());
         x_velocity = current_max_velocity_.x_component();
@@ -196,7 +197,7 @@ bool MovementAction::update(Entity * entity, int delta_ticks)
 
     // Check rotation
     if(rotation != (*current_)->vector().direction()) {
-        Logger::write(Logger::string_stream << "Rotation: " << rotation << ", Direction: " << (*current_)->vector().direction());
+        //Logger::write(Logger::string_stream << "Rotation: " << rotation << ", Direction: " << (*current_)->vector().direction());
         // Determine and set rotation direction
         double dir = (*current_)->vector().direction() - rotation;
         if((dir > 0) && (std::abs(dir) <= 180)) { (*current_)->set_clockwise(false); }
@@ -328,38 +329,38 @@ bool MovementAction::update(Entity * entity, int delta_ticks)
 
         if((x_velocity > 0) && (y_velocity > 0)) {
             if((x_position >= (*current_)->destination().x()) || (y_position >= (*current_)->destination().y())) {
-                Logger::write("(x > 0) (y > 0)");
+                //Logger::write("(x > 0) (y > 0)");
                 past_point = true;
             }
         }
         else if((x_velocity > 0) && (y_velocity < 0)) {
             if((x_position >= (*current_)->destination().x()) || (y_position <= (*current_)->destination().y())) {
-                Logger::write("(x > 0) (y < 0)");
+                //Logger::write("(x > 0) (y < 0)");
                 past_point = true;
             }
         }
         else if((x_velocity < 0) && (y_velocity > 0)) {
             if((x_position <= (*current_)->destination().x()) || (y_position >= (*current_)->destination().y())) {
-                Logger::write("(x < 0) (y > 0)");
+                //Logger::write("(x < 0) (y > 0)");
                 past_point = true;
             }
         }
         else if((x_velocity < 0) && (y_velocity < 0)) {
             if((x_position <= (*current_)->destination().x()) || (y_position <= (*current_)->destination().y())) {
-                Logger::write("(x < 0) (y < 0)");
+                //Logger::write("(x < 0) (y < 0)");
                 past_point = true;
             }
         }
         else if(x_velocity == 0) {
             if(y_velocity > 0) {
                 if(y_position >= (*current_)->destination().y()) {
-                    Logger::write("(x == 0) (y > 0)");
+                    //Logger::write("(x == 0) (y > 0)");
                     past_point = true;
                 }
             }
             else if(y_velocity < 0) {
                 if(y_position <= (*current_)->destination().y()) {
-                    Logger::write("(x == 0) (y < 0)");
+                    //Logger::write("(x == 0) (y < 0)");
                     past_point = true;
                 }
             }
@@ -367,20 +368,20 @@ bool MovementAction::update(Entity * entity, int delta_ticks)
         else if(y_velocity == 0) {
             if(x_velocity > 0) {
                 if(x_position >= (*current_)->destination().x()) {
-                    Logger::write("(x > 0) (y == 0)");
+                    //Logger::write("(x > 0) (y == 0)");
                     past_point = true;
                 }
             }
             else if(x_velocity < 0) {
                 if(x_position <= (*current_)->destination().x()) {
-                    Logger::write("(x < 0) (y == 0)");
+                    //Logger::write("(x < 0) (y == 0)");
                     past_point = true;
                 }
             }
         }
 
         if(past_point) {
-            Logger::write("STOPPING: Moved past point");
+            //Logger::write("STOPPING: Moved past point");
 
             x_velocity = 0;
             y_velocity = 0;
@@ -391,7 +392,7 @@ bool MovementAction::update(Entity * entity, int delta_ticks)
                 x_position = (*current_)->destination().x();
                 y_position = (*current_)->destination().y();
             }
-            Logger::write(Logger::string_stream << "Destination:" << (*current_)->destination().to_string());
+            //Logger::write(Logger::string_stream << "Destination:" << (*current_)->destination().to_string());
         }
 
         if(entity->stopped()) {

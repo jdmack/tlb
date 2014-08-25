@@ -53,7 +53,7 @@ bool RotateAction::update(Entity * entity, int delta_ticks)
 
     // Check rotation
     if(rotation != direction_) {
-        Logger::write(Logger::string_stream << "Rotation: " << rotation << ", Direction: " << direction_);
+        //Logger::write(Logger::string_stream << "Rotation: " << rotation << ", Direction: " << direction_);
         // Determine and set rotation direction
         double dir = direction_ - rotation;
         if((dir > 0) && (std::abs(dir) <= 180)) { clockwise = false; }
