@@ -22,13 +22,16 @@ enum PlayerState {
     IDLE,
     MOVE,
     ATTACK,
-    ROTATE
+    SEEK,
+    ROTATE,
+    BLANK
 };
 
 class PlayerAction : public Action
 {
     private:
         PlayerState state_;
+        PlayerState next_state_;
         EntityManager * entity_manager_;
         Entity * target_;
         Game * game_;
@@ -48,15 +51,19 @@ class PlayerAction : public Action
         Game * game() { return game_; }
 
         // mutators
-        void  set_entity_manager(EntityManager * em) { entity_manager_ = em; }
-        void  set_game(Game * game) { game_ = game; }
+        void set_next_state(PlayerState next_state) { next_state_ = next_state; }
+        void set_entity_manager(EntityManager * em) { entity_manager_ = em; }
+        void set_game(Game * game) { game_ = game; }
         void set_next_action(Action * next_action) { next_action_ = next_action; }
 
         std::string to_string();
+        void stop();
 
         // overridden
         bool update(Entity * entity, int delta_ticks);
         ActionType type();
+
+
 
 };
 

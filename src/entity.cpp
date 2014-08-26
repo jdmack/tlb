@@ -125,7 +125,9 @@ void Entity::move(Point point)
         return;
     }
     PlayerAction * player_action = static_cast<PlayerAction *>(current_action_);
+    player_action->stop();
     player_action->set_next_action(static_cast<Action *>(movement_action));
+    player_action->set_next_state(MOVE);
 }
 
 void Entity::stop()
