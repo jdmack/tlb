@@ -16,9 +16,11 @@ class Entity;
 class AttackAction : public Action
 {
     private:
+        bool stopped_;
         int damage_;
         int cooldown_length_;
         int duration_length_;
+        double range_;
         AttackState state_;
         Cooldown cooldown_;
         Duration duration_;
@@ -30,10 +32,12 @@ class AttackAction : public Action
 
         // accessors
         int damage() const { return damage_; }
+        double range() const { return range_; }
         Entity * target() { return target_; }
 
         // mutators
         void set_damage(int damage) { damage_ = damage; }
+        void set_range(double range) { range_ = range; }
         void set_cooldown_length(int cooldown_length) { cooldown_length_ = cooldown_length; cooldown_.set_length(cooldown_length_);}
         void set_duration_length(int duration_length) { duration_length_ = duration_length; duration_.set_length(duration_length_);}
         void set_target(Entity * target) { target_ = target; }

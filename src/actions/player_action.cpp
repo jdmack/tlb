@@ -100,25 +100,28 @@ bool PlayerAction::update(Entity * entity, int delta_ticks)
                 break;
 
             case ATTACK:
-                /*
-                target_position = Point(target_->x_position(), target_->y_position());
+                //target_position = Point(target_->x_position(), target_->y_position());
 
                 // Check if we are in range
-                if(target_position.distance_from(position) > kZombieAttackRadius) {
-                    next_state_ = SEEK;
+                /*
+                if(target_position.distance_from(position) > kPlayerAttackRange) {
+                    //next_state_ = SEEK;
+                    next_state_ = IDLE;
                     Logger::write("ATTACK: Target out of attack range");
                     break;
                 }
+                */
 
                 // Check if we are facing the target
+                /*
                 if(!RotateAction::facing(entity, target_)) {
                     // TODO(2014-08-21/JM): This rotation code will not result in the rotating being animated  because there is no change
                     // of state to a state of rotating.
                     next_state_ = ROTATE;
                     Logger::write("ATTACK: Not facing target");
                 }
-
                 */
+
                 break;
 
             case ROTATE:
@@ -134,6 +137,12 @@ bool PlayerAction::update(Entity * entity, int delta_ticks)
                 state_ = MOVE;
                 next_state_ = BLANK;
                 movement_action_ = static_cast<MovementAction *>(next_action_);
+                next_action_ = nullptr;
+            }
+            else if(next_state_ == ATTACK) {
+                state_ = ATTACK;
+                next_state_ = BLANK;
+                attack_action_ = static_cast<AttackAction *>(next_action_);
                 next_action_ = nullptr;
             }
         }
@@ -187,6 +196,7 @@ bool PlayerAction::update(Entity * entity, int delta_ticks)
 
             if(!keep_action) {
                 Logger::write("ATTACK complete");
+                delete attack_action_;
                 if(next_state_ == BLANK) {
                     next_state_ = IDLE;
                 }
@@ -243,13 +253,20 @@ bool PlayerAction::update(Entity * entity, int delta_ticks)
 
             break;
         case MOVE:
-            if((next_action_ != nullptr) && (next_action_->type() == ACTION_MOVEMENT)) {
-                state_ = MOVE;
-                next_state_ = BLANK;
-            }
-            else {
-                state_ = IDLE;
-                next_state_ = BLANK;
+            if(!keep_action) {
+                if((next_action_ != nullptr) && (next_action_->type() == ACTION_MOVEMENT)) {
+                    state_ = MOVE;
+                    next_state_ = BLANK;
+                    movement_action_ = static_cast<MovementAction *>(next_action_);
+                    MovementAction * next_movement_action = new MovementAction(position, movement_action_->end(), movement_action_->level());
+                    delete movement_action_;
+                    movement_action_ = next_movement_action;
+                    next_action_ = nullptr;
+                }
+                else {
+                    state_ = IDLE;
+                    next_state_ = BLANK;
+                }
             }
             break;
 

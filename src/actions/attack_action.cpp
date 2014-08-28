@@ -12,6 +12,7 @@ AttackAction::AttackAction()
     duration_ = Duration(1000);
     target_ = nullptr;
     state_ = ATTACKING;
+    stopped_ = false;
 }
 
 AttackAction::AttackAction(Entity * target)
@@ -24,13 +25,20 @@ AttackAction::AttackAction(Entity * target)
     target_ = target;
     state_ = ATTACKING;
     duration_.start();
+    stopped_ = false;
 
 }
 bool AttackAction::update(Entity * entity, int delta_ticks)
 {
     bool return_value = true;
 
+    if(stopped_) {
+        return false;
+    }
     if(target_->dead()) {
+        return false;
+    }
+    if(entity->position().distance_from(target_->position()) > range_) {
         return false;
     }
     Logger::write(Logger::string_stream << "Attacking");

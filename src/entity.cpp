@@ -11,6 +11,8 @@
 #include "actions/dead_action.h"
 #include "actions/action.h"
 #include "actions/player_action.h"
+#include "actions/attack_action.h"
+#include "actions/rotate_action.h"
 #include "movement.h"
 #include "renderer.h"
 #include "sprite.h"
@@ -128,6 +130,25 @@ void Entity::move(Point point)
     player_action->stop();
     player_action->set_next_action(static_cast<Action *>(movement_action));
     player_action->set_next_state(MOVE);
+}
+
+void Entity::rotate(Point point)
+{
+    RotateAction * rotate_action = new RotateAction(this, point);
+    PlayerAction * player_action = static_cast<PlayerAction *>(current_action_);
+    player_action->set_next_action(rotate_action);
+    player_action->set_next_state(ROTATE);
+
+}
+
+void Entity::attack(Entity * target)
+{
+    AttackAction * attack_action = new AttackAction(target);
+    attack_action->set_range(kPlayerAttackRange);
+    PlayerAction * player_action = static_cast<PlayerAction *>(current_action_);
+    player_action->stop();
+    player_action->set_next_action(attack_action);
+    player_action->set_next_state(ATTACK);
 }
 
 void Entity::stop()

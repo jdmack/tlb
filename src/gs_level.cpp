@@ -25,7 +25,6 @@ int GSLevel::init()
     // Load level
     Level * level = new Level(game_);
 
-    //if(!level->load(kMapTest24x18Isometric)) {
     if(!level->load(kMapTestHexIsometric)) {
         Logger::write(Logger::string_stream << "Failed to load map");
         return_code = 1;
@@ -81,7 +80,7 @@ void GSLevel::render()
     }
 
     // FOR TESTING
-    panel.render();
+    //panel.render();
 }
 
 void GSLevel::end()

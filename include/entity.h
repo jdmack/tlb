@@ -39,6 +39,8 @@ class Entity : public GameObject
         void deselect();
         bool contains_point(double x, double y);
         void move(Point point);
+        void rotate(Point point);
+        void attack(Entity * target);
 
         void update(int deltaTicks);
         void stop();

@@ -78,13 +78,15 @@ bool Level::load(std::string filename)
         return false;
     }
     map >> tile_height_;
+    //tile_height_ = tile_height_ * 2 / 3;
     if(map.fail() == true) {
         Logger::write("Failed to read map tile_height from file");
         map.close();
         return false;
     }
     width_ = rows_ * tile_width_;
-    height_ = columns_ * tile_height_;
+    //height_ = columns_ * tile_height_;
+    height_ = columns_ * tile_height_ / 2;
 
     int row = 0;
     int column = 0;

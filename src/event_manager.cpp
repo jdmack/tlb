@@ -105,26 +105,43 @@ void EventManager::handle_events()
                                 GameObject * object = *selected_iterator;
                                 if(object->is_entity()) {
                                     Entity * entity = static_cast<Entity *>(object);
+                                    entity->rotate(mouse_point);
+                                }
+                            }
 
-                                    RotateAction * rotate_action = new RotateAction(entity, mouse_point);
-                                    entity->set_current_action(rotate_action);
+                        }
+                        else if(current_key_states[SDL_SCANCODE_A]) {
+                            std::list<GameObject *> * selected = game_->entity_manager()->selected();
+                            for(std::list<GameObject *>::iterator selected_iterator = selected->begin(); selected_iterator != selected->end(); ++selected_iterator) {
+                                GameObject * object = *selected_iterator;
+                                if(object->is_entity()) {
+                                    Entity * entity = static_cast<Entity *>(object);
+
+                                    GameObject * target_object = game_->entity_manager()->get_object_at(mouse_x, mouse_y);
+
+                                    if((target_object != nullptr) && (target_object->is_entity())) {
+                                        Entity * target_entity = static_cast<Entity *>(target_object);
+                                        entity->attack(target_entity);
+                                    }
                                 }
                             }
 
                         }
                     }
-                    // 2 cases
-                    GameObject * clicked_on = game_->entity_manager()->get_object_at(mouse_x, mouse_y);
-                    // 1. clicking on nothing
-                    if(clicked_on == nullptr) {
-                        // NOTE: left clicking on anything deselects_all with current functionality
-                        game_->entity_manager()->deselect_all();
-                    }
-                    // 2. clicking on something
                     else {
-                        if(!clicked_on->selected() || game_->entity_manager()->objects()->size() != 1) {
+                        // 2 cases
+                        GameObject * clicked_on = game_->entity_manager()->get_object_at(mouse_x, mouse_y);
+                        // 1. clicking on nothing
+                        if(clicked_on == nullptr) {
+                            // NOTE: left clicking on anything deselects_all with current functionality
                             game_->entity_manager()->deselect_all();
-                            game_->entity_manager()->select(clicked_on);
+                        }
+                        // 2. clicking on something
+                        else {
+                            if(!clicked_on->selected() || game_->entity_manager()->objects()->size() != 1) {
+                                game_->entity_manager()->deselect_all();
+                                game_->entity_manager()->select(clicked_on);
+                            }
                         }
                     }
 
