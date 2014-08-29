@@ -190,7 +190,6 @@ bool PlayerAction::update(Entity * entity, int delta_ticks)
         case ATTACK:
 
             // Perform attack
-            if(next_state_ != BLANK) break;
 
             keep_action = attack_action_->update(entity, delta_ticks);
 
@@ -225,12 +224,10 @@ bool PlayerAction::update(Entity * entity, int delta_ticks)
             // SEEK -> IDLE
 
             // ATTACK -> IDLE;
-            delete attack_action_;
-            attack_action_ = nullptr;
             target_ = nullptr;
 
             state_ = IDLE;
-           next_state_ = BLANK;
+            next_state_ = BLANK;
             Logger::write("Switching to IDLE");
             break;
         case SEEK:
@@ -329,6 +326,7 @@ void PlayerAction::stop()
             movement_action_->stop();
             break;
         case ATTACK:
+            attack_action_->stop();
             break;
         case ROTATE:
             break;

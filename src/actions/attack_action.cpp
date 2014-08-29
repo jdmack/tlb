@@ -32,6 +32,10 @@ bool AttackAction::update(Entity * entity, int delta_ticks)
 {
     bool return_value = true;
 
+    if(target_ == nullptr) {
+        Logger::write("Target is NULL");
+        return false;
+    }
     if(stopped_) {
         return false;
     }

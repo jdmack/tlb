@@ -124,6 +124,7 @@ void Entity::move(Point point)
     // Create movement action
     MovementAction * movement_action = new MovementAction(Point(x_position_, y_position_), point, game_->level());
     if(movement_action->empty_path()) {
+        Logger::write("Empty path, cancelling Move");
         return;
     }
     PlayerAction * player_action = static_cast<PlayerAction *>(current_action_);
@@ -145,6 +146,7 @@ void Entity::attack(Entity * target)
 {
     AttackAction * attack_action = new AttackAction(target);
     attack_action->set_range(kPlayerAttackRange);
+    attack_action->set_damage(kPlayerAttackDamage);
     PlayerAction * player_action = static_cast<PlayerAction *>(current_action_);
     player_action->stop();
     player_action->set_next_action(attack_action);

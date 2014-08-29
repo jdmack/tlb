@@ -98,7 +98,7 @@ void EventManager::handle_events()
                 if(event.button.button == SDL_BUTTON_LEFT)
                 {
                     // Check if an entity is selected and R is being held down
-                    if(!game_->entity_manager()->selected()->empty()) {
+                    //if(!game_->entity_manager()->selected()->empty()) {
                         if(current_key_states[SDL_SCANCODE_R]) {
                             std::list<GameObject *> * selected = game_->entity_manager()->selected();
                             for(std::list<GameObject *>::iterator selected_iterator = selected->begin(); selected_iterator != selected->end(); ++selected_iterator) {
@@ -127,13 +127,14 @@ void EventManager::handle_events()
                             }
 
                         }
-                    }
+                    //}
                     else {
                         // 2 cases
                         GameObject * clicked_on = game_->entity_manager()->get_object_at(mouse_x, mouse_y);
                         // 1. clicking on nothing
                         if(clicked_on == nullptr) {
                             // NOTE: left clicking on anything deselects_all with current functionality
+                            Logger::write("Deselecting");
                             game_->entity_manager()->deselect_all();
                         }
                         // 2. clicking on something
