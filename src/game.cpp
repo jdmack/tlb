@@ -13,6 +13,7 @@
 #include "level.h"
 #include "gs_level.h"
 #include "game_state.h"
+#include "utils/global_timer.h"
 
 
 Game::Game()
@@ -47,6 +48,7 @@ int Game::run()
     if(current_state_->init() == 1) {
         return 1;
     }
+    GlobalTimer::instance()->start();
 
     delta_timer_.start();
 

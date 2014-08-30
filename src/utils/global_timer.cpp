@@ -1,16 +1,29 @@
-#include "utils/timer.h"
+#include "SDL2/SDL.h"
 #include "utils/global_timer.h"
+#include "utils/logger.h"
 
-Timer::Timer()
+GlobalTimer * GlobalTimer::instance_;
+
+GlobalTimer::GlobalTimer()
 {
     // Initialize the variables
     start_ticks_ = 0;
     paused_ticks_ = 0;
     paused_ = false;
     started_ = false;
+    instance_ = nullptr;
 }
 
-void Timer::start()
+GlobalTimer * GlobalTimer::instance()
+{
+    if(instance_ == nullptr) {
+        instance_ = new GlobalTimer();
+    }
+    return instance_;
+}
+
+
+void GlobalTimer::start()
 {
     // Start the timer
     started_ = true;
@@ -19,10 +32,10 @@ void Timer::start()
     paused_ = false;
 
     // Get the current clock time
-    start_ticks_ = GlobalTimer::instance()->get_ticks();
+    start_ticks_ = SDL_GetTicks();
 }
 
-void Timer::stop()
+void GlobalTimer::stop()
 {
     // Stop the timer
     started_ = false;
@@ -31,7 +44,7 @@ void Timer::stop()
     paused_ = false;
 }
 
-void Timer::pause()
+void GlobalTimer::pause()
 {
     // If the timer is running and isn't already paused_
     if((started_ == true) && (paused_ == false)) {
@@ -39,11 +52,11 @@ void Timer::pause()
         paused_ = true;
 
         // Calculate the paused_ ticks
-        paused_ticks_ = GlobalTimer::instance()->get_ticks() - start_ticks_;
+        paused_ticks_ = SDL_GetTicks() - start_ticks_;
     }
 }
 
-void Timer::unpause()
+void GlobalTimer::unpause()
 {
     // If the timer is paused_
     if(paused_ == true) {
@@ -51,14 +64,26 @@ void Timer::unpause()
         paused_ = false;
 
         // Reset the starting ticks
-        start_ticks_ = GlobalTimer::instance()->get_ticks() - paused_ticks_;
+        start_ticks_ = SDL_GetTicks() - paused_ticks_;
 
         // Reset the paused_ ticks
         paused_ticks_ = 0;
     }
 }
 
-int Timer::get_ticks()
+void GlobalTimer::toggle_pause()
+{
+    if(paused_) {
+        Logger::write("Un-Pausing");
+        unpause();
+    }
+    else {
+        Logger::write("Pausing");
+        pause();
+    }
+}
+
+int GlobalTimer::get_ticks()
 {
     // If the timer is running
     if(started_ == true) {
@@ -69,7 +94,7 @@ int Timer::get_ticks()
         }
         else {
             // Return the current time minus the start time
-            return GlobalTimer::instance()->get_ticks() - start_ticks_;
+            return SDL_GetTicks() - start_ticks_;
         }
     }
 

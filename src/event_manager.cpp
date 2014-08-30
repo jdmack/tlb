@@ -11,6 +11,7 @@
 #include "camera.h"
 #include "utils/math.h"
 #include "actions/rotate_action.h"
+#include "utils/global_timer.h"
 
 EventManager::EventManager(Game * game)
 {
@@ -64,6 +65,9 @@ void EventManager::handle_events()
                     case SDLK_LEFT:     // Left Arrow
                         break;
                     case SDLK_RIGHT:    // Right Arrow
+                        break;
+                    case SDLK_SPACE:    // Spacebar
+                        GlobalTimer::instance()->toggle_pause();
                         break;
                 }
                 break;
@@ -161,6 +165,7 @@ void EventManager::handle_events()
                 break;
             }
             case SDL_WINDOWEVENT:
+                /*
                 if(event.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
                     focus_timer_.start();
                     //Logger::write("focus_timer started");
@@ -171,6 +176,7 @@ void EventManager::handle_events()
                         //Logger::write("focus_timer stopped");
                     }
                 }
+                */
                 break;
         }
     }
