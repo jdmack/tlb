@@ -49,6 +49,8 @@ class Renderer
         void render_texture_rotate(SDL_Texture * source, SDL_Rect * offset, SDL_Rect * clip , double angle);
         void apply_surface(SDL_Surface * source, SDL_Surface * destination, SDL_Rect * offset, SDL_Rect * clip = nullptr);
 
+        void draw_rectangle(SDL_Rect rect, Color color);
+
 
         SDL_Surface * load_image(std::string);
         SDL_Surface * load_image_alpha(std::string);

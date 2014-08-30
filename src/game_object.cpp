@@ -93,27 +93,13 @@ bool GameObject::contains_point(double x, double y)
 void GameObject::select()
 {
     Logger::write("GameObject::select");
-    if(!selected_) {
-        selected_ = true;
-
-        // TODO (2013-08-26/JM) Put back in the select graphic code
-        //SDL_Surface * select_surface = renderer_->load_image_alpha(kAssetArtDotCircle);
-        //renderer_->apply_surface(0, 0, select_surface, surface_);
-        //SDL_FreeSurface(select_surface);
-    }
+    selected_ = true;
 }
 
 void GameObject::deselect()
 {
     Logger::write("GameObject::deselect");
-    if(selected_) {
-        selected_ = false;
-
-        // TODO (2013-08-26/JM) Put back in the select graphic code
-        //SDL_FreeSurface(surface_);
-        //surface_ = nullptr;
-        //surface_ = renderer_->load_image_alpha(art_asset_);
-    }
+    selected_ = false;
 }
 
 void GameObject::move(Point point)

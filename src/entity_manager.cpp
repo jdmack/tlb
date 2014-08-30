@@ -80,6 +80,7 @@ void EntityManager::delete_all()
 
         GameObject * object = *object_iterator;
         object_iterator = objects_->erase(object_iterator);
+        object->deselect();
         delete object;
     }
 }
@@ -185,7 +186,6 @@ void EntityManager::deselect(GameObject * object)
 ////////////////////////////////////////////////////////////////////////////////
 void EntityManager::deselect_all()
 {
-    /*
     std::list<GameObject *>::iterator selected_iterator = selected_->begin();
 
     while(selected_iterator != selected_->end()) {
@@ -194,5 +194,4 @@ void EntityManager::deselect_all()
 
         selected_iterator = selected_->erase(selected_iterator);
     }
-    */
 }

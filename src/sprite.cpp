@@ -145,6 +145,20 @@ void Sprite::render()
     SDL_Rect offset = { (int)object_->x_position() - ((int)object_->width() / 2), (int)object_->y_position() - ((int)object_->height() / 2), height_, width_ };
     SDL_Rect clip = current_animation_.current_frame();
     renderer_->render_texture(texture_, &offset, &clip);
+
+    if(object_->selected()) {
+
+        Color color = Color(255, 0, 255);
+        SDL_Rect rect = {
+            object_->x_position() - width_ / 2,
+            object_->y_position() - height_ / 2,
+            width_,
+            height_
+        };
+
+        renderer_->draw_rectangle(rect, color);
+
+    }
 }
 
 void Sprite::update()

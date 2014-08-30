@@ -103,19 +103,17 @@ bool Entity::contains_point(double x, double y)
     return true;
 }
 
-void Entity::select()
-{
-    Logger::write(Logger::string_stream << "Entity::select object_id: " << object_id_ << " (x,y): (" << x_position_ << ", " <<  y_position_ << ")");
-    GameObject::select();
-    sprite_->select();
-}
+//void Entity::select()
+//{
+//    Logger::write(Logger::string_stream << "Entity::select object_id: " << object_id_ << " (x,y): (" << x_position_ << ", " <<  y_position_ << ")");
+//    //GameObject::select();
+//}
 
-void Entity::deselect()
-{
-    Logger::write("Entity::deselect");
-    GameObject::deselect();
-    sprite_->deselect();
-}
+//void Entity::deselect()
+//{
+//    Logger::write("Entity::deselect");
+//    selected_ = false;
+//}
 
 void Entity::move(Point point)
 {

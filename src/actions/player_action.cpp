@@ -310,6 +310,9 @@ ActionType PlayerAction::type()
                 type_ = ACTION_IDLE;
             }
             break;
+        default:
+            //type_ = ACTION_IDLE;
+            break;
     }
 
     return type_;

@@ -35,8 +35,8 @@ class Entity : public GameObject
         Entity(Game * game, EntityType type, Point position, double rot);
 
         // overridden
-        void select();
-        void deselect();
+        //void select();
+        //void deselect();
         bool contains_point(double x, double y);
         void move(Point point);
         void rotate(Point point);
