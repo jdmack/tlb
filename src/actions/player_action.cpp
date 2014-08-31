@@ -6,7 +6,7 @@
 
 #include "actions/action.h"
 #include "actions/player_action.h"
-#include "actions/movement_action.h"
+#include "actions/move_action.h"
 #include "actions/rotate_action.h"
 #include "actions/attack_action.h"
 
@@ -24,7 +24,7 @@ PlayerAction::PlayerAction()
     next_state_ = BLANK;
     target_ = nullptr;
     entity_manager_ = nullptr;
-    movement_action_ = nullptr;
+    move_action_ = nullptr;
     rotate_action_ = nullptr;
     attack_action_ = new AttackAction();
     attack_action_->set_damage(kPlayerAttackDamage);
@@ -83,7 +83,7 @@ bool PlayerAction::update(Entity * entity, int delta_ticks)
                 /*
                     // check if target has exceeded leash range
                     if(position.distance_from(Point(target_->x_position(), target_->y_position())) >= kZombieLeashRadius) {
-                        movement_action_->stop();
+                        move_action_->stop();
                         next_state_ = IDLE;
                         Logger::write("SEEK: Out of leash range");
                     }
@@ -91,7 +91,7 @@ bool PlayerAction::update(Entity * entity, int delta_ticks)
                     // check if target has moved far from we think it is
                     // TODO(2014-08-15/JM): Hard coded number 12 here for distance, change
                     else if(target_last_position.distance_from(Point(target_->x_position(), target_->y_position())) >= 12) {
-                        movement_action_->stop();
+                        move_action_->stop();
                         next_state_ = SEEK;
                         Logger::write("SEEK: Recalculating movement to target");
                     }
@@ -136,7 +136,7 @@ bool PlayerAction::update(Entity * entity, int delta_ticks)
             if(next_state_ == MOVE) {
                 state_ = MOVE;
                 next_state_ = BLANK;
-                movement_action_ = static_cast<MovementAction *>(next_action_);
+                move_action_ = static_cast<MoveAction *>(next_action_);
                 next_action_ = nullptr;
             }
             else if(next_state_ == ATTACK) {
@@ -162,13 +162,13 @@ bool PlayerAction::update(Entity * entity, int delta_ticks)
         case SEEK:
 
             // Perform movement
-            keep_action = movement_action_->update(entity, delta_ticks);
+            keep_action = move_action_->update(entity, delta_ticks);
             //Logger::write(Logger::string_stream << "keep_action: " << keep_action);
 
             if(!keep_action) {
                 Logger::write("SEEK complete");
-                delete movement_action_;
-                movement_action_ = nullptr;
+                delete move_action_;
+                move_action_ = nullptr;
                 if(next_state_ == BLANK) {
                     next_state_ = ATTACK;
                 }
@@ -177,12 +177,12 @@ bool PlayerAction::update(Entity * entity, int delta_ticks)
 
         case MOVE:
 
-            keep_action = movement_action_->update(entity, delta_ticks);
+            keep_action = move_action_->update(entity, delta_ticks);
 
             if(!keep_action) {
                 Logger::write("MOVE complete");
-                delete movement_action_;
-                movement_action_ = nullptr;
+                delete move_action_;
+                move_action_ = nullptr;
             }
 
             break;
@@ -237,8 +237,8 @@ bool PlayerAction::update(Entity * entity, int delta_ticks)
             if(!keep_action || (state_ == ATTACK)) {
 
                // Create movement action
-               movement_action_ = new MovementAction(position, Point(target_->x_position(), target_->y_position()), game_->level());
-               movement_action_->remove_movements_back();
+               move_action_ = new MoveAction(position, Point(target_->x_position(), target_->y_position()), game_->level());
+               move_action_->remove_movements_back();
                target_last_position = Point(target_->x_position(), target_->y_position());
                state_ = SEEK;
                next_state_ = BLANK;
@@ -254,10 +254,10 @@ bool PlayerAction::update(Entity * entity, int delta_ticks)
                 if((next_action_ != nullptr) && (next_action_->type() == ACTION_MOVEMENT)) {
                     state_ = MOVE;
                     next_state_ = BLANK;
-                    movement_action_ = static_cast<MovementAction *>(next_action_);
-                    MovementAction * next_movement_action = new MovementAction(position, movement_action_->end(), movement_action_->level());
-                    delete movement_action_;
-                    movement_action_ = next_movement_action;
+                    move_action_ = static_cast<MoveAction *>(next_action_);
+                    MoveAction * next_move_action = new MoveAction(position, move_action_->end(), move_action_->level());
+                    delete move_action_;
+                    move_action_ = next_move_action;
                     next_action_ = nullptr;
                 }
                 else {
@@ -326,7 +326,7 @@ void PlayerAction::stop()
         case SEEK:
             break;
         case MOVE:
-            movement_action_->stop();
+            move_action_->stop();
             break;
         case ATTACK:
             attack_action_->stop();

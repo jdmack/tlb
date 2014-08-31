@@ -72,21 +72,21 @@ bool GSLevel::update(int delta_ticks)
 }
 void GSLevel::render()
 {
-    //game_->level()->render();
+    game_->level()->render();
 
     // Render
     std::vector<Entity *> entities = game_->entity_manager()->get_entities();
     for(std::vector<Entity *>::iterator entity_iterator = entities.begin(); entity_iterator != entities.end(); ++entity_iterator) {
-        //(*entity_iterator)->render();
+        (*entity_iterator)->render();
 
         if(((*entity_iterator)->type() == PLAYER) || ((*entity_iterator)->type() == ZOMBIE)) {
-            //game_->renderer()->draw_life_bar(*entity_iterator);
+            game_->renderer()->draw_life_bar(*entity_iterator);
         }
     }
 
     // FOR TESTING
-    panel.render();
-    text->render();
+    //panel.render();
+    //text->render();
 }
 
 void GSLevel::end()

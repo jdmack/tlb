@@ -13,7 +13,7 @@ const double kZombieAttackRadius = 48;
 class Entity;
 class GameObject;
 class Game;
-class MovementAction;
+class MoveAction;
 class RotateAction;
 class AttackAction;
 
@@ -38,7 +38,7 @@ class ZombieAction : public Action
 
         Point target_last_position;
 
-        MovementAction * movement_action_;
+        MoveAction * move_action_;
         RotateAction * rotate_action_;
         AttackAction * attack_action_;
         Action * next_action_;

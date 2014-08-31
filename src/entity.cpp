@@ -7,7 +7,7 @@
 #include "point.h"
 #include "game.h"
 #include "level.h"
-#include "actions/movement_action.h"
+#include "actions/move_action.h"
 #include "actions/dead_action.h"
 #include "actions/action.h"
 #include "actions/player_action.h"
@@ -120,14 +120,14 @@ void Entity::move(Point point)
     Logger::write(Logger::string_stream << "Move - (x,y): (" << point.x() << "," << point.y() << ")");
 
     // Create movement action
-    MovementAction * movement_action = new MovementAction(Point(x_position_, y_position_), point, game_->level());
-    if(movement_action->empty_path()) {
+    MoveAction * move_action = new MoveAction(Point(x_position_, y_position_), point, game_->level());
+    if(move_action->empty_path()) {
         Logger::write("Empty path, cancelling Move");
         return;
     }
     PlayerAction * player_action = static_cast<PlayerAction *>(current_action_);
     player_action->stop();
-    player_action->set_next_action(static_cast<Action *>(movement_action));
+    player_action->set_next_action(static_cast<Action *>(move_action));
     player_action->set_next_state(MOVE);
 }
 
