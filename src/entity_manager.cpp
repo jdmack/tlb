@@ -3,7 +3,7 @@
 #include "renderer.h"
 #include "game.h"
 #include "game_object.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 #include "point.h"
 #include "entity.h"
 

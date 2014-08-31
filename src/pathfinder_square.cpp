@@ -6,7 +6,7 @@
 #include "pathfinder_square.h"
 #include "grid.h"
 #include "grid_node.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 
 static int compare_GridNodes (const GridNode* a, const GridNode* b);
 

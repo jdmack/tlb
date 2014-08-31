@@ -1,7 +1,7 @@
 #ifndef TLB_DURATION_H_
 #define TLB_DURATION_H_
 
-#include "utils/timer.h"
+#include "util/timer.h"
 
 class Duration
 {

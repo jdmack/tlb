@@ -4,7 +4,7 @@
 #include "movement.h"
 #include "point.h"
 #include "game_object.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 
 Movement::Movement(Vector vector, Point start, Point destination)
 {

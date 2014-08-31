@@ -3,7 +3,7 @@
 
 #include <map>
 #include <string>
-#include "utils/timer.h"
+#include "util/timer.h"
 #include "SDL2/SDL.h"
 #include "animation.h"
 #include "actions/action.h"

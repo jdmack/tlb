@@ -1,6 +1,6 @@
 #include "ui/panel.h"
 #include "point.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 
 Panel::Panel()
 {

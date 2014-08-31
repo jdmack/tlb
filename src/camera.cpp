@@ -2,9 +2,9 @@
 #include "game_object.h"
 #include "level.h"
 #include "game.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 #include "point.h"
-#include "utils/math.h"
+#include "util/math.h"
 
 Camera::Camera(Game * game)
 {

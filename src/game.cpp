@@ -8,12 +8,12 @@
 #include "renderer.h"
 #include "entity_manager.h"
 #include "event_manager.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 #include "camera.h"
 #include "level.h"
 #include "gs_level.h"
 #include "game_state.h"
-#include "utils/global_timer.h"
+#include "util/global_timer.h"
 
 Game * Game::instance_;
 

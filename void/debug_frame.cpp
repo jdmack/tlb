@@ -4,7 +4,7 @@
 #include "assets.h"
 #include "point.h"
 #include "event_manager.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 
 DebugFrame::DebugFrame(Renderer * renderer)
 {

@@ -15,7 +15,7 @@
 #include "point.h"
 #include "pathfinder_hex.h"
 #include "pathfinder_square.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 #include "entity.h"
 
 RotateAction::RotateAction(double direction)

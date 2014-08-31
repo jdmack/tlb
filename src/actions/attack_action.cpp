@@ -1,7 +1,7 @@
 #include "actions/action.h"
 #include "actions/attack_action.h"
 #include "entity.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 
 AttackAction::AttackAction()
 {

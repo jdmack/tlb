@@ -1,6 +1,6 @@
 #include <string>
 #include "animation.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 
 Animation::Animation()
 {

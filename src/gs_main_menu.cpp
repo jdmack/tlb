@@ -5,7 +5,7 @@
 #include "renderer.h"
 #include "game.h"
 #include "assets.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 
 
 GSMainMenu::GSMainMenu(Game * game)

@@ -17,7 +17,7 @@
 #include "renderer.h"
 #include "sprite.h"
 #include "vector.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 
 Entity::Entity(Game * game, EntityType type) : GameObject(game)
 {

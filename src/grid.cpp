@@ -1,7 +1,7 @@
 #include "grid.h"
 #include "grid_node.h"
 #include "point.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 
 Grid::Grid()
 {

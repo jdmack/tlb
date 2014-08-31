@@ -5,13 +5,13 @@
 #include "entity_manager.h"
 #include "game.h"
 #include "game_object.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 #include "point.h"
 #include "entity.h"
 #include "camera.h"
-#include "utils/math.h"
+#include "util/math.h"
 #include "actions/rotate_action.h"
-#include "utils/global_timer.h"
+#include "util/global_timer.h"
 
 EventManager::EventManager(Game * game)
 {

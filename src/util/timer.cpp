@@ -1,5 +1,5 @@
-#include "utils/timer.h"
-#include "utils/global_timer.h"
+#include "util/timer.h"
+#include "util/global_timer.h"
 
 Timer::Timer()
 {

@@ -3,7 +3,7 @@
 #include "sprite.h"
 #include "renderer.h"
 #include "game_object.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 #include "rapidxml/rapidxml.hpp"
 
 Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)

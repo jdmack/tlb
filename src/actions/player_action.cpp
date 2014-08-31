@@ -12,7 +12,7 @@
 
 #include "game_object.h"
 #include "point.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 #include "entity.h"
 #include "entity_manager.h"
 #include "game.h"

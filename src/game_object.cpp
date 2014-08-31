@@ -1,6 +1,6 @@
 #include "game_object.h"
 #include "renderer.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 #include "vector.h"
 #include "actions/action.h"
 #include "sprite.h"

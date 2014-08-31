@@ -1,7 +1,7 @@
 #include <cmath>
 #include "vector.h"
 #include "point.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 
 Vector::Vector()
 {

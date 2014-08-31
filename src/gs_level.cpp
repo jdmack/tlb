@@ -9,7 +9,7 @@
 #include "actions/zombie_action.h"
 #include "entity.h"
 #include "assets.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 
 #include "ui/panel.h"
 #include "ui/text.h"

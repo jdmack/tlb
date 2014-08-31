@@ -9,8 +9,8 @@
 #include "grid_node.h"
 #include "renderer.h"
 #include "tile.h"
-#include "utils/logger.h"
-#include "utils/math.h"
+#include "util/logger.h"
+#include "util/math.h"
 
 Level::Level(Game * game)
 {

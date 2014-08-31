@@ -7,11 +7,11 @@
 #include "color.h"
 #include "game_object.h"
 #include "sprite.h"
-#include "utils/logger.h"
+#include "util/logger.h"
 #include "point.h"
 #include "hit_point.h"
 #include "entity.h"
-#include "utils/math.h"
+#include "util/math.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //

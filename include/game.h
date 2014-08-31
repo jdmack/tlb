@@ -2,7 +2,7 @@
 #define TLB_GAME_H_
 
 #include "SDL2/SDL.h"
-#include "utils/timer.h"
+#include "util/timer.h"
 
 class Camera;
 class EntityManager;

@@ -1,6 +1,6 @@
 #include "SDL2/SDL.h"
-#include "utils/global_timer.h"
-#include "utils/logger.h"
+#include "util/global_timer.h"
+#include "util/logger.h"
 
 GlobalTimer * GlobalTimer::instance_;
 
