@@ -25,9 +25,17 @@ class Game
         Level * level_;
         GameState * current_state_;
 
-    public:
+        static Game * instance_;
+
         Game();
+
+    public:
+        Game(const Game &) = delete;
+        Game& operator=(const Game &) = delete;
         ~Game();
+
+        static Game * instance();
+
         int run();
         void game_loop();
         void process_arguments(int argc, char * argv[]);

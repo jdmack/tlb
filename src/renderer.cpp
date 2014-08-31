@@ -1,5 +1,6 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
+#include "SDL2/SDL_ttf.h"
 
 #include "renderer.h"
 #include "camera.h"
@@ -36,17 +37,27 @@ bool Renderer::init()
     if(SDL_Init(SDL_INIT_VIDEO) == -1) {
         return false;
     }
-    /*
-    NOTE/TODO: Uncomment this when SDL_ttf is installed
-    if(TTF_Init()==-1) {
+    int img_flags = IMG_INIT_PNG;
+
+    if(!(IMG_Init(img_flags) & img_flags)) {
+        Logger::write(Logger::string_stream << "SDL_image could not initialize! SDL_image Error: " <<  IMG_GetError());
+        return false;
+    }
+
+
+
+    if(TTF_Init() == -1) {
         Logger::write(Logger::string_stream << "TTF_Init: " << TTF_GetError());
         return false;
     }
-    */
 
     // Setup renderer
     window_ = SDL_CreateWindow(kWindowName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, kRendererWidth, kRendererHeight, SDL_WINDOW_SHOWN);
-    renderer_ = SDL_CreateRenderer(window_, -1, 0);
+
+
+    //renderer_ = SDL_CreateRenderer(window_, -1, 0);
+    renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+
 
     // Check renderer was setup successfully
     if((window_ == nullptr) || (renderer_ == nullptr)) {

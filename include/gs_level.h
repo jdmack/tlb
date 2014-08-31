@@ -8,6 +8,7 @@
 
 // FOR TESTING
 #include "ui/panel.h"
+#include "ui/text.h"
 
 class Game;
 
@@ -18,6 +19,7 @@ class GSLevel : public GameState
 
         // FOR TESTING
         Panel panel;
+        Text * text;
 
     public:
         GSLevel(Game * game);

@@ -15,6 +15,7 @@
 #include "game_state.h"
 #include "utils/global_timer.h"
 
+Game * Game::instance_;
 
 Game::Game()
 {
@@ -34,6 +35,15 @@ Game::~Game()
 {
     delete renderer_;
 }
+
+Game * Game::instance()
+{
+    if(instance_ == nullptr) {
+        instance_ = new Game();
+    }
+    return instance_;
+}
+
 
 int Game::run()
 {

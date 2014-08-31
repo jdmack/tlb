@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
 
     int exit_code = 0;
 
-    Game * game = new Game;
+    Game * game = Game::instance();
 
     game->process_arguments(argc, argv);
     exit_code = game->run();

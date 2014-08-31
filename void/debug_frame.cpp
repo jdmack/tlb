@@ -1,3 +1,4 @@
+/*
 #include <sstream>
 #include "debug_frame.h"
 #include "assets.h"
@@ -74,3 +75,5 @@ bool DebugFrame::toggle()
     shown_ = !shown_;
     return shown_;
 }
+
+*/
