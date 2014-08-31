@@ -54,14 +54,14 @@ void Text::set_text(std::string text)
     SDL_Color color = { color_.red(), color_.green(), color_.blue() };
     SDL_Surface * surface = TTF_RenderText_Solid(font_, text_.c_str(), color);
     if(surface == nullptr) {
-        Logger::write(Logger::string_stream << "Unable to render text surface! SDL_ttf Error: " << TTF_GetError());
+        Logger::write(Logger::ss << "Unable to render text surface! SDL_ttf Error: " << TTF_GetError());
     }
     else
     {
         //Create texture from surface pixels
         texture_ = SDL_CreateTextureFromSurface(Game::instance()->renderer()->renderer(), surface);
         if(texture_ == nullptr)  {
-            Logger::write(Logger::string_stream << "Unable to create texture from rendered text! SDL Error: " << SDL_GetError());
+            Logger::write(Logger::ss << "Unable to create texture from rendered text! SDL Error: " << SDL_GetError());
         }
         else {
             //Get image dimensions
@@ -78,7 +78,7 @@ TTF_Font * Text::load_font(std::string filename, int size)
 {
     TTF_Font * font = TTF_OpenFont(filename.c_str(), size);
         if(font == nullptr) {
-            Logger::write(Logger::string_stream << "Failed to load lazy font! SDL_ttf Error: " << TTF_GetError());
+            Logger::write(Logger::ss << "Failed to load lazy font! SDL_ttf Error: " << TTF_GetError());
         }
         return font;
 }

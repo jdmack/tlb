@@ -32,7 +32,7 @@ RotateAction::RotateAction(Entity * entity, Point mouse_point)
 std::string RotateAction::to_string()
 {
 	//for (std::list<GridNode *>::iterator iterator = nodes->begin(), end = nodes->end(); iterator != end; ++iterator) {
-	//    Logger::string_stream << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
+	//    Logger::ss << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
 	//}
 	return "";
 }
@@ -53,7 +53,7 @@ bool RotateAction::update(Entity * entity, int delta_ticks)
 
     // Check rotation
     if(rotation != direction_) {
-        //Logger::write(Logger::string_stream << "Rotation: " << rotation << ", Direction: " << direction_);
+        //Logger::write(Logger::ss << "Rotation: " << rotation << ", Direction: " << direction_);
         // Determine and set rotation direction
         double dir = direction_ - rotation;
         if((dir > 0) && (std::abs(dir) <= 180)) { clockwise = false; }

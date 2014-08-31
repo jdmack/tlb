@@ -41,10 +41,10 @@ void DebugFrame::render()
     message << "Mouse: (" << mouse.x_position() << "," << mouse.y_position() << ")";
     SDL_Surface * surface = TTF_RenderText_Solid(font_, message.str().c_str(), fg_color_);
     if(surface == nullptr) {
-        Logger::write(Logger::string_stream << "Text Error: " << TTF_GetError());
+        Logger::write(Logger::ss << "Text Error: " << TTF_GetError());
     }
 
-    Logger::write(Logger::string_stream << "Text Surface:\n"
+    Logger::write(Logger::ss << "Text Surface:\n"
             << "\t\t\t\t\t\t" << "w: " << surface->format << "\n"
             << "\t\t\t\t\t\t" << "h: " << surface->format << "\n"
             << "\t\t\t\t\t\t" << "pitch: " << surface->format << "\n"
@@ -61,7 +61,7 @@ void DebugFrame::render()
     SDL_Rect offset = { x_position_, y_position_, surface->w, surface->h };
     texture_ = SDL_CreateTextureFromSurface(renderer_->renderer(), surface);
     if(texture_ == nullptr) {
-        Logger::write(Logger::string_stream << "DebugFrame Texture: " << SDL_GetError());
+        Logger::write(Logger::ss << "DebugFrame Texture: " << SDL_GetError());
     }
     else {
         renderer_->render_texture(texture_, &offset, nullptr);

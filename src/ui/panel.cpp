@@ -37,7 +37,7 @@ void Panel::render()
     //SDL_Rect offset = { x_position_, y_position_, surface->w, surface->h };
     //texture_ = SDL_CreateTextureFromSurface(renderer_->renderer(), surface);
     //if(texture_ == nullptr) {
-    //    Logger::write(Logger::string_stream << "Panel Texture: " << SDL_GetError());
+    //    Logger::write(Logger::ss << "Panel Texture: " << SDL_GetError());
     //}
     //else {
     //    renderer_->render_texture(texture_, &offset, nullptr);

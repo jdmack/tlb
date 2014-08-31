@@ -19,7 +19,7 @@ PathfinderHex::PathfinderHex(Grid * grid)
 
 std::list<GridNode *> * PathfinderHex::run(GridNode * start_node, GridNode * end_node)
 {
-    //Logger::write(Logger::string_stream << "PathfinderHex start");
+    //Logger::write(Logger::ss << "PathfinderHex start");
     reset();
     // 1. Add the starting square (or node) to the open list.
     open_list.push_back(start_node);
@@ -34,12 +34,12 @@ std::list<GridNode *> * PathfinderHex::run(GridNode * start_node, GridNode * end
         if(!open_list.empty()) {
 
             open_list.sort(compare_GridNodes);
-            //Logger::write(Logger::string_stream << open_list_to_string());
+            //Logger::write(Logger::ss << open_list_to_string());
 
             current_node = open_list.front();
             open_list.pop_front();
 
-            //Logger::write(Logger::string_stream << "current_node: " << current_node->to_string());
+            //Logger::write(Logger::ss << "current_node: " << current_node->to_string());
         }
         else { 
             // Return empty list for "no path"
@@ -102,13 +102,13 @@ std::list<GridNode *> * PathfinderHex::run(GridNode * start_node, GridNode * end
             }
         }
 
-        //Logger::write(Logger::string_stream << "can_go_0: " << can_go_0);
-        //Logger::write(Logger::string_stream << "can_go_1: " << can_go_1);
-        //Logger::write(Logger::string_stream << "can_go_2: " << can_go_2);
-        //Logger::write(Logger::string_stream << "can_go_3: " << can_go_3);
-        //Logger::write(Logger::string_stream << "can_go_4: " << can_go_4);
-        //Logger::write(Logger::string_stream << "can_go_5: " << can_go_5);
-        //Logger::write(Logger::string_stream);
+        //Logger::write(Logger::ss << "can_go_0: " << can_go_0);
+        //Logger::write(Logger::ss << "can_go_1: " << can_go_1);
+        //Logger::write(Logger::ss << "can_go_2: " << can_go_2);
+        //Logger::write(Logger::ss << "can_go_3: " << can_go_3);
+        //Logger::write(Logger::ss << "can_go_4: " << can_go_4);
+        //Logger::write(Logger::ss << "can_go_5: " << can_go_5);
+        //Logger::write(Logger::ss);
 
         for(int i = 0; i < 6; i++) {
 /*
@@ -135,7 +135,7 @@ std::list<GridNode *> * PathfinderHex::run(GridNode * start_node, GridNode * end
             switch(i) {
                 case 0:
                     if(!can_go_0) continue;
-                    //Logger::write(Logger::string_stream << "0");
+                    //Logger::write(Logger::ss << "0");
 
                     if(even_row) {
                         adjacent_node = grid_->node(current_node->row() - 1, current_node->column() - 1);
@@ -147,7 +147,7 @@ std::list<GridNode *> * PathfinderHex::run(GridNode * start_node, GridNode * end
                     break;
                 case 1:
                     if(!can_go_1) continue;
-                    //Logger::write(Logger::string_stream << "1");
+                    //Logger::write(Logger::ss << "1");
 
                     if(even_row) {
                         adjacent_node = grid_->node(current_node->row() - 1, current_node->column());
@@ -159,14 +159,14 @@ std::list<GridNode *> * PathfinderHex::run(GridNode * start_node, GridNode * end
                     break;
                 case 2:
                     if(!can_go_2) continue;
-                    //Logger::write(Logger::string_stream << "2");
+                    //Logger::write(Logger::ss << "2");
 
                     adjacent_node = grid_->node(current_node->row(), current_node->column() + 1);
                     g_cost_inc = kNodeCostAdj;
                     break;
                 case 3:
                     if(!can_go_3) continue;
-                    //Logger::write(Logger::string_stream << "3");
+                    //Logger::write(Logger::ss << "3");
 
                     if(even_row) {
                         adjacent_node = grid_->node(current_node->row() + 1, current_node->column());
@@ -178,7 +178,7 @@ std::list<GridNode *> * PathfinderHex::run(GridNode * start_node, GridNode * end
                     break;
                 case 4:
                     if(!can_go_4) continue;
-                    //Logger::write(Logger::string_stream << "4");
+                    //Logger::write(Logger::ss << "4");
 
                     if(even_row) {
                         adjacent_node = grid_->node(current_node->row() + 1, current_node->column() - 1);
@@ -190,22 +190,22 @@ std::list<GridNode *> * PathfinderHex::run(GridNode * start_node, GridNode * end
                     break;
                 case 5:
                     if(!can_go_5) continue;
-                    //Logger::write(Logger::string_stream << "5");
+                    //Logger::write(Logger::ss << "5");
 
                     adjacent_node = grid_->node(current_node->row(), current_node->column() - 1);
                     g_cost_inc = kNodeCostAdj;
                     break;
             }
-            //Logger::write(Logger::string_stream << "\tConsidering Node: " << adjacent_node->to_string());
+            //Logger::write(Logger::ss << "\tConsidering Node: " << adjacent_node->to_string());
         
             // If it is not walkable or if it is on the closed list, ignore it. Otherwise do the following.
             //if(closed_list_contains(adjacent_node)) {
             if(!adjacent_node->walkable()) {
-                //Logger::write(Logger::string_stream << "\t\tNode not walkable");
+                //Logger::write(Logger::ss << "\t\tNode not walkable");
                 continue;
             }
             if(closed_list_contains(adjacent_node)) {
-                //Logger::write(Logger::string_stream << "\t\tNode already on closed list");
+                //Logger::write(Logger::ss << "\t\tNode already on closed list");
                 continue;
             }
 

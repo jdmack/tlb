@@ -33,7 +33,7 @@ Grid::Grid(int rows, int columns)
 
 GridNode * Grid::node(int row, int column)
 {
-    //Logger::write(Logger::string_stream << "grid: node at (" << row << "," << column << ")");
+    //Logger::write(Logger::ss << "grid: node at (" << row << "," << column << ")");
     return nodes_->at((columns_ * row) + column);
 }
 
@@ -105,7 +105,7 @@ GridNode * Grid::node_at_point(Point point)
 	    row = point.y() / node_height_;
 	}
 
-	//Logger::write(Logger::string_stream << "Returning node(" << col << "," << row << ")");
+	//Logger::write(Logger::ss << "Returning node(" << col << "," << row << ")");
 	return node(row, col);
 }
 

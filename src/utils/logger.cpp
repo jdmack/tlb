@@ -15,7 +15,7 @@ Logger::Logger(std::string filename)
 namespace Logger
 {
     std::ofstream output_file;
-    std::stringstream string_stream;
+    std::stringstream ss;
 }
 
 void Logger::open(std::string filename)
@@ -34,10 +34,10 @@ void Logger::write(std::string message)
 void Logger::write(std::basic_ostream<char>& message)
 {
     DateTime datetime;
-    //Logger::output_file << datetime.timestamp() << string_stream.str() << "\n";
-    Logger::output_file << "  " << string_stream.str() << "\n";
+    //Logger::output_file << datetime.timestamp() << ss.str() << "\n";
+    Logger::output_file << "  " << ss.str() << "\n";
     Logger::output_file.flush();
-    Logger::string_stream.str(std::string());
+    Logger::ss.str(std::string());
 }
 
 void Logger::close()

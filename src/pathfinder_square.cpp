@@ -18,11 +18,11 @@ PathfinderSquare::PathfinderSquare(Grid * grid)
 std::list<GridNode *> * PathfinderSquare::run(GridNode * start_node, GridNode * end_node)
 {
     bool allow_diagonals = true;
-    Logger::write(Logger::string_stream << "PathfinderSquare start");
+    Logger::write(Logger::ss << "PathfinderSquare start");
     reset();
 
-    Logger::write(Logger::string_stream << "Start: " << start_node->to_string());
-    Logger::write(Logger::string_stream << "End: " << end_node->to_string());
+    Logger::write(Logger::ss << "Start: " << start_node->to_string());
+    Logger::write(Logger::ss << "End: " << end_node->to_string());
 
 
     // 1. Add the starting square (or node) to the open list.
@@ -38,12 +38,12 @@ std::list<GridNode *> * PathfinderSquare::run(GridNode * start_node, GridNode * 
         if(!open_list.empty()) {
 
             open_list.sort(compare_GridNodes);
-            //Logger::write(Logger::string_stream << open_list_to_string());
+            //Logger::write(Logger::ss << open_list_to_string());
 
             current_node = open_list.front();
             open_list.pop_front();
 
-            //Logger::write(Logger::string_stream << "current_node: " << current_node->to_string());
+            //Logger::write(Logger::ss << "current_node: " << current_node->to_string());
         }
         else { 
             // Return empty list for "no path"
@@ -162,16 +162,16 @@ std::list<GridNode *> * PathfinderSquare::run(GridNode * start_node, GridNode * 
                     g_cost_inc = kNodeCostDia;
                     break;
             }
-            //Logger::write(Logger::string_stream << "\tConsidering Node: " << adjacent_node->to_string());
+            //Logger::write(Logger::ss << "\tConsidering Node: " << adjacent_node->to_string());
         
             // If it is not walkable or if it is on the closed list, ignore it. Otherwise do the following.
             //if(closed_list_contains(adjacent_node)) {
             if(!adjacent_node->walkable()) {
-                //Logger::write(Logger::string_stream << "\t\tNode not walkable");
+                //Logger::write(Logger::ss << "\t\tNode not walkable");
                 continue;
             }
             if(closed_list_contains(adjacent_node)) {
-                //Logger::write(Logger::string_stream << "\t\tNode already on closed list");
+                //Logger::write(Logger::ss << "\t\tNode already on closed list");
                 continue;
             }
 

@@ -29,15 +29,15 @@ SDL_Rect Animation::current_frame()
 
 void Animation::next_frame()
 {
-    //Logger::write(Logger::string_stream << std::distance(frames_.begin(), current_));
-    //Logger::write(Logger::string_stream << frames_.size());
+    //Logger::write(Logger::ss << std::distance(frames_.begin(), current_));
+    //Logger::write(Logger::ss << frames_.size());
     //if(frames_.size() == 1) {
         //return;
     //}
     //Logger::write("Next Frame");
     ++current_;
     if(current_ >= frames_.size()) {
-        //Logger::write(Logger::string_stream << key_ << " - Starting over, frames_.size(): " << frames_.size());
+        //Logger::write(Logger::ss << key_ << " - Starting over, frames_.size(): " << frames_.size());
         current_ = 0;
 
     }

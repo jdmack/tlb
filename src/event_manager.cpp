@@ -96,7 +96,7 @@ void EventManager::handle_events()
                 mouse_x = mouse_point.x();
                 mouse_y = mouse_point.y();
 
-                //Logger::write(Logger::string_stream << "mouse: (" << mouse_x << "," << mouse_y << ")");
+                //Logger::write(Logger::ss << "mouse: (" << mouse_x << "," << mouse_y << ")");
 
                 // SDL_BUTTON_LEFT - Selection
                 if(event.button.button == SDL_BUTTON_LEFT)

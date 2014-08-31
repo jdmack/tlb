@@ -27,9 +27,9 @@ void Camera::center(GameObject * object)
 {
     x_position_ = object->x_position() - (width_ / 2);
     y_position_ = object->y_position() - (height_ / 2);
-    //Logger::write(Logger::string_stream << "Camera: " << x_position_ << "," << y_position_);
+    //Logger::write(Logger::ss << "Camera: " << x_position_ << "," << y_position_);
     fix_bounds();
-    //Logger::write(Logger::string_stream << "Camera: " << x_position_ << "," << y_position_);
+    //Logger::write(Logger::ss << "Camera: " << x_position_ << "," << y_position_);
 }
 
 SDL_Rect Camera::rect()

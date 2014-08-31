@@ -105,7 +105,7 @@ bool Entity::contains_point(double x, double y)
 
 //void Entity::select()
 //{
-//    Logger::write(Logger::string_stream << "Entity::select object_id: " << object_id_ << " (x,y): (" << x_position_ << ", " <<  y_position_ << ")");
+//    Logger::write(Logger::ss << "Entity::select object_id: " << object_id_ << " (x,y): (" << x_position_ << ", " <<  y_position_ << ")");
 //    //GameObject::select();
 //}
 
@@ -117,7 +117,7 @@ bool Entity::contains_point(double x, double y)
 
 void Entity::move(Point point)
 {
-    Logger::write(Logger::string_stream << "Move - (x,y): (" << point.x() << "," << point.y() << ")");
+    Logger::write(Logger::ss << "Move - (x,y): (" << point.x() << "," << point.y() << ")");
 
     // Create movement action
     MoveAction * move_action = new MoveAction(Point(x_position_, y_position_), point, game_->level());

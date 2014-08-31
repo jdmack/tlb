@@ -85,7 +85,7 @@ Point GridNode::center_point()
 
     // Square grid center point code
 
-    //Logger::write(Logger::string_stream << "Center Point of GridNode(" << column_ << "," << row_ <<"):(" << x << ", " << y << ")");
+    //Logger::write(Logger::ss << "Center Point of GridNode(" << column_ << "," << row_ <<"):(" << x << ", " << y << ")");
 
     return Point(x, y);
 }

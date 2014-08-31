@@ -41,15 +41,15 @@ bool Level::load(std::string filename)
     //p1 = Math::convert_to_cartesian(p1);
     //p2 = Math::convert_to_cartesian(p2);
     //double distance = p1.distance_from(p2);
-    //Logger::write(Logger::string_stream << "Distance: " << distance);
+    //Logger::write(Logger::ss << "Distance: " << distance);
 
     bool hex_grid = true;
-    Logger::write(Logger::string_stream << "Loading map: " << filename);
+    Logger::write(Logger::ss << "Loading map: " << filename);
 
     std::ifstream map(filename.c_str());
 
     if(map == nullptr) {
-        Logger::write(Logger::string_stream << "Failed to open file: " << filename);
+        Logger::write(Logger::ss << "Failed to open file: " << filename);
         return false;
     }
 
@@ -102,7 +102,7 @@ bool Level::load(std::string filename)
 
         // If the was a problem in reading the map
         if(map.fail() == true) {
-            Logger::write(Logger::string_stream << "Failed to read file | " << t);
+            Logger::write(Logger::ss << "Failed to read file | " << t);
             map.close();
             return false;
         }
@@ -137,7 +137,7 @@ bool Level::load(std::string filename)
             map.close();
             return false;
         }
-        //Logger::write(Logger::string_stream << "Read in tile (" << y / kTileHeight << "," << x / kTileWidth << ") Type: " << tile_type);
+        //Logger::write(Logger::ss << "Read in tile (" << y / kTileHeight << "," << x / kTileWidth << ") Type: " << tile_type);
 
         column++;
         if(column >= columns_) {
@@ -180,7 +180,7 @@ void Level::render()
 {
     for(std::vector<Tile *>::iterator tile_iterator = tiles_->begin(); tile_iterator != tiles_->end(); ++tile_iterator) {
         (*tile_iterator)->render();
-        //if(thing) Logger::write(Logger::string_stream << "Rendering tile: (" << (*tile_iterator)->row() << "," << (*tile_iterator)->column() << ")");
+        //if(thing) Logger::write(Logger::ss << "Rendering tile: (" << (*tile_iterator)->row() << "," << (*tile_iterator)->column() << ")");
     }
     //if(thing) thing = false;
 }
@@ -195,7 +195,7 @@ void Level::build_grid()
         for(int c = 0; c < columns_ ; c++)
            grid_->node(r, c)->set_walkable(is_walkable(r, c));
 
-    //Logger::write(Logger::string_stream << "Rows:" << rows_ << ", Columns: " << columns_);
+    //Logger::write(Logger::ss << "Rows:" << rows_ << ", Columns: " << columns_);
 }
 
 bool Level::is_walkable(int row, int col)
@@ -203,11 +203,11 @@ bool Level::is_walkable(int row, int col)
     Tile * this_tile = tiles_->at((columns_ * row) + col);
 
     if(this_tile->type() >= 3) {
-        //Logger::write(Logger::string_stream << "Returning walkable false: (" << col << "," << row << ") Type: " << this_tile->type());
-        //Logger::write(Logger::string_stream << "Recorded: (" << this_tile->row() << "," << this_tile->column() << ")");
+        //Logger::write(Logger::ss << "Returning walkable false: (" << col << "," << row << ") Type: " << this_tile->type());
+        //Logger::write(Logger::ss << "Recorded: (" << this_tile->row() << "," << this_tile->column() << ")");
         return false;
     }
-    //Logger::write(Logger::string_stream << "Returning walkable true: (" << col << "," << row << ") Type: " << this_tile->type());
-    //Logger::write(Logger::string_stream << "Recorded: (" << this_tile->row() << "," << this_tile->column() << ")");
+    //Logger::write(Logger::ss << "Returning walkable true: (" << col << "," << row << ") Type: " << this_tile->type());
+    //Logger::write(Logger::ss << "Recorded: (" << this_tile->row() << "," << this_tile->column() << ")");
     return true;
 }

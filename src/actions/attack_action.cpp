@@ -45,12 +45,12 @@ bool AttackAction::update(Entity * entity, int delta_ticks)
     if(entity->position().distance_from(target_->position()) > range_) {
         return false;
     }
-    Logger::write(Logger::string_stream << "Attacking");
+    Logger::write(Logger::ss << "Attacking");
 
     switch(state_) {
         case ATTACKING:
             if(duration_.is_complete()) {
-                //Logger::write(Logger::string_stream << "DAMAGE");
+                //Logger::write(Logger::ss << "DAMAGE");
                 target_->hp()->minus_points(damage_);
                 cooldown_.reset();
                 state_ = COOLDOWN;

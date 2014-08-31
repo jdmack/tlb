@@ -54,7 +54,7 @@ bool PlayerAction::update(Entity * entity, int delta_ticks)
                 //TODO(2014-07-24/JM): Choose way of selecting target if there are multiple
                 while(target_ == nullptr) {
                     if(entities.empty()) {
-                        //Logger::write(Logger::string_stream << "Found nothing nearby");
+                        //Logger::write(Logger::ss << "Found nothing nearby");
                         return true;
                     }
                     if(entities.back()->object_id() == entity->object_id()) {
@@ -163,7 +163,7 @@ bool PlayerAction::update(Entity * entity, int delta_ticks)
 
             // Perform movement
             keep_action = move_action_->update(entity, delta_ticks);
-            //Logger::write(Logger::string_stream << "keep_action: " << keep_action);
+            //Logger::write(Logger::ss << "keep_action: " << keep_action);
 
             if(!keep_action) {
                 Logger::write("SEEK complete");
@@ -339,7 +339,7 @@ void PlayerAction::stop()
 std::string PlayerAction::to_string()
 {
 	//for (std::list<GridNode *>::iterator iterator = nodes->begin(), end = nodes->end(); iterator != end; ++iterator) {
-	//    Logger::string_stream << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
+	//    Logger::ss << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
 	//}
 	return "";
 }

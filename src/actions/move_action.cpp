@@ -66,13 +66,13 @@ void MoveAction::find_path()
         nodes = pathfinder.run(start_node, end_node);
 	}
     // Print the path to log
-	//Logger::string_stream << "Path: ";
+	//Logger::ss << "Path: ";
 	for (std::list<GridNode *>::iterator iterator = nodes->begin(), end = nodes->end(); iterator != end; ++iterator) {
-	    //Logger::string_stream << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
-	    //Logger::string_stream << (*iterator)->to_string() << " ";
+	    //Logger::ss << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
+	    //Logger::ss << (*iterator)->to_string() << " ";
 	}
-	//Logger::write(Logger::string_stream);
-    //Logger::write(Logger::string_stream << "# of nodes: " << nodes->size());
+	//Logger::write(Logger::ss);
+    //Logger::write(Logger::ss << "# of nodes: " << nodes->size());
 
 	// Convert node path into Movement path
     while(nodes->size() > 1) {
@@ -81,12 +81,12 @@ void MoveAction::find_path()
 
             GridNode * start_node = nodes->front();
             if(nodes->empty()) {
-                //Logger::write(Logger::string_stream << "Uh oh, list is empty dude!\n");
+                //Logger::write(Logger::ss << "Uh oh, list is empty dude!\n");
                 break;
             }
             nodes->pop_front();
             if(nodes->empty()) {
-                //Logger::write(Logger::string_stream << "Uh oh, list is empty dude!\n");
+                //Logger::write(Logger::ss << "Uh oh, list is empty dude!\n");
                 break;
             }
             GridNode * end_node = nodes->front();
@@ -95,8 +95,8 @@ void MoveAction::find_path()
             Vector vector = Vector(start_node->center_point(), end_node->center_point());
 
             // Create movement
-            //Logger::write(Logger::string_stream << "Start Point: " << start_node->center_point().to_string());
-            //Logger::write(Logger::string_stream << "End Point: " << end_node->center_point().to_string());
+            //Logger::write(Logger::ss << "Start Point: " << start_node->center_point().to_string());
+            //Logger::write(Logger::ss << "End Point: " << end_node->center_point().to_string());
             Movement * this_movement = new Movement(vector, start_node->center_point(), end_node->center_point());
 
             path_->push_back(this_movement);
@@ -123,9 +123,9 @@ void MoveAction::find_path()
 	// Set current movement to beginning
 	current_ = path_->begin();
 	if(!path_->empty()) {
-	    //Logger::write(Logger::string_stream << "MoveAction::first_movement(): " << (*current_)->to_string());
+	    //Logger::write(Logger::ss << "MoveAction::first_movement(): " << (*current_)->to_string());
 	}
-	//Logger::write(Logger::string_stream << "Path created: " << path_->size() << " movements");
+	//Logger::write(Logger::ss << "Path created: " << path_->size() << " movements");
 
 	// reset grid
 	level_->grid()->reset_pathfinding();
@@ -135,11 +135,11 @@ bool MoveAction::next_movement()
 {
     current_++;
     if(current_ == path_->end()) {
-        //Logger::write(Logger::string_stream << "MoveAction::next_movement(): No more Movements");
+        //Logger::write(Logger::ss << "MoveAction::next_movement(): No more Movements");
         return false;
     }
     else {
-        //Logger::write(Logger::string_stream << "MoveAction::next_movement(): " << (*current_)->to_string());
+        //Logger::write(Logger::ss << "MoveAction::next_movement(): " << (*current_)->to_string());
         return true;
     }
 }
@@ -147,7 +147,7 @@ bool MoveAction::next_movement()
 std::string MoveAction::to_string()
 {
 	//for (std::list<GridNode *>::iterator iterator = nodes->begin(), end = nodes->end(); iterator != end; ++iterator) {
-	//    Logger::string_stream << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
+	//    Logger::ss << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
 	//}
 	return "";
 }
@@ -197,7 +197,7 @@ bool MoveAction::update(Entity * entity, int delta_ticks)
 
     // Check rotation
     if(rotation != (*current_)->vector().direction()) {
-        //Logger::write(Logger::string_stream << "Rotation: " << rotation << ", Direction: " << (*current_)->vector().direction());
+        //Logger::write(Logger::ss << "Rotation: " << rotation << ", Direction: " << (*current_)->vector().direction());
         // Determine and set rotation direction
         double dir = (*current_)->vector().direction() - rotation;
         if((dir > 0) && (std::abs(dir) <= 180)) { (*current_)->set_clockwise(false); }
@@ -249,7 +249,7 @@ bool MoveAction::update(Entity * entity, int delta_ticks)
         x_position += x_movement_amount;
         double y_movement_amount = y_velocity * (delta_ticks / 1000.f);
         y_position += y_movement_amount;
-        //Logger::write(Logger::string_stream << "Moving: (" << x_movement_amount << ", " << y_movement_amount << ")");
+        //Logger::write(Logger::ss << "Moving: (" << x_movement_amount << ", " << y_movement_amount << ")");
 
         // Check collisions
         //TODO(2013-09-05/JM): Create a rectangle class like SDL_Rect to replace all instances outside SDL specific code with it
@@ -392,7 +392,7 @@ bool MoveAction::update(Entity * entity, int delta_ticks)
                 x_position = (*current_)->destination().x();
                 y_position = (*current_)->destination().y();
             }
-            //Logger::write(Logger::string_stream << "Destination:" << (*current_)->destination().to_string());
+            //Logger::write(Logger::ss << "Destination:" << (*current_)->destination().to_string());
         }
 
         if(entity->stopped()) {
@@ -403,13 +403,13 @@ bool MoveAction::update(Entity * entity, int delta_ticks)
             }
             else {
                 return_value = false;
-                //Logger::write(Logger::string_stream << "Actual Dest: (" << x_position << ", " << y_position << ")");
+                //Logger::write(Logger::ss << "Actual Dest: (" << x_position << ", " << y_position << ")");
             }
         }
     }
     // TODO(2014-08-14/JM): I believe the small pause we notice between Movements is because of going past the movement destination. We move back to the destination
     // and then don't utilitize all that wasted distance we moved during that frame
-    //Logger::write(Logger::string_stream << "Current Pos: (" << x_position << ", " << y_position << ")");
+    //Logger::write(Logger::ss << "Current Pos: (" << x_position << ", " << y_position << ")");
 
     // Update new values of variables
     entity->set_width(width);

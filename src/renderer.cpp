@@ -40,14 +40,14 @@ bool Renderer::init()
     int img_flags = IMG_INIT_PNG;
 
     if(!(IMG_Init(img_flags) & img_flags)) {
-        Logger::write(Logger::string_stream << "SDL_image could not initialize! SDL_image Error: " <<  IMG_GetError());
+        Logger::write(Logger::ss << "SDL_image could not initialize! SDL_image Error: " <<  IMG_GetError());
         return false;
     }
 
 
 
     if(TTF_Init() == -1) {
-        Logger::write(Logger::string_stream << "TTF_Init: " << TTF_GetError());
+        Logger::write(Logger::ss << "TTF_Init: " << TTF_GetError());
         return false;
     }
 
@@ -69,9 +69,9 @@ bool Renderer::init()
     int w;
     int h;
     SDL_GetWindowMinimumSize(window_, &w, &h);
-    Logger::write(Logger::string_stream << "Minimum: (" << w << " x " << h << ")");
+    Logger::write(Logger::ss << "Minimum: (" << w << " x " << h << ")");
     SDL_GetWindowMaximumSize(window_, &w, &h);
-    Logger::write(Logger::string_stream << "Maximum: (" << w << " x " << h << ")");
+    Logger::write(Logger::ss << "Maximum: (" << w << " x " << h << ")");
     */
 
     return true;
@@ -94,7 +94,7 @@ void Renderer::render_texture(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect
     int return_code = SDL_RenderCopy(renderer_, texture, clip, &rect);
 
     if(return_code != 0) {
-        Logger::write(Logger::string_stream << "Render Error: " << SDL_GetError());
+        Logger::write(Logger::ss << "Render Error: " << SDL_GetError());
     }
 }
 
@@ -112,7 +112,7 @@ void Renderer::render_texture_rotate(SDL_Texture * texture, SDL_Rect * offset, S
     int return_code = SDL_RenderCopyEx(renderer_, texture, nullptr, &rect, -angle, nullptr, SDL_FLIP_NONE);
 
     if(return_code != 0) {
-        Logger::write(Logger::string_stream << "Render Error: " << SDL_GetError());
+        Logger::write(Logger::ss << "Render Error: " << SDL_GetError());
     }
 }
 
@@ -186,7 +186,7 @@ SDL_Surface * Renderer::load_image(std::string filename)
     loaded_image = IMG_Load(filename.c_str());
 
     if(loaded_image == nullptr) {
-        Logger::write(Logger::string_stream << "IMG_Load Error: " << IMG_GetError());
+        Logger::write(Logger::ss << "IMG_Load Error: " << IMG_GetError());
     }
     else {
         Uint32 colorkey = SDL_MapRGB(loaded_image->format, 0xFF, 0, 0xFF);
@@ -207,7 +207,7 @@ SDL_Surface * Renderer::load_image_alpha(std::string filename)
 
     loaded_image = IMG_Load(filename.c_str());
     if(loaded_image == nullptr) {
-        Logger::write(Logger::string_stream << "IMG_Load Error: " << IMG_GetError());
+        Logger::write(Logger::ss << "IMG_Load Error: " << IMG_GetError());
     }
     return loaded_image;
 }
@@ -222,7 +222,7 @@ SDL_Texture * Renderer::load_texture(std::string filename)
     SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer_, load_image(filename));
 
     if(texture == nullptr) {
-        Logger::write(Logger::string_stream << "Error creating texture: " << SDL_GetError());
+        Logger::write(Logger::ss << "Error creating texture: " << SDL_GetError());
     }
 
      return texture;
@@ -238,7 +238,7 @@ SDL_Texture * Renderer::load_texture_alpha(std::string filename)
     SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer_, load_image_alpha(filename));
 
     if(texture == nullptr) {
-        Logger::write(Logger::string_stream << "Error creating texture: " << SDL_GetError());
+        Logger::write(Logger::ss << "Error creating texture: " << SDL_GetError());
     }
 
      return texture;
