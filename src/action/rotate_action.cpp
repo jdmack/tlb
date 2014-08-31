@@ -5,7 +5,7 @@
 #include <sstream>
 #include <string>
 
-#include "actions/rotate_action.h"
+#include "action/rotate_action.h"
 
 #include "game_object.h"
 #include "grid.h"

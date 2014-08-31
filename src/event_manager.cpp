@@ -10,7 +10,7 @@
 #include "entity.h"
 #include "camera.h"
 #include "util/math.h"
-#include "actions/rotate_action.h"
+#include "action/rotate_action.h"
 #include "util/global_timer.h"
 
 EventManager::EventManager(Game * game)

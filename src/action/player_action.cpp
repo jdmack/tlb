@@ -4,11 +4,11 @@
 #include <sstream>
 #include <string>
 
-#include "actions/action.h"
-#include "actions/player_action.h"
-#include "actions/move_action.h"
-#include "actions/rotate_action.h"
-#include "actions/attack_action.h"
+#include "action/action.h"
+#include "action/player_action.h"
+#include "action/move_action.h"
+#include "action/rotate_action.h"
+#include "action/attack_action.h"
 
 #include "game_object.h"
 #include "point.h"

@@ -6,7 +6,7 @@
 #include "game.h"
 #include "level.h"
 #include "entity_manager.h"
-#include "actions/zombie_action.h"
+#include "action/zombie_action.h"
 #include "entity.h"
 #include "assets.h"
 #include "util/logger.h"

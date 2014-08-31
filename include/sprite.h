@@ -6,7 +6,7 @@
 #include "util/timer.h"
 #include "SDL2/SDL.h"
 #include "animation.h"
-#include "actions/action.h"
+#include "action/action.h"
 
 class GameObject;
 class Renderer;

@@ -2,7 +2,7 @@
 #include "renderer.h"
 #include "util/logger.h"
 #include "vector.h"
-#include "actions/action.h"
+#include "action/action.h"
 #include "sprite.h"
 #include "game.h"
 #include "movement.h"

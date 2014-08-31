@@ -1,5 +1,5 @@
-#include "actions/action.h"
-#include "actions/dead_action.h"
+#include "action/action.h"
+#include "action/dead_action.h"
 
 DeadAction::DeadAction()
 {

@@ -1,4 +1,4 @@
-#include "actions/action.h"
+#include "action/action.h"
 
 Action::Action()
 {

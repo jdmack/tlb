@@ -1,5 +1,5 @@
-#include "actions/action.h"
-#include "actions/attack_action.h"
+#include "action/action.h"
+#include "action/attack_action.h"
 #include "entity.h"
 #include "util/logger.h"
 

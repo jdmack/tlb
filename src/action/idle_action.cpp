@@ -1,5 +1,5 @@
-#include "actions/action.h"
-#include "actions/idle_action.h"
+#include "action/action.h"
+#include "action/idle_action.h"
 
 IdleAction::IdleAction()
 {
