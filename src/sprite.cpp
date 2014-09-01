@@ -150,8 +150,8 @@ void Sprite::render()
 
         Color color = Color(255, 0, 255);
         SDL_Rect rect = {
-            object_->x_position() - width_ / 2,
-            object_->y_position() - height_ / 2,
+            (int)(object_->x_position() - width_ / 2),
+            (int)(object_->y_position() - height_ / 2),
             width_,
             height_
         };

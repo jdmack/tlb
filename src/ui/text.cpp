@@ -87,7 +87,7 @@ void Text::render()
 {
     if(texture_ == nullptr) printf("ERROR\n");
     //SDL_Rect offset = { position_.x() - (width_ / 2), position_.y() - (height_ / 2), height_, width_ };
-    SDL_Rect offset = { position_.x(), position_.y(), height_, width_ };
+    SDL_Rect offset = { (int)position_.x(), (int)position_.y(), height_, width_ };
     Game::instance()->renderer()->render_texture(texture_, &offset);
 
 }
