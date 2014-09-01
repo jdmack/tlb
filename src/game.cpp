@@ -15,7 +15,7 @@
 #include "game_state.h"
 #include "util/global_timer.h"
 
-Game * Game::instance_;
+Game * Game::instance_ = nullptr;
 
 Game::Game()
 {
@@ -29,6 +29,8 @@ Game::Game()
     level_ = nullptr;
 
     current_state_ = static_cast<GameState *>(new GSLevel(this));
+
+    Game::instance_ = nullptr;
 }
 
 Game::~Game()
