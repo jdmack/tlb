@@ -29,7 +29,7 @@ void Panel::render()
 {
     // Draw background rectangle
     SDL_SetRenderDrawBlendMode(renderer_->renderer(), SDL_BLENDMODE_BLEND);
-    SDL_Rect frame = { position_.x(), position_.y(), width_, height_ };
+    SDL_Rect frame = { (int)position_.x(), (int)position_.y(), width_, height_ };
     SDL_SetRenderDrawColor(renderer_->renderer(), color_.r, color_.g, color_.b, color_.a);
     SDL_RenderFillRect(renderer_->renderer(), &frame);
 

@@ -14,8 +14,8 @@ class Renderer;
 class Sprite
 {
     private:
-        double width_;
-        double height_;
+        int width_;
+        int height_;
         SDL_Texture * texture_;
         Renderer * renderer_;
         std::string art_asset_;
