@@ -1,6 +1,5 @@
-/*
 // For defining class A and B
-#include "IEventHandler.h"
+#include "event_handler.h"
 
 // for the main function
 #include "EventDispatcher.h"
@@ -8,7 +7,7 @@
 using namespace std;
 
 
-class A : public IEventHandler {
+class A : public EventHandler {
 
 public:
   void EventHandler(const Event &e) {
@@ -25,7 +24,7 @@ public:
   }
 };
 
-class B : public IEventHandler {
+class B : public EventHandler {
 
 public:
   void EventHandler(const Event &e) {
@@ -41,7 +40,7 @@ public:
 };
 
 
-void main () {
+void event_main () {
   A a1;
   B b1;
 
@@ -56,5 +55,3 @@ void main () {
 
   exit(0);
 }
-
-*/
