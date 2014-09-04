@@ -2,7 +2,6 @@
 #define TLB_EVENT_EVENT_H_
 
 enum EventType
-{
 
 };
 
@@ -15,5 +14,7 @@ class Event
         Event();
         ~Event();
 
+        // accessors
+        EventType type() const { return type_; }
 
 };
