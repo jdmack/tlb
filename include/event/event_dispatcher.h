@@ -1,25 +1,30 @@
 #ifndef TLB_EVENT_EVENT_DISPATCHER_H_
 #define TLB_EVENT_EVENT_DISPATCHER_H_
 
+#include "event/event.h"
+
 class EventHandler;
 
 class EventDispatcher
 {
 
     private:
-        EventDispatcher(void) : device_list_(0) {;}
-        ~EventDispatcher(void) {;}
+        EventDispatcher();
 
         static EventDispatcher * instance_;
 
-        EventHandler * device_list_;
+        std::list<EventHandler *> device_list_;
 
     public:
+        EventDispatcher(const EventDispatcher &) = delete;
+        EventDispatcher& operator=(const EventDispatcher &) = delete;
+        ~EventDispatcher();
+        
         static EventDispatcher * instance();
 
         void register_handler(EventHandler * device);
 
-        void send_event(int event_tyep, int arg1 = 0, int arg2 = 0);
+        void send_event(Event event);
 
 };
 
