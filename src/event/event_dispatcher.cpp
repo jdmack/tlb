@@ -1,30 +1,23 @@
 #include "event/event_dispatcher.h"
 #include "event/event_handle.h"
 
-// pointer to singleton instance
-EventDispatcher * EventDispatcher::_instanceOf = 0;
+EventDispatcher * instance_;
 
-EventDispatcher * EventDispatcher::Get()
+EventDispatcher * EventDispatcher::instance()
 {
-    if(_instanceOf) {
-        return _instanceOf;
+    if(instance_ == nullptr) {
+        instance_ = new EventDispatcher();
     }
-    return _instanceOf = new EventDispatcher();
+    return instance_;
 }
 
-void EventDispatcher::RegisterHandler(IEventHandler *device)
+
+void EventDispatcher::register_handler(EventHandler * handler)
 {
-    device->SetNextHandler(_deviceList);
-    _deviceList = device;
+    // Add to handler_list_
 }
 
-void EventDispatcher::SendEvent(int eventType, int arg1, int arg2)
+void EventDispatcher::send_event(Event event)
 {
-    Event e;
-    e.Type = eventType;
-    e.arg1 = arg1;
-    e.arg2 = arg2;
-    IEventHandler * curDevice = _deviceList;
-    for (; curDevice; curDevice = curDevice->GetNextHandler())
-      curDevice->EventHandler(e);
+
 }
