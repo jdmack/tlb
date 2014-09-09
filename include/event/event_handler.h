@@ -1,3 +1,4 @@
+/*
 #ifndef TLB_EVENT_EVENT_HANDLER_H_
 #define TLB_EVENT_EVENT_HANDLER_H_
 
@@ -24,3 +25,5 @@ class EventHandler
           EventDispatcher::Get()->RegisterHandler(this);
       }
 };
+
+*/

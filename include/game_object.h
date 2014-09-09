@@ -6,7 +6,6 @@
 #include "vector.h"
 #include "point.h"
 
-class Action;
 class Sprite;
 class Game;
 
@@ -30,7 +29,6 @@ class GameObject
 
         Point position_;
         Game * game_;
-        Action * current_action_;
         Sprite * sprite_;
 
     public:
@@ -52,7 +50,6 @@ class GameObject
         double height() const { return height_; }
         bool selectable() const { return selectable_; }
         bool selected() const { return selected_; }
-        Action * current_action() const { return current_action_; }
         Sprite * sprite() const { return sprite_; }
         SDL_Rect rect();
         Point position();
@@ -77,7 +74,6 @@ class GameObject
         virtual bool contains_point(double x, double y);
         virtual void move(Point point);
         void render();
-        void set_current_action(Action * action) { current_action_ = action; }
         void set_sprite(Sprite * sprite) { sprite_ = sprite; }
 
         bool check_collision(SDL_Rect rect);

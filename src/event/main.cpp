@@ -1,5 +1,6 @@
+/*
 // For defining class A and B
-#include "event_handler.h"
+#include "event/event_handler.h"
 
 // for the main function
 #include "EventDispatcher.h"
@@ -55,3 +56,5 @@ void event_main () {
 
   exit(0);
 }
+
+*/

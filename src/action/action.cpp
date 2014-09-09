@@ -1,4 +1,5 @@
 #include "action/action.h"
+#include "entity.h"
 
 Action::Action()
 {

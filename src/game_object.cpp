@@ -2,7 +2,6 @@
 #include "renderer.h"
 #include "util/logger.h"
 #include "vector.h"
-#include "action/action.h"
 #include "sprite.h"
 #include "game.h"
 #include "movement.h"
@@ -30,7 +29,6 @@ GameObject::GameObject(Game * game)
 
     object_id_ = id_counter_++;
 
-    current_action_ = nullptr;
     game_ = game;
 
     sprite_ = nullptr;
@@ -53,7 +51,6 @@ GameObject::GameObject(Game * game, Point position, double rot)
 
     object_id_ = id_counter_++;
 
-    current_action_ = nullptr;
     game_ = game;
 
     sprite_ = nullptr;
@@ -74,14 +71,6 @@ void GameObject::create_sprite(std::string asset)
 void GameObject::render()
 {
     sprite_->render();
-
-    // Draw line showing movement command
-    /*
-    if((current_action_ != nullptr) && (current_action_->is_movement())) {
-        SDL_SetRenderDrawColor(game_->renderer()->renderer(), 0, 255, 0, 0);
-        SDL_RenderDrawLine(game_->renderer()->renderer(), game_->camera()->x_adjust(x_position_), game_->camera()->y_adjust(y_position_), game_->camera()->x_adjust((static_cast<Movement*>(current_action_))->destination().x()), game_->camera()->y_adjust((static_cast<Movement*>(current_action_))->destination().y()));
-    }
-    */
 }
 
 bool GameObject::contains_point(double x, double y)

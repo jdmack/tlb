@@ -1,3 +1,4 @@
+/*
 #include "event/event_dispatcher.h"
 #include "event/event_handle.h"
 
@@ -21,3 +22,5 @@ void EventDispatcher::send_event(Event event)
 {
 
 }
+
+*/

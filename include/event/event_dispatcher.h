@@ -1,3 +1,4 @@
+/*
 #ifndef TLB_EVENT_EVENT_DISPATCHER_H_
 #define TLB_EVENT_EVENT_DISPATCHER_H_
 
@@ -29,3 +30,5 @@ class EventDispatcher
 };
 
 #endif
+
+*/

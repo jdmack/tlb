@@ -5,6 +5,7 @@
 #include "game_object.h"
 #include "util/logger.h"
 #include "rapidxml/rapidxml.hpp"
+#include "entity.h"
 
 Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
 {
@@ -165,155 +166,159 @@ void Sprite::update()
 {
     // update current animation based on current action
     ActionType action_type;
+    Entity * entity;
 
-    if(object_->current_action() == nullptr) {
-        action_type = ACTION_IDLE;
-    }
-    else {
-        action_type = object_->current_action()->type();
-    }
-
-    if(action_type != current_action_) {
-        current_action_ = action_type;
-
-        if(action_type == ACTION_MOVEMENT) {
-            // determine direction
-            double rotation = object_->rotation();
-
-            if((rotation >= 45) && (rotation <= 135)) {
-                current_animation_ = animations_["walk_down"];
-            }
-            else if((rotation >= 135) && (rotation <= 225)) {
-                current_animation_ = animations_["walk_left"];
-            }
-            else if((rotation >= 225) && (rotation <= 315)) {
-                current_animation_ = animations_["walk_up"];
-            }
-            else {
-                current_animation_ = animations_["walk_right"];
-            }
+    if(object_->is_entity()) {
+        entity = static_cast<Entity *>(object_);
+        if(entity->current_action() == nullptr) {
+            action_type = ACTION_IDLE;
         }
-        else if(action_type == ACTION_ATTACK) {
-            // determine direction
-            double rotation = object_->rotation();
-
-            if((rotation >= 45) && (rotation <= 135)) {
-                current_animation_ = animations_["attack_down"];
-            }
-            else if((rotation >= 135) && (rotation <= 225)) {
-                current_animation_ = animations_["attack_left"];
-            }
-            else if((rotation >= 225) && (rotation <= 315)) {
-                current_animation_ = animations_["attack_up"];
-            }
-            else {
-                current_animation_ = animations_["attack_right"];
-            }
-        }
-        else if(action_type == ACTION_DEAD) {
-            // determine direction
-            double rotation = object_->rotation();
-
-            if((rotation >= 45) && (rotation <= 135)) {
-                current_animation_ = animations_["dead_down"];
-            }
-            else if((rotation >= 135) && (rotation <= 225)) {
-                current_animation_ = animations_["dead_left"];
-            }
-            else if((rotation >= 225) && (rotation <= 315)) {
-                current_animation_ = animations_["dead_up"];
-            }
-            else {
-                current_animation_ = animations_["dead_right"];
-            }
-        }
-        else if(action_type == ACTION_IDLE) {
-            // determine direction
-            double rotation = object_->rotation();
-
-            if((rotation >= 45) && (rotation <= 135)) {
-                current_animation_ = animations_["idle_down"];
-            }
-            else if((rotation >= 135) && (rotation <= 225)) {
-                current_animation_ = animations_["idle_left"];
-            }
-            else if((rotation >= 225) && (rotation <= 315)) {
-                current_animation_ = animations_["idle_up"];
-            }
-            else {
-                current_animation_ = animations_["idle_right"];
-            }
+        else {
+            action_type = entity->current_action()->type();
         }
 
-    }
-    if(current_direction_ != object_->rotation()) {
-        current_direction_ = object_->rotation();
-        if(action_type == ACTION_MOVEMENT) {
-            // determine direction
-            double rotation = object_->rotation();
+        if(action_type != current_action_) {
+            current_action_ = action_type;
 
-            if((rotation >= 45) && (rotation <= 135)) {
-                current_animation_ = animations_["walk_down"];
+            if(action_type == ACTION_MOVEMENT) {
+                // determine direction
+                double rotation = object_->rotation();
+
+                if((rotation >= 45) && (rotation <= 135)) {
+                    current_animation_ = animations_["walk_down"];
+                }
+                else if((rotation >= 135) && (rotation <= 225)) {
+                    current_animation_ = animations_["walk_left"];
+                }
+                else if((rotation >= 225) && (rotation <= 315)) {
+                    current_animation_ = animations_["walk_up"];
+                }
+                else {
+                    current_animation_ = animations_["walk_right"];
+                }
             }
-            else if((rotation >= 135) && (rotation <= 225)) {
-                current_animation_ = animations_["walk_left"];
+            else if(action_type == ACTION_ATTACK) {
+                // determine direction
+                double rotation = object_->rotation();
+
+                if((rotation >= 45) && (rotation <= 135)) {
+                    current_animation_ = animations_["attack_down"];
+                }
+                else if((rotation >= 135) && (rotation <= 225)) {
+                    current_animation_ = animations_["attack_left"];
+                }
+                else if((rotation >= 225) && (rotation <= 315)) {
+                    current_animation_ = animations_["attack_up"];
+                }
+                else {
+                    current_animation_ = animations_["attack_right"];
+                }
             }
-            else if((rotation >= 225) && (rotation <= 315)) {
-                current_animation_ = animations_["walk_up"];
+            else if(action_type == ACTION_DEAD) {
+                // determine direction
+                double rotation = object_->rotation();
+
+                if((rotation >= 45) && (rotation <= 135)) {
+                    current_animation_ = animations_["dead_down"];
+                }
+                else if((rotation >= 135) && (rotation <= 225)) {
+                    current_animation_ = animations_["dead_left"];
+                }
+                else if((rotation >= 225) && (rotation <= 315)) {
+                    current_animation_ = animations_["dead_up"];
+                }
+                else {
+                    current_animation_ = animations_["dead_right"];
+                }
             }
-            else {
-                current_animation_ = animations_["walk_right"];
+            else if(action_type == ACTION_IDLE) {
+                // determine direction
+                double rotation = object_->rotation();
+
+                if((rotation >= 45) && (rotation <= 135)) {
+                    current_animation_ = animations_["idle_down"];
+                }
+                else if((rotation >= 135) && (rotation <= 225)) {
+                    current_animation_ = animations_["idle_left"];
+                }
+                else if((rotation >= 225) && (rotation <= 315)) {
+                    current_animation_ = animations_["idle_up"];
+                }
+                else {
+                    current_animation_ = animations_["idle_right"];
+                }
             }
+
         }
-        else if(action_type == ACTION_ATTACK) {
-            // determine direction
-            double rotation = object_->rotation();
+        if(current_direction_ != object_->rotation()) {
+            current_direction_ = object_->rotation();
+            if(action_type == ACTION_MOVEMENT) {
+                // determine direction
+                double rotation = object_->rotation();
 
-            if((rotation >= 45) && (rotation <= 135)) {
-                current_animation_ = animations_["attack_down"];
+                if((rotation >= 45) && (rotation <= 135)) {
+                    current_animation_ = animations_["walk_down"];
+                }
+                else if((rotation >= 135) && (rotation <= 225)) {
+                    current_animation_ = animations_["walk_left"];
+                }
+                else if((rotation >= 225) && (rotation <= 315)) {
+                    current_animation_ = animations_["walk_up"];
+                }
+                else {
+                    current_animation_ = animations_["walk_right"];
+                }
             }
-            else if((rotation >= 135) && (rotation <= 225)) {
-                current_animation_ = animations_["attack_left"];
-            }
-            else if((rotation >= 225) && (rotation <= 315)) {
-                current_animation_ = animations_["attack_up"];
-            }
-            else {
-                current_animation_ = animations_["attack_right"];
-            }
-        }
-        else if(action_type == ACTION_DEAD) {
-            // determine direction
-            double rotation = object_->rotation();
+            else if(action_type == ACTION_ATTACK) {
+                // determine direction
+                double rotation = object_->rotation();
 
-            if((rotation >= 45) && (rotation <= 135)) {
-                current_animation_ = animations_["dead_down"];
+                if((rotation >= 45) && (rotation <= 135)) {
+                    current_animation_ = animations_["attack_down"];
+                }
+                else if((rotation >= 135) && (rotation <= 225)) {
+                    current_animation_ = animations_["attack_left"];
+                }
+                else if((rotation >= 225) && (rotation <= 315)) {
+                    current_animation_ = animations_["attack_up"];
+                }
+                else {
+                    current_animation_ = animations_["attack_right"];
+                }
             }
-            else if((rotation >= 135) && (rotation <= 225)) {
-                current_animation_ = animations_["dead_left"];
-            }
-            else if((rotation >= 225) && (rotation <= 315)) {
-                current_animation_ = animations_["dead_up"];
-            }
-            else {
-                current_animation_ = animations_["deadright"];
-            }
-        }
-        else if(action_type == ACTION_IDLE) {
-            // determine direction
-            double rotation = object_->rotation();
+            else if(action_type == ACTION_DEAD) {
+                // determine direction
+                double rotation = object_->rotation();
 
-            if((rotation >= 45) && (rotation <= 135)) {
-                current_animation_ = animations_["idle_down"];
+                if((rotation >= 45) && (rotation <= 135)) {
+                    current_animation_ = animations_["dead_down"];
+                }
+                else if((rotation >= 135) && (rotation <= 225)) {
+                    current_animation_ = animations_["dead_left"];
+                }
+                else if((rotation >= 225) && (rotation <= 315)) {
+                    current_animation_ = animations_["dead_up"];
+                }
+                else {
+                    current_animation_ = animations_["deadright"];
+                }
             }
-            else if((rotation >= 135) && (rotation <= 225)) {
-                current_animation_ = animations_["idle_left"];
-            }
-            else if((rotation >= 225) && (rotation <= 315)) {
-                current_animation_ = animations_["idle_up"];
-            }
-            else {
-                current_animation_ = animations_["idle_right"];
+            else if(action_type == ACTION_IDLE) {
+                // determine direction
+                double rotation = object_->rotation();
+
+                if((rotation >= 45) && (rotation <= 135)) {
+                    current_animation_ = animations_["idle_down"];
+                }
+                else if((rotation >= 135) && (rotation <= 225)) {
+                    current_animation_ = animations_["idle_left"];
+                }
+                else if((rotation >= 225) && (rotation <= 315)) {
+                    current_animation_ = animations_["idle_up"];
+                }
+                else {
+                    current_animation_ = animations_["idle_right"];
+                }
             }
         }
     }

@@ -1,5 +1,5 @@
-#ifndef TLB_ACTION_H_
-#define TLB_ACTION_H_
+#ifndef TLB_ACTION_ACTION_H_
+#define TLB_ACTION_ACTION_H_
 
 #include <string>
 
