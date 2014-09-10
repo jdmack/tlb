@@ -4,6 +4,7 @@
 #include "game_object.h"
 #include "hit_point.h"
 #include "point.h"
+#include "action/action.h"
 
 const int kEntityWidth  = 40;
 const int kEntityHeight = 40;
@@ -19,7 +20,8 @@ enum EntityType {
 };
 
 class Game;
-class Action;
+//class Action;
+class AIStateMachine;
 
 class Entity : public GameObject
 {
@@ -29,7 +31,8 @@ class Entity : public GameObject
         EntityType type_;
         double maximum_speed_;
         bool dead_;
-        Action * current_action_;
+        //Action * current_action_;
+        AIStateMachine * state_machine_;
 
     public:
         // constructors/destructors
@@ -65,6 +68,7 @@ class Entity : public GameObject
         void set_current_action(Action * action) { current_action_ = action; }
 
         bool is_entity() const { return true; }
+        ActionType action_type();
 
 };
 
