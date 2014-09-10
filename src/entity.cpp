@@ -39,6 +39,7 @@ Entity::Entity(Game * game, EntityType type) : GameObject(game)
     dead_ = false;
 
     current_action_ = new PlayerAction();
+    state_machine_ = new AIStateMachine();
 }
 
 Entity::Entity(Game * game, EntityType type, Point position, double rot) : GameObject(game, position, rot)
@@ -60,6 +61,7 @@ Entity::Entity(Game * game, EntityType type, Point position, double rot) : GameO
 
     dead_ = false;
     current_action_ = new PlayerAction();
+    state_machine_ = new AIStateMachine();
 }
 
 void Entity::update(int delta_ticks)
@@ -117,6 +119,7 @@ bool Entity::contains_point(double x, double y)
 
 void Entity::move(Point point)
 {
+    /*
     Logger::write(Logger::ss << "Move - (x,y): (" << point.x() << "," << point.y() << ")");
 
     // Create movement action
@@ -129,19 +132,22 @@ void Entity::move(Point point)
     player_action->stop();
     player_action->set_next_action(static_cast<Action *>(move_action));
     player_action->set_next_state(MOVE);
+    */
 }
 
 void Entity::rotate(Point point)
 {
+    /*
     RotateAction * rotate_action = new RotateAction(this, point);
     PlayerAction * player_action = static_cast<PlayerAction *>(current_action_);
     player_action->set_next_action(rotate_action);
     player_action->set_next_state(ROTATE);
-
+    */
 }
 
 void Entity::attack(Entity * target)
 {
+    /*
     AttackAction * attack_action = new AttackAction(target);
     attack_action->set_range(kPlayerAttackRange);
     attack_action->set_damage(kPlayerAttackDamage);
@@ -149,13 +155,16 @@ void Entity::attack(Entity * target)
     player_action->stop();
     player_action->set_next_action(attack_action);
     player_action->set_next_state(ATTACK);
+    */
 }
 
 void Entity::stop()
 {
+    /*
     if(current_action_ != nullptr) {
         current_action_->stop();
     }
+    */
 }
 
 bool Entity::stopped()
@@ -164,4 +173,10 @@ bool Entity::stopped()
         return true;
     }
     return false;
+}
+
+ActionType Entity::action_type()
+{
+    return state_machine_->action_type();   
+}
 }
