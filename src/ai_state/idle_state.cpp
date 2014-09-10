@@ -12,6 +12,7 @@ IdleState::~IdleState()
 
 bool IdleState::update(Entity * entity, int delta_ticks)
 {
+
     return true;
 }
 

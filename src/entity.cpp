@@ -18,6 +18,7 @@
 #include "sprite.h"
 #include "vector.h"
 #include "util/logger.h"
+#include "ai_state/ai_state_machine.h"
 
 Entity::Entity(Game * game, EntityType type) : GameObject(game)
 {
@@ -38,8 +39,7 @@ Entity::Entity(Game * game, EntityType type) : GameObject(game)
 
     dead_ = false;
 
-    current_action_ = new PlayerAction();
-    state_machine_ = new AIStateMachine();
+    state_machine_ = new AIStateMachine(this);
 }
 
 Entity::Entity(Game * game, EntityType type, Point position, double rot) : GameObject(game, position, rot)
@@ -60,8 +60,7 @@ Entity::Entity(Game * game, EntityType type, Point position, double rot) : GameO
     maximum_speed_ = kEntityDefaultVelocity;
 
     dead_ = false;
-    current_action_ = new PlayerAction();
-    state_machine_ = new AIStateMachine();
+    state_machine_ = new AIStateMachine(this);
 }
 
 void Entity::update(int delta_ticks)
@@ -70,26 +69,13 @@ void Entity::update(int delta_ticks)
     // and then will be a DEAD state
 
     // Check if need to die
-    if((current_action_ != nullptr) && (current_action_->type() == ACTION_DEAD)) {
-        return;
-    }
     if(hp_->empty()) {
         dead_ = true;
         selectable_ = false;
         controllable_ = false;
-        if(current_action_ != nullptr) {
-            delete current_action_;
-            current_action_ = nullptr;
-        }
-        current_action_ = new DeadAction();
     }
-    if(current_action_ != nullptr) {
-        bool keep_action = current_action_->update(this, delta_ticks);
-
-        if(!keep_action) {
-            delete current_action_;
-            current_action_ = nullptr;
-        }
+    if(state_machine_ != nullptr) {
+        state_machine_->update(delta_ticks);
     }
 }
 
@@ -179,4 +165,4 @@ ActionType Entity::action_type()
 {
     return state_machine_->action_type();   
 }
-}
+

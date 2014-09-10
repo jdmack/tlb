@@ -27,7 +27,7 @@ MoveAction::MoveAction(Point start, Point end, Level * level)
 	level_ = level;
 	started_ = false;
 
-	type_ = ACTION_MOVEMENT;
+	type_ = ACTION_MOVE;
 
 	path_ = new std::vector<Movement *>();
 

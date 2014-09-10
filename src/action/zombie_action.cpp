@@ -237,7 +237,7 @@ ActionType ZombieAction::type()
             type_ = ACTION_IDLE;
             break;
         case SEEK:
-            type_ = ACTION_MOVEMENT;
+            type_ = ACTION_MOVE;
             break;
         case ATTACK_READY:
             type_ = ACTION_IDLE;

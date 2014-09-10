@@ -58,14 +58,12 @@ class Entity : public GameObject
         double maximum_speed() const { return maximum_speed_; }
         EntityType type() const { return type_; }
         bool dead() const { return dead_; }
-        Action * current_action() const { return current_action_; }
 
         // mutators
         void set_controllable(bool controllable) { controllable_ = controllable; }
         void set_maximum_speed(double maximum_speed) { maximum_speed_ = maximum_speed; }
         void set_type(EntityType type) { type_ = type; }
         void set_dead(bool dead) { dead_ = dead; }
-        void set_current_action(Action * action) { current_action_ = action; }
 
         bool is_entity() const { return true; }
         ActionType action_type();

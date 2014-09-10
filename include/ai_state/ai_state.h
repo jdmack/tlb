@@ -2,7 +2,12 @@
 #define TLB_AI_STATE_AI_STATE_H_
 
 enum AIStateType {
-    IDLE_STATE
+    STATE_ATTACK,
+    STATE_IDLE,
+    STATE_MOVE,
+    STATE_ROTATE,
+    STATE_SEEK
+
 };
 
 class Entity;
@@ -23,6 +28,7 @@ class AIState
         virtual void stop();
         virtual void start();
         virtual void end();
+        virtual ActionType action_type();
 
 };
 

@@ -171,12 +171,8 @@ void Sprite::update()
 
     if(object_->is_entity()) {
         entity = static_cast<Entity *>(object_);
-        if(entity->current_action() == nullptr) {
-            action_type = ACTION_IDLE;
-        }
-        else {
-            action_type = entity->current_action()->type(); action_type = entity->action_type();
-        }
+
+        action_type = entity->action_type();
 
         // TODO(2014-09-09/JM): Remember "last action" in a way so we don't have to always recheck this
         //if(action_type != current_action_) {
@@ -192,7 +188,7 @@ void Sprite::update()
             case ACTION_IDLE:
                 animation += "idle";
                 break;
-            case ACTION_MOVEMENT:
+            case ACTION_MOVE:
                 animation += "movement";
                 break;
             default:

@@ -1,20 +1,33 @@
 #ifndef TLB_AI_STATE_AI_STATE_MACHINE_H_
 #define TLB_AI_STATE_AI_STATE_MACHINE_H_
 
+#include "action/action.h"
+
 class Entity;
-class State;
+class AIState;
+class AttackState;
+class IdleState;
+class MoveState;
+class RotateState;
+class SeekState;
 
 class AIStateMachine
 {
     private:
         Entity * entity_;
-        State * current_state_;
-        State * previous_state_;
-        State * next_state_;
-        State * global_state_;
+        AIState * current_state_;
+        AIState * previous_state_;
+        AIState * next_state_;
+        AIState * global_state_;
+
+        AttackState * attack_state_;
+        IdleState * idle_state_;
+        MoveState * move_state_;
+        RotateState * rotate_state_;
+        SeekState * seek_state_;
 
     public:
-        AIStateMachine();
+        AIStateMachine(Entity * entity);
         ~AIStateMachine();
 
         // accessors
@@ -22,13 +35,14 @@ class AIStateMachine
 
         // mutators
         void set_entity(Entity * entity) { entity_ = entity; }
-        void set_current_state(State * current_state) { current_state_ = current_state; }
-        void set_previous_state(State * previous_state) { previous_state_ = previous_state; }
-        void set_next_state(State * next_state) { next_state_ = next_state; }
-        void set_global_state(State * global_state) { global_state_ = global_state; }
+        void set_current_state(AIState * current_state) { current_state_ = current_state; }
+        void set_previous_state(AIState * previous_state) { previous_state_ = previous_state; }
+        void set_next_state(AIState * next_state) { next_state_ = next_state; }
+        void set_global_state(AIState * global_state) { global_state_ = global_state; }
 
-        bool update(Entity * entity, int delta_ticks);
+        bool update(int delta_ticks);
         void stop();
+        ActionType action_type();
 
 };
 

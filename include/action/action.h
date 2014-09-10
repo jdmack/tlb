@@ -4,8 +4,9 @@
 #include <string>
 
 enum ActionType {
-    ACTION_MOVEMENT,
+    ACTION_MOVE,
     ACTION_IDLE,
+    ACTION_ROTATE,
     ACTION_ZOMBIE,
     ACTION_SEEK,
     ACTION_ATTACK,

@@ -1,4 +1,5 @@
 #include "ai_state/ai_state.h"
+#include "action/action.h"
 
 AIState::AIState()
 {
@@ -27,4 +28,9 @@ void AIState::start()
 
 void AIState::end()
 {
+}
+
+ActionType AIState::action_type()
+{
+    return ACTION_IDLE;
 }

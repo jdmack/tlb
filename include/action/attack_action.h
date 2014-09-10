@@ -5,7 +5,7 @@
 #include "cooldown.h"
 #include "duration.h"
 
-enum AttackState {
+enum AttackStateType {
     ATTACKING,
     COOLDOWN,
     STOPPED
@@ -21,7 +21,7 @@ class AttackAction : public Action
         int cooldown_length_;
         int duration_length_;
         double range_;
-        AttackState state_;
+        AttackStateType state_;
         Cooldown cooldown_;
         Duration duration_;
         Entity * target_;

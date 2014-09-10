@@ -251,7 +251,7 @@ bool PlayerAction::update(Entity * entity, int delta_ticks)
             break;
         case MOVE:
             if(!keep_action) {
-                if((next_action_ != nullptr) && (next_action_->type() == ACTION_MOVEMENT)) {
+                if((next_action_ != nullptr) && (next_action_->type() == ACTION_MOVE)) {
                     state_ = MOVE;
                     next_state_ = BLANK;
                     move_action_ = static_cast<MoveAction *>(next_action_);
@@ -300,7 +300,7 @@ ActionType PlayerAction::type()
             type_ = ACTION_IDLE;
             break;
         case MOVE:
-            type_ = ACTION_MOVEMENT;
+            type_ = ACTION_MOVE;
             break;
         case ATTACK:
             if(attack_action_ != nullptr) {

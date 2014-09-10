@@ -131,8 +131,6 @@ Entity * GSLevel::spawn_entity(EntityType type, Point position, double rotation)
         ZombieAction * zombie_action = new ZombieAction();
         zombie_action->set_entity_manager(game_->entity_manager());
         zombie_action->set_game(game_);
-
-        entity->set_current_action(zombie_action);
     }
 
     game_->entity_manager()->add_object(entity);
