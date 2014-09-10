@@ -167,6 +167,7 @@ void Sprite::update()
     // update current animation based on current action
     ActionType action_type;
     Entity * entity;
+    std::string animation = "";
 
     if(object_->is_entity()) {
         entity = static_cast<Entity *>(object_);
@@ -174,154 +175,61 @@ void Sprite::update()
             action_type = ACTION_IDLE;
         }
         else {
-            action_type = entity->current_action()->type();
+            action_type = entity->current_action()->type(); action_type = entity->action_type();
         }
 
-        if(action_type != current_action_) {
-            current_action_ = action_type;
+        // TODO(2014-09-09/JM): Remember "last action" in a way so we don't have to always recheck this
+        //if(action_type != current_action_) {
+        current_action_ = action_type;
 
-            if(action_type == ACTION_MOVEMENT) {
-                // determine direction
-                double rotation = object_->rotation();
-
-                if((rotation >= 45) && (rotation <= 135)) {
-                    current_animation_ = animations_["walk_down"];
-                }
-                else if((rotation >= 135) && (rotation <= 225)) {
-                    current_animation_ = animations_["walk_left"];
-                }
-                else if((rotation >= 225) && (rotation <= 315)) {
-                    current_animation_ = animations_["walk_up"];
-                }
-                else {
-                    current_animation_ = animations_["walk_right"];
-                }
+        switch(action_type) {
+            case ACTION_ATTACK:
+                animation += "attack";
+                break;
+            case ACTION_DEAD:
+                animation += "dead";
+                break;
+            case ACTION_IDLE:
+                animation += "idle";
+                break;
+            case ACTION_MOVEMENT:
+                animation += "movement";
+                break;
+            default:
+                animation += "idle";
+                break;
             }
-            else if(action_type == ACTION_ATTACK) {
-                // determine direction
-                double rotation = object_->rotation();
+        //}
 
-                if((rotation >= 45) && (rotation <= 135)) {
-                    current_animation_ = animations_["attack_down"];
-                }
-                else if((rotation >= 135) && (rotation <= 225)) {
-                    current_animation_ = animations_["attack_left"];
-                }
-                else if((rotation >= 225) && (rotation <= 315)) {
-                    current_animation_ = animations_["attack_up"];
-                }
-                else {
-                    current_animation_ = animations_["attack_right"];
-                }
-            }
-            else if(action_type == ACTION_DEAD) {
-                // determine direction
-                double rotation = object_->rotation();
+        animation += "_";
 
-                if((rotation >= 45) && (rotation <= 135)) {
-                    current_animation_ = animations_["dead_down"];
-                }
-                else if((rotation >= 135) && (rotation <= 225)) {
-                    current_animation_ = animations_["dead_left"];
-                }
-                else if((rotation >= 225) && (rotation <= 315)) {
-                    current_animation_ = animations_["dead_up"];
-                }
-                else {
-                    current_animation_ = animations_["dead_right"];
-                }
-            }
-            else if(action_type == ACTION_IDLE) {
-                // determine direction
-                double rotation = object_->rotation();
+        // TODO(2014-09-09/JM): Remember "last rotation" as a string or enum so we don't have to always check these regions
+        //if(current_direction_ != object_->rotation()) {
+        current_direction_ = object_->rotation();
 
-                if((rotation >= 45) && (rotation <= 135)) {
-                    current_animation_ = animations_["idle_down"];
-                }
-                else if((rotation >= 135) && (rotation <= 225)) {
-                    current_animation_ = animations_["idle_left"];
-                }
-                else if((rotation >= 225) && (rotation <= 315)) {
-                    current_animation_ = animations_["idle_up"];
-                }
-                else {
-                    current_animation_ = animations_["idle_right"];
-                }
-            }
+        // determine direction
+        double rotation = object_->rotation();
 
+        if((rotation >= 45) && (rotation <= 135)) {
+            animation += "down";
         }
-        if(current_direction_ != object_->rotation()) {
-            current_direction_ = object_->rotation();
-            if(action_type == ACTION_MOVEMENT) {
-                // determine direction
-                double rotation = object_->rotation();
-
-                if((rotation >= 45) && (rotation <= 135)) {
-                    current_animation_ = animations_["walk_down"];
-                }
-                else if((rotation >= 135) && (rotation <= 225)) {
-                    current_animation_ = animations_["walk_left"];
-                }
-                else if((rotation >= 225) && (rotation <= 315)) {
-                    current_animation_ = animations_["walk_up"];
-                }
-                else {
-                    current_animation_ = animations_["walk_right"];
-                }
-            }
-            else if(action_type == ACTION_ATTACK) {
-                // determine direction
-                double rotation = object_->rotation();
-
-                if((rotation >= 45) && (rotation <= 135)) {
-                    current_animation_ = animations_["attack_down"];
-                }
-                else if((rotation >= 135) && (rotation <= 225)) {
-                    current_animation_ = animations_["attack_left"];
-                }
-                else if((rotation >= 225) && (rotation <= 315)) {
-                    current_animation_ = animations_["attack_up"];
-                }
-                else {
-                    current_animation_ = animations_["attack_right"];
-                }
-            }
-            else if(action_type == ACTION_DEAD) {
-                // determine direction
-                double rotation = object_->rotation();
-
-                if((rotation >= 45) && (rotation <= 135)) {
-                    current_animation_ = animations_["dead_down"];
-                }
-                else if((rotation >= 135) && (rotation <= 225)) {
-                    current_animation_ = animations_["dead_left"];
-                }
-                else if((rotation >= 225) && (rotation <= 315)) {
-                    current_animation_ = animations_["dead_up"];
-                }
-                else {
-                    current_animation_ = animations_["deadright"];
-                }
-            }
-            else if(action_type == ACTION_IDLE) {
-                // determine direction
-                double rotation = object_->rotation();
-
-                if((rotation >= 45) && (rotation <= 135)) {
-                    current_animation_ = animations_["idle_down"];
-                }
-                else if((rotation >= 135) && (rotation <= 225)) {
-                    current_animation_ = animations_["idle_left"];
-                }
-                else if((rotation >= 225) && (rotation <= 315)) {
-                    current_animation_ = animations_["idle_up"];
-                }
-                else {
-                    current_animation_ = animations_["idle_right"];
-                }
-            }
+        else if((rotation >= 135) && (rotation <= 225)) {
+            animation += "left";
         }
+        else if((rotation >= 225) && (rotation <= 315)) {
+            animation += "up";
+        }
+        else {
+            animation += "right";
+        }
+        //}
     }
+    else {
+        // This is for regular GameObjects. 
+        // TODO(2014-09-09/JM): Decide how to handle animations for GameObjects (i.e. a "default" animation)
+        animation = "idle_right";
+    }
+    current_animation_ = animations_[animation];
 
     // update frame of current animation
     if(animation_timer_.get_ticks() >= current_animation_.time()) {
