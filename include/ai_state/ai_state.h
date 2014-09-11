@@ -1,6 +1,8 @@
 #ifndef TLB_AI_STATE_AI_STATE_H_
 #define TLB_AI_STATE_AI_STATE_H_
 
+#include "action/action.h"
+
 enum AIStateType {
     STATE_ATTACK,
     STATE_IDLE,

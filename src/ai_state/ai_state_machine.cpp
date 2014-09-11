@@ -5,6 +5,7 @@
 #include "ai_state/move_state.h"
 #include "ai_state/rotate_state.h"
 #include "ai_state/seek_state.h"
+#include "point.h"
 
 AIStateMachine::AIStateMachine(Entity * entity)
 {
@@ -14,7 +15,7 @@ AIStateMachine::AIStateMachine(Entity * entity)
 
     attack_state_ = new AttackState();
     idle_state_ = new IdleState();
-    move_state_ = new MoveState();
+    move_state_ = new MoveState(entity);
     rotate_state_ = new RotateState();
     seek_state_ = new SeekState();
 
@@ -61,8 +62,23 @@ void AIStateMachine::stop()
 
 }
 
+void AIStateMachine::move_command(Point destination)
+{
+    next_state_ = move_state_;
+    move_state_->set_destination(destination);
+}
+
+void AIStateMachine::attack_command(Entity * target)
+{
+}
+
+void AIStateMachine::rotate_command(double direction)
+{
+}
+
+
 
 ActionType AIStateMachine::action_type()
 {
-    return current_state_->action_type();
+    return idle_state_->action_type();
 }

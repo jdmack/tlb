@@ -2,6 +2,7 @@
 #define TLB_AI_STATE_AI_STATE_MACHINE_H_
 
 #include "action/action.h"
+#include "point.h"
 
 class Entity;
 class AIState;
@@ -39,6 +40,10 @@ class AIStateMachine
         void set_previous_state(AIState * previous_state) { previous_state_ = previous_state; }
         void set_next_state(AIState * next_state) { next_state_ = next_state; }
         void set_global_state(AIState * global_state) { global_state_ = global_state; }
+
+        void move_command(Point destination);
+        void attack_command(Entity * target);
+        void rotate_command(double direction);
 
         bool update(int delta_ticks);
         void stop();

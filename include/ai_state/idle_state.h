@@ -19,7 +19,7 @@ class IdleState : public AIState
 
         bool update(Entity * entity, int delta_ticks);
         void stop();
-        ActionType action_type() { return ACTION_IDLE; }
+        ActionType action_type();
 
 };
 

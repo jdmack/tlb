@@ -3,23 +3,34 @@
 
 #include "ai_state/ai_state.h"
 #include "action/action.h"
+#include "point.h"
 
 class Entity;
+class MoveAction;
 
 class MoveState : public AIState
 {
-    protected:
+    private:
+        Point destination_;
+        Entity * entity_;
+        MoveAction * move_action_;
+
 
     public:
-        MoveState();
+        MoveState(Entity * entity);
         ~MoveState();
 
         // accessors
-        //ActionType type();
+        Point destination() const { return destination_; }
+
+        // mutators
+        void set_destination(Point destination) { destination_ = destination; }
 
         bool update(Entity * entity, int delta_ticks);
         void stop();
-        ActionType action_type() { return ACTION_MOVE; }
+        void start();
+        void end();
+        ActionType action_type();
 
 };
 
