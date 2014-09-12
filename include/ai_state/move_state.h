@@ -12,9 +12,7 @@ class MoveState : public AIState
 {
     private:
         Point destination_;
-        Entity * entity_;
         MoveAction * move_action_;
-
 
     public:
         MoveState(Entity * entity);

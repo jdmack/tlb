@@ -111,12 +111,7 @@ void Entity::move(Point point)
 
 void Entity::rotate(Point point)
 {
-    /*
-    RotateAction * rotate_action = new RotateAction(this, point);
-    PlayerAction * player_action = static_cast<PlayerAction *>(current_action_);
-    player_action->set_next_action(rotate_action);
-    player_action->set_next_state(ROTATE);
-    */
+    state_machine_->rotate_command(point);
 }
 
 void Entity::attack(Entity * target)

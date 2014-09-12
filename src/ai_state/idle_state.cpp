@@ -2,8 +2,9 @@
 #include "ai_state/ai_state.h"
 #include "action/action.h"
 
-IdleState::IdleState()
+IdleState::IdleState(Entity * entity)
 {
+    entity_ = entity;
     stop_ = false;
 }
 

@@ -14,9 +14,9 @@ AIStateMachine::AIStateMachine(Entity * entity)
     global_state_ = nullptr;
 
     attack_state_ = new AttackState();
-    idle_state_ = new IdleState();
+    idle_state_ = new IdleState(entity);
     move_state_ = new MoveState(entity);
-    rotate_state_ = new RotateState();
+    rotate_state_ = new RotateState(entity);
     seek_state_ = new SeekState();
 
     current_state_ = idle_state_;
@@ -76,8 +76,11 @@ void AIStateMachine::attack_command(Entity * target)
 {
 }
 
-void AIStateMachine::rotate_command(double direction)
+void AIStateMachine::rotate_command(Point position)
 {
+    current_state_->stop();
+    next_state_ = rotate_state_;
+    rotate_state_->set_position(position);
 }
 
 

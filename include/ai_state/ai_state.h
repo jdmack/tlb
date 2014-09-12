@@ -18,6 +18,7 @@ class AIState
 {
     protected:
         AIStateType type_;
+        Entity * entity_;
 
     public:
         AIState();

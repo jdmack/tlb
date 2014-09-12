@@ -3,23 +3,32 @@
 
 #include "ai_state/ai_state.h"
 #include "action/action.h"
+#include "point.h"
 
 class Entity;
+class RotateAction;
 
 class RotateState : public AIState
 {
-    protected:
+    private:
+        Point position_;
+        RotateAction * rotate_action_;
 
     public:
-        RotateState();
+        RotateState(Entity * entity);
         ~RotateState();
 
         // accessors
-        //ActionType type();
+        Point position() const { return position_; }
+
+        // mutators
+        void set_position(Point position) { position_ = position; }
 
         bool update(Entity * entity, int delta_ticks);
         void stop();
-        ActionType action_type() { return ACTION_ROTATE; }
+        void start();
+        void end();
+        ActionType action_type();
 
 };
 

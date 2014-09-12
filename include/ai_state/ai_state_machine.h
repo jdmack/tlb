@@ -43,7 +43,7 @@ class AIStateMachine
 
         void move_command(Point destination);
         void attack_command(Entity * target);
-        void rotate_command(double direction);
+        void rotate_command(Point position);
 
         bool update(int delta_ticks);
         void stop();

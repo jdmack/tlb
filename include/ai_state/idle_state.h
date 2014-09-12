@@ -12,7 +12,7 @@ class IdleState : public AIState
         bool stop_;
 
     public:
-        IdleState();
+        IdleState(Entity * entity);
         ~IdleState();
 
         // accessors

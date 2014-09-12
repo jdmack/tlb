@@ -34,7 +34,7 @@ void MoveState::stop()
 
 void MoveState::start()
 {
-    // Create movement action
+    // Create move action
     move_action_ = new MoveAction(entity_->position(), destination_, Game::instance()->level());
     if(move_action_->empty_path()) {
         //Logger::write("Empty path, cancelling Move");
