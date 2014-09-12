@@ -7,6 +7,7 @@
 
 class Entity;
 class RotateAction;
+class AIStateMachine;
 
 class RotateState : public AIState
 {
@@ -15,7 +16,7 @@ class RotateState : public AIState
         RotateAction * rotate_action_;
 
     public:
-        RotateState(Entity * entity);
+        RotateState(AIStateMachine * state_machine, Entity * entity);
         ~RotateState();
 
         // accessors
@@ -24,7 +25,7 @@ class RotateState : public AIState
         // mutators
         void set_position(Point position) { position_ = position; }
 
-        bool update(Entity * entity, int delta_ticks);
+        bool update(int delta_ticks);
         void stop();
         void start();
         void end();

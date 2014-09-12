@@ -1,5 +1,5 @@
-#ifndef TLB_AI_STATE_IDLE_STATE_H_
-#define TLB_AI_STATE_IDLE_STATE_H_
+#ifndef TLB_AI_STATE_DEAD_STATE_H_
+#define TLB_AI_STATE_DEAD_STATE_H_
 
 #include "ai_state/ai_state.h"
 #include "action/action.h"
@@ -7,14 +7,13 @@
 class Entity;
 class AIStateMachine;
 
-class IdleState : public AIState
+class DeadState : public AIState
 {
     private:
-        bool stop_;
 
     public:
-        IdleState(AIStateMachine * state_machine, Entity * entity);
-        ~IdleState();
+        DeadState(AIStateMachine * state_machine, Entity * entity);
+        ~DeadState();
 
         // accessors
 

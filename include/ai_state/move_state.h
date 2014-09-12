@@ -7,6 +7,7 @@
 
 class Entity;
 class MoveAction;
+class AIStateMachine;
 
 class MoveState : public AIState
 {
@@ -15,7 +16,7 @@ class MoveState : public AIState
         MoveAction * move_action_;
 
     public:
-        MoveState(Entity * entity);
+        MoveState(AIStateMachine * state_machine, Entity * entity);
         ~MoveState();
 
         // accessors
@@ -24,7 +25,7 @@ class MoveState : public AIState
         // mutators
         void set_destination(Point destination) { destination_ = destination; }
 
-        bool update(Entity * entity, int delta_ticks);
+        bool update(int delta_ticks);
         void stop();
         void start();
         void end();

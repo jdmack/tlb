@@ -10,17 +10,17 @@
 AIStateMachine::AIStateMachine(Entity * entity)
 {
     entity_ = entity;
+    current_state_ = nullptr;;
+    previous_state_ = nullptr;;
     next_state_ = nullptr;
     global_state_ = nullptr;
 
-    attack_state_ = new AttackState();
-    idle_state_ = new IdleState(entity);
-    move_state_ = new MoveState(entity);
-    rotate_state_ = new RotateState(entity);
-    seek_state_ = new SeekState();
+    attack_state_ = new AttackState(this, entity);
+    idle_state_ = new IdleState(this, entity);
+    move_state_ = new MoveState(this, entity);
+    rotate_state_ = new RotateState(this, entity);
+    seek_state_ = new SeekState(this, entity);
 
-    current_state_ = idle_state_;
-    previous_state_ = idle_state_;
 
 }
 
@@ -36,7 +36,11 @@ AIStateMachine::~AIStateMachine()
 
 bool AIStateMachine::update(int delta_ticks)
 {
-    bool keep_action = current_state_->update(entity_, delta_ticks);
+    if(current_state_ == nullptr) {
+        current_state_ = idle_state_;
+        current_state_->start();
+    }
+    bool keep_action = current_state_->update(delta_ticks);
 
     // TODO(2014-09-09/JM): Eventually make it so that when a state finishes, it responds with how many delta_ticks need to be run
     // in the next state and update() the new state with the remaining ticks
@@ -87,5 +91,33 @@ void AIStateMachine::rotate_command(Point position)
 
 ActionType AIStateMachine::action_type()
 {
-    return idle_state_->action_type();
+    if(current_state_ != nullptr) {
+        return current_state_->action_type();
+    }
+    return ACTION_IDLE;
+}
+
+void AIStateMachine::set_next_state(AIStateType type)
+{
+    switch(type) {
+        case STATE_ATTACK:
+            next_state_ = attack_state_;
+            break;
+
+        case STATE_IDLE:
+            next_state_ = idle_state_;
+            break;
+
+        case STATE_MOVE:
+            next_state_ = move_state_;
+            break;
+
+        case STATE_ROTATE:
+            next_state_ = rotate_state_;
+            break;
+
+        case STATE_SEEK:
+            next_state_ = seek_state_;
+            break;
+    }
 }

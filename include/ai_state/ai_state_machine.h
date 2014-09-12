@@ -3,6 +3,7 @@
 
 #include "action/action.h"
 #include "point.h"
+#include "ai_state/ai_state.h"
 
 class Entity;
 class AIState;
@@ -33,6 +34,15 @@ class AIStateMachine
 
         // accessors
         Entity * entity() { return entity_; }
+        AIState * current_state() { return current_state_; }
+        AIState * previous_state() { return previous_state_; }
+        AIState * next_state() { return next_state_; }
+        AIState * global_state() { return global_state_; }
+        AttackState * attack_state() { return attack_state_; }
+        IdleState * idle_state() { return idle_state_; }
+        MoveState * move_state() { return move_state_; }
+        RotateState * rotate_state() { return rotate_state_; }
+        SeekState * seek_state() { return seek_state_; }
 
         // mutators
         void set_entity(Entity * entity) { entity_ = entity; }
@@ -40,6 +50,8 @@ class AIStateMachine
         void set_previous_state(AIState * previous_state) { previous_state_ = previous_state; }
         void set_next_state(AIState * next_state) { next_state_ = next_state; }
         void set_global_state(AIState * global_state) { global_state_ = global_state; }
+
+        void set_next_state(AIStateType type);
 
         void move_command(Point destination);
         void attack_command(Entity * target);

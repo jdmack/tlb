@@ -8,17 +8,20 @@ enum AIStateType {
     STATE_IDLE,
     STATE_MOVE,
     STATE_ROTATE,
-    STATE_SEEK
+    STATE_SEEK,
+    STATE_DEAD
 
 };
 
 class Entity;
+class AIStateMachine;
 
 class AIState
 {
     protected:
         AIStateType type_;
         Entity * entity_;
+        AIStateMachine * state_machine_;
 
     public:
         AIState();
@@ -27,7 +30,7 @@ class AIState
         // accessors
         AIStateType type() { return type_; }
 
-        virtual bool update(Entity * entity, int delta_ticks);
+        virtual bool update(int delta_ticks);
         virtual void stop();
         virtual void start();
         virtual void end();

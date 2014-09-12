@@ -43,72 +43,12 @@ bool ZombieAction::update(Entity * entity, int delta_ticks)
     if(next_state_ == BLANK) {
         switch(state_) {
             case IDLE:
-                // Check for entities within Aggro Range
-                entities = entity_manager_->get_entities_near(position, kZombieAggroRadius);
-
-                //TODO(2014-07-24/JM): Choose way of selecting target if there are multiple
-                while(target_ == nullptr) {
-                    if(entities.empty()) {
-                        //Logger::write(Logger::ss << "Found nothing nearby");
-                        return true;
-                    }
-                    if(entities.back()->object_id() == entity->object_id()) {
-                        entities.pop_back();
-                        continue;
-                    }
-                    if(entities.back()->type() == ZOMBIE) {
-                        entities.pop_back();
-                        continue;
-                    }
-                    target_ = entities.back();
-                    attack_action_ = new AttackAction(target_);
-                    Logger::write("IDLE: Found entity");
-                    entities.pop_back();
-                }
-                if(target_ != nullptr) {
-                    next_state_ = SEEK;
-                }
-
                 break;
 
             case SEEK:
-                    // check if target has exceeded leash range
-                    if(position.distance_from(Point(target_->x_position(), target_->y_position())) >= kZombieLeashRadius) {
-                        move_action_->stop();
-                        next_state_ = IDLE;
-                        Logger::write("SEEK: Out of leash range");
-                    }
-
-                    // check if target has moved far from we think it is
-                    // TODO(2014-08-15/JM): Hard coded number 12 here for distance, change
-                    else if(target_last_position.distance_from(Point(target_->x_position(), target_->y_position())) >= 12) {
-                        move_action_->stop();
-                        next_state_ = SEEK;
-                        Logger::write("SEEK: Recalculating movement to target");
-                    }
-
                 break;
 
             case ATTACK:
-
-                target_position = Point(target_->x_position(), target_->y_position());
-
-                // Check if we are in range
-                if(target_position.distance_from(position) > kZombieAttackRadius) {
-                    next_state_ = SEEK;
-                    Logger::write("ATTACK: Target out of attack range");
-                    break;
-                }
-
-                // Check if we are facing the target
-                if(!RotateAction::facing(entity, target_)) {
-                    // TODO(2014-08-21/JM): This rotation code will not result in the rotating being animated  because there is no change
-                    // of state to a state of rotating.
-                    next_state_ = ROTATE;
-                    Logger::write("ATTACK: Not facing target");
-                }
-
-
                 break;
 
             case ROTATE:
@@ -122,42 +62,12 @@ bool ZombieAction::update(Entity * entity, int delta_ticks)
 
     switch(state_) {
         case IDLE:
-            // Nothing to do because we're IDLE
-            if(next_state_ != BLANK) {
-                keep_action = false;
-            }
             break;
 
         case SEEK:
-
-            // Perform movement
-            if(move_action_ == nullptr) Logger::write("SOMETHING BAD 2");
-            keep_action = move_action_->update(entity, delta_ticks);
-            //Logger::write(Logger::ss << "keep_action: " << keep_action);
-
-            if(!keep_action) {
-                Logger::write("SEEK complete");
-                delete move_action_;
-                move_action_ = nullptr;
-                if(next_state_ == BLANK) {
-                    next_state_ = ATTACK;
-                }
-            }
             break;
 
         case ATTACK:
-
-            // Perform attack
-            if(next_state_ != BLANK) break;
-
-            keep_action = attack_action_->update(entity, delta_ticks);
-
-            if(!keep_action) {
-                Logger::write("ATTACK complete");
-                if(next_state_ == BLANK) {
-                    next_state_ = IDLE;
-                }
-            }
             break;
 
         case ROTATE:
@@ -179,43 +89,14 @@ bool ZombieAction::update(Entity * entity, int delta_ticks)
     // Setup next action
     switch(next_state_) {
         case IDLE:
-            // SEEK -> IDLE
-
-            // ATTACK -> IDLE;
-            delete attack_action_;
-            attack_action_ = nullptr;
-            target_ = nullptr;
-
-            state_ = IDLE;
-           next_state_ = BLANK;
-            Logger::write("Switching to IDLE");
             break;
+
         case SEEK:
-            // IDLE -> SEEK
-            // SEEK -> SEEK
-            // ATTACK -> SEEK
-            if(!keep_action || (state_ == ATTACK)) {
-
-               // Create movement action
-               move_action_ = new MoveAction(position, Point(target_->x_position(), target_->y_position()), game_->level());
-               move_action_->remove_movements_back();
-               target_last_position = Point(target_->x_position(), target_->y_position());
-               state_ = SEEK;
-               next_state_ = BLANK;
-                Logger::write("Switching to SEEK");
-            }
-            else {
-                Logger::write("SOMETHING BAD");
-            }
-
             break;
+
         case ATTACK:
-            // SEEK -> ATTACK
-            attack_action_->reset();
-            state_ = ATTACK;
-            next_state_ = BLANK;
-            Logger::write("Switching to ATTACK");
             break;
+
         case ROTATE:
             // ATTACK -> ROTATE
             rotate_action_ = new RotateAction(entity, target_->position());

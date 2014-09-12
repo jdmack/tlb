@@ -5,21 +5,29 @@
 #include "action/action.h"
 
 class Entity;
+class AIStateMachine;
+class AttackAction;
 
 class AttackState : public AIState
 {
-    protected:
+    private:
+        Entity * target_;
+        AttackAction * attack_action_;
 
     public:
-        AttackState();
+        AttackState(AIStateMachine * state_machine, Entity * entity);
         ~AttackState();
 
         // accessors
-        //ActionType type();
 
-        bool update(Entity * entity, int delta_ticks);
+        // mutators
+        void set_target(Entity * target) { target_ = target; }
+
+        bool update(int delta_ticks);
         void stop();
-        ActionType action_type() { return ACTION_ATTACK; }
+        void start();
+        void end();
+        ActionType action_type();
 
 };
 

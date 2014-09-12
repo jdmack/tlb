@@ -45,6 +45,7 @@ int GSLevel::init()
     //Entity * zombie6 = spawn_entity(ZOMBIE, Point(48 * 7 + 24, 48 * 1 + 24), 0);
 
     // FOR TESTING
+    /*
     panel = Panel(game_->renderer());
     SDL_Color color = { 128, 128, 128, 255 };
     panel.set_position(Point(100, 100));
@@ -54,6 +55,7 @@ int GSLevel::init()
 
     text = Text("test");
     text.set_position(Point(200, 200));
+    */
 
     return return_code;
 }
@@ -85,8 +87,8 @@ void GSLevel::render()
     }
 
     // FOR TESTING
-    panel.render();
-    text.render();
+    //panel.render();
+    //text.render();
 }
 
 void GSLevel::end()

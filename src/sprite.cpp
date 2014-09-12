@@ -175,57 +175,58 @@ void Sprite::update()
         action_type = entity->action_type();
 
         // TODO(2014-09-09/JM): Remember "last action" in a way so we don't have to always recheck this
-        //if(action_type != current_action_) {
-        current_action_ = action_type;
+        if((action_type != current_action_) || (current_direction_ != object_->rotation())) {
+            current_action_ = action_type;
 
-        switch(action_type) {
-            case ACTION_ATTACK:
-                animation += "attack";
-                break;
-            case ACTION_DEAD:
-                animation += "dead";
-                break;
-            case ACTION_IDLE:
-                animation += "idle";
-                break;
-            case ACTION_MOVE:
-                animation += "movement";
-                break;
-            default:
-                animation += "idle";
-                break;
+            switch(action_type) {
+                case ACTION_ATTACK:
+                    animation += "attack";
+                    break;
+                case ACTION_DEAD:
+                    animation += "dead";
+                    break;
+                case ACTION_IDLE:
+                    animation += "idle";
+                    break;
+                case ACTION_MOVE:
+                    animation += "walk";
+                    break;
+                default:
+                    animation += "idle";
+                    break;
+                }
+
+            animation += "_";
+
+            // TODO(2014-09-09/JM): Remember "last rotation" as a string or enum so we don't have to always check these regions
+            //if(current_direction_ != object_->rotation()) {
+            current_direction_ = object_->rotation();
+
+            // determine direction
+            double rotation = object_->rotation();
+
+            if((rotation >= 45) && (rotation <= 135)) {
+                animation += "down";
             }
-        //}
-
-        animation += "_";
-
-        // TODO(2014-09-09/JM): Remember "last rotation" as a string or enum so we don't have to always check these regions
-        //if(current_direction_ != object_->rotation()) {
-        current_direction_ = object_->rotation();
-
-        // determine direction
-        double rotation = object_->rotation();
-
-        if((rotation >= 45) && (rotation <= 135)) {
-            animation += "down";
+            else if((rotation >= 135) && (rotation <= 225)) {
+                animation += "left";
+            }
+            else if((rotation >= 225) && (rotation <= 315)) {
+                animation += "up";
+            }
+            else {
+                animation += "right";
+            }
+            //}
+            current_animation_ = animations_[animation];
         }
-        else if((rotation >= 135) && (rotation <= 225)) {
-            animation += "left";
-        }
-        else if((rotation >= 225) && (rotation <= 315)) {
-            animation += "up";
-        }
-        else {
-            animation += "right";
-        }
-        //}
     }
     else {
         // This is for regular GameObjects. 
         // TODO(2014-09-09/JM): Decide how to handle animations for GameObjects (i.e. a "default" animation)
         animation = "idle_right";
+        current_animation_ = animations_[animation];
     }
-    current_animation_ = animations_[animation];
 
     // update frame of current animation
     if(animation_timer_.get_ticks() >= current_animation_.time()) {

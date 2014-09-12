@@ -3,23 +3,34 @@
 
 #include "ai_state/ai_state.h"
 #include "action/action.h"
+#include "point.h"
 
 class Entity;
+class AIStateMachine;
+class MoveAction;
 
 class SeekState : public AIState
 {
-    protected:
+    private:
+        Entity * target_;
+        MoveAction * move_action_;
+        Point target_last_position_;
 
     public:
-        SeekState();
+        SeekState(AIStateMachine * state_machine, Entity * entity);
         ~SeekState();
 
         // accessors
-        //ActionType type();
 
-        bool update(Entity * entity, int delta_ticks);
+
+        // mutators
+        void set_target(Entity * target) { target_ = target; }
+
+        bool update(int delta_ticks);
         void stop();
-        ActionType action_type() { return ACTION_MOVE; }
+        void start();
+        void end();
+        ActionType action_type();
 };
 
 #endif

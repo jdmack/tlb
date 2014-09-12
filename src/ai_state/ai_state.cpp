@@ -11,7 +11,7 @@ AIState::~AIState()
 
 }
 
-bool AIState::update(Entity * entity, int delta_ticks)
+bool AIState::update(int delta_ticks)
 {
     return true;
 }

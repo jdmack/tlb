@@ -13,6 +13,10 @@ const double kEntityDefaultVelocity     = 100;
 const double kEntityDefaultAcceleration = 800;
 const double kEntityRotationVelocity = 1000;
 
+const double kZombieAggroRadius = 96;
+const double kZombieLeashRadius = 144;
+const double kZombieAttackRadius = 48;
+
 enum EntityType {
     PLAYER,
     ZOMBIE,
