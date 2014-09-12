@@ -15,7 +15,12 @@ IdleState::~IdleState()
 
 bool IdleState::update(Entity * entity, int delta_ticks)
 {
-    return !stop_;
+    if(entity_->type() == PLAYER) {
+        return !stop_;
+    }
+    else {
+        // ZOMBIE
+    }
 }
 
 void IdleState::stop()
