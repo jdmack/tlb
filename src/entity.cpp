@@ -105,20 +105,8 @@ bool Entity::contains_point(double x, double y)
 
 void Entity::move(Point point)
 {
-    /*
     Logger::write(Logger::ss << "Move - (x,y): (" << point.x() << "," << point.y() << ")");
-
-    // Create movement action
-    MoveAction * move_action = new MoveAction(Point(x_position_, y_position_), point, game_->level());
-    if(move_action->empty_path()) {
-        Logger::write("Empty path, cancelling Move");
-        return;
-    }
-    PlayerAction * player_action = static_cast<PlayerAction *>(current_action_);
-    player_action->stop();
-    player_action->set_next_action(static_cast<Action *>(move_action));
-    player_action->set_next_state(MOVE);
-    */
+    state_machine_->move_command(point);
 }
 
 void Entity::rotate(Point point)
@@ -146,11 +134,7 @@ void Entity::attack(Entity * target)
 
 void Entity::stop()
 {
-    /*
-    if(current_action_ != nullptr) {
-        current_action_->stop();
-    }
-    */
+    state_machine_->stop();
 }
 
 bool Entity::stopped()

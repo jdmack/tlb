@@ -8,7 +8,8 @@ class Entity;
 
 class IdleState : public AIState
 {
-    protected:
+    private:
+        bool stop_;
 
     public:
         IdleState();

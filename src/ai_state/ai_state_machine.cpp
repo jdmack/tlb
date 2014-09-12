@@ -49,6 +49,7 @@ bool AIStateMachine::update(int delta_ticks)
         }
         else {
             current_state_ = next_state_;
+            next_state_ = nullptr;
         }
 
         current_state_->start();
@@ -59,11 +60,14 @@ bool AIStateMachine::update(int delta_ticks)
 
 void AIStateMachine::stop()
 {
-
+    if(current_state_ != nullptr) {
+        current_state_->stop();
+    }
 }
 
 void AIStateMachine::move_command(Point destination)
 {
+    current_state_->stop();
     next_state_ = move_state_;
     move_state_->set_destination(destination);
 }
