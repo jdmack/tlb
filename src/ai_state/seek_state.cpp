@@ -9,6 +9,7 @@
 
 SeekState::SeekState(AIStateMachine * state_machine, Entity * entity)
 {
+    type_ = STATE_SEEK;
     state_machine_ = state_machine;
     entity_ = entity;
     move_action_ = nullptr;

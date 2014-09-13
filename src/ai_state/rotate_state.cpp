@@ -9,6 +9,7 @@
 
 RotateState::RotateState(AIStateMachine * state_machine, Entity * entity)
 {
+    type_ = STATE_ROTATE;
     state_machine_ = state_machine;
     entity_ = entity;
     position_ = Point(0, 0);

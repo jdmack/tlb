@@ -8,10 +8,12 @@
 class Entity;
 class AIState;
 class AttackState;
+class DeadState;
 class IdleState;
 class MoveState;
 class RotateState;
 class SeekState;
+class GlobalState;
 
 class AIStateMachine
 {
@@ -20,9 +22,10 @@ class AIStateMachine
         AIState * current_state_;
         AIState * previous_state_;
         AIState * next_state_;
-        AIState * global_state_;
+        GlobalState * global_state_;
 
         AttackState * attack_state_;
+        DeadState * dead_state_;
         IdleState * idle_state_;
         MoveState * move_state_;
         RotateState * rotate_state_;
@@ -37,8 +40,9 @@ class AIStateMachine
         AIState * current_state() { return current_state_; }
         AIState * previous_state() { return previous_state_; }
         AIState * next_state() { return next_state_; }
-        AIState * global_state() { return global_state_; }
+        GlobalState * global_state() { return global_state_; }
         AttackState * attack_state() { return attack_state_; }
+        DeadState * dead_state() { return dead_state_; }
         IdleState * idle_state() { return idle_state_; }
         MoveState * move_state() { return move_state_; }
         RotateState * rotate_state() { return rotate_state_; }
@@ -49,7 +53,7 @@ class AIStateMachine
         void set_current_state(AIState * current_state) { current_state_ = current_state; }
         void set_previous_state(AIState * previous_state) { previous_state_ = previous_state; }
         void set_next_state(AIState * next_state) { next_state_ = next_state; }
-        void set_global_state(AIState * global_state) { global_state_ = global_state; }
+        void set_global_state(GlobalState * global_state) { global_state_ = global_state; }
 
         void set_next_state(AIStateType type);
 

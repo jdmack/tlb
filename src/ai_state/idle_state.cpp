@@ -10,6 +10,7 @@
 
 IdleState::IdleState(AIStateMachine * state_machine, Entity * entity)
 {
+    type_ = STATE_IDLE;
     state_machine_ = state_machine;
     entity_ = entity;
     stop_ = false;
@@ -41,6 +42,10 @@ bool IdleState::update(int delta_ticks)
                 return true;
             }
             if(entities.back()->object_id() == entity_->object_id()) {
+                entities.pop_back();
+                continue;
+            }
+            if(entities.back()->dead()) {
                 entities.pop_back();
                 continue;
             }

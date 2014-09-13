@@ -10,6 +10,7 @@
 
 AttackState::AttackState(AIStateMachine * state_machine, Entity * entity)
 {
+    type_ = STATE_ATTACK;
     state_machine_ = state_machine;
     entity_ = entity;
     target_ = nullptr;
@@ -67,7 +68,6 @@ void AttackState::start()
     Logger::write(Logger::ss << "Entity: " << entity_->object_id() << " - Entering State: ATTACK");
     //attack_action_->reset();
     attack_action_ = new AttackAction(target_);
-    Logger::write("Switching to ATTACK");
 }
 
 void AttackState::end()

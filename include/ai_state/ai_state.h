@@ -9,7 +9,8 @@ enum AIStateType {
     STATE_MOVE,
     STATE_ROTATE,
     STATE_SEEK,
-    STATE_DEAD
+    STATE_DEAD,
+    STATE_GLOBAL
 
 };
 

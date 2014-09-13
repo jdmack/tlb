@@ -68,12 +68,6 @@ void Entity::update(int delta_ticks)
     // TODO(2014-08-21/JM): Can create a DeadAction that contains a duration to trigger DYING animation
     // and then will be a DEAD state
 
-    // Check if need to die
-    if(hp_->empty()) {
-        dead_ = true;
-        selectable_ = false;
-        controllable_ = false;
-    }
     if(state_machine_ != nullptr) {
         state_machine_->update(delta_ticks);
     }
@@ -145,3 +139,9 @@ ActionType Entity::action_type()
     return state_machine_->action_type();   
 }
 
+void Entity::set_dead(bool dead)
+{
+    dead_ = dead;
+    selectable_ = !dead;
+    controllable_ = !dead;
+}

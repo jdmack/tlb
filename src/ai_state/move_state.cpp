@@ -10,6 +10,7 @@
 
 MoveState::MoveState(AIStateMachine * state_machine, Entity * entity)
 {
+    type_ = STATE_MOVE;
     state_machine_ = state_machine;
     entity_ = entity;
     destination_ = Point(0, 0);

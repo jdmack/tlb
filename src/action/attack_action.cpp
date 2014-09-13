@@ -45,7 +45,6 @@ bool AttackAction::update(Entity * entity, int delta_ticks)
     if(entity->position().distance_from(target_->position()) > range_) {
         return false;
     }
-    Logger::write(Logger::ss << "Attacking");
 
     switch(state_) {
         case ATTACKING:
