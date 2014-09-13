@@ -17,6 +17,11 @@ const double kZombieAggroRadius = 96;
 const double kZombieLeashRadius = 144;
 const double kZombieAttackRadius = 48;
 
+const double kPlayerAttackRange = 200;
+const double kPlayerAttackDamage = 2;
+const double kPlayerAttackCooldown = 3000;
+const double kPlayerAttackDuration = 500;
+
 enum EntityType {
     PLAYER,
     ZOMBIE,
