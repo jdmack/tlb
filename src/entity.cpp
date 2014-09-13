@@ -10,7 +10,6 @@
 #include "action/move_action.h"
 #include "action/dead_action.h"
 #include "action/action.h"
-#include "action/player_action.h"
 #include "action/attack_action.h"
 #include "action/rotate_action.h"
 #include "movement.h"
@@ -110,15 +109,8 @@ void Entity::rotate(Point point)
 
 void Entity::attack(Entity * target)
 {
-    /*
-    AttackAction * attack_action = new AttackAction(target);
-    attack_action->set_range(kPlayerAttackRange);
-    attack_action->set_damage(kPlayerAttackDamage);
-    PlayerAction * player_action = static_cast<PlayerAction *>(current_action_);
-    player_action->stop();
-    player_action->set_next_action(attack_action);
-    player_action->set_next_state(ATTACK);
-    */
+    Logger::write(Logger::ss << "Attack - (Entity): (" << target->object_id() << ")");
+    state_machine_->attack_command(target);
 }
 
 void Entity::stop()

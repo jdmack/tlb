@@ -25,6 +25,9 @@ MoveState::~MoveState()
 bool MoveState::update(int delta_ticks)
 {
     bool keep_action = move_action_->update(entity_, delta_ticks);
+    if(!keep_action) {
+        state_machine_->set_previous_state(nullptr);
+    }
 
     return keep_action;
 }

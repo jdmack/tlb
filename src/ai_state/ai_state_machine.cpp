@@ -8,6 +8,7 @@
 #include "ai_state/seek_state.h"
 #include "ai_state/global_state.h"
 #include "point.h"
+#include "entity.h"
 
 AIStateMachine::AIStateMachine(Entity * entity)
 {
@@ -24,6 +25,15 @@ AIStateMachine::AIStateMachine(Entity * entity)
     move_state_ = new MoveState(this, entity);
     rotate_state_ = new RotateState(this, entity);
     seek_state_ = new SeekState(this, entity);
+
+    if(entity_->type() == PLAYER) {
+        attack_state_->set_damage(kPlayerAttackDamage);
+        attack_state_->set_range(kPlayerAttackRange);
+    }
+    else if(entity_->type() == ZOMBIE) {
+        attack_state_->set_damage(kZombieAttackDamage);
+        attack_state_->set_range(kZombieAttackRange);
+    }
 }
 
 AIStateMachine::~AIStateMachine()
@@ -51,6 +61,7 @@ bool AIStateMachine::update(int delta_ticks)
     // Check if dead
     if((next_state_ != nullptr) && (next_state_->type() == STATE_DEAD)) {
         current_state_->end();
+        previous_state_ = current_state_;
         current_state_ = next_state_;
         current_state_->start();
         next_state_ = nullptr;
@@ -65,9 +76,16 @@ bool AIStateMachine::update(int delta_ticks)
         current_state_->end();
 
         if(next_state_ == nullptr) {
-            current_state_ = static_cast<AIState *>(idle_state_);
+            if(previous_state_ == nullptr) {
+                current_state_ = static_cast<AIState *>(idle_state_);
+            }
+            else {
+                current_state_ = previous_state_;
+                previous_state_ = nullptr;
+            }
         }
         else {
+            previous_state_ = current_state_;
             current_state_ = next_state_;
             next_state_ = nullptr;
         }
@@ -94,6 +112,9 @@ void AIStateMachine::move_command(Point destination)
 
 void AIStateMachine::attack_command(Entity * target)
 {
+    current_state_->stop();
+    next_state_ = attack_state_;
+    attack_state_->set_target(target);
 }
 
 void AIStateMachine::rotate_command(Point position)
@@ -138,6 +159,35 @@ void AIStateMachine::set_next_state(AIStateType type)
 
         case STATE_SEEK:
             next_state_ = seek_state_;
+            break;
+    }
+}
+
+void AIStateMachine::set_previous_state(AIStateType type)
+{
+    switch(type) {
+        case STATE_ATTACK:
+            previous_state_ = attack_state_;
+            break;
+
+        case STATE_DEAD:
+            previous_state_ = dead_state_;
+            break;
+
+        case STATE_IDLE:
+            previous_state_ = idle_state_;
+            break;
+
+        case STATE_MOVE:
+            previous_state_ = move_state_;
+            break;
+
+        case STATE_ROTATE:
+            previous_state_ = rotate_state_;
+            break;
+
+        case STATE_SEEK:
+            previous_state_ = seek_state_;
             break;
     }
 }

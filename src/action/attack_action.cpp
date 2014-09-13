@@ -95,4 +95,6 @@ void AttackAction::reset()
 void AttackAction::stop()
 {
     state_ = STOPPED;
+    stopped_ = true;
+
 }

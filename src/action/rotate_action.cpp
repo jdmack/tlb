@@ -103,10 +103,18 @@ void RotateAction::stop()
 bool RotateAction::facing(Entity * entity, Entity * target)
 {
     Vector vector = Vector(entity->position(), target->position());
+
+    // Check a firing arc of 60 degrees
+    //if(std::abs(entity->rotation() - vector.direction()) <= 60) {
+    //    return true;
+    //}
+    //else {
+    //    return false;
+    //}
+
     if(entity->rotation() != vector.direction()) {
         return false;
     }
-
     return true;
 }
 

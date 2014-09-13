@@ -6,7 +6,6 @@
 #include "game.h"
 #include "level.h"
 #include "entity_manager.h"
-#include "action/zombie_action.h"
 #include "entity.h"
 #include "assets.h"
 #include "util/logger.h"
@@ -129,10 +128,6 @@ Entity * GSLevel::spawn_entity(EntityType type, Point position, double rotation)
             default: asset = kAssetSpriteZombie1; break;
        } */
         entity->create_sprite(asset);
-
-        ZombieAction * zombie_action = new ZombieAction();
-        zombie_action->set_entity_manager(game_->entity_manager());
-        zombie_action->set_game(game_);
     }
 
     game_->entity_manager()->add_object(entity);

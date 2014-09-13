@@ -56,6 +56,7 @@ class AIStateMachine
         void set_global_state(GlobalState * global_state) { global_state_ = global_state; }
 
         void set_next_state(AIStateType type);
+        void set_previous_state(AIStateType type);
 
         void move_command(Point destination);
         void attack_command(Entity * target);

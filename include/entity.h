@@ -15,10 +15,13 @@ const double kEntityRotationVelocity = 1000;
 
 const double kZombieAggroRadius = 96;
 const double kZombieLeashRadius = 144;
-const double kZombieAttackRadius = 48;
+const double kZombieAttackDamage = 1;
+const double kZombieAttackRange = 48;
+const double kZombieAttackCooldown = 3000;
+const double kZombieAttackDuration = 500;
 
-const double kPlayerAttackRange = 200;
 const double kPlayerAttackDamage = 2;
+const double kPlayerAttackRange = 200;
 const double kPlayerAttackCooldown = 3000;
 const double kPlayerAttackDuration = 500;
 
