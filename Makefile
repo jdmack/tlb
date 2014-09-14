@@ -1,7 +1,7 @@
 CC := g++ # This is the main compiler
 # CC := clang --analyze # and comment out the linker last line for sanity
 SRCDIR := src
-TESTDIR := tests
+#TESTDIR := tests
 BUILDDIR := build
 TARGET := tlb
  
@@ -12,14 +12,12 @@ OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 TESTOBJ := $(patsubst $(TESTDIR)/%,$(BUILDDIR)/%,$(TESTS:.$(SRCEXT)=.o)) $(filter-out build/main.o,$(OBJECTS))
 
 CFLAGS := -g -O0 -std=c++0x #-Wall
-LIB := -lSDL2 -lSDL2_image -static-libgcc 
- 
-#LIB := -lSDL2 -lSDL2_image -lSDL_ttf -lSDL_mixer -static-libgcc
+LIB := -lSDL2 -lSDL2_image -lSDL2_ttf -static-libgcc 
 
 # Uncomment on CentOS 6 (GCC 4.4)
 #CFLAGS += -Dnullptr='(NULL)'
 
-INC := -I include
+INC := -I include -I lib
 
 $(TARGET): $(OBJECTS)
 	@echo " Linking..."
@@ -27,7 +25,11 @@ $(TARGET): $(OBJECTS)
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	@mkdir -p $(BUILDDIR)
-	@mkdir -p $(BUILDDIR)/utils
+	@mkdir -p $(BUILDDIR)/util
+	@mkdir -p $(BUILDDIR)/action
+	@mkdir -p $(BUILDDIR)/ai_state
+	@mkdir -p $(BUILDDIR)/ui
+	@mkdir -p $(BUILDDIR)/event
 	@echo " $(CC) $(CFLAGS) $(INC) -c -o $@ $<"; $(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 clean:
