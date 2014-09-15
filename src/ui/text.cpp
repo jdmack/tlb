@@ -20,7 +20,6 @@ Text::Text()
     texture_ = nullptr;
     renderer_ = nullptr;
     font_ = nullptr;
-
 }
 
 Text::Text(std::string text)
@@ -30,15 +29,13 @@ Text::Text(std::string text)
     height_ = 0;
     size_ = 0;
     visible_ = true;
-    color_ = Color(255, 0, 255);
+    color_ = Color(255, 255, 255);
 
     texture_ = nullptr;
     renderer_ = nullptr;
-    font_ = load_font(kAssetFontPsychoPoetry, 28);
+    font_ = load_font(kAssetFontUbuntuMono, 72);
 
     set_text(text);
-
-
 }
 
 Text::~Text()
@@ -65,8 +62,7 @@ void Text::set_text(std::string text)
         }
         else {
             //Get image dimensions
-            width_ = surface->w;
-            height_ = surface->h;
+            SDL_QueryTexture(texture_, NULL, NULL, &width_, &height_);
         }
 
         //Get rid of old surface
@@ -78,7 +74,7 @@ TTF_Font * Text::load_font(std::string filename, int size)
 {
     TTF_Font * font = TTF_OpenFont(filename.c_str(), size);
         if(font == nullptr) {
-            Logger::write(Logger::ss << "Failed to load lazy font! SDL_ttf Error: " << TTF_GetError());
+            Logger::write(Logger::ss << "Failed to load font! SDL_ttf Error: " << TTF_GetError());
         }
         return font;
 }
@@ -86,8 +82,8 @@ TTF_Font * Text::load_font(std::string filename, int size)
 void Text::render()
 {
     if(texture_ == nullptr) printf("ERROR\n");
-    //SDL_Rect offset = { position_.x() - (width_ / 2), position_.y() - (height_ / 2), height_, width_ };
-    SDL_Rect offset = { (int)position_.x(), (int)position_.y(), height_, width_ };
+    //SDL_Rect offset = { position_.x() - (width_ / 2), position_.y() - (height_ / 2), width_, height_ };
+    SDL_Rect offset = { (int)position_.x(), (int)position_.y(), width_, height_ };
     Game::instance()->renderer()->render_texture(texture_, &offset);
 
 }
