@@ -19,7 +19,7 @@ class GSLevel : public GameState
 
         // FOR TESTING
         Panel panel;
-        Text text;
+        Text * text;
 
     public:
         GSLevel(Game * game);

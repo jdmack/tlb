@@ -51,10 +51,11 @@ int GSLevel::init()
     panel.set_width(200);
     panel.set_height(200);
     panel.set_color(color);
-
-    text = Text("test");
-    text.set_position(Point(200, 200));
     */
+
+    //text = new Text("Left Click to Select Character\nRight Click to Move\nHold R + Left Click to Rotate to Face Direction\nHold A + Left Click Zombie to Attack");
+    text = new Text("Testing");
+    text->set_position(Point(200, 200));
 
     return return_code;
 }
@@ -87,7 +88,7 @@ void GSLevel::render()
 
     // FOR TESTING
     //panel.render();
-    //text.render();
+    text->render();
 }
 
 void GSLevel::end()
