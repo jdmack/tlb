@@ -34,6 +34,7 @@ const std::string kAssetArtTilesHexIsometric = kPathTiles + "tiles_hexagon_isome
 /* Fonts */
 const std::string kAssetFontPsychoPoetry = kPathFont + "psychopoetry.ttf";
 const std::string kAssetFontConsolas = kPathFont + "consola.ttf";
+const std::string kAssetFontUbuntuMono = kPathFont + "UbuntuMono-Regular.ttf";
 
 /* Maps */
 const std::string kMapTest24x18HexIsometric = kPathMap + "test_24x18_hex_iso.map";

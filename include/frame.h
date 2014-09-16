@@ -8,17 +8,19 @@ class Frame
         int y_;
         int width_;
         int height_;
+        Frame * parent_;
 
     public:
-        Frame();
-        Frame(int x, int y, int width, int height);
+        Frame(Frame * parent = nullptr);
+        Frame(int x, int y, int width, int height, Frame * parent = nullptr);
         ~Frame();
 
         // accessors
-        int x() const { return x_; }
-        int y() const { return y_; }
+        int x() const;
+        int y() const;
         int width() const { return width_; }
         int height() const { return height_; }
+        Frame * parent() const { return parent_; }
 
         // mutators
         void set_x(int x) { x_ = x; }
