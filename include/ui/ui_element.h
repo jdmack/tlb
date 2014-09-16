@@ -10,7 +10,7 @@ class Frame;
 
 class UIElement
 {
-    private:
+    protected:
         Point position_;
         int width_;
         int height_;
