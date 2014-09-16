@@ -27,6 +27,7 @@ class Frame
         void set_y(int y) { y_ = y; }
         void set_width(int width) { width_ = width; }
         void set_height(int height) { height_ = height; }
+        void set_parent(Frame * parent) { parent_ = parent; }
 
 };
 
