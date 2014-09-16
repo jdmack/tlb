@@ -1,45 +1,45 @@
-#ifndef TLB_UI_PANEL_H_
-#define TLB_UI_PANEL_H_
+#ifndef TLB_UI_ELEMENT_H_
+#define TLB_UI_ELEMENT_H_
 
 #include "SDL2/SDL.h"
 #include "constants.h"
 #include "renderer.h"
 #include "point.h"
 
-class Panel
+class Frame;
+
+class UIElement
 {
     private:
         Point position_;
         int width_;
         int height_;
         bool visible_;
-        SDL_Color color_;
+        std::string art_asset_;
 
         SDL_Texture * texture_;
-        Renderer * renderer_;
 
 
     public:
-        Panel();
-        Panel(Renderer * renderer);
-        ~Panel();
+        UIElement();
+        ~UIElement();
 
         // accessors
         Point position() const { return position_; }
         int width() const { return width_; }
         int height() const { return height_; }
         bool visible() const { return visible_; }
-        SDL_Color color() const { return color_; }
+        std::string art_asset() const { return art_asset_; }
 
         // mutators
         void set_position(Point position) { position_ = position; }
         void set_width(int width) { width_ = width; }
         void set_height(int height) { height_ = height; }
         void set_visible(bool visible) { visible_ = visible; }
-        void set_color(SDL_Color color) { color_ = color; }
-        void set_alpha(Uint8 alpha) { color_.a= alpha; }
+        void set_art_asset(std::string art_asset) { art_asset_ = art_asset; }
 
-        void render();
+        void render(Frame * frame = nullptr);
+        void update();
         bool toggle();
 };
 
