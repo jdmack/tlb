@@ -1,5 +1,5 @@
-#ifndef TLB_UI_ELEMENT_H_
-#define TLB_UI_ELEMENT_H_
+#ifndef TLB_UI_UI_ELEMENT_H_
+#define TLB_UI_UI_ELEMENT_H_
 
 #include "SDL2/SDL.h"
 #include "constants.h"
