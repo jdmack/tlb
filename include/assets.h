@@ -11,6 +11,7 @@ const std::string kPathFont       = kPathAssets + "font/";
 const std::string kPathSprites    = kPathArt    + "sprites/";
 const std::string kPathTiles      = kPathArt    + "tiles/";
 const std::string kPathMap        = kPathRoot   + "maps/";
+const std::string kPathUI         = kPathArt    + "ui/";
 
 /* Art */
 
@@ -25,6 +26,21 @@ const std::string kAssetSpriteXMLZombie = kPathSprites + "zombie.xml";
 
 const std::string kAssetSpriteHuman1 = kPathSprites + "human1.png";
 const std::string kAssetSpriteXMLHuman = kPathSprites + "human.xml";
+
+/* UI */
+const std::string kAssetUIAttackButton          = kPathUI + "attack_button.png";
+const std::string kAssetUIAttackButton          = kPathUI + "attack_button_pressed.png";
+const std::string kAssetUICharacterCard         = kPathUI + "character_card.png";
+const std::string kAssetUICharacterCardSelected = kPathUI + "character_card_selected.png";
+const std::string kAssetUICommandPanel          = kPathUI + "command_panel.png";
+const std::string kAssetUIGameTimerPanel        = kPathUI + "gametimer_panel.png";
+const std::string kAssetUIMoveButton            = kPathUI + "move_button.png";
+const std::string kAssetUIMoveButtonPressed     = kPathUI + "move_button_pressed.png";
+const std::string kAssetUIPausedPanel           = kPathUI + "paused_panel.png";
+const std::string kAssetUIRotateButton          = kPathUI + "rotate_button.png";
+const std::string kAssetUIRotateButtonPressed   = kPathUI + "rotate_button_pressed.png";
+const std::string kAssetUIBackgroundPanel       = kPathUI + "ui_background_panel.png";
+
 
 /* Tiles */
 const std::string kAssetArtTilesHexagon = kPathTiles + "tiles_hexagon.png";
