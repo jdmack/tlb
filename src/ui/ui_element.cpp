@@ -1,7 +1,9 @@
+#include "SDL2.h"
 #include "ui/ui_element.h"
 #include "point.h"
 #include "util/logger.h"
 #include "renderer.h"
+
 
 UIElement::UIElement()
 {
@@ -21,7 +23,9 @@ UIElement::~UIElement()
 
 void UIElement::render(Frame * frame)
 {
-
+    Renderer * renderer = Game::instance()->renderer();
+    SDL_Rect offset = { position_.x(), position_.y(), width_, height_ };
+    renderer->render_texture_frame(texture_, frame, &offset);
 }
 
 bool UIElement::toggle()
@@ -32,8 +36,6 @@ bool UIElement::toggle()
 
 void UIElement::update()
 {
-    Renderer * renderer = Game::instance()->renderer();
 
-    renderer->render_texture(
 }
 
