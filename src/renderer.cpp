@@ -12,6 +12,7 @@
 #include "hit_point.h"
 #include "entity.h"
 #include "util/math.h"
+#include "frame.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -96,6 +97,22 @@ void Renderer::render_texture(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect
     if(return_code != 0) {
         Logger::write(Logger::ss << "Render Error: " << SDL_GetError());
     }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//
+//
+////////////////////////////////////////////////////////////////////////////////
+void Renderer::render_texture_frame(SDL_Texture * texture, Frame * frame, SDL_Rect * offset, SDL_Rect * clip)
+{
+    SDL_Rect * new_offset;
+    new_offset->x = offset->x + frame->x();
+    new_offset->y = offset->y + frame->y();
+    new_offset->w = offset->w;
+    new_offset->h = offset->h;
+
+    render_texture(texture, new_offset, clip);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

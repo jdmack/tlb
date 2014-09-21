@@ -46,6 +46,7 @@ class Renderer
         void init_object(GameObject * object);
 
         void render_texture(SDL_Texture * source, SDL_Rect * offset, SDL_Rect * clip = nullptr);
+        void render_texture_frame(SDL_Texture * source, Frame * frame, SDL_Rect * offset, SDL_Rect * clip = nullptr);
         void render_texture_rotate(SDL_Texture * source, SDL_Rect * offset, SDL_Rect * clip , double angle);
         void apply_surface(SDL_Surface * source, SDL_Surface * destination, SDL_Rect * offset, SDL_Rect * clip = nullptr);
 
