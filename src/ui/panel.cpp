@@ -45,8 +45,3 @@ void Panel::render()
     //SDL_FreeSurface(surface);
 }
 
-bool Panel::toggle()
-{
-    visible_ = !visible_;
-    return visible_;
-}

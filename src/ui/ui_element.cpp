@@ -1,6 +1,7 @@
 #include "ui/ui_element.h"
 #include "point.h"
 #include "util/logger.h"
+#include "renderer.h"
 
 UIElement::UIElement()
 {
@@ -31,6 +32,8 @@ bool UIElement::toggle()
 
 void UIElement::update()
 {
+    Renderer * renderer = Game::instance()->renderer();
 
+    renderer->render_texture(
 }
 

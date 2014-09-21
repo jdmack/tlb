@@ -11,11 +11,13 @@
 #include "ui/text.h"
 
 class Game;
+class UserInterface;
 
 class GSLevel : public GameState
 {
     private:
         Game * game_;
+        UserInterface * user_interface_;
 
         // FOR TESTING
         Panel panel;
