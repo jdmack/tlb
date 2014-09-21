@@ -7,7 +7,7 @@
 class Frame;
 class UIElement;
 
-class UserInterface
+clas UserInterface
 {
     private:
         std::vector<UIElement *> elements_;
