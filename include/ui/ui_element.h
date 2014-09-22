@@ -41,6 +41,8 @@ class UIElement
         void render(Frame * frame = nullptr);
         void update();
         bool toggle();
+
+        bool load_texture(std::string art_asset);
 };
 
 #endif

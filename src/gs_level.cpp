@@ -9,6 +9,7 @@
 #include "entity.h"
 #include "assets.h"
 #include "util/logger.h"
+#include "ui/user_interface.h"
 
 #include "ui/text.h"
 
@@ -16,6 +17,7 @@
 GSLevel::GSLevel(Game * game)
 {
     game_ = game;
+    user_interface_ = nullptr;
 }
 
 int GSLevel::init()
@@ -31,6 +33,8 @@ int GSLevel::init()
     }
 
     game_->set_level(level);
+
+    user_interface_ = new UserInterface();
 
     // (264,216)
     Entity * char1   = spawn_entity(PLAYER, Point(42 * 14 + 21, 36 * 10 + 24), 90);
@@ -60,7 +64,7 @@ bool GSLevel::update(int delta_ticks)
         (*entity_iterator)->update(delta_ticks);
     }
 
-
+    user_interface_->update();
     return true;
 }
 void GSLevel::render()
@@ -76,6 +80,8 @@ void GSLevel::render()
             game_->renderer()->draw_life_bar(*entity_iterator);
         }
     }
+
+    user_interface_->render();
 
     // FOR TESTING
     text->render();

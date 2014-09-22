@@ -106,13 +106,18 @@ void Renderer::render_texture(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect
 ////////////////////////////////////////////////////////////////////////////////
 void Renderer::render_texture_frame(SDL_Texture * texture, Frame * frame, SDL_Rect * offset, SDL_Rect * clip)
 {
-    SDL_Rect * new_offset;
-    new_offset->x = offset->x + frame->x();
-    new_offset->y = offset->y + frame->y();
-    new_offset->w = offset->w;
-    new_offset->h = offset->h;
+    if(frame == nullptr) {
+        render_texture(texture, offset, clip);
+    }
+    else {
+        SDL_Rect * new_offset;
+        new_offset->x = offset->x + frame->x();
+        new_offset->y = offset->y + frame->y();
+        new_offset->w = offset->w;
+        new_offset->h = offset->h;
 
-    render_texture(texture, new_offset, clip);
+        render_texture(texture, new_offset, clip);
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

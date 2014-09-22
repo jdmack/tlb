@@ -40,3 +40,18 @@ void UIElement::update()
 
 }
 
+bool UIElement::load_texture(std::string art_asset)
+{
+    art_asset_ = art_asset;
+    Renderer * renderer = Game::instance()->renderer();
+
+    texture_ = renderer->load_texture(art_asset_);
+    if(texture_ == nullptr) {
+        return false;
+    }
+
+    SDL_QueryTexture(texture_, NULL, NULL, &width_, &height_);
+
+
+    return true;
+}

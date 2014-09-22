@@ -2,6 +2,7 @@
 #include "ui/user_interface.h"
 #include "ui/ui_element.h"
 #include "ui/panel.h"
+#include "assets.h"
 
 UserInterface::UserInterface()
 {
@@ -9,7 +10,9 @@ UserInterface::UserInterface()
 
     // setup UI elements
     Panel * panel = new Panel();
-
+    panel->load_texture(kAssetUIBackgroundPanel);
+    panel->set_position(Point(0, 0));
+    add_element(panel);
 }
 
 UserInterface::~UserInterface()
