@@ -7,7 +7,6 @@
 
 
 // FOR TESTING
-#include "ui/panel.h"
 #include "ui/text.h"
 
 class Game;
@@ -20,7 +19,6 @@ class GSLevel : public GameState
         UserInterface * user_interface_;
 
         // FOR TESTING
-        Panel panel;
         Text * text;
 
     public:

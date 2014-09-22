@@ -1,10 +1,15 @@
 #include <vector>
 #include "ui/user_interface.h"
 #include "ui/ui_element.h"
+#include "ui/panel.h"
 
 UserInterface::UserInterface()
 {
     elements_ = std::vector<UIElement *>();
+
+    // setup UI elements
+    Panel * panel = new Panel();
+
 }
 
 UserInterface::~UserInterface()

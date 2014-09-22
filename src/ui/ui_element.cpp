@@ -1,8 +1,9 @@
-#include "SDL2.h"
+#include "SDL2/SDL.h"
 #include "ui/ui_element.h"
 #include "point.h"
 #include "util/logger.h"
 #include "renderer.h"
+#include "game.h"
 
 
 UIElement::UIElement()

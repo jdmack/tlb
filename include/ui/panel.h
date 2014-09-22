@@ -5,6 +5,7 @@
 #include "constants.h"
 #include "renderer.h"
 #include "point.h"
+#include "ui/ui_element.h"
 
 class Panel : public UIElement
 {
@@ -18,8 +19,8 @@ class Panel : public UIElement
 
         // mutators
 
-        void render(Frame * frame = nullptr);
-        void update();
+        //void render(Frame * frame = nullptr);
+        //void update();
 };
 
 #endif

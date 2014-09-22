@@ -10,6 +10,7 @@ class GameObject;
 class Entity;
 class DebugFrame;
 class Camera;
+class Frame;
 
 /* Renderer Attributes */
 //const int kRendererWidth        = 800;

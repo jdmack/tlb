@@ -10,7 +10,6 @@
 #include "assets.h"
 #include "util/logger.h"
 
-#include "ui/panel.h"
 #include "ui/text.h"
 
 
@@ -44,14 +43,6 @@ int GSLevel::init()
     //Entity * zombie6 = spawn_entity(ZOMBIE, Point(48 * 7 + 24, 48 * 1 + 24), 0);
 
     // FOR TESTING
-    /*
-    panel = Panel(game_->renderer());
-    SDL_Color color = { 128, 128, 128, 255 };
-    panel.set_position(Point(100, 100));
-    panel.set_width(200);
-    panel.set_height(200);
-    panel.set_color(color);
-    */
 
     //text = new Text("Left Click to Select Character\nRight Click to Move\nHold R + Left Click to Rotate to Face Direction\nHold A + Left Click Zombie to Attack");
     text = new Text("Testing");
@@ -87,7 +78,6 @@ void GSLevel::render()
     }
 
     // FOR TESTING
-    //panel.render();
     text->render();
 }
 

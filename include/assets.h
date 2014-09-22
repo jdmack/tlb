@@ -29,7 +29,7 @@ const std::string kAssetSpriteXMLHuman = kPathSprites + "human.xml";
 
 /* UI */
 const std::string kAssetUIAttackButton          = kPathUI + "attack_button.png";
-const std::string kAssetUIAttackButton          = kPathUI + "attack_button_pressed.png";
+const std::string kAssetUIAttackButtonPressed   = kPathUI + "attack_button_pressed.png";
 const std::string kAssetUICharacterCard         = kPathUI + "character_card.png";
 const std::string kAssetUICharacterCardSelected = kPathUI + "character_card_selected.png";
 const std::string kAssetUICommandPanel          = kPathUI + "command_panel.png";
