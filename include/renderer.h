@@ -1,5 +1,5 @@
-#ifndef TLB_SCREEN_H_
-#define TLB_SCREEN_H_
+#ifndef TLB_RENDERER_H_
+#define TLB_RENDERER_H_
 
 #include "SDL2/SDL.h"
 #include "constants.h"

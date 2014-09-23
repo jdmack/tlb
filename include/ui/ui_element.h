@@ -22,7 +22,7 @@ class UIElement
 
     public:
         UIElement();
-        ~UIElement();
+        virtual ~UIElement();
 
         // accessors
         Point position() const { return position_; }
@@ -38,11 +38,11 @@ class UIElement
         void set_visible(bool visible) { visible_ = visible; }
         void set_art_asset(std::string art_asset) { art_asset_ = art_asset; }
 
-        void render(Frame * frame = nullptr);
-        void update();
-        bool toggle();
+        virtual void render(Frame * frame = nullptr);
+        virtual void update();
+        virtual bool toggle();
 
-        bool load_texture(std::string art_asset);
+        virtual bool load_texture(std::string art_asset);
 };
 
 #endif

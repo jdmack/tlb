@@ -1,6 +1,8 @@
+#include <vector>
 #include "ui/panel.h"
 #include "point.h"
 #include "util/logger.h"
+#include "frame.h"
 
 Panel::Panel()
 {
@@ -29,6 +31,7 @@ void Panel::render(Frame * frame)
     if(frame_ != nullptr) {
         frame_->set_parent(frame);
     }
+    UIElement::render(frame);
     for(std::vector<UIElement *>::iterator element_iterator = elements_.begin(); element_iterator != elements_.end(); ++element_iterator) {
         (*element_iterator)->render(frame_);
     }
@@ -39,4 +42,11 @@ void Panel::update()
     for(std::vector<UIElement *>::iterator element_iterator = elements_.begin(); element_iterator != elements_.end(); ++element_iterator) {
         (*element_iterator)->update();
     }
+}
+
+bool Panel::load_texture(std::string art_asset)
+{
+    bool load_result = UIElement::load_texture(art_asset);
+    frame_ = new Frame(position_.x(), position_.y(), width_, height_);
+    return load_result;
 }

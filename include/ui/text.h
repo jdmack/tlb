@@ -10,6 +10,8 @@
 const int kDefaultTextWrap = 1000;
 const int kDefaultTextSize = 28;
 
+class Frame;
+
 class Text
 {
     private:
@@ -48,7 +50,7 @@ class Text
         void set_text(std::string text);
 
         void update();
-        void render();
+        void render(Frame * frame = nullptr);
         TTF_Font * load_font(std::string filename, int size);
         void reload_font();
 };

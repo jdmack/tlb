@@ -83,12 +83,14 @@ TTF_Font * Text::load_font(std::string filename, int size)
         return font;
 }
 
-void Text::render()
+void Text::render(Frame * frame)
 {
     if(texture_ == nullptr) printf("ERROR\n");
     //SDL_Rect offset = { position_.x() - (width_ / 2), position_.y() - (height_ / 2), width_, height_ };
     SDL_Rect offset = { (int)position_.x(), (int)position_.y(), width_, height_ };
-    Game::instance()->renderer()->render_texture(texture_, &offset);
+
+    Renderer * renderer = Game::instance()->renderer();
+    renderer->render_texture_frame(texture_, frame, &offset);
 
 }
 

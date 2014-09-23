@@ -110,7 +110,7 @@ void Renderer::render_texture_frame(SDL_Texture * texture, Frame * frame, SDL_Re
         render_texture(texture, offset, clip);
     }
     else {
-        SDL_Rect * new_offset;
+        SDL_Rect * new_offset = new SDL_Rect;
         new_offset->x = offset->x + frame->x();
         new_offset->y = offset->y + frame->y();
         new_offset->w = offset->w;

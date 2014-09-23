@@ -31,6 +31,7 @@ class Panel : public UIElement
 
         void render(Frame * frame = nullptr);
         void update();
+        bool load_texture(std::string art_asset);
 };
 
 #endif

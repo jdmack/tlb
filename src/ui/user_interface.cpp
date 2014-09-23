@@ -3,6 +3,7 @@
 #include "ui/ui_element.h"
 #include "ui/panel.h"
 #include "assets.h"
+#include "ui/game_timer.h"
 
 UserInterface::UserInterface()
 {
@@ -13,6 +14,20 @@ UserInterface::UserInterface()
     panel->load_texture(kAssetUIBackgroundPanel);
     panel->set_position(Point(0, 0));
     add_element(panel);
+
+    GameTimer * timer = new GameTimer();
+    timer->load_texture(kAssetUIGameTimerPanel);
+    timer->set_position(Point(9, 9));
+    panel->add_element(timer);
+
+    /*
+    UIElement * element = new UIElement();
+    element->load_texture(kAssetUIGameTimerPanel);
+    element->set_position(Point(9, 9));
+    panel->add_element(element);
+    */
+
+    //element
 }
 
 UserInterface::~UserInterface()
