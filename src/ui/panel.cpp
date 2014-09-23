@@ -50,3 +50,10 @@ bool Panel::load_texture(std::string art_asset)
     frame_ = new Frame(position_.x(), position_.y(), width_, height_);
     return load_result;
 }
+
+void Panel::set_position(Point point)
+{
+    UIElement::set_position(point);
+    frame_->set_x(position_.x());
+    frame_->set_y(position_.y());
+}

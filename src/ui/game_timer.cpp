@@ -30,8 +30,7 @@ GameTimer::~GameTimer()
 
 void GameTimer::render(Frame * frame)
 {
-    //UIElement::render(frame);
-    UIElement::render();
+    UIElement::render(frame);
     text_->render(frame);
 }
 

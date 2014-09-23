@@ -32,7 +32,7 @@ class UIElement
         std::string art_asset() const { return art_asset_; }
 
         // mutators
-        void set_position(Point position) { position_ = position; }
+        virtual void set_position(Point position) { position_ = position; }
         void set_width(int width) { width_ = width; }
         void set_height(int height) { height_ = height; }
         void set_visible(bool visible) { visible_ = visible; }

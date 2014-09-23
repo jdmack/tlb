@@ -25,6 +25,7 @@ class Panel : public UIElement
         Frame * frame() const { return frame_; }
 
         // mutators
+        void set_position(Point point);
         void set_frame(Frame * frame) { frame_ = frame; }
 
         void add_element(UIElement * element);
