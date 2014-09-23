@@ -11,7 +11,6 @@
 #include "util/logger.h"
 #include "ui/user_interface.h"
 
-#include "ui/text.h"
 
 
 GSLevel::GSLevel(Game * game)
@@ -48,10 +47,6 @@ int GSLevel::init()
 
     // FOR TESTING
 
-    //text = new Text("Left Click to Select Character\nRight Click to Move\nHold R + Left Click to Rotate to Face Direction\nHold A + Left Click Zombie to Attack");
-    text = new Text("Testing");
-    text->set_position(Point(200, 200));
-
     return return_code;
 }
 
@@ -84,7 +79,6 @@ void GSLevel::render()
     user_interface_->render();
 
     // FOR TESTING
-    text->render();
 }
 
 void GSLevel::end()

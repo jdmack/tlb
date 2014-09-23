@@ -86,6 +86,7 @@ TTF_Font * Text::load_font(std::string filename, int size)
 void Text::render(Frame * frame)
 {
     if(texture_ == nullptr) printf("ERROR\n");
+    if(!visible_) return;
     //SDL_Rect offset = { position_.x() - (width_ / 2), position_.y() - (height_ / 2), width_, height_ };
     SDL_Rect offset = { (int)position_.x(), (int)position_.y(), width_, height_ };
 

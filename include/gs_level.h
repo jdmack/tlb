@@ -7,7 +7,6 @@
 
 
 // FOR TESTING
-#include "ui/text.h"
 
 class Game;
 class UserInterface;
@@ -19,7 +18,6 @@ class GSLevel : public GameState
         UserInterface * user_interface_;
 
         // FOR TESTING
-        Text * text;
 
     public:
         GSLevel(Game * game);

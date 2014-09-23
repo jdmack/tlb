@@ -6,11 +6,13 @@
 
 class Frame;
 class UIElement;
+class TextPanel;
 
 class UserInterface
 {
     private:
         std::vector<UIElement *> elements_;
+        TextPanel * paused_panel_;
 
     public:
         UserInterface();
