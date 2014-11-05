@@ -12,7 +12,6 @@
 #include "ui/user_interface.h"
 
 
-
 GSLevel::GSLevel(Game * game)
 {
     game_ = game;
@@ -36,8 +35,8 @@ int GSLevel::init()
     user_interface_ = new UserInterface();
 
     // (264,216)
-    Entity * char1   = spawn_entity(PLAYER, Point(42 * 14 + 21, 36 * 10 + 24), 90);
-    Entity * zombie1 = spawn_entity(ZOMBIE, Point(42 * 14 + 21, 36 * 14 + 24), 270);
+    /*Entity * char1   = */spawn_entity(PLAYER, Point(42 * 14 + 21, 36 * 10 + 24), 90);
+    /*Entity * zombie1 = */spawn_entity(ZOMBIE, Point(42 * 14 + 21, 36 * 14 + 24), 270);
 
     //Entity * zombie2 = spawn_entity(ZOMBIE, Point(48 * 5 + 24, 48 * 1 + 24), 90);
     //Entity * zombie3 = spawn_entity(ZOMBIE, Point(48 * 6 + 24, 48 * 1 + 24), 90);
@@ -60,6 +59,7 @@ bool GSLevel::update(int delta_ticks)
     }
 
     user_interface_->update();
+
     return true;
 }
 void GSLevel::render()

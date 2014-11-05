@@ -36,6 +36,7 @@ class Text
         ~Text();
 
         // accessors
+        bool visible() const { return visible_; }
 
         // mutators
         void set_position(Point position) { position_ = position; }

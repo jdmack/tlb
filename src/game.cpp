@@ -83,10 +83,10 @@ void Game::game_loop()
         event_manager_->handle_events();
 
         // Update
-        if(delta_timer_.get_ticks() >= 33) {
-            current_state_->update(delta_timer_.get_ticks());
-            delta_timer_.start();
-        }
+        //if(delta_timer_.get_ticks() >= 33) {
+        current_state_->update(delta_timer_.get_ticks());
+        delta_timer_.start();
+        //}
 
 
         // center camera
