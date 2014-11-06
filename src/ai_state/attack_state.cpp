@@ -39,7 +39,7 @@ bool AttackState::update(int delta_ticks)
         }
 
         // Check if we are facing the target
-        if(!RotateAction::facing(entity_, target_)) {
+        if(!RotateAction::facing(entity_, target_, attack_action_->arc())) {
             // TODO(2014-09-12/JM): Need to implement a way for the renderer to tell which direction entity is
             // rotating if we end up with a rotation animation at some point
             state_machine_->set_next_state(STATE_ROTATE);

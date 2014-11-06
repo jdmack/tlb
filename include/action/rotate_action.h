@@ -26,7 +26,7 @@ class RotateAction : public Action
         bool update(Entity * entity, int delta_ticks);
         void stop();
 
-        static bool facing(Entity * entity, Entity * target);
+        static bool facing(Entity * entity, Entity * target, double arc);
 
         std::string to_string();
 };

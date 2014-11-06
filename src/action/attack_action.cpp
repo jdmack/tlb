@@ -11,6 +11,7 @@ AttackAction::AttackAction()
     cooldown_ = Cooldown(3000);
     duration_ = Duration(1000);
     target_ = nullptr;
+    arc_ = 60;
     state_ = ATTACKING;
     stopped_ = false;
 }
@@ -22,6 +23,7 @@ AttackAction::AttackAction(Entity * target)
     damage_ = 1;
     cooldown_ = Cooldown(3000);
     duration_ = Duration(1000);
+    arc_ = 60;
     target_ = target;
     state_ = ATTACKING;
     duration_.start();
