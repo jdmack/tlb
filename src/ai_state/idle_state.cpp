@@ -31,6 +31,12 @@ bool IdleState::update(int delta_ticks)
     }
     else {
         // ZOMBIE
+
+        // Check if another action has been set
+        if(stop_) {
+            return false;
+        }
+
         // Check for entities within Aggro Range
         entities = Game::instance()->entity_manager()->get_entities_near(position, kZombieAggroRadius);
         Entity * target = nullptr;

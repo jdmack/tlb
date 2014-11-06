@@ -98,8 +98,12 @@ bool Entity::contains_point(double x, double y)
 
 void Entity::move(Point point)
 {
-    Logger::write(Logger::ss << "Move - (x,y): (" << point.x() << "," << point.y() << ")");
-    state_machine_->move_command(point);
+    // TODO(2014-11-05/JM): May want to add distinction between "move" and "move_command". Depends on if there
+    // is ever need for the case of an AI or event issuing a move directive to non-controllable entities
+    if(controllable_) {
+        Logger::write(Logger::ss << "Move - (x,y): (" << point.x() << "," << point.y() << ")");
+        state_machine_->move_command(point);
+    }
 }
 
 void Entity::rotate(Point point)
