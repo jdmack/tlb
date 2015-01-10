@@ -48,7 +48,7 @@ MoveAction::MoveAction(Point start, Point end, Level * level)
 
 void MoveAction::find_path()
 {
-    bool hex_grid = true;
+    bool hex_grid = false;
     // Create Pathfinder
 
 	// Get path as list of nodes
@@ -163,7 +163,7 @@ bool MoveAction::empty_path()
 
 bool MoveAction::update(Entity * entity, int delta_ticks)
 {
-    bool correct_destination = true;
+    bool correct_destination = false;
     bool return_value = true;
 
     // Grab variables from entity to manipulate here, will update them at end

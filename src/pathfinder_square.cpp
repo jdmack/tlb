@@ -18,11 +18,11 @@ PathfinderSquare::PathfinderSquare(Grid * grid)
 std::list<GridNode *> * PathfinderSquare::run(GridNode * start_node, GridNode * end_node)
 {
     bool allow_diagonals = true;
-    Logger::write(Logger::ss << "PathfinderSquare start");
+    //Logger::write(Logger::ss << "PathfinderSquare start");
     reset();
 
-    Logger::write(Logger::ss << "Start: " << start_node->to_string());
-    Logger::write(Logger::ss << "End: " << end_node->to_string());
+    //Logger::write(Logger::ss << "Start: " << start_node->to_string());
+    //Logger::write(Logger::ss << "End: " << end_node->to_string());
 
 
     // 1. Add the starting square (or node) to the open list.

@@ -44,7 +44,7 @@ void Grid::add_node()
 
 GridNode * Grid::node_at_point(Point point)
 {
-    bool hex_grid = true;
+    bool hex_grid = false;
 
     int col;
 	int row;

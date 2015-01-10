@@ -22,7 +22,8 @@ Level::Level(Game * game)
     grid_ = nullptr;
 
     //texture_ = game_->renderer()->load_texture(kAssetArtTilesHexIsometric);
-    texture_ = game_->renderer()->load_texture(kAssetArtTilesHexagon);
+    //texture_ = game_->renderer()->load_texture(kAssetArtTilesHexagon);
+    texture_ = game_->renderer()->load_texture(kAssetArtTiles);
 
     tiles_ = new std::vector<Tile *>();
 
@@ -43,7 +44,7 @@ bool Level::load(std::string filename)
     //double distance = p1.distance_from(p2);
     //Logger::write(Logger::ss << "Distance: " << distance);
 
-    bool hex_grid = true;
+    bool hex_grid = false;
     Logger::write(Logger::ss << "Loading map: " << filename);
 
     std::ifstream map(filename.c_str());
@@ -85,8 +86,9 @@ bool Level::load(std::string filename)
         return false;
     }
     width_ = rows_ * tile_width_;
-    //height_ = columns_ * tile_height_;
-    height_ = columns_ * tile_height_ / 2;
+    height_ = columns_ * tile_height_;
+
+    //height_ = columns_ * tile_height_ / 2;    // used this for non-isometric hex
 
     int row = 0;
     int column = 0;
@@ -110,6 +112,7 @@ bool Level::load(std::string filename)
         int x;
         int y;
 
+        // For HEX
         if(hex_grid) {
             x = tile_width_ * column;
             // Shift tiles left to cover white space
@@ -124,7 +127,8 @@ bool Level::load(std::string filename)
             y -= tile_height_ - 12;
         }
         else {
-            x = tile_width_ * column / 2;
+            //x = tile_width_ * column / 2;  // not sure what's going on here, maybe for squre isometric?
+            x = tile_width_ * column;
             y = tile_height_ * row;
         }
 

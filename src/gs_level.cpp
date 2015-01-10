@@ -25,7 +25,8 @@ int GSLevel::init()
     // Load level
     Level * level = new Level(game_);
 
-    if(!level->load(kMapTestHexIsometric)) {
+    //if(!level->load(kMapTestHexIsometric)) {
+    if(!level->load(kMapTest24x18)) {
         Logger::write(Logger::ss << "Failed to load map");
         return_code = 1;
     }
@@ -35,8 +36,8 @@ int GSLevel::init()
     user_interface_ = new UserInterface();
 
     // (264,216)
-    /*Entity * char1   = */spawn_entity(PLAYER, Point(42 * 14 + 21, 36 * 10 + 24), 90);
-    /*Entity * zombie1 = */spawn_entity(ZOMBIE, Point(42 * 14 + 21, 36 * 14 + 24), 270);
+    /*Entity * char1   = */spawn_entity(PLAYER, Point(48 * 1 + 24, 48 * 1 + 24), 90);
+    /*Entity * zombie1 = */spawn_entity(ZOMBIE, Point(48 * 14 + 24, 48 * 14 + 24), 270);
 
     //Entity * zombie2 = spawn_entity(ZOMBIE, Point(48 * 5 + 24, 48 * 1 + 24), 90);
     //Entity * zombie3 = spawn_entity(ZOMBIE, Point(48 * 6 + 24, 48 * 1 + 24), 90);
@@ -76,7 +77,7 @@ void GSLevel::render()
         }
     }
 
-    user_interface_->render();
+    //user_interface_->render();
 
     // FOR TESTING
 }
