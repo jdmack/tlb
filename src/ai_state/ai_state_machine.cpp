@@ -115,6 +115,7 @@ void AIStateMachine::attack_command(Entity * target)
     current_state_->stop();
     next_state_ = attack_state_;
     attack_state_->set_target(target);
+    attack_state_->set_command(true);
 }
 
 void AIStateMachine::rotate_command(Point position)

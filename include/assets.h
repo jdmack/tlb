@@ -44,9 +44,9 @@ const std::string kAssetUIBackgroundPanel       = kPathUI + "ui_background_panel
 
 /* Tiles */
 const std::string kAssetArtTiles = kPathTiles + "tiles_48.png";
+const std::string kAssetArtTilesIsometric = kPathTiles + "tiles_isometric_48.png";
 
 const std::string kAssetArtTilesHexagon = kPathTiles + "tiles_hexagon.png";
-const std::string kAssetArtTilesIsometric = kPathTiles + "tiles_isometric_48.png";
 const std::string kAssetArtTilesHexIsometric = kPathTiles + "tiles_hexagon_isometric.png";
 
 /* Fonts */
@@ -56,6 +56,7 @@ const std::string kAssetFontUbuntuMono = kPathFont + "UbuntuMono-Regular.ttf";
 
 /* Maps */
 const std::string kMapTest24x18 = kPathMap + "test_24x18.map";
+const std::string kMapTest24x18Iso = kPathMap + "test_24x18_iso.map";
 
 const std::string kMapTest24x18HexIsometric = kPathMap + "test_24x18_hex_iso.map";
 const std::string kMapTestHexIsometric = kPathMap + "test_hex_iso.map";

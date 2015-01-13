@@ -37,7 +37,7 @@ int GSLevel::init()
 
     // (264,216)
     /*Entity * char1   = */spawn_entity(PLAYER, Point(48 * 1 + 24, 48 * 1 + 24), 90);
-    /*Entity * zombie1 = */spawn_entity(ZOMBIE, Point(48 * 14 + 24, 48 * 14 + 24), 270);
+    /*Entity * zombie1 = */spawn_entity(ZOMBIE, Point(48 * 5 + 24, 48 * 5 + 24), 270);
 
     //Entity * zombie2 = spawn_entity(ZOMBIE, Point(48 * 5 + 24, 48 * 1 + 24), 90);
     //Entity * zombie3 = spawn_entity(ZOMBIE, Point(48 * 6 + 24, 48 * 1 + 24), 90);
@@ -101,8 +101,10 @@ Entity * GSLevel::spawn_entity(EntityType type, Point position, double rotation)
         entity->create_sprite(kAssetSpriteHuman1);
     }
     else if(type == ZOMBIE) {
-        entity->set_selectable(false);
-        entity->set_controllable(false);
+        //entity->set_selectable(false);
+        entity->set_selectable(true);
+        //entity->set_controllable(false);
+        entity->set_controllable(true);
         entity->set_maximum_speed(kEntityDefaultVelocity - 20);
 
         int random_num = rand() % 5 + 1;

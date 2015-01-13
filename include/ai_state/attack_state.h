@@ -15,6 +15,7 @@ class AttackState : public AIState
         AttackAction * attack_action_;
         int damage_;
         double range_;
+        bool command_;
 
     public:
         AttackState(AIStateMachine * state_machine, Entity * entity);
@@ -23,11 +24,13 @@ class AttackState : public AIState
         // accessors
         int damage() const { return damage_; }
         double range() const { return range_; }
+        bool command() const { return command_; }
 
         // mutators
         void set_target(Entity * target) { target_ = target; }
         void set_damage(int damage) { damage_ = damage; }
         void set_range(double range) { range_ = range; }
+        void set_command(bool command) { command_ = command; }
 
         bool update(int delta_ticks);
         void stop();

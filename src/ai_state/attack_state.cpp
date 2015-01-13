@@ -15,6 +15,7 @@ AttackState::AttackState(AIStateMachine * state_machine, Entity * entity)
     entity_ = entity;
     target_ = nullptr;
     attack_action_ = nullptr;
+    command_ = false;
 }
 
 AttackState::~AttackState()
@@ -32,8 +33,13 @@ bool AttackState::update(int delta_ticks)
     if(state_machine_->next_state() == nullptr) {
         // Check if we are in range
         if(target_position.distance_from(position) > attack_action_->range()) {
-            state_machine_->set_next_state(STATE_SEEK);
-            state_machine_->seek_state()->set_target(target_);
+            if(command_) {
+                state_machine_->set_next_state(STATE_SEEK);
+                state_machine_->seek_state()->set_target(target_);
+            }
+            else {
+                state_machine_->set_next_state(STATE_IDLE);
+            }
             Logger::write("ATTACK: Target out of attack range");
             return false;
         }
@@ -42,8 +48,13 @@ bool AttackState::update(int delta_ticks)
         if(!RotateAction::facing(entity_, target_, attack_action_->arc())) {
             // TODO(2014-09-12/JM): Need to implement a way for the renderer to tell which direction entity is
             // rotating if we end up with a rotation animation at some point
-            state_machine_->set_next_state(STATE_ROTATE);
-            state_machine_->rotate_state()->set_position(target_position);
+            if(command_) {
+                state_machine_->set_next_state(STATE_ROTATE);
+                state_machine_->rotate_state()->set_position(target_position);
+            }
+            else {
+                state_machine_->set_next_state(STATE_IDLE);
+            }
             Logger::write("ATTACK: Not facing target");
             return false;
         }
@@ -89,6 +100,7 @@ void AttackState::end()
     Logger::write(Logger::ss << "Entity: " << entity_->object_id() << " - Exiting  State: ATTACK");
     delete attack_action_;
     attack_action_ = nullptr;
+    command_ = false;
 }
 
 ActionType AttackState::action_type()
