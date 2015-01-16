@@ -101,10 +101,8 @@ Entity * GSLevel::spawn_entity(EntityType type, Point position, double rotation)
         entity->create_sprite(kAssetSpriteHuman1);
     }
     else if(type == ZOMBIE) {
-        //entity->set_selectable(false);
-        entity->set_selectable(true);
-        //entity->set_controllable(false);
-        entity->set_controllable(true);
+        entity->set_selectable(false);
+        entity->set_controllable(false);
         entity->set_maximum_speed(kEntityDefaultVelocity - 20);
 
         int random_num = rand() % 5 + 1;
