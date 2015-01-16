@@ -48,7 +48,7 @@ while(my $line = <IN>) {
         $tile_counter++;
         my $type = $value + 0;
         my $x = $column * $width;
-        my $y = $column * $height;
+        my $y = $row * $height;
         my $walkable = "false";
         if($value eq "00" || $value eq "01" || $value eq "02") {
             $walkable = "true";
