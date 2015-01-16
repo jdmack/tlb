@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include <fstream>
 #include <cmath>
 #include "SDL2/SDL.h"
@@ -11,6 +12,8 @@
 #include "tile.h"
 #include "util/logger.h"
 #include "util/math.h"
+#include "rapidxml/rapidxml.hpp"
+
 
 Level::Level(Game * game)
 {
@@ -34,103 +37,55 @@ Level::Level(Game * game)
 // TODO(2013-09-19/JM): Update the map file standard
 bool Level::load(std::string filename)
 {
-    //Point p1 = Point (48, 48);
-    //Point p2 = Point (96, 48);
-
-    //p1 = Math::convert_to_isometric(p1);
-    //p2 = Math::convert_to_isometric(p2);
-    //p1 = Math::convert_to_cartesian(p1);
-    //p2 = Math::convert_to_cartesian(p2);
-    //double distance = p1.distance_from(p2);
-    //Logger::write(Logger::ss << "Distance: " << distance);
-
-    bool hex_grid = false;
     Logger::write(Logger::ss << "Loading map: " << filename);
 
-    std::ifstream map(filename.c_str());
+    // open xml doc
+    rapidxml::xml_document<> doc;
 
-    if(map == nullptr) {
-        Logger::write(Logger::ss << "Failed to open file: " << filename);
-        return false;
-    }
+    std::ifstream file(filename);
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    file.close();
+    std::string content(buffer.str());
+    doc.parse<0>(&content[0]);
 
-    map >> total_tiles_;
-    if(map.fail() == true) {
-        Logger::write("Failed to read total_tiles from file");
-        map.close();
-        return false;
-    }
-    map >> columns_;
-    if(map.fail() == true) {
-        Logger::write("Failed to read map columns from file");
-        map.close();
-        return false;
-    }
-    map >> rows_;
-    if(map.fail() == true) {
-        Logger::write("Failed to read map rows from file");
-        map.close();
-        return false;
-    }
-    map >> tile_width_;
-    if(map.fail() == true) {
-        Logger::write("Failed to read map tile_width from file");
-        map.close();
-        return false;
-    }
-    map >> tile_height_;
-    //tile_height_ = tile_height_ * 2 / 3;
-    if(map.fail() == true) {
-        Logger::write("Failed to read map tile_height from file");
-        map.close();
-        return false;
-    }
+    rapidxml::xml_node<> * level = doc.first_node();                // this is the level element
+
+    rapidxml::xml_node<> * tiles = level->first_node("tiles");      // this is the tiles element
+
+    columns_ = std::atoi(tiles->first_attribute("columns")->value());
+    rows_ = std::atoi(tiles->first_attribute("rows")->value());
+    tile_width_ = std::atoi(tiles->first_attribute("width")->value());
+    tile_height_ = std::atoi(tiles->first_attribute("height")->value());
+
     width_ = rows_ * tile_width_;
     height_ = columns_ * tile_height_;
-
-    //height_ = columns_ * tile_height_ / 2;    // used this for non-isometric hex
 
     int row = 0;
     int column = 0;
 
-    // Initialize the tiles
-    for(int t = 0; t < total_tiles_; t++) {
+    // Iterate through tiles
+    for(rapidxml::xml_node<> * tile = tiles->first_node("tile"); tile; tile = tile->next_sibling()) {
 
-        // Determines what kind of tile will be made
-        int tile_type = -1;
+        /*
+        for (rapidxml::xml_attribute<> *attribute = animation->first_attribute(); attribute; attribute = attribute->next_attribute()) {
 
-        // Read tile from map file
-        map >> tile_type;
+                std::string attribute_name = attribute->name();
 
-        // If the was a problem in reading the map
-        if(map.fail() == true) {
-            Logger::write(Logger::ss << "Failed to read file | " << t);
-            map.close();
-            return false;
+                if(attribute_name.compare("key") == 0) {
+                    animation_key = attribute->value();
+                }
+                else if(attribute_name.compare("time") == 0) {
+                    animation_time = atoi(attribute->value());
+                }
         }
+        */
 
-        int x;
-        int y;
+        int tile_type = std::atoi(tile->first_attribute("type")->value());
 
-        // For HEX
-        if(hex_grid) {
-            x = tile_width_ * column;
-            // Shift tiles left to cover white space
-            x -= tile_width_ / 2;
+        int x = std::atoi(tile->first_attribute("x")->value());
+        int y = std::atoi(tile->first_attribute("y")->value());
 
-            if((row % 2) == 1) {
-                x += tile_width_ / 2;
-            }
-            // TODO(2014-08-13/JM): 12 is "h" part of hexagon, replace with actual calculation of value from map file
-            y = (tile_height_ - 12) * row;
-            // Shift tiles up to cover white space
-            y -= tile_height_ - 12;
-        }
-        else {
-            //x = tile_width_ * column / 2;  // not sure what's going on here, maybe for squre isometric?
-            x = tile_width_ * column;
-            y = tile_height_ * row;
-        }
 
         // If the number is a valid tile number
         if((tile_type >= 0 ) && (tile_type < kTileSprites)) {
@@ -138,10 +93,9 @@ bool Level::load(std::string filename)
         }
         else {
             Logger::write("Level Load: Invalid tile type");
-            map.close();
             return false;
         }
-        //Logger::write(Logger::ss << "Read in tile (" << y / kTileHeight << "," << x / kTileWidth << ") Type: " << tile_type);
+        Logger::write(Logger::ss << "Read in tile (" << x << "," << y << ") Type: " << tile_type);
 
         column++;
         if(column >= columns_) {
@@ -151,7 +105,6 @@ bool Level::load(std::string filename)
 
     }
 
-    map.close();
     Logger::write("Level loaded");
     
     build_grid();
@@ -215,3 +168,24 @@ bool Level::is_walkable(int row, int col)
     //Logger::write(Logger::ss << "Recorded: (" << this_tile->row() << "," << this_tile->column() << ")");
     return true;
 }
+
+
+
+
+        // For HEX
+        /*
+        if(hex_grid) {
+            x = tile_width_ * column;
+            // Shift tiles left to cover white space
+            x -= tile_width_ / 2;
+
+            if((row % 2) == 1) {
+                x += tile_width_ / 2;
+            }
+            // TODO(2014-08-13/JM): 12 is "h" part of hexagon, replace with actual calculation of value from map file
+            y = (tile_height_ - 12) * row;
+            // Shift tiles up to cover white space
+            y -= tile_height_ - 12;
+        }
+        */
+
