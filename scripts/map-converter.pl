@@ -33,6 +33,7 @@ my $height = $values[4];
 
 my $tab = "    ";
 
+print OUT "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 print OUT "<level>\n";
 print OUT "$tab<tiles tileset=\"$tileset\" rows=\"$rows\" columns=\"$columns\" "
     . "width=\"$width\" height=\"$height\">\n";
