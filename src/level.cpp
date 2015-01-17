@@ -10,6 +10,7 @@
 #include "grid_node.h"
 #include "renderer.h"
 #include "tile.h"
+#include "tileset.h"
 #include "util/logger.h"
 #include "util/math.h"
 #include "rapidxml/rapidxml.hpp"
@@ -24,13 +25,10 @@ Level::Level(Game * game)
     game_ = game;
     grid_ = nullptr;
 
-    //texture_ = game_->renderer()->load_texture(kAssetArtTilesHexIsometric);
-    //texture_ = game_->renderer()->load_texture(kAssetArtTilesHexagon);
-    texture_ = game_->renderer()->load_texture(kAssetArtTiles);
-
     tiles_ = new std::vector<Tile *>();
 
     thing = true;
+    tileset_ = nullptr;
 }
 
 
@@ -53,6 +51,10 @@ bool Level::load(std::string filename)
 
     rapidxml::xml_node<> * tiles = level->first_node("tiles");      // this is the tiles element
 
+    std::string tileset = tiles->first_attribute("tileset")->value();
+    tileset_ = new Tileset(tileset);
+
+
     columns_ = std::atoi(tiles->first_attribute("columns")->value());
     rows_ = std::atoi(tiles->first_attribute("rows")->value());
     tile_width_ = std::atoi(tiles->first_attribute("width")->value());
@@ -67,20 +69,6 @@ bool Level::load(std::string filename)
     // Iterate through tiles
     for(rapidxml::xml_node<> * tile = tiles->first_node("tile"); tile; tile = tile->next_sibling()) {
 
-        /*
-        for (rapidxml::xml_attribute<> *attribute = animation->first_attribute(); attribute; attribute = attribute->next_attribute()) {
-
-                std::string attribute_name = attribute->name();
-
-                if(attribute_name.compare("key") == 0) {
-                    animation_key = attribute->value();
-                }
-                else if(attribute_name.compare("time") == 0) {
-                    animation_time = atoi(attribute->value());
-                }
-        }
-        */
-
         int tile_type = std::atoi(tile->first_attribute("type")->value());
 
         int x = std::atoi(tile->first_attribute("x")->value());
@@ -88,13 +76,15 @@ bool Level::load(std::string filename)
 
 
         // If the number is a valid tile number
-        if((tile_type >= 0 ) && (tile_type < kTileSprites)) {
-            tiles_->push_back(new Tile(Point(x, y), tile_width_, tile_height_, tile_type, this));
-        }
-        else {
-            Logger::write("Level Load: Invalid tile type");
-            return false;
-        }
+        //if((tile_type >= 0 ) && (tile_type < kTileSprites)) {
+        Tile * new_tile = new Tile(Point(x, y), tile_width_, tile_height_, tile_type);
+        new_tile->set_tileset(tileset_);
+        tiles_->push_back(new_tile);
+        //}
+        //else {
+            //Logger::write("Level Load: Invalid tile type");
+            //return false;
+        //}
         Logger::write(Logger::ss << "Read in tile (" << x << "," << y << ") Type: " << tile_type);
 
         column++;
@@ -114,6 +104,7 @@ bool Level::load(std::string filename)
 
 bool Level::touches_wall(GameObject * object, SDL_Rect * rect)
 {
+    /*
     // Go through the tiles
     // TODO(2013-09-05/JM): Replace for loop with iterator
     for(int t = 0; t < total_tiles_; t++ ) {
@@ -128,7 +119,7 @@ bool Level::touches_wall(GameObject * object, SDL_Rect * rect)
             }
         }
     }
-
+*/
     // If no wall tiles were touched
     return false;
 }

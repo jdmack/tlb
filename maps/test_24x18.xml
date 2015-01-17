@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <level>
-    <tiles tileset="tiles_48.png" rows="18" columns="24" width="48" height="48">
+    <tiles tileset="assets/art/tiles/tiles_48.xml" rows="18" columns="24" width="48" height="48">
         <tile type="3" x="0" y="0" walkable="false" />
         <tile type="8" x="48" y="0" walkable="false" />
         <tile type="8" x="96" y="0" walkable="false" />

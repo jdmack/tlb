@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tileset asset="assets/art/tiles/tiles_48.png">
+    <tile type="0"  key="red"     x="0"   y="0"  width="48" height="48" />
+    <tile type="1"  key="green"   x="0"   y="48" width="48" height="48" />
+    <tile type="2"  key="blue"    x="0"   y="96" width="48" height="48" />
+    <tile type="11" key="black1"  x="48"  y="0"  width="48" height="48" />
+    <tile type="10" key="black2"  x="48"  y="48" width="48" height="48" />
+    <tile type="9"  key="black3"  x="48"  y="96" width="48" height="48" />
+    <tile type="4"  key="black4"  x="96"  y="0"  width="48" height="48" />
+    <tile type="3"  key="black5"  x="96"  y="48" width="48" height="48" />
+    <tile type="8"  key="black6"  x="96"  y="96" width="48" height="48" />
+    <tile type="5"  key="black7"  x="144" y="0"  width="48" height="48" />
+    <tile type="6"  key="black8"  x="144" y="48" width="48" height="48" />
+    <tile type="7"  key="black9"  x="144" y="96" width="48" height="48" />
+</tilesheet>

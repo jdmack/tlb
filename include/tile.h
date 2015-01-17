@@ -4,26 +4,8 @@
 #include "SDL2/SDL.h"
 #include "point.h"
 
-//const double kTileWidth = 42;
-//const double kTileWidth = 48;
-//const double kTileHeight = 48;
-//const double kTileHeight = 24;
-const int kTileSprites = 12;
-
-const int kTileRed         = 0;
-const int kTileGreen       = 1;
-const int kTileBlue        = 2;
-const int kTileCenter      = 3;
-const int kTileTop         = 4;
-const int kTileTopRight    = 5;
-const int kTileRight       = 6;
-const int kTileBottomRight = 7;
-const int kTileBottom      = 8;
-const int kTileBottomLeft  = 9;
-const int kTileLeft        = 10;
-const int kTileTopLeft     = 11;
-
 class Level;
+class Tileset;
 
 class Tile
 {
@@ -35,12 +17,11 @@ class Tile
         int row_;
         int column_;
         int type_;
-        Level * level_;
-        SDL_Rect clips_[kTileSprites];
+        Tileset * tileset_;
 
     public:
         Tile();
-        Tile(Point point, double width, double height, int type, Level * level);
+        Tile(Point point, double width, double height, int type);
         double x_position() const { return x_position_; }
         double y_position() const { return y_position_; }
         double width() const { return width_; }
@@ -48,11 +29,14 @@ class Tile
         int row() const { return row_; }
         int column() const { return column_; }
         int type() const { return type_; }
+        Tileset * tileset() const { return tileset_; }
+
         SDL_Rect box();
         void render();
 
         void set_width(double width) { width_ = width; }
         void set_height(double height) { height_ = height; }
+        void set_tileset(Tileset * tileset) { tileset_ = tileset; }
 };
 
 #endif

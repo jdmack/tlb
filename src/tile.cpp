@@ -4,6 +4,7 @@
 #include "renderer.h"
 #include "game.h"
 #include "point.h"
+#include "tileset.h"
 
 Tile::Tile()
 {
@@ -12,13 +13,13 @@ Tile::Tile()
     width_ = 0;
     height_ = 0;
     type_ = 0;
-    level_ = nullptr;
 
     row_ = -1;
     column_ = -1;
+    tileset_ = nullptr;
 }
 
-Tile::Tile(Point position, double width, double height, int type, Level * level)
+Tile::Tile(Point position, double width, double height, int type)
 {
     x_position_ = position.x();
     y_position_ = position.y();
@@ -28,69 +29,9 @@ Tile::Tile(Point position, double width, double height, int type, Level * level)
 
     row_ = y_position_ / width_;
     column_ = x_position_ / height_;
-
-    level_ = level;
-
-    clips_[kTileRed].x = 0 * width_;
-    clips_[kTileRed].y = 0 * height_;
-    clips_[kTileRed].w = width_;
-    clips_[kTileRed].h = height_;
-
-    clips_[kTileGreen].x = 0 * width_;
-    clips_[kTileGreen].y = 1 * height_;
-    clips_[kTileGreen].w = width_;
-    clips_[kTileGreen].h = height_;
-
-    clips_[kTileBlue].x = 0 * width_;
-    clips_[kTileBlue].y = 2 * height_;
-    clips_[kTileBlue].w = width_;
-    clips_[kTileBlue].h = height_;
-
-    clips_[kTileTopLeft].x = 1 * width_;
-    clips_[kTileTopLeft].y = 0 * height_;
-    clips_[kTileTopLeft].w = width_;
-    clips_[kTileTopLeft].h = height_;
-
-    clips_[kTileLeft].x = 1 * width_;
-    clips_[kTileLeft].y = 1 * height_;
-    clips_[kTileLeft].w = width_;
-    clips_[kTileLeft].h = height_;
-
-    clips_[kTileBottomLeft].x = 1 * width_;
-    clips_[kTileBottomLeft].y = 2 * height_;
-    clips_[kTileBottomLeft].w = width_;
-    clips_[kTileBottomLeft].h = height_;
-
-    clips_[kTileTop].x = 2 * width_;
-    clips_[kTileTop].y = 0 * height_;
-    clips_[kTileTop].w = width_;
-    clips_[kTileTop].h = height_;
-
-    clips_[kTileCenter].x = 2 * width_;
-    clips_[kTileCenter].y = 1 * height_;
-    clips_[kTileCenter].w = width_;
-    clips_[kTileCenter].h = height_;
-
-    clips_[kTileBottom].x = 2 * width_;
-    clips_[kTileBottom].y = 2 * height_;
-    clips_[kTileBottom].w = width_;
-    clips_[kTileBottom].h = height_;
-
-    clips_[kTileTopRight].x = 3 * width_;
-    clips_[kTileTopRight].y = 0 * height_;
-    clips_[kTileTopRight].w = width_;
-    clips_[kTileTopRight].h = height_;
-
-    clips_[kTileRight].x = 3 * width_;
-    clips_[kTileRight].y = 1 * height_;
-    clips_[kTileRight].w = width_;
-    clips_[kTileRight].h =	height_;
-
-    clips_[kTileBottomRight].x = 3 * width_;
-    clips_[kTileBottomRight].y = 2 * height_;
-    clips_[kTileBottomRight].w = width_;
-    clips_[kTileBottomRight].h = height_;
+    tileset_ = nullptr;
 }
+
 
 SDL_Rect Tile::box()
 {
@@ -104,8 +45,9 @@ SDL_Rect Tile::box()
 
 void Tile::render()
 {
-    if(level_->game()->renderer()->camera()->contains(box())) {
+    if(Game::instance()->renderer()->camera()->contains(box())) {
         SDL_Rect offset = box();
-        level_->game()->renderer()->render_texture(level_->texture(), &offset, &clips_[type_]);
+        SDL_Rect clip = tileset_->clips(type_);
+        Game::instance()->renderer()->render_texture(tileset_->texture(), &offset, &clip);
     }
 }
