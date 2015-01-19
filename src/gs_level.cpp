@@ -14,8 +14,10 @@
 
 GSLevel::GSLevel(Game * game)
 {
+    type_ = GS_LEVEL;
     game_ = game;
     user_interface_ = nullptr;
+    level_area_ = new Frame(200, 0, 976, 864);
 }
 
 int GSLevel::init()
@@ -65,15 +67,15 @@ bool GSLevel::update(int delta_ticks)
 }
 void GSLevel::render()
 {
-    game_->level()->render();
+    game_->level()->render(level_area_);
 
     // Render
     std::vector<Entity *> entities = game_->entity_manager()->get_entities();
     for(std::vector<Entity *>::iterator entity_iterator = entities.begin(); entity_iterator != entities.end(); ++entity_iterator) {
-        (*entity_iterator)->render();
+        (*entity_iterator)->render(level_area_);
 
         if(((*entity_iterator)->type() == PLAYER) || ((*entity_iterator)->type() == ZOMBIE)) {
-            game_->renderer()->draw_life_bar(*entity_iterator);
+            game_->renderer()->draw_life_bar(*entity_iterator, level_area_);
         }
     }
 

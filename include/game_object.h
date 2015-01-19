@@ -8,6 +8,7 @@
 
 class Sprite;
 class Game;
+class Frame;
 
 class GameObject
 {
@@ -26,6 +27,9 @@ class GameObject
         bool selectable_;
         bool selected_;
         // TODO(2013-09-06/JM): Create "to string" function for objects to use with logging
+
+        double x_abs_;
+        double y_abs_;
 
         Point position_;
         Game * game_;
@@ -50,6 +54,10 @@ class GameObject
         double height() const { return height_; }
         bool selectable() const { return selectable_; }
         bool selected() const { return selected_; }
+
+        double x_abs() const { return x_abs_; }
+        double y_abs() const { return y_abs_; }
+
         Sprite * sprite() const { return sprite_; }
         SDL_Rect rect();
         Point position();
@@ -67,13 +75,16 @@ class GameObject
         void set_selectable(bool selectable) { selectable_ = selectable; }
         void set_position(Point position);
 
+        void set_x_abs(double x_abs) { x_abs_ = x_abs; }
+        void set_y_abs(double y_abs) { y_abs_ = y_abs; }
+
         void create_sprite(std::string asset);
 
         virtual void select();
         virtual void deselect();
         virtual bool contains_point(double x, double y);
         virtual void move(Point point);
-        void render();
+        void render(Frame * frame = nullptr);
         void set_sprite(Sprite * sprite) { sprite_ = sprite; }
 
         bool check_collision(SDL_Rect rect);

@@ -2,6 +2,7 @@
 
 GameState::GameState()
 {
+    type_ = GS_BLANK;
 }
 
 GameState::~GameState()

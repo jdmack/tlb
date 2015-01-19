@@ -1,4 +1,7 @@
 #include "frame.h"
+#include <string>
+#include <sstream>
+
 
 Frame::Frame(Frame * parent)
 {
@@ -11,10 +14,10 @@ Frame::Frame(Frame * parent)
 
 Frame::Frame(int x, int y, int width, int height, Frame * parent)
 {
-    x_      = 0;
-    y_      = 0;
-    width_  = 0;
-    height_ = 0;
+    x_      = x;
+    y_      = y;
+    width_  = width;
+    height_ = height;
     parent_ = parent;
 }
 
@@ -37,4 +40,23 @@ int Frame::y() const
         return y_;
     }
 
+}
+
+bool Frame::contains_point(double x, double y)
+{
+    if((x < (x_- (width_ / 2))) || (x > (x_+ (width_ / 2)))) {
+        return false;
+    }
+    else if((y < (y_- (width_ / 2))) || (y > (y_+ (height_ / 2)))) {
+        return false;
+    }
+
+    return true;
+}
+
+std::string Frame::to_string()
+{
+    std::stringstream ss;
+    ss << "Frame(" << x_ << "," << y_ << "," << width_ << "," << height_ << ")";
+    return ss.str();
 }

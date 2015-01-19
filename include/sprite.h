@@ -10,6 +10,7 @@
 
 class GameObject;
 class Renderer;
+class Frame;
 
 class Sprite
 {
@@ -45,7 +46,7 @@ class Sprite
         void set_renderer(Renderer * renderer) { renderer_ = renderer; }
         void set_object(GameObject * object) { object_ = object; }
 
-        void render();
+        void render(Frame * frame = nullptr);
         void select();
         void deselect();
         void update();

@@ -1,6 +1,8 @@
 #ifndef TLB_FRAME_H_
 #define TLB_FRAME_H_
 
+#include <string>
+
 class Frame
 {
     private:
@@ -28,6 +30,9 @@ class Frame
         void set_width(int width) { width_ = width; }
         void set_height(int height) { height_ = height; }
         void set_parent(Frame * parent) { parent_ = parent; }
+
+        bool contains_point(double x, double y);
+        std::string to_string();
 
 };
 

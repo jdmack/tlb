@@ -3,6 +3,7 @@
 #include "SDL2/SDL.h"
 #include "event_manager.h"
 #include "entity_manager.h"
+#include "gs_level.h"
 #include "game.h"
 #include "game_object.h"
 #include "util/logger.h"
@@ -158,14 +159,21 @@ void EventManager::handle_events()
                         // something is selected, can now give it an order
                         std::list<GameObject *> * selected = game_->entity_manager()->selected();
                         for(std::list<GameObject *>::iterator selected_iterator = selected->begin(); selected_iterator != selected->end(); ++selected_iterator) {
-                            (*selected_iterator)->move(Point(mouse_x, mouse_y));
+
+                            Point mouse_point = Point(mouse_x, mouse_y);
+
+                            if(Game::instance()->state()->type() == GS_LEVEL) {
+                                GSLevel * state = static_cast<GSLevel *>(Game::instance()->state());
+                                mouse_point = Point(mouse_x - state->level_area()->x(), mouse_y - state->level_area()->y());
+                            }
+
+                            (*selected_iterator)->move(mouse_point);
                         }
                     }
                 }
                 break;
             }
-            case SDL_WINDOWEVENT:
-                /*
+/*
                 if(event.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
                     focus_timer_.start();
                     //Logger::write("focus_timer started");

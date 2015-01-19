@@ -6,6 +6,7 @@
 #include "game.h"
 #include "movement.h"
 #include "camera.h"
+#include "frame.h"
 
 // TODO (2013-08-26/JM): Refactor constructor to use constructor delegation when
 // you get a gcc 4.7 compiler
@@ -68,9 +69,11 @@ void GameObject::create_sprite(std::string asset)
     sprite_ = new Sprite(this, asset, asset);
 }
 
-void GameObject::render()
+void GameObject::render(Frame * frame)
 {
-    sprite_->render();
+    sprite_->render(frame);
+    x_abs_ = x_position_ + frame->x();
+    y_abs_ = y_position_ + frame->y();
 }
 
 bool GameObject::contains_point(double x, double y)

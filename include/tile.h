@@ -6,6 +6,7 @@
 
 class Level;
 class Tileset;
+class Frame;
 
 class Tile
 {
@@ -32,7 +33,7 @@ class Tile
         Tileset * tileset() const { return tileset_; }
 
         SDL_Rect box();
-        void render();
+        void render(Frame * frame = nullptr);
 
         void set_width(double width) { width_ = width; }
         void set_height(double height) { height_ = height; }

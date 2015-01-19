@@ -5,6 +5,7 @@
 #include "game.h"
 #include "point.h"
 #include "tileset.h"
+#include "frame.h"
 
 Tile::Tile()
 {
@@ -43,11 +44,12 @@ SDL_Rect Tile::box()
     return rect;
 }
 
-void Tile::render()
+void Tile::render(Frame * frame)
 {
     if(Game::instance()->renderer()->camera()->contains(box())) {
         SDL_Rect offset = box();
         SDL_Rect clip = tileset_->clips(type_);
-        Game::instance()->renderer()->render_texture(tileset_->texture(), &offset, &clip);
+        //Game::instance()->renderer()->render_texture(tileset_->texture(), &offset, &clip);
+        Game::instance()->renderer()->render_texture_frame(tileset_->texture(), frame, &offset, &clip);
     }
 }

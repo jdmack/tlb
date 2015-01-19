@@ -110,6 +110,7 @@ void Renderer::render_texture_frame(SDL_Texture * texture, Frame * frame, SDL_Re
         render_texture(texture, offset, clip);
     }
     else {
+        //Logger::write(Logger::ss << frame->to_string());
         SDL_Rect * new_offset = new SDL_Rect;
         new_offset->x = offset->x + frame->x();
         new_offset->y = offset->y + frame->y();
@@ -281,7 +282,7 @@ void Renderer::init_object(GameObject * object)
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Renderer::draw_life_bar(Entity * entity)
+void Renderer::draw_life_bar(Entity * entity, Frame * frame)
 {
     int kBorderRed   = 0x00;
     int kBorderGreen = 0x00;
@@ -305,8 +306,8 @@ void Renderer::draw_life_bar(Entity * entity)
 
     int width = total_hp * width_per_point;
     int height = 5;
-    int x = entity->x_position() - (total_hp * width_per_point / 2);
-    int y = entity->y_position() - (entity->height() / 2) - height;
+    int x = entity->x_position() + frame->x()- (total_hp * width_per_point / 2);
+    int y = entity->y_position() + frame->y() - (entity->height() / 2) - height;
     x = x - camera_->x_position();
     y = y - camera_->y_position();
 

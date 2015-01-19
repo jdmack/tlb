@@ -59,7 +59,7 @@ class Renderer
         SDL_Texture * load_texture(std::string);
         SDL_Texture * load_texture_alpha(std::string);
 
-        void draw_life_bar(Entity * entity);
+        void draw_life_bar(Entity * entity, Frame * frame = nullptr);
 };
 
 #endif

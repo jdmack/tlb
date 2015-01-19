@@ -12,6 +12,7 @@ class Camera;
 class Game;
 class Grid;
 class Tileset;
+class Frame;
 
 class Level
 {
@@ -44,7 +45,7 @@ class Level
         bool load(std::string filename);
         bool touches_wall(GameObject * object, SDL_Rect * rect);
 
-        void render();
+        void render(Frame * frame = nullptr);
         void build_grid();
 
         bool is_walkable(int row, int col);

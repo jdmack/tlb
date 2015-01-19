@@ -9,6 +9,7 @@
 #include "grid.h"
 #include "grid_node.h"
 #include "renderer.h"
+#include "frame.h"
 #include "tile.h"
 #include "tileset.h"
 #include "util/logger.h"
@@ -85,7 +86,7 @@ bool Level::load(std::string filename)
             //Logger::write("Level Load: Invalid tile type");
             //return false;
         //}
-        Logger::write(Logger::ss << "Read in tile (" << x << "," << y << ") Type: " << tile_type);
+        //Logger::write(Logger::ss << "Read in tile (" << x << "," << y << ") Type: " << tile_type);
 
         column++;
         if(column >= columns_) {
@@ -124,10 +125,10 @@ bool Level::touches_wall(GameObject * object, SDL_Rect * rect)
     return false;
 }
 
-void Level::render()
+void Level::render(Frame * frame)
 {
     for(std::vector<Tile *>::iterator tile_iterator = tiles_->begin(); tile_iterator != tiles_->end(); ++tile_iterator) {
-        (*tile_iterator)->render();
+        (*tile_iterator)->render(frame);
         //if(thing) Logger::write(Logger::ss << "Rendering tile: (" << (*tile_iterator)->row() << "," << (*tile_iterator)->column() << ")");
     }
     //if(thing) thing = false;

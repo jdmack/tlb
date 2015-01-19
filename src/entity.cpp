@@ -74,10 +74,10 @@ void Entity::update(int delta_ticks)
 
 bool Entity::contains_point(double x, double y)
 {
-    if((x < (x_position_ - (width_ / 2))) || (x > (x_position_ + (width_ / 2)))) {
+    if((x < (x_abs_ - (width_ / 2))) || (x > (x_abs_ + (width_ / 2)))) {
         return false;
     }
-    else if((y < (y_position_ - (width_ / 2))) || (y > (y_position_ + (height_ / 2)))) {
+    else if((y < (y_abs_ - (width_ / 2))) || (y > (y_abs_ + (height_ / 2)))) {
         return false;
     }
 

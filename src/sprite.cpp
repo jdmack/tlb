@@ -6,6 +6,7 @@
 #include "util/logger.h"
 #include "rapidxml/rapidxml.hpp"
 #include "entity.h"
+#include "frame.h"
 
 Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
 {
@@ -138,21 +139,21 @@ void Sprite::deselect()
     */
 }
 
-void Sprite::render()
+void Sprite::render(Frame * frame)
 {
     update();
 
     // convert floating-point positions to integers for drawing
     SDL_Rect offset = { (int)object_->x_position() - ((int)object_->width() / 2), (int)object_->y_position() - ((int)object_->height() / 2), height_, width_ };
     SDL_Rect clip = current_animation_.current_frame();
-    renderer_->render_texture(texture_, &offset, &clip);
+    renderer_->render_texture_frame(texture_, frame, &offset, &clip);
 
     if(object_->selected()) {
 
         Color color = Color(255, 0, 255);
         SDL_Rect rect = {
-            (int)(object_->x_position() - width_ / 2),
-            (int)(object_->y_position() - height_ / 2),
+            (int)(object_->x_position() + frame->x() - width_ / 2),
+            (int)(object_->y_position() + frame->y() - height_ / 2),
             width_,
             height_
         };
