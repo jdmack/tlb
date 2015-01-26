@@ -9,7 +9,6 @@
 class Tile;
 class GameObject;
 class Camera;
-class Game;
 class Grid;
 class Tileset;
 class Frame;
@@ -25,20 +24,18 @@ class Level
         double tile_height_;
         int total_tiles_;
         std::vector<Tile *> * tiles_;
-        Game * game_;
         Grid * grid_;
         Tileset * tileset_;
 
         bool thing;
 
     public:
-        Level(Game * game);
+        Level();
 
         // accessors
         double width() const { return width_; }
         double height() const { return height_; }
         int total_tiles() const { return total_tiles_; }
-        Game * game() const { return game_; }
         std::vector<Tile *> * tiles() const { return tiles_; }
         Grid * grid() const { return grid_; }
 

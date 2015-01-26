@@ -4,15 +4,12 @@
 #include "point.h"
 #include "game_state.h"
 
-class Game;
-
 class GSMainMenu : public GameState
 {
     private:
-        Game * game_;
 
     public:
-        GSMainMenu(Game * game);
+        GSMainMenu();
 
         int init();
         bool update(int delta_ticks);

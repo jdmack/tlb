@@ -13,7 +13,7 @@
 
 int GameObject::id_counter_ = 1;
 
-GameObject::GameObject(Game * game)
+GameObject::GameObject()
 {
     x_position_ = 0;
     y_position_ = 0;
@@ -30,12 +30,10 @@ GameObject::GameObject(Game * game)
 
     object_id_ = id_counter_++;
 
-    game_ = game;
-
     sprite_ = nullptr;
 }
 
-GameObject::GameObject(Game * game, Point position, double rot)
+GameObject::GameObject(Point position, double rot)
 {
     x_position_ = position.x();
     y_position_ = position.y();
@@ -51,8 +49,6 @@ GameObject::GameObject(Game * game, Point position, double rot)
     selected_ = false;
 
     object_id_ = id_counter_++;
-
-    game_ = game;
 
     sprite_ = nullptr;
 

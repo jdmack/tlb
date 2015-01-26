@@ -23,12 +23,12 @@ Game::Game()
     quit_ = false;
     renderer_ = new Renderer();
     entity_manager_ = new EntityManager();
-    event_manager_ = new EventManager(this);
-    camera_ = new Camera(this);
+    event_manager_ = new EventManager();
+    camera_ = new Camera();
     renderer_->set_camera(camera_);
     level_ = nullptr;
 
-    current_state_ = static_cast<GameState *>(new GSLevel(this));
+    current_state_ = static_cast<GameState *>(new GSLevel());
 
     Game::instance_ = nullptr;
 }

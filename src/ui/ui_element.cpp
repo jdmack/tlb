@@ -40,6 +40,27 @@ void UIElement::update()
 
 }
 
+bool UIElement::click(Point point)
+{
+    if(contains_point(point)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool UIElement::contains_point(Point point)
+{
+    if((point.x() < (position_.x() - (width_ / 2))) || (point.x() > (position_.x() + (width_ / 2)))) {
+        return false;
+    }
+    else if((point.y() < (position_.y() - (width_ / 2))) || (point.y() > (position_.y() + (height_ / 2)))) {
+        return false;
+    }
+
+    return true;
+}
 bool UIElement::load_texture(std::string art_asset)
 {
     art_asset_ = art_asset;

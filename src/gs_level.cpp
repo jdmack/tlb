@@ -12,10 +12,9 @@
 #include "ui/user_interface.h"
 
 
-GSLevel::GSLevel(Game * game)
+GSLevel::GSLevel()
 {
     type_ = GS_LEVEL;
-    game_ = game;
     user_interface_ = nullptr;
     level_area_ = new Frame(200, 0, 976, 864);
 }
@@ -25,7 +24,7 @@ int GSLevel::init()
     int return_code = 0;
 
     // Load level
-    Level * level = new Level(game_);
+    Level * level = new Level();
 
     //if(!level->load(kMapTestHexIsometric)) {
     if(!level->load(kMapTest24x18)) {
@@ -33,7 +32,7 @@ int GSLevel::init()
         return_code = 1;
     }
 
-    game_->set_level(level);
+    Game::instance()->set_level(level);
 
     user_interface_ = new UserInterface();
 
@@ -54,7 +53,7 @@ int GSLevel::init()
 
 bool GSLevel::update(int delta_ticks)
 {
-    std::vector<Entity *> entities = game_->entity_manager()->get_entities();
+    std::vector<Entity *> entities = Game::instance()->entity_manager()->get_entities();
 
     // Update
     for(std::vector<Entity *>::iterator entity_iterator = entities.begin(); entity_iterator != entities.end(); ++entity_iterator) {
@@ -67,33 +66,33 @@ bool GSLevel::update(int delta_ticks)
 }
 void GSLevel::render()
 {
-    game_->level()->render(level_area_);
+    Game::instance()->level()->render(level_area_);
 
     // Render
-    std::vector<Entity *> entities = game_->entity_manager()->get_entities();
+    std::vector<Entity *> entities = Game::instance()->entity_manager()->get_entities();
     for(std::vector<Entity *>::iterator entity_iterator = entities.begin(); entity_iterator != entities.end(); ++entity_iterator) {
         (*entity_iterator)->render(level_area_);
 
         if(((*entity_iterator)->type() == PLAYER) || ((*entity_iterator)->type() == ZOMBIE)) {
-            game_->renderer()->draw_life_bar(*entity_iterator, level_area_);
+            Game::instance()->renderer()->draw_life_bar(*entity_iterator, level_area_);
         }
     }
 
-    //user_interface_->render();
+    user_interface_->render();
 
     // FOR TESTING
 }
 
 void GSLevel::end()
 {
-    game_->entity_manager()->delete_all();
+    Game::instance()->entity_manager()->delete_all();
     // TODO(2014-08-06/JM): Move Level into this class
     // TODO(2014-08-06/JM): Delete Level
 }
 
 Entity * GSLevel::spawn_entity(EntityType type, Point position, double rotation)
 {
-    Entity * entity = new Entity(game_, type, position, rotation);
+    Entity * entity = new Entity(type, position, rotation);
     if(type == PLAYER) {
         entity->set_controllable(true);
         entity->create_sprite(kAssetSpriteHuman1);
@@ -124,8 +123,8 @@ Entity * GSLevel::spawn_entity(EntityType type, Point position, double rotation)
         entity->create_sprite(asset);
     }
 
-    game_->entity_manager()->add_object(entity);
-    game_->renderer()->init_object(entity);
+    Game::instance()->entity_manager()->add_object(entity);
+    Game::instance()->renderer()->init_object(entity);
 
 
     return entity;

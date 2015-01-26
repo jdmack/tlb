@@ -41,6 +41,8 @@ class UIElement
         virtual void render(Frame * frame = nullptr);
         virtual void update();
         virtual bool toggle();
+        virtual bool click(Point point);
+        bool contains_point(Point point);
 
         virtual bool load_texture(std::string art_asset);
 };

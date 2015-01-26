@@ -19,7 +19,7 @@
 #include "util/logger.h"
 #include "ai_state/ai_state_machine.h"
 
-Entity::Entity(Game * game, EntityType type) : GameObject(game)
+Entity::Entity(EntityType type) : GameObject()
 {
     type_ = type;
 
@@ -41,7 +41,7 @@ Entity::Entity(Game * game, EntityType type) : GameObject(game)
     state_machine_ = new AIStateMachine(this);
 }
 
-Entity::Entity(Game * game, EntityType type, Point position, double rot) : GameObject(game, position, rot)
+Entity::Entity(EntityType type, Point position, double rot) : GameObject(position, rot)
 {
     type_ = type;
 

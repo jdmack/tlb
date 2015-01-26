@@ -31,7 +31,6 @@ enum EntityType {
     HUMAN
 };
 
-class Game;
 //class Action;
 class AIStateMachine;
 
@@ -48,8 +47,8 @@ class Entity : public GameObject
 
     public:
         // constructors/destructors
-        Entity(Game * game, EntityType type);
-        Entity(Game * game, EntityType type, Point position, double rot);
+        Entity(EntityType type);
+        Entity(EntityType type, Point position, double rot);
 
         // overridden
         //void select();

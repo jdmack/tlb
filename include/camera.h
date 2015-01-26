@@ -10,7 +10,6 @@ const double kCameraWidth = kRendererWidth;
 const double kCameraHeight = kRendererHeight;
 
 class GameObject;
-class Game;
 
 class Camera
 {
@@ -19,15 +18,13 @@ class Camera
         double y_position_;
         double width_;
         double height_;
-        Game * game_;
 
     public:
-        Camera(Game * game);
+        Camera();
         double x_position() const { return x_position_; }
         double y_position() const { return y_position_; }
         double width() const { return width_; }
         double height() const { return height_; }
-        Game * game() const { return game_; }
 
 
         void move(double x, double y);

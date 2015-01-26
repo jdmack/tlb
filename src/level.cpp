@@ -17,13 +17,12 @@
 #include "rapidxml/rapidxml.hpp"
 
 
-Level::Level(Game * game)
+Level::Level()
 {
     width_ = 0;
     height_ = 0;
     total_tiles_ = 0;
 
-    game_ = game;
     grid_ = nullptr;
 
     tiles_ = new std::vector<Tile *>();

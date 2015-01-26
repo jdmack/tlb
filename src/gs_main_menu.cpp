@@ -8,9 +8,9 @@
 #include "util/logger.h"
 
 
-GSMainMenu::GSMainMenu(Game * game)
+GSMainMenu::GSMainMenu()
 {
-    game_ = game;
+
 }
 
 int GSMainMenu::init()

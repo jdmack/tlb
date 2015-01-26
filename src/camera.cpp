@@ -6,15 +6,13 @@
 #include "point.h"
 #include "util/math.h"
 
-Camera::Camera(Game * game)
+Camera::Camera()
 {
     x_position_ = kCameraInitialX;
     y_position_ = kCameraInitialY;
 
     width_ = kCameraWidth;
     height_ = kCameraHeight;
-
-    game_ = game;
 }
 
 void Camera::move(double x, double y) {
@@ -46,11 +44,11 @@ void Camera::fix_bounds()
     if(y_position_ < 0) {
         y_position_ = 0;
     }
-    if(x_position_ > game_->level()->width() - width_) {
-        x_position_ = game_->level()->width() - width_;
+    if(x_position_ > Game::instance()->level()->width() - width_) {
+        x_position_ = Game::instance()->level()->width() - width_;
     }
-    if(y_position_ > game_->level()->height() - height_) {
-        y_position_ = game_->level()->height() - height_;
+    if(y_position_ > Game::instance()->level()->height() - height_) {
+        y_position_ = Game::instance()->level()->height() - height_;
     }
 }
 

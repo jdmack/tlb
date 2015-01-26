@@ -6,6 +6,7 @@
 #include "ui/game_timer.h"
 #include "ui/text.h"
 #include "ui/text_panel.h"
+#include "ui/character_panel.h"
 #include "util/global_timer.h"
 
 UserInterface::UserInterface()
@@ -34,6 +35,9 @@ UserInterface::UserInterface()
     text->update();
     paused_panel_->set_text(text);
 
+    character_panel_[0] = new CharacterPanel();
+    character_panel_[0]->set_position(Point(9, 195));
+
     /*
     UIElement * element = new UIElement();
     element->load_texture(kAssetUIGameTimerPanel);
@@ -61,6 +65,7 @@ void UserInterface::render(Frame * frame)
     for(std::vector<UIElement *>::iterator element_iterator = elements_.begin(); element_iterator != elements_.end(); ++element_iterator) {
         (*element_iterator)->render(frame);
     }
+    character_panel_[0]->render(frame);
 }
 
 void UserInterface::update()

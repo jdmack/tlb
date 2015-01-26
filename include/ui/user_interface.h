@@ -7,12 +7,14 @@
 class Frame;
 class UIElement;
 class TextPanel;
+class CharacterPanel;
 
 class UserInterface
 {
     private:
         std::vector<UIElement *> elements_;
         TextPanel * paused_panel_;
+        CharacterPanel * character_panel_[4];
 
     public:
         UserInterface();

@@ -7,7 +7,6 @@
 #include "point.h"
 
 class Sprite;
-class Game;
 class Frame;
 
 class GameObject
@@ -32,13 +31,12 @@ class GameObject
         double y_abs_;
 
         Point position_;
-        Game * game_;
         Sprite * sprite_;
 
     public:
         // constructors/destructors
-        GameObject(Game * game);
-        GameObject(Game * game, Point position, double rot);
+        GameObject();
+        GameObject(Point position, double rot);
         virtual ~GameObject();
 
         // accessors

@@ -6,13 +6,10 @@ enum GameStateType {
     GS_LEVEL
 };
 
-class Game;
-
 class GameState
 {
     protected:
         GameStateType type_;
-        Game * game_;
 
     public:
         GameState();
@@ -20,7 +17,6 @@ class GameState
 
         // accessors
         GameStateType type() const { return type_; }
-        virtual Game * game() { return game_; }
 
         virtual int init();
         virtual bool update(int delta_ticks);

@@ -9,20 +9,18 @@
 
 // FOR TESTING
 
-class Game;
 class UserInterface;
 
 class GSLevel : public GameState
 {
     private:
-        Game * game_;
         UserInterface * user_interface_;
         Frame * level_area_;
 
         // FOR TESTING
 
     public:
-        GSLevel(Game * game);
+        GSLevel();
 
         Frame * level_area() const { return level_area_; }
 
