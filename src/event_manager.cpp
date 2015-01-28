@@ -48,9 +48,9 @@ void EventManager::handle_events()
                         if(!Game::instance()->entity_manager()->selected()->empty()) {
                             // something is selected, can now give it an order
                             std::list<GameObject *> * selected = Game::instance()->entity_manager()->selected();
-                            for(std::list<GameObject *>::iterator selected_iterator = selected->begin(); selected_iterator != selected->end(); ++selected_iterator) {
+                            for(std::list<GameObject *>::iterator selected_it = selected->begin(); selected_it != selected->end(); ++selected_it) {
 
-                                GameObject * object = *selected_iterator;
+                                GameObject * object = *selected_it;
                                 if(object->is_entity()) {
                                     Entity * entity = static_cast<Entity *>(object);
                                     entity->stop();
@@ -106,8 +106,8 @@ void EventManager::handle_events()
                     //if(!Game::instance()->entity_manager()->selected()->empty()) {
                         if(current_key_states[SDL_SCANCODE_R]) {
                             std::list<GameObject *> * selected = Game::instance()->entity_manager()->selected();
-                            for(std::list<GameObject *>::iterator selected_iterator = selected->begin(); selected_iterator != selected->end(); ++selected_iterator) {
-                                GameObject * object = *selected_iterator;
+                            for(std::list<GameObject *>::iterator selected_it = selected->begin(); selected_it != selected->end(); ++selected_it) {
+                                GameObject * object = *selected_it;
                                 if(object->is_entity()) {
                                     Entity * entity = static_cast<Entity *>(object);
                                     entity->rotate(mouse_point);
@@ -117,8 +117,8 @@ void EventManager::handle_events()
                         }
                         else if(current_key_states[SDL_SCANCODE_A]) {
                             std::list<GameObject *> * selected = Game::instance()->entity_manager()->selected();
-                            for(std::list<GameObject *>::iterator selected_iterator = selected->begin(); selected_iterator != selected->end(); ++selected_iterator) {
-                                GameObject * object = *selected_iterator;
+                            for(std::list<GameObject *>::iterator selected_it = selected->begin(); selected_it != selected->end(); ++selected_it) {
+                                GameObject * object = *selected_it;
                                 if(object->is_entity()) {
                                     Entity * entity = static_cast<Entity *>(object);
 
@@ -158,7 +158,7 @@ void EventManager::handle_events()
                     if(!Game::instance()->entity_manager()->selected()->empty()) {
                         // something is selected, can now give it an order
                         std::list<GameObject *> * selected = Game::instance()->entity_manager()->selected();
-                        for(std::list<GameObject *>::iterator selected_iterator = selected->begin(); selected_iterator != selected->end(); ++selected_iterator) {
+                        for(std::list<GameObject *>::iterator selected_it = selected->begin(); selected_it != selected->end(); ++selected_it) {
 
                             Point mouse_point = Point(mouse_x, mouse_y);
 
@@ -167,7 +167,7 @@ void EventManager::handle_events()
                                 mouse_point = Point(mouse_x - state->level_area()->x(), mouse_y - state->level_area()->y());
                             }
 
-                            (*selected_iterator)->move(mouse_point);
+                            (*selected_it)->move(mouse_point);
                         }
                     }
                 }
