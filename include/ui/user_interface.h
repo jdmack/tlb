@@ -29,6 +29,8 @@ class UserInterface
 
         void render(Frame * frame = nullptr);
         void update();
+        bool click(Point point);
+
 };
 
 #endif

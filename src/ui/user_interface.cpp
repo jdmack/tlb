@@ -78,3 +78,7 @@ void UserInterface::update()
     }
 }
 
+bool UserInterface::click(Point point)
+{
+    return character_panel_[0]->click(point);
+}
