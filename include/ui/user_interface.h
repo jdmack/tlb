@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "SDL2/SDL.h"
+#include "point.h"
 
 class Frame;
 class UIElement;
