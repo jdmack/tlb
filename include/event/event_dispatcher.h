@@ -1,8 +1,8 @@
-/*
 #ifndef TLB_EVENT_EVENT_DISPATCHER_H_
 #define TLB_EVENT_EVENT_DISPATCHER_H_
 
 #include "event/event.h"
+#include <vector>
 
 class EventHandler;
 
@@ -10,25 +10,19 @@ class EventDispatcher
 {
 
     private:
-        EventDispatcher();
+        std::vector<EventHandler *> handlers_;
 
         static EventDispatcher * instance_;
 
-        std::list<EventHandler *> device_list_;
-
     public:
-        EventDispatcher(const EventDispatcher &) = delete;
-        EventDispatcher& operator=(const EventDispatcher &) = delete;
+        EventDispatcher();
         ~EventDispatcher();
         
         static EventDispatcher * instance();
 
-        void register_handler(EventHandler * device);
-
+        void register_handler(EventHandler * handler);
         void send_event(Event event);
 
 };
 
 #endif
-
-*/
