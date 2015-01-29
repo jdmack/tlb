@@ -20,3 +20,5 @@ class Event
         EventType type() const { return type_; }
 
 };
+
+#endif
