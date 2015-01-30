@@ -11,7 +11,7 @@ EventHandler::~EventHandler()
 
 }
 
-void EventHandler::handle_event(Event event)
+void EventHandler::handle_event(Event * event)
 {
 
 }

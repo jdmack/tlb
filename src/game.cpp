@@ -14,6 +14,7 @@
 #include "gs_level.h"
 #include "game_state.h"
 #include "util/global_timer.h"
+#include "event/event_dispatcher.h"
 
 Game * Game::instance_ = nullptr;
 
@@ -60,6 +61,7 @@ int Game::run()
     if(current_state_->init() == 1) {
         return 1;
     }
+    EventDispatcher::instance();
     GlobalTimer::instance()->start();
 
     delta_timer_.start();

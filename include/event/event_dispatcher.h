@@ -3,6 +3,7 @@
 
 #include "event/event.h"
 #include <vector>
+#include <list>
 
 class EventHandler;
 
@@ -10,7 +11,8 @@ class EventDispatcher
 {
 
     private:
-        std::vector<EventHandler *> handlers_;
+        //std::vector<EventHandler *> handlers_;
+        std::list<EventHandler *> handlers_;
 
         static EventDispatcher * instance_;
 
@@ -21,7 +23,7 @@ class EventDispatcher
         static EventDispatcher * instance();
 
         void register_handler(EventHandler * handler);
-        void send_event(Event event);
+        void send_event(Event * event);
 
 };
 

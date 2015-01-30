@@ -10,12 +10,15 @@
 // FOR TESTING
 
 class UserInterface;
+class EHLevel;
 
 class GSLevel : public GameState
 {
     private:
         UserInterface * user_interface_;
         Frame * level_area_;
+        EHLevel * event_handler_;
+
 
         // FOR TESTING
 

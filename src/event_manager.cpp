@@ -13,6 +13,10 @@
 #include "util/math.h"
 #include "action/rotate_action.h"
 #include "util/global_timer.h"
+#include "event/event.h"
+#include "event/event_dispatcher.h"
+#include "event/e_key_press.h"
+#include "event/e_mouse_click.h"
 
 EventManager::EventManager()
 {
@@ -38,39 +42,32 @@ void EventManager::handle_events()
                 break;
 
             case SDL_KEYDOWN:   // Keypress
+                KeyType key;
                 switch(event.key.keysym.sym) {
 
                     case SDLK_ESCAPE:   // Escape
-                        Game::instance()->set_quit(true);
+                        key = KEY_ESCAPE;
                         break;
-
                     case SDLK_s:    // S
-                        if(!Game::instance()->entity_manager()->selected()->empty()) {
-                            // something is selected, can now give it an order
-                            std::list<GameObject *> * selected = Game::instance()->entity_manager()->selected();
-                            for(std::list<GameObject *>::iterator selected_it = selected->begin(); selected_it != selected->end(); ++selected_it) {
-
-                                GameObject * object = *selected_it;
-                                if(object->is_entity()) {
-                                    Entity * entity = static_cast<Entity *>(object);
-                                    entity->stop();
-                                }
-                            }
-                        }
+                        key = KEY_S;
                         break;
-
                     case SDLK_UP:       // Up Arrow
+                        key = KEY_UP;
                         break;
                     case SDLK_DOWN:     // Down Arrow
+                        key = KEY_DOWN;
                         break;
                     case SDLK_LEFT:     // Left Arrow
+                        key = KEY_LEFT;
                         break;
                     case SDLK_RIGHT:    // Right Arrow
+                        key = KEY_RIGHT;
                         break;
                     case SDLK_SPACE:    // Spacebar
-                        GlobalTimer::instance()->toggle_pause();
+                        key = KEY_SPACE;
                         break;
                 }
+                EventDispatcher::instance()->send_event(new EKeyPress(key));
                 break;
 
             case SDL_KEYUP:
@@ -86,7 +83,7 @@ void EventManager::handle_events()
                 }
                 break;
 
-            case SDL_MOUSEBUTTONDOWN: {
+            case SDL_MOUSEBUTTONDOWN:
                 // mouse Points adjusted to camera position
                 double mouse_x = event.button.x + Game::instance()->camera()->x_position();
                 double mouse_y = event.button.y + Game::instance()->camera()->y_position();
@@ -99,81 +96,21 @@ void EventManager::handle_events()
 
                 //Logger::write(Logger::ss << "mouse: (" << mouse_x << "," << mouse_y << ")");
 
+                EMouseClick * mouse_event;
+
                 // SDL_BUTTON_LEFT - Selection
                 if(event.button.button == SDL_BUTTON_LEFT)
                 {
-                    // Check if an entity is selected and R is being held down
-                    //if(!Game::instance()->entity_manager()->selected()->empty()) {
-                        if(current_key_states[SDL_SCANCODE_R]) {
-                            std::list<GameObject *> * selected = Game::instance()->entity_manager()->selected();
-                            for(std::list<GameObject *>::iterator selected_it = selected->begin(); selected_it != selected->end(); ++selected_it) {
-                                GameObject * object = *selected_it;
-                                if(object->is_entity()) {
-                                    Entity * entity = static_cast<Entity *>(object);
-                                    entity->rotate(mouse_point);
-                                }
-                            }
-
-                        }
-                        // Check if an entity is selected and A is being held down
-                        else if(current_key_states[SDL_SCANCODE_A]) {
-                            std::list<GameObject *> * selected = Game::instance()->entity_manager()->selected();
-                            for(std::list<GameObject *>::iterator selected_it = selected->begin(); selected_it != selected->end(); ++selected_it) {
-                                GameObject * object = *selected_it;
-                                if(object->is_entity()) {
-                                    Entity * entity = static_cast<Entity *>(object);
-
-                                    GameObject * target_object = Game::instance()->entity_manager()->get_object_at(mouse_x, mouse_y);
-
-                                    if((target_object != nullptr) && (target_object->is_entity())) {
-                                        Entity * target_entity = static_cast<Entity *>(target_object);
-                                        entity->attack(target_entity);
-                                    }
-                                }
-                            }
-
-                        }
-                    //}
-                    else {
-                        // 2 cases
-                        GameObject * clicked_on = Game::instance()->entity_manager()->get_object_at(mouse_x, mouse_y);
-                        // 1. clicking on nothing
-                        if(clicked_on == nullptr) {
-                            // NOTE: left clicking on anything deselects_all with current functionality
-                            Logger::write("Deselecting");
-                            Game::instance()->entity_manager()->deselect_all();
-                        }
-                        // 2. clicking on something
-                        else {
-                            if(!clicked_on->selected() || Game::instance()->entity_manager()->objects()->size() != 1) {
-                                Game::instance()->entity_manager()->deselect_all();
-                                Game::instance()->entity_manager()->select(clicked_on);
-                            }
-                        }
-                    }
-
+                    mouse_event = new EMouseClick(MOUSE_LEFT, mouse_point);
                 }
                 // SDL_BUTTON_RIGHT - Command
                 else if(event.button.button == SDL_BUTTON_RIGHT)
                 {
-                    if(!Game::instance()->entity_manager()->selected()->empty()) {
-                        // something is selected, can now give it an order
-                        std::list<GameObject *> * selected = Game::instance()->entity_manager()->selected();
-                        for(std::list<GameObject *>::iterator selected_it = selected->begin(); selected_it != selected->end(); ++selected_it) {
-
-                            Point mouse_point = Point(mouse_x, mouse_y);
-
-                            if(Game::instance()->state()->type() == GS_LEVEL) {
-                                GSLevel * state = static_cast<GSLevel *>(Game::instance()->state());
-                                mouse_point = Point(mouse_x - state->level_area()->x(), mouse_y - state->level_area()->y());
-                            }
-
-                            (*selected_it)->move(mouse_point);
-                        }
-                    }
+                    mouse_event = new EMouseClick(MOUSE_RIGHT, mouse_point);
                 }
-                break;
-            }
+
+                EventDispatcher::instance()->send_event(mouse_event);
+
 /*
                 if(event.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
                     focus_timer_.start();

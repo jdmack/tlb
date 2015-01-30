@@ -10,6 +10,8 @@
 #include "assets.h"
 #include "util/logger.h"
 #include "ui/user_interface.h"
+#include "event/eh_level.h"
+#include "event/event_dispatcher.h"
 
 
 GSLevel::GSLevel()
@@ -17,6 +19,7 @@ GSLevel::GSLevel()
     type_ = GS_LEVEL;
     user_interface_ = nullptr;
     level_area_ = new Frame(200, 0, 976, 864);
+    event_handler_ = new EHLevel();
 }
 
 int GSLevel::init()
@@ -35,6 +38,8 @@ int GSLevel::init()
     Game::instance()->set_level(level);
 
     user_interface_ = new UserInterface();
+
+    EventDispatcher::instance()->register_handler(event_handler_);
 
     // (264,216)
     /*Entity * char1   = */spawn_entity(PLAYER, Point(48 * 1 + 24, 48 * 1 + 24), 90);
