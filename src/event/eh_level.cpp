@@ -63,7 +63,7 @@ void EHLevel::mouse_left_click(Point point)
 
         }
         // Check if an entity is selected and A is being held down
-        else if(toggle_key_ = KEY_A) {
+        else if(toggle_key_ == KEY_A) {
             std::list<GameObject *> * selected = Game::instance()->entity_manager()->selected();
             for(std::list<GameObject *>::iterator selected_it = selected->begin(); selected_it != selected->end(); ++selected_it) {
                 GameObject * object = *selected_it;

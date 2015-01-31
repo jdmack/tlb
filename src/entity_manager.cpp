@@ -92,6 +92,7 @@ void EntityManager::delete_all()
 ////////////////////////////////////////////////////////////////////////////////
 GameObject * EntityManager::get_object_at(double x, double y)
 {
+    Logger::write(Logger::ss << "get_object_at(" << x << ", " << y << ")");
     for(std::list<GameObject *>::iterator object_iterator = objects_->begin(); object_iterator != objects_->end(); ++object_iterator) {
         if((*object_iterator)->contains_point(x, y)) {
             return *object_iterator;
