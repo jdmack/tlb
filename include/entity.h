@@ -58,6 +58,8 @@ class Entity : public GameObject
         void rotate(Point point);
         void attack(Entity * target);
 
+        void take_damage(int damage, Entity * attacker);
+
         void update(int deltaTicks);
         void stop();
 

@@ -43,9 +43,10 @@ bool CharacterPanel::click(Point point)
 {
     if(contains_point(point)) {
         return true;
-        GameObject * object = static_cast<GameObject *>(entity_);
+        //GameObject * object = static_cast<GameObject *>(entity_);
         //Game::instance()->entity_manager()->select(static_cast<GameObject *>(entity_));
         //Game::instance()->entity_manager()->select(entity_);
+        return false;
     }
     else {
         return false;

@@ -16,6 +16,8 @@ AttackState::AttackState(AIStateMachine * state_machine, Entity * entity)
     target_ = nullptr;
     attack_action_ = nullptr;
     command_ = false;
+    damage_ = 0;
+    range_ = 0;
 }
 
 AttackState::~AttackState()
@@ -87,6 +89,7 @@ void AttackState::start()
     //attack_action_->reset();
     attack_action_ = new AttackAction(target_);
 
+    attack_action_->set_entity(entity_);
     attack_action_->set_damage(damage_);
     attack_action_->set_range(range_);
     // TODO(2014-09-12/JM): Set attack cooldown and duration

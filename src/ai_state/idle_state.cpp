@@ -79,6 +79,7 @@ bool IdleState::update(int delta_ticks)
             return true;
 
         }
+        return false;
     }
     else {
         // ZOMBIE

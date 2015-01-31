@@ -3,7 +3,9 @@
 
 AIState::AIState()
 {
-
+    entity_ = nullptr;
+    state_machine_ = nullptr;
+    type_ = STATE_IDLE;
 }
 
 AIState::~AIState()

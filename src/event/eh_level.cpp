@@ -16,7 +16,7 @@
 
 EHLevel::EHLevel()
 {
-
+    toggle_key_ = KEY_NONE;
 }
 
 EHLevel::~EHLevel()
@@ -109,6 +109,7 @@ void EHLevel::mouse_right_click(Point point)
 void EHLevel::key_press(KeyType key)
 {
     toggle_key_ = key;
+    Entity * entity;
 
     switch(key) {
 
@@ -121,11 +122,42 @@ void EHLevel::key_press(KeyType key)
             break;
 
         case KEY_S:
-            Entity * entity = Game::instance()->entity_manager()->selected();
+            entity = Game::instance()->entity_manager()->selected();
             if(entity != nullptr) {
             // something is selected, can now give it an order
                 entity->stop();
             }
+            break;
+        case KEY_UP:
+        case KEY_DOWN:
+        case KEY_LEFT:
+        case KEY_RIGHT:
+        case KEY_A:
+        case KEY_B:
+        case KEY_C:
+        case KEY_D:
+        case KEY_E:
+        case KEY_F:
+        case KEY_G:
+        case KEY_H:
+        case KEY_I:
+        case KEY_J:
+        case KEY_K:
+        case KEY_L:
+        case KEY_M:
+        case KEY_N:
+        case KEY_O:
+        case KEY_P:
+        case KEY_Q:
+        case KEY_R:
+        case KEY_T:
+        case KEY_U:
+        case KEY_V:
+        case KEY_W:
+        case KEY_X:
+        case KEY_Y:
+        case KEY_Z:
+        case KEY_NONE:
             break;
     }
 }

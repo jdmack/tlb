@@ -25,6 +25,7 @@ class AttackAction : public Action
         AttackStateType state_;
         Cooldown cooldown_;
         Duration duration_;
+        Entity * entity_;
         Entity * target_;
 
     public:
@@ -35,6 +36,7 @@ class AttackAction : public Action
         int damage() const { return damage_; }
         double arc() const { return arc_; }
         double range() const { return range_; }
+        Entity * entity() { return entity_; }
         Entity * target() { return target_; }
 
         // mutators
@@ -43,6 +45,7 @@ class AttackAction : public Action
         void set_cooldown_length(int cooldown_length) { cooldown_length_ = cooldown_length; cooldown_.set_length(cooldown_length_);}
         void set_duration_length(int duration_length) { duration_length_ = duration_length; duration_.set_length(duration_length_);}
         void set_arc(double arc) { arc_ = arc; }
+        void set_entity(Entity * entity) { entity_ = entity; }
         void set_target(Entity * target) { target_ = target; }
 
         void reset();

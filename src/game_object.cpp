@@ -31,6 +31,9 @@ GameObject::GameObject()
     object_id_ = id_counter_++;
 
     sprite_ = nullptr;
+
+    x_abs_ = 0;
+    y_abs_ = 0;
 }
 
 GameObject::GameObject(Point position, double rot)
@@ -51,6 +54,9 @@ GameObject::GameObject(Point position, double rot)
     object_id_ = id_counter_++;
 
     sprite_ = nullptr;
+
+    x_abs_ = 0;
+    y_abs_ = 0;
 
 }
 

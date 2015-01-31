@@ -14,6 +14,8 @@ TextPanel::TextPanel()
     texture_ = nullptr;
     visible_ = true;
 
+    text_ = nullptr;
+
 }
 
 TextPanel::~TextPanel()

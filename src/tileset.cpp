@@ -56,4 +56,5 @@ bool Tileset::load(std::string filename)
 
         clips_.insert(std::pair<int, SDL_Rect>(type, rect));
     }
+    return true;
 }

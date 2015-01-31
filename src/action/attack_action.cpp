@@ -14,6 +14,11 @@ AttackAction::AttackAction()
     arc_ = 60;
     state_ = ATTACKING;
     stopped_ = false;
+    cooldown_length_ = 3000;
+    duration_length_ = 1000;
+    range_ = 0;
+
+    entity_ = nullptr;
 }
 
 AttackAction::AttackAction(Entity * target)
@@ -29,10 +34,16 @@ AttackAction::AttackAction(Entity * target)
     duration_.start();
     stopped_ = false;
 
+    cooldown_length_ = 3000;
+    duration_length_ = 1000;
+    range_ = 0;
+
+    entity_ = nullptr;
+
 }
 bool AttackAction::update(Entity * entity, int delta_ticks)
 {
-    bool return_value = true;
+    //bool return_value = true;
 
     if(target_ == nullptr) {
         Logger::write("Target is NULL");
@@ -52,7 +63,8 @@ bool AttackAction::update(Entity * entity, int delta_ticks)
         case ATTACKING:
             if(duration_.is_complete()) {
                 //Logger::write(Logger::ss << "DAMAGE");
-                target_->hp()->minus_points(damage_);
+                //target_->hp()->minus_points(damage_);
+                target_->take_damage(damage_, entity_);
                 cooldown_.reset();
                 state_ = COOLDOWN;
             }
@@ -82,6 +94,8 @@ ActionType AttackAction::type()
             break;
         case ATTACKING:
             type_ = ACTION_ATTACK;
+            break;
+        case STOPPED:
             break;
     }
 

@@ -29,6 +29,12 @@ Level::Level()
 
     thing = true;
     tileset_ = nullptr;
+
+    rows_ = 0;
+    columns_ = 0;
+
+    tile_width_= 0;
+    tile_height_ = 0;
 }
 
 

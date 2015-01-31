@@ -141,3 +141,8 @@ void Entity::set_dead(bool dead)
     selectable_ = !dead;
     controllable_ = !dead;
 }
+
+void Entity::take_damage(int damage, Entity * attacker)
+{
+    hp_->minus_points(damage);
+}
