@@ -13,14 +13,16 @@ class EntityManager
 {
     private:
         std::list<GameObject *> * objects_;
-        std::list<GameObject *> * selected_;
+        //std::list<GameObject *> * selected_;
+        Entity * selected_;
 
     public:
         EntityManager();
 
         // accessors
         std::list<GameObject *> * objects() { return objects_; }
-        std::list<GameObject *> * selected() { return selected_; }
+        //std::list<GameObject *> * selected() { return selected_; }
+        Entity * selected() { return selected_; }
 
         void add_object(GameObject * object);
         void remove_object(GameObject * object);

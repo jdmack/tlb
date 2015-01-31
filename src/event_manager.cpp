@@ -48,6 +48,12 @@ void EventManager::handle_events()
                     case SDLK_ESCAPE:   // Escape
                         key = KEY_ESCAPE;
                         break;
+                    case SDLK_a:    // A
+                        key = KEY_A;
+                        break;
+                    case SDLK_r:    // R
+                        key = KEY_R;
+                        break;
                     case SDLK_s:    // S
                         key = KEY_S;
                         break;

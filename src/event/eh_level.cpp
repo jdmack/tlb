@@ -52,31 +52,18 @@ void EHLevel::mouse_left_click(Point point)
     // Check if an entity is selected and R is being held down
     //if(!Game::instance()->entity_manager()->selected()->empty()) {
         if(toggle_key_ == KEY_R) {
-            std::list<GameObject *> * selected = Game::instance()->entity_manager()->selected();
-            for(std::list<GameObject *>::iterator selected_it = selected->begin(); selected_it != selected->end(); ++selected_it) {
-                GameObject * object = *selected_it;
-                if(object->is_entity()) {
-                    Entity * entity = static_cast<Entity *>(object);
-                    entity->rotate(point);
-                }
-            }
-
+            Entity * entity = Game::instance()->entity_manager()->selected();
+            entity->rotate(point);
         }
         // Check if an entity is selected and A is being held down
         else if(toggle_key_ == KEY_A) {
-            std::list<GameObject *> * selected = Game::instance()->entity_manager()->selected();
-            for(std::list<GameObject *>::iterator selected_it = selected->begin(); selected_it != selected->end(); ++selected_it) {
-                GameObject * object = *selected_it;
-                if(object->is_entity()) {
-                    Entity * entity = static_cast<Entity *>(object);
+            Entity * entity = Game::instance()->entity_manager()->selected();
 
-                    GameObject * target_object = Game::instance()->entity_manager()->get_object_at(point.x(), point.y());
+            GameObject * target_object = Game::instance()->entity_manager()->get_object_at(point.x(), point.y());
 
-                    if((target_object != nullptr) && (target_object->is_entity())) {
-                        Entity * target_entity = static_cast<Entity *>(target_object);
-                        entity->attack(target_entity);
-                    }
-                }
+            if((target_object != nullptr) && (target_object->is_entity())) {
+                Entity * target_entity = static_cast<Entity *>(target_object);
+                entity->attack(target_entity);
             }
 
         }
@@ -104,20 +91,18 @@ void EHLevel::mouse_left_click(Point point)
 
 void EHLevel::mouse_right_click(Point point)
 {
-    if(!Game::instance()->entity_manager()->selected()->empty()) {
+    Entity * entity = Game::instance()->entity_manager()->selected();
+    if(entity != nullptr) {
         // something is selected, can now give it an order
-        std::list<GameObject *> * selected = Game::instance()->entity_manager()->selected();
-        for(std::list<GameObject *>::iterator selected_it = selected->begin(); selected_it != selected->end(); ++selected_it) {
 
-            Point mouse_point = point;
+        Point mouse_point = point;
 
-            if(Game::instance()->state()->type() == GS_LEVEL) {
-                GSLevel * state = static_cast<GSLevel *>(Game::instance()->state());
-                mouse_point = Point(point.x() - state->level_area()->x(), point.y() - state->level_area()->y());
-            }
-
-            (*selected_it)->move(mouse_point);
+        if(Game::instance()->state()->type() == GS_LEVEL) {
+            GSLevel * state = static_cast<GSLevel *>(Game::instance()->state());
+            mouse_point = Point(point.x() - state->level_area()->x(), point.y() - state->level_area()->y());
         }
+
+        entity->move(mouse_point);
     }
 }
 
@@ -136,21 +121,12 @@ void EHLevel::key_press(KeyType key)
             break;
 
         case KEY_S:
-            if(!Game::instance()->entity_manager()->selected()->empty()) {
-                // something is selected, can now give it an order
-                std::list<GameObject *> * selected = Game::instance()->entity_manager()->selected();
-                for(std::list<GameObject *>::iterator selected_it = selected->begin(); selected_it != selected->end(); ++selected_it) {
-
-                    GameObject * object = *selected_it;
-                    if(object->is_entity()) {
-                        Entity * entity = static_cast<Entity *>(object);
-                        entity->stop();
-                    }
-                }
+            Entity * entity = Game::instance()->entity_manager()->selected();
+            if(entity != nullptr) {
+            // something is selected, can now give it an order
+                entity->stop();
             }
             break;
-
-
     }
 }
 

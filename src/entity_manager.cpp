@@ -15,7 +15,8 @@
 EntityManager::EntityManager()
 {
     objects_ = new std::list<GameObject *>();
-    selected_ = new std::list<GameObject *>();
+    //selected_ = new std::list<GameObject *>();
+    selected_ = nullptr;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -154,7 +155,8 @@ std::vector<Entity *> EntityManager::get_entities_near(Point position, double ra
 void EntityManager::select(GameObject * object)
 {
     object->select();
-    selected_->push_back(object);
+    selected_ = static_cast<Entity *>(object);
+    //selected_->push_back(object);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -165,6 +167,7 @@ void EntityManager::select(GameObject * object)
 void EntityManager::deselect(GameObject * object)
 {
     object->deselect();
+    /*
     std::list<GameObject *>::iterator selected_iterator = selected_->begin();
 
     while(selected_iterator != selected_->end()) {
@@ -178,6 +181,8 @@ void EntityManager::deselect(GameObject * object)
             selected_iterator++;
         }
     }
+    */
+    selected_ = nullptr;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -187,6 +192,11 @@ void EntityManager::deselect(GameObject * object)
 ////////////////////////////////////////////////////////////////////////////////
 void EntityManager::deselect_all()
 {
+    if(selected_ != nullptr) {
+        selected_->deselect();
+        selected_ = nullptr;
+    }
+    /*
     std::list<GameObject *>::iterator selected_iterator = selected_->begin();
 
     while(selected_iterator != selected_->end()) {
@@ -195,4 +205,5 @@ void EntityManager::deselect_all()
 
         selected_iterator = selected_->erase(selected_iterator);
     }
+    */
 }
