@@ -12,6 +12,7 @@
 #include "ui/user_interface.h"
 #include "event/eh_level.h"
 #include "event/event_dispatcher.h"
+#include "ui/character_panel.h"
 
 
 GSLevel::GSLevel()
@@ -101,6 +102,7 @@ Entity * GSLevel::spawn_entity(EntityType type, Point position, double rotation)
     if(type == PLAYER) {
         entity->set_controllable(true);
         entity->create_sprite(kAssetSpriteHuman1);
+        user_interface_->character_panel(0)->set_entity(entity);
     }
     else if(type == HUMAN) {
         entity->set_controllable(false);

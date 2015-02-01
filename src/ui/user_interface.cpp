@@ -80,5 +80,18 @@ void UserInterface::update()
 
 bool UserInterface::click(Point point)
 {
+    for(std::vector<UIElement *>::iterator element_iterator = elements_.begin(); element_iterator != elements_.end(); ++element_iterator) {
+        bool click_return = (*element_iterator)->click(point);
+        if(click_return) return click_return;
+    }
     return character_panel_[0]->click(point);
+}
+
+bool UserInterface::contains_point(Point point)
+{
+    for(std::vector<UIElement *>::iterator element_iterator = elements_.begin(); element_iterator != elements_.end(); ++element_iterator) {
+        bool value = (*element_iterator)->contains_point(point);
+        if(value) return value;
+    }
+    return character_panel_[0]->contains_point(point);
 }

@@ -42,6 +42,7 @@ void UIElement::update()
 
 bool UIElement::click(Point point)
 {
+    return false;
     if(contains_point(point)) {
         return true;
     }
@@ -52,10 +53,10 @@ bool UIElement::click(Point point)
 
 bool UIElement::contains_point(Point point)
 {
-    if((point.x() < (position_.x() - (width_ / 2))) || (point.x() > (position_.x() + (width_ / 2)))) {
+    if((point.x() < position_.x()) || (point.x() > position_.x() + width_)) {
         return false;
     }
-    else if((point.y() < (position_.y() - (width_ / 2))) || (point.y() > (position_.y() + (height_ / 2)))) {
+    else if((point.y() < position_.y()) || (point.y() > position_.y() + height_)) {
         return false;
     }
 

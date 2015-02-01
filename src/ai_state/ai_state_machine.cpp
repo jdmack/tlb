@@ -125,7 +125,19 @@ void AIStateMachine::rotate_command(Point position)
     rotate_state_->set_position(position);
 }
 
-
+void AIStateMachine::aggro(Entity * target)
+{
+    if(entity_->type() == PLAYER) {
+        return;
+    }
+    if(current_state_ != nullptr) {
+        if(current_state_->type() == STATE_IDLE) {
+            current_state_->stop();
+            next_state_ = seek_state_;
+            seek_state_->set_target(target);
+        }
+    }
+}
 
 ActionType AIStateMachine::action_type()
 {
@@ -161,6 +173,9 @@ void AIStateMachine::set_next_state(AIStateType type)
         case STATE_SEEK:
             next_state_ = seek_state_;
             break;
+        case STATE_GLOBAL:
+            break;
+
     }
 }
 
@@ -189,6 +204,8 @@ void AIStateMachine::set_previous_state(AIStateType type)
 
         case STATE_SEEK:
             previous_state_ = seek_state_;
+            break;
+        case STATE_GLOBAL:
             break;
     }
 }

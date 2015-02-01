@@ -12,6 +12,7 @@
 #include "gs_level.h"
 #include "util/logger.h"
 #include "entity_manager.H"
+#include "ui/user_interface.h"
 
 
 EHLevel::EHLevel()
@@ -28,6 +29,7 @@ void EHLevel::handle_event(Event * event)
 {
     if(event->type() == EVENT_MOUSE_CLICK) {
         EMouseClick * mouse_event = static_cast<EMouseClick *>(event);
+        Logger::write(Logger::ss << "Mouse Click " << mouse_event->point().to_string());
         if(mouse_event->button() == MOUSE_LEFT) {
             mouse_left_click(mouse_event->point());
         }
@@ -49,11 +51,26 @@ void EHLevel::handle_event(Event * event)
 void EHLevel::mouse_left_click(Point point)
 {
     Logger::write("Mouse Left Click");
-    // Check if an entity is selected and R is being held down
-    //if(!Game::instance()->entity_manager()->selected()->empty()) {
+
+    GSLevel * gs_level = static_cast<GSLevel *>(Game::instance()->state());
+    UserInterface * ui = gs_level->user_interface();
+
+    // POINT IS ON UI ELEMENT
+    if(ui->contains_point(point)) {
+        ui->click(point);
+    }
+    // POINT IS IN LEVEL AREA
+    else {
+        // adjust point for being in level area
+        Frame * level_area = gs_level->level_area();
+        point = Point(point.x() - level_area->x(), point.y() - level_area->y());
+
+        // Check if an entity is selected and R is being held down
         if(toggle_key_ == KEY_R) {
             Entity * entity = Game::instance()->entity_manager()->selected();
-            entity->rotate(point);
+            if(entity != nullptr) {
+                entity->rotate(point);
+            }
         }
         // Check if an entity is selected and A is being held down
         else if(toggle_key_ == KEY_A) {
@@ -67,26 +84,27 @@ void EHLevel::mouse_left_click(Point point)
             }
 
         }
-    //}
-    else {
-        // 2 cases
-        GameObject * clicked_on = Game::instance()->entity_manager()->get_object_at(point.x(), point.y());
-        // 1. clicking on nothing
-        if(clicked_on == nullptr) {
-            // NOTE: left clicking on anything deselects_all with current functionality
-            Logger::write("Deselecting");
-            Game::instance()->entity_manager()->deselect_all();
-        }
-        // 2. clicking on something
         else {
-            if(!clicked_on->selected() || Game::instance()->entity_manager()->objects()->size() != 1) {
+            // 2 cases
+            GameObject * clicked_on = Game::instance()->entity_manager()->get_object_at(point.x(), point.y());
+            // 1. clicking on nothing
+            if(clicked_on == nullptr) {
+                // NOTE: left clicking on anything deselects_all with current functionality
+                Logger::write("Deselecting");
                 Game::instance()->entity_manager()->deselect_all();
-                Game::instance()->entity_manager()->select(clicked_on);
+            }
+            // 2. clicking on something
+            else {
+                if(!clicked_on->selected() || Game::instance()->entity_manager()->objects()->size() != 1) {
+                    Game::instance()->entity_manager()->deselect_all();
+                    Game::instance()->entity_manager()->select(clicked_on);
+                }
             }
         }
+
     }
 
-        toggle_key_ = KEY_NONE;
+    toggle_key_ = KEY_NONE;
 }
 
 void EHLevel::mouse_right_click(Point point)

@@ -36,11 +36,18 @@ bool SeekState::update(int delta_ticks)
 
         // check if target has exceeded leash range
         if(entity_->type() == ZOMBIE) {
-            if(position.distance_from(Point(target_->x_position(), target_->y_position())) >= kZombieLeashRadius) {
+            if(position.distance_from(Point(target_->x_position(), target_->y_position())) > kZombieLeashRadius) {
                 move_action_->stop();
                 state_machine_->set_next_state(STATE_IDLE);
 
                 Logger::write("SEEK: Out of leash range");
+                Logger::write(Logger::ss << position.distance_from(Point(target_->x_position(), target_->y_position())));
+
+                Point target_position = Point(target_->x_position(), target_->y_position());
+                Point entity_position = Point(entity_->x_position(), entity_->y_position());
+
+                Logger::write(Logger::ss << "Entity Position: " << entity_position.to_string());
+                Logger::write(Logger::ss << "Target Position: " << target_position.to_string());
             }
         }
 

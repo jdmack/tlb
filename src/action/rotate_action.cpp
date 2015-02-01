@@ -26,6 +26,7 @@ RotateAction::RotateAction(Entity * entity, Point mouse_point)
 {
     Vector vector = Vector(Point(entity->x_position(), entity->y_position()), mouse_point);
     direction_ = vector.direction();
+    Logger::write(Logger::ss << "RotateAction - " << mouse_point.to_string() << " - " << direction_);
 }
 
 

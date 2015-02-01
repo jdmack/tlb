@@ -25,6 +25,7 @@ class GSLevel : public GameState
     public:
         GSLevel();
 
+        UserInterface * user_interface() const { return user_interface_; }
         Frame * level_area() const { return level_area_; }
 
         int init();

@@ -23,6 +23,7 @@ class UserInterface
 
         // accessors
         std::vector<UIElement *> elements() const { return elements_; }
+        CharacterPanel * character_panel(int index) { return character_panel_[index]; }
 
         // mutators
 
@@ -32,6 +33,7 @@ class UserInterface
         void update();
         bool click(Point point);
 
+        bool contains_point(Point point);
 };
 
 #endif
