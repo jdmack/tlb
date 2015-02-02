@@ -1,8 +1,6 @@
 TLB
 ===
 
-### The Left Behind - 2D Zombie Survival Game
+### The Left Behind
 
-**Created by:**
-* James Mack
-* Justin Shjarback
+
