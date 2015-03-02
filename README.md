@@ -23,6 +23,6 @@ The graphics are merely placeholders and made up of free art I have found availa
 
 Finally, since I am building the engine from scratch, all of my work so far as been getting the basic mechanics of the game functioning and thus the game lacks gameplay content at the moment (such as levels, missions, quests, story, etc). I am designing it such a way that once even features are working, content can be written in external files (such as XML) and loaded in. Therefore, the demo is extremely basic and currently consists of controlling a single character against a single zombie. The demo can be downloaded at https://dl.dropboxusercontent.com/u/10397390/TLB%20Demo.zip . Simply extract the folder and run the EXE.
 
-Here is a current screenshot. http://i.imgur.com/naYMgTq.png
+Here is a current screenshot. ![alt tag](http://i.imgur.com/naYMgTq.png)
 
 
