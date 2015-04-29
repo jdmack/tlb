@@ -1,5 +1,5 @@
-#include "tileset.h"
-#include "renderer.h"
+#include "gfx/tileset.h"
+#include "gfx/renderer.h"
 #include "game.h"
 #include "point.h"
 #include "rapidxml/rapidxml.hpp"

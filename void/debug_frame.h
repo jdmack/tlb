@@ -4,7 +4,7 @@
 
 #include "SDL2/SDL.h"
 #include "constants.h"
-#include "renderer.h"
+#include "gfx/renderer.h"
 
 const int kDebugFrameWidth = 200;
 const int kDebugFrameHeight = 50;

@@ -3,7 +3,7 @@
 
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_ttf.h"
-#include "renderer.h"
+#include "gfx/renderer.h"
 #include "color.h"
 #include "point.h"
 

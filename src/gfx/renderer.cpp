@@ -2,11 +2,11 @@
 #include "SDL2/SDL_image.h"
 #include "SDL2/SDL_ttf.h"
 
-#include "renderer.h"
+#include "gfx/renderer.h"
 #include "camera.h"
 #include "color.h"
 #include "game_object.h"
-#include "sprite.h"
+#include "gfx/sprite.h"
 #include "util/logger.h"
 #include "point.h"
 #include "hit_point.h"

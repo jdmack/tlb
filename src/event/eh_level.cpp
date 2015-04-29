@@ -109,18 +109,40 @@ void EHLevel::mouse_left_click(Point point)
 
 void EHLevel::mouse_right_click(Point point)
 {
-    Entity * entity = Game::instance()->entity_manager()->selected();
-    if(entity != nullptr) {
-        // something is selected, can now give it an order
+    Logger::write("Mouse Right Click");
 
-        Point mouse_point = point;
+    GSLevel * gs_level = static_cast<GSLevel *>(Game::instance()->state());
+    UserInterface * ui = gs_level->user_interface();
 
-        if(Game::instance()->state()->type() == GS_LEVEL) {
-            GSLevel * state = static_cast<GSLevel *>(Game::instance()->state());
-            mouse_point = Point(point.x() - state->level_area()->x(), point.y() - state->level_area()->y());
+    // POINT IS ON UI ELEMENT
+    if(ui->contains_point(point)) {
+        //ui->click(point); // DON'T CLICK ON RIGHT CLICK
+    }
+    // POINT IS IN LEVEL AREA
+    else {
+        // adjust point for being in level area
+        Frame * level_area = gs_level->level_area();
+        point = Point(point.x() - level_area->x(), point.y() - level_area->y());
+
+        Entity * entity = Game::instance()->entity_manager()->selected();
+
+        // If nothing selected, do nothing
+        if(entity == nullptr) {
+            return;
         }
 
-        entity->move(mouse_point);
+        // Check if right click was on an entity
+        GameObject * target_object = Game::instance()->entity_manager()->get_object_at(point.x(), point.y());
+
+        if((target_object != nullptr) && (target_object->is_entity())) {
+            Entity * target_entity = static_cast<Entity *>(target_object);
+            entity->attack(target_entity);
+        }
+
+        // Clicked on empty space, issue move command
+        else {
+            entity->move(point);
+        }
     }
 }
 

@@ -5,7 +5,7 @@
 #include <string>
 #include "util/timer.h"
 #include "SDL2/SDL.h"
-#include "animation.h"
+#include "gfx/animation.h"
 #include "action/action.h"
 
 class GameObject;

@@ -1,6 +1,6 @@
 
 #include "entity_manager.h"
-#include "renderer.h"
+#include "gfx/renderer.h"
 #include "game.h"
 #include "game_object.h"
 #include "util/logger.h"

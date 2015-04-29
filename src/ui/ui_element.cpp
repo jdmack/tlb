@@ -2,7 +2,7 @@
 #include "ui/ui_element.h"
 #include "point.h"
 #include "util/logger.h"
-#include "renderer.h"
+#include "gfx/renderer.h"
 #include "game.h"
 
 

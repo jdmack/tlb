@@ -5,7 +5,7 @@
 // Project Files
 #include "game.h"
 #include "entity.h"
-#include "renderer.h"
+#include "gfx/renderer.h"
 #include "entity_manager.h"
 #include "event_manager.h"
 #include "util/logger.h"

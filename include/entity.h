@@ -13,7 +13,7 @@ const double kEntityDefaultVelocity     = 100;
 const double kEntityDefaultAcceleration = 800;
 const double kEntityRotationVelocity = 1000;
 
-const double kZombieAggroRadius = 96;
+const double kZombieAggroRadius = 144;
 const double kZombieLeashRadius = 193;
 const double kZombieAttackDamage = 1;
 const double kZombieAttackRange = 70;

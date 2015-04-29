@@ -2,7 +2,7 @@
 
 #include "gs_level.h"
 
-#include "renderer.h"
+#include "gfx/renderer.h"
 #include "game.h"
 #include "level.h"
 #include "entity_manager.h"
@@ -111,7 +111,7 @@ Entity * GSLevel::spawn_entity(EntityType type, Point position, double rotation)
     else if(type == ZOMBIE) {
         entity->set_selectable(false);
         entity->set_controllable(false);
-        entity->set_maximum_speed(kEntityDefaultVelocity - 20);
+        entity->set_maximum_speed(kEntityDefaultVelocity * 0.6);
 
         int random_num = rand() % 5 + 1;
 

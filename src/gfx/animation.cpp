@@ -1,5 +1,5 @@
 #include <string>
-#include "animation.h"
+#include "gfx/animation.h"
 #include "util/logger.h"
 
 Animation::Animation()

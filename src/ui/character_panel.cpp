@@ -5,7 +5,7 @@
 #include "game_object.h"
 #include "entity.h"
 #include "assets.h"
-#include "renderer.h"
+#include "gfx/renderer.h"
 #include "util/logger.h"
 
 CharacterPanel::CharacterPanel()

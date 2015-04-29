@@ -1,10 +1,10 @@
-#include "tile.h"
+#include "gfx/tile.h"
 #include "level.h"
 #include "camera.h"
-#include "renderer.h"
+#include "gfx/renderer.h"
 #include "game.h"
 #include "point.h"
-#include "tileset.h"
+#include "gfx/tileset.h"
 #include "frame.h"
 
 Tile::Tile()

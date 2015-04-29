@@ -4,7 +4,7 @@
 #include "SDL2/SDL.h"
 #include <vector>
 #include "constants.h"
-#include "renderer.h"
+#include "gfx/renderer.h"
 #include "point.h"
 #include "ui/ui_element.h"
 
