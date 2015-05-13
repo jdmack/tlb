@@ -1,6 +1,6 @@
 #include "gfx/tile.h"
 #include "level.h"
-#include "gfx/camera.h"
+#include "camera.h"
 #include "gfx/renderer.h"
 #include "game.h"
 #include "point.h"

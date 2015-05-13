@@ -5,7 +5,7 @@
 #include "gfx/sprite.h"
 #include "game.h"
 #include "movement.h"
-#include "gfx/camera.h"
+#include "camera.h"
 #include "frame.h"
 
 // TODO (2013-08-26/JM): Refactor constructor to use constructor delegation when

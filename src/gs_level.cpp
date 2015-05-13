@@ -59,10 +59,6 @@ int GSLevel::init()
 
 bool GSLevel::update(int delta_ticks)
 {
-    if(win_condition_.check()) {
-        Game::instance()->set_quit(true);
-    }
-
     std::vector<Entity *> entities = Game::instance()->entity_manager()->get_entities();
 
     // Update

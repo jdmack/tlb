@@ -3,7 +3,7 @@
 #include "SDL2/SDL_ttf.h"
 
 #include "gfx/renderer.h"
-#include "gfx/camera.h"
+#include "camera.h"
 #include "color.h"
 #include "game_object.h"
 #include "gfx/sprite.h"
