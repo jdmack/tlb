@@ -5,6 +5,7 @@
 #include "entity.h"
 #include "game_state.h"
 #include "frame.h"
+#include "win_condition.h"
 
 
 // FOR TESTING
@@ -18,6 +19,7 @@ class GSLevel : public GameState
         UserInterface * user_interface_;
         Frame * level_area_;
         EHLevel * event_handler_;
+        WinCondition win_condition_;
 
 
         // FOR TESTING

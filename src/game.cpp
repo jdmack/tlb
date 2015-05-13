@@ -9,7 +9,7 @@
 #include "entity_manager.h"
 #include "event_manager.h"
 #include "util/logger.h"
-#include "camera.h"
+#include "gfx/camera.h"
 #include "level.h"
 #include "gs_level.h"
 #include "game_state.h"

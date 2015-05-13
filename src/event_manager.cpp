@@ -9,7 +9,7 @@
 #include "util/logger.h"
 #include "point.h"
 #include "entity.h"
-#include "camera.h"
+#include "gfx/camera.h"
 #include "util/math.h"
 #include "action/rotate_action.h"
 #include "util/global_timer.h"
