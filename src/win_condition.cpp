@@ -19,8 +19,10 @@ bool WinCondition::check_enemies()
 {
     std::vector<Entity *> entities = Game::instance()->entity_manager()->get_entities();
     for(std::vector<Entity *>::iterator it = entities.begin(); it != entities.end(); ++it) {
-        if(!(*it)->dead()) {
-            return false;
+        if((*it)->type() == ZOMBIE) {
+            if(!(*it)->dead()) {
+                return false;
+            }
         }
     }
 

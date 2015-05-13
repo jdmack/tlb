@@ -173,7 +173,9 @@ void EHLevel::key_press(KeyType key)
         case KEY_LEFT:
         case KEY_RIGHT:
         case KEY_A:
+            break;
         case KEY_B:
+            break;
         case KEY_C:
         case KEY_D:
         case KEY_E:

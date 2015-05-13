@@ -60,6 +60,7 @@ int GSLevel::init()
 bool GSLevel::update(int delta_ticks)
 {
     if(win_condition_.check()) {
+        // TODO(2015-05-13/JM): Going to want to change this to transition to another state instead of quit
         Game::instance()->set_quit(true);
     }
 
