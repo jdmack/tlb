@@ -1,4 +1,4 @@
-#include "camera.h"
+#include "gfx/camera.h"
 #include "game_object.h"
 #include "level.h"
 #include "game.h"
