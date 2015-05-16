@@ -11,7 +11,7 @@ class GSMainMenu : public GameState
     public:
         GSMainMenu();
 
-        int init();
+        bool init();
         bool update(int delta_ticks);
         void render();
         void end();

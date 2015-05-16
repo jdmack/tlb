@@ -23,17 +23,15 @@ GSLevel::GSLevel()
     event_handler_ = new EHLevel();
 }
 
-int GSLevel::init()
+bool GSLevel::init()
 {
-    int return_code = 0;
-
     // Load level
     Level * level = new Level();
 
     //if(!level->load(kMapTestHexIsometric)) {
     if(!level->load(kMapTest24x18)) {
         Logger::write(Logger::ss << "Failed to load map");
-        return_code = 1;
+        return false;
     }
 
     Game::instance()->set_level(level);
@@ -54,7 +52,7 @@ int GSLevel::init()
 
     // FOR TESTING
 
-    return return_code;
+    return true;
 }
 
 bool GSLevel::update(int delta_ticks)

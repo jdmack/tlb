@@ -12,16 +12,16 @@ class GameState
         GameStateType type_;
 
     public:
-        GameState();
-        virtual ~GameState();
+        //GameState();
+        virtual ~GameState() {}
 
         // accessors
         GameStateType type() const { return type_; }
 
-        virtual int init();
-        virtual bool update(int delta_ticks);
-        virtual void render();
-        virtual void end();
+        virtual bool init() = 0;
+        virtual bool update(int delta_ticks) = 0;
+        virtual void render() = 0;
+        virtual void end() = 0;
 };
 
 #endif

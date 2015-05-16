@@ -24,10 +24,12 @@ class Game
         Camera * camera_;
         Level * level_;
         GameState * current_state_;
+        GameState * next_state_;
 
         static Game * instance_;
 
         Game();
+        bool change_state();
 
     public:
         Game(const Game &) = delete;
@@ -51,6 +53,7 @@ class Game
         // mutators
         void set_quit(bool quit) { quit_ = quit; }
         void set_level(Level * level) { level_ = level; }
+        void set_next_state(GameState * state) { next_state_ = state; }
 
 };
 

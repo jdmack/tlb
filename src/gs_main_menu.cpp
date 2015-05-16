@@ -13,7 +13,7 @@ GSMainMenu::GSMainMenu()
 
 }
 
-int GSMainMenu::init()
+bool GSMainMenu::init()
 {
     int return_code = 0;
 

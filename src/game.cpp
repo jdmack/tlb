@@ -29,7 +29,8 @@ Game::Game()
     renderer_->set_camera(camera_);
     level_ = nullptr;
 
-    current_state_ = static_cast<GameState *>(new GSLevel());
+    current_state_ = static_cast<GameState *>(new GSLevel());   // change this
+    next_state_ = nullptr;
 
     Game::instance_ = nullptr;
 }
@@ -58,9 +59,10 @@ int Game::run()
         return 1;
     }
 
-    if(current_state_->init() == 1) {
+    if(!current_state_->init()) {
         return 1;
     }
+
     EventDispatcher::instance();
     GlobalTimer::instance()->start();
 
@@ -79,29 +81,45 @@ void Game::game_loop()
 {
     //current_state_->init();
     // Main Loop
-    while(quit_ == false) {
+    while(!quit_) {
 
-        // Handle Events
+        // Handle Events - state agnostic
         event_manager_->handle_events();
 
         // Update
         //if(delta_timer_.get_ticks() >= 33) {
-        current_state_->update(delta_timer_.get_ticks());
+        bool keep_state = current_state_->update(delta_timer_.get_ticks());
+
         delta_timer_.start();
-        //}
-
-
-        // center camera
-        //camera_->center(char1);
 
         // Draw
         renderer_->clear();
         current_state_->render();
 
         renderer_->update();
+
+        if(!keep_state) {
+            change_state();
+        }
     }
 
+}
+
+bool Game::change_state()
+{
     current_state_->end();
+
+    if(next_state_ == nullptr) {
+        quit_ = true;
+        return true;
+    }
+
+    current_state_ = next_state_;
+    next_state_ = nullptr;
+
+    current_state_->init();
+
+    return true;
 }
 
 
