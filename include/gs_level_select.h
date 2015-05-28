@@ -6,12 +6,14 @@
 
 // FOR TESTING
 
+class LevelGraph;
 class UserInterface;
 class EHLevel;
 
 class GSLevelSelect : public GameState
 {
     private:
+        LevelGraph * level_graph_;
         UserInterface * user_interface_;
         EHLevel * event_handler_;
 

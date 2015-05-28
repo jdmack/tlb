@@ -3,7 +3,8 @@
 
 enum GameStateType {
     GS_BLANK,
-    GS_LEVEL
+    GS_LEVEL,
+    GS_LEVEL_SELECT
 };
 
 class GameState
