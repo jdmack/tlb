@@ -3,6 +3,7 @@
 #include "level_graph.h"
 #include "level_node.h"
 #include "assets.h"
+#include "gfx/graphic.h"
 
 
 
@@ -13,6 +14,8 @@ GSLevelSelect::GSLevelSelect()
     user_interface_ = nullptr;
     //event_handler_ = new EHLevel();
 
+    background_ = new Graphic();
+    background_->load_texture("assets/art/level_select_background.png");
 }
 
 bool GSLevelSelect::init()
@@ -35,23 +38,24 @@ bool GSLevelSelect::init()
     level_graph_->add_node(node1);
     level_graph_->add_node(node2);
 
-
     return true;
 }
 
 bool GSLevelSelect::update(int delta_ticks)
 {
-
+    return true;
 }
 
 void GSLevelSelect::render()
 {
+    background_->render();
 
 }
 
 void GSLevelSelect::end()
 {
-
+    delete level_graph_;
+    delete background_;
 }
 
 

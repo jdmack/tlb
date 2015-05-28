@@ -9,6 +9,7 @@
 class LevelGraph;
 class UserInterface;
 class EHLevel;
+class Graphic;
 
 class GSLevelSelect : public GameState
 {
@@ -16,6 +17,8 @@ class GSLevelSelect : public GameState
         LevelGraph * level_graph_;
         UserInterface * user_interface_;
         EHLevel * event_handler_;
+
+        Graphic * background_;
 
 
         // FOR TESTING

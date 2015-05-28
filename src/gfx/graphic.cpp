@@ -69,11 +69,11 @@ bool Graphic::load_texture(std::string art_asset)
 
     texture_ = renderer->load_texture(art_asset_);
     if(texture_ == nullptr) {
+        Logger::write(Logger::ss << "Error loading asset: " << art_asset);
         return false;
     }
 
     SDL_QueryTexture(texture_, NULL, NULL, &width_, &height_);
-
 
     return true;
 }

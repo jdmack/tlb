@@ -12,8 +12,8 @@ class Graphic
 {
     protected:
         Point position_;
-        int width_;
-        int height_;
+        int width_;                 // auto-populated
+        int height_;                // auto-populated
         bool visible_;
         std::string art_asset_;
 

@@ -12,11 +12,12 @@
 #include "gfx/camera.h"
 #include "level.h"
 #include "gs_level.h"
+#include "gs_level_select.h"
 #include "game_state.h"
 #include "util/global_timer.h"
 #include "event/event_dispatcher.h"
 
-Game * Game::instance_ = nullptr;
+Game * Game::instance_;// = nullptr;
 
 Game::Game()
 {
@@ -29,10 +30,8 @@ Game::Game()
     renderer_->set_camera(camera_);
     level_ = nullptr;
 
-    current_state_ = static_cast<GameState *>(new GSLevel());   // change this
+    current_state_ = nullptr;
     next_state_ = nullptr;
-
-    Game::instance_ = nullptr;
 }
 
 Game::~Game()
@@ -59,9 +58,14 @@ int Game::run()
         return 1;
     }
 
+    // Setup initial state - need to do this after renderer is initialized or bad things happen
+    //current_state_ = static_cast<GameState *>(new GSLevel());   // change this
+    current_state_ = static_cast<GameState *>(new GSLevelSelect());
+
     if(!current_state_->init()) {
         return 1;
     }
+
 
     EventDispatcher::instance();
     GlobalTimer::instance()->start();
