@@ -49,6 +49,7 @@ bool GSLevelSelect::update(int delta_ticks)
 void GSLevelSelect::render()
 {
     background_->render();
+    level_graph_->render();
 
 }
 

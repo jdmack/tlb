@@ -5,6 +5,8 @@
 #include <list>
 #include "point.h"
 
+class Graphic;
+
 class LevelNode
 {
     private:
@@ -14,6 +16,8 @@ class LevelNode
 
         std::list<LevelNode *> adjacent_;
         std::string level_file_;
+
+        Graphic * graphic_;
 
     public:
         LevelNode();
@@ -30,6 +34,7 @@ class LevelNode
 
 
         void add_adjacent(LevelNode * node);
+        void render();
 };
 
 #endif
