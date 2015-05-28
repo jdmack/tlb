@@ -22,15 +22,23 @@ bool GSLevelSelect::init()
 {
     LevelNode * node1 = new LevelNode();
     node1->set_position(Point(200, 200));
-    node1->set_width(50);
-    node1->set_height(50);
+    node1->set_width(200);
+    node1->set_height(200);
     node1->set_level_file(kMapTest24x18);
+    Graphic * graphic1 = new Graphic();
+    graphic1->set_position(node1->position());
+    graphic1->load_texture("assets/art/level_node.png");
+    node1->set_graphic(graphic1);
 
     LevelNode * node2 = new LevelNode();
-    node2->set_position(Point(400, 200));
-    node2->set_width(50);
-    node2->set_height(50);
+    node2->set_position(Point(600, 200));
+    node2->set_width(200);
+    node2->set_height(200);
     node2->set_level_file(kMapTest24x18);
+    Graphic * graphic2 = new Graphic();
+    graphic2->set_position(node2->position());
+    graphic2->load_texture("assets/art/level_node.png");
+    node2->set_graphic(graphic2);
 
     node1->add_adjacent(node2);
     node2->add_adjacent(node1);

@@ -32,7 +32,7 @@ class LevelNode
         void set_width(int width) { width_ = width; }
         void set_height(int height) { height_ = height; }
         void set_level_file(std::string level_file) { level_file_ = level_file; }
-
+        void set_graphic(Graphic * graphic) { graphic_ = graphic; }
 
         void add_adjacent(LevelNode * node);
         void render(Frame * frame = nullptr);
