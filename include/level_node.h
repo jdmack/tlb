@@ -6,6 +6,7 @@
 #include "point.h"
 
 class Graphic;
+class Frame;
 
 class LevelNode
 {
@@ -34,7 +35,8 @@ class LevelNode
 
 
         void add_adjacent(LevelNode * node);
-        void render();
+        void render(Frame * frame = nullptr);
+
 };
 
 #endif

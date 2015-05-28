@@ -4,6 +4,7 @@
 #include <list>
 
 class LevelNode;
+class Frame;
 
 class LevelGraph
 {
@@ -16,7 +17,8 @@ class LevelGraph
         ~LevelGraph();
 
         void add_node(LevelNode * node);
-        void render();
+        void render(Frame * frame = nullptr);
+
 
 
 
