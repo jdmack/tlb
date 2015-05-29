@@ -358,4 +358,10 @@ void Renderer::draw_rectangle(SDL_Rect rect, Color color)
     SDL_RenderDrawRect(renderer_, &rect );
 }
 
+void Renderer::draw_line(Point start, Point end, Color color)
+{
+    SDL_SetRenderDrawColor(renderer_, color.red(), color.green(), color.blue(), 255);
+    SDL_RenderDrawLine(renderer_, start.x(), start.y(), end.x(), end.y());
+}
+
 

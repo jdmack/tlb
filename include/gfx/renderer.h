@@ -52,6 +52,7 @@ class Renderer
         void apply_surface(SDL_Surface * source, SDL_Surface * destination, SDL_Rect * offset, SDL_Rect * clip = nullptr);
 
         void draw_rectangle(SDL_Rect rect, Color color);
+        void draw_line(Point start, Point end, Color color);
 
 
         SDL_Surface * load_image(std::string);

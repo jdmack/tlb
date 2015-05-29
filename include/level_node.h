@@ -27,6 +27,7 @@ class LevelNode
         Point position() const { return position_; }
         int width() const { return width_; }
         int height() const { return height_; }
+        std::list<LevelNode *> adjacent() const { return adjacent_; }
 
         void set_position(Point position) { position_ = position; }
         void set_width(int width) { width_ = width; }
