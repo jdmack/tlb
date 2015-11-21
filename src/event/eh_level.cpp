@@ -11,7 +11,7 @@
 #include "game_state.h"
 #include "gs_level.h"
 #include "util/logger.h"
-#include "entity_manager.H"
+#include "entity_manager.h"
 #include "ui/user_interface.h"
 
 
