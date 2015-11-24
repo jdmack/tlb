@@ -59,8 +59,8 @@ int Game::run()
     }
 
     // Setup initial state - need to do this after renderer is initialized or bad things happen
-    //current_state_ = static_cast<GameState *>(new GSLevel());   // change this
-    current_state_ = static_cast<GameState *>(new GSLevelSelect());
+    current_state_ = static_cast<GameState *>(new GSLevel());   // change this
+    //current_state_ = static_cast<GameState *>(new GSLevelSelect());
 
     if(!current_state_->init()) {
         return 1;
@@ -97,7 +97,7 @@ void Game::game_loop()
         delta_timer_.start();
 
         // Draw
-        renderer_->clear();
+        //renderer_->clear();
         current_state_->render();
 
         renderer_->update();

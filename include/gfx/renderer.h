@@ -1,7 +1,11 @@
-#ifndef TLB_RENDERER_H_
-#define TLB_RENDERER_H_
+#ifndef TLB_GFX_RENDERER_H_
+#define TLB_GFX_RENDERER_H_
 
+#include "GL/glew.h"
+#include "GL/glu.h"
 #include "SDL2/SDL.h"
+#include "SDL2/SDL_opengl.h"
+
 #include "constants.h"
 #include "color.h"
 #include "point.h"
@@ -26,7 +30,10 @@ class Renderer
     private:
         SDL_Window * window_;
         SDL_Renderer * renderer_;
+        SDL_GLContext context_;
         Camera * camera_;
+
+        GLuint programID_;
 
     public:
         Renderer();
@@ -34,7 +41,9 @@ class Renderer
         // accessors
         SDL_Window * window() const { return window_; }
         SDL_Renderer * renderer() const { return renderer_; }
+        SDL_GLContext context() const { return context_;}
         Camera * camera() const { return camera_; }
+        GLuint programID() { return programID_; }
 
         // mutators
         void set_camera(Camera * camera) { camera_ = camera; }
@@ -61,6 +70,11 @@ class Renderer
         SDL_Texture * load_texture_alpha(std::string);
 
         void draw_life_bar(Entity * entity, Frame * frame = nullptr);
+
+        bool initShader();
+        void printProgramLog(GLuint program);
+        void printShaderLog(GLuint program);
+
 };
 
 #endif

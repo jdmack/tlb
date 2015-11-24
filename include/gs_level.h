@@ -12,6 +12,7 @@
 
 class UserInterface;
 class EHLevel;
+class Model;
 
 class GSLevel : public GameState
 {
@@ -22,6 +23,7 @@ class GSLevel : public GameState
         WinCondition win_condition_;
 
         // FOR TESTING
+        Model * model_;
 
     public:
         GSLevel();

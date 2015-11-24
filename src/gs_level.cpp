@@ -13,6 +13,7 @@
 #include "event/eh_level.h"
 #include "event/event_dispatcher.h"
 #include "ui/character_panel.h"
+#include "gfx/model.h"
 
 
 GSLevel::GSLevel()
@@ -26,23 +27,23 @@ GSLevel::GSLevel()
 bool GSLevel::init()
 {
     // Load level
-    Level * level = new Level();
+    //Level * level = new Level();
 
     //if(!level->load(kMapTestHexIsometric)) {
-    if(!level->load(kMapTest24x18)) {
-        Logger::write(Logger::ss << "Failed to load map");
-        return false;
-    }
+    //if(!level->load(kMapTest24x18)) {
+    //    Logger::write(Logger::ss << "Failed to load map");
+    //    return false;
+    //}
 
-    Game::instance()->set_level(level);
+    //Game::instance()->set_level(level);
 
-    user_interface_ = new UserInterface();
+    //user_interface_ = new UserInterface();
 
     EventDispatcher::instance()->register_handler(event_handler_);
 
     // (264,216)
-    /*Entity * char1   = */spawn_entity(PLAYER, Point(48 * 1 + 24, 48 * 1 + 24), 90);
-    /*Entity * zombie1 = */spawn_entity(ZOMBIE, Point(48 * 5 + 24, 48 * 5 + 24), 270);
+    ///*Entity * char1   = */spawn_entity(PLAYER, Point(48 * 1 + 24, 48 * 1 + 24), 90);
+    ///*Entity * zombie1 = */spawn_entity(ZOMBIE, Point(48 * 5 + 24, 48 * 5 + 24), 270);
 
     //Entity * zombie2 = spawn_entity(ZOMBIE, Point(48 * 5 + 24, 48 * 1 + 24), 90);
     //Entity * zombie3 = spawn_entity(ZOMBIE, Point(48 * 6 + 24, 48 * 1 + 24), 90);
@@ -51,16 +52,17 @@ bool GSLevel::init()
     //Entity * zombie6 = spawn_entity(ZOMBIE, Point(48 * 7 + 24, 48 * 1 + 24), 0);
 
     // FOR TESTING
+    model_ = new Model();
 
     return true;
 }
 
 bool GSLevel::update(int delta_ticks)
 {
-    if(win_condition_.check()) {
+    //if(win_condition_.check()) {
         // TODO(2015-05-13/JM): Going to want to change this to transition to another state instead of quit
-        Game::instance()->set_quit(true);
-    }
+    //    Game::instance()->set_quit(true);
+    //}
 
     std::vector<Entity *> entities = Game::instance()->entity_manager()->get_entities();
 
@@ -69,13 +71,13 @@ bool GSLevel::update(int delta_ticks)
         (*entity_iterator)->update(delta_ticks);
     }
 
-    user_interface_->update();
+    //user_interface_->update();
 
     return true;
 }
 void GSLevel::render()
 {
-    Game::instance()->level()->render(level_area_);
+    //Game::instance()->level()->render(level_area_);
 
     // Render
     std::vector<Entity *> entities = Game::instance()->entity_manager()->get_entities();
@@ -87,9 +89,10 @@ void GSLevel::render()
         }
     }
 
-    user_interface_->render();
+    //user_interface_->render();
 
     // FOR TESTING
+    model_->render();
 }
 
 void GSLevel::end()
@@ -105,7 +108,7 @@ Entity * GSLevel::spawn_entity(EntityType type, Point position, double rotation)
     if(type == PLAYER) {
         entity->set_controllable(true);
         entity->create_sprite(kAssetSpriteHuman1);
-        user_interface_->character_panel(0)->set_entity(entity);
+        //user_interface_->character_panel(0)->set_entity(entity);
     }
     else if(type == HUMAN) {
         entity->set_controllable(false);

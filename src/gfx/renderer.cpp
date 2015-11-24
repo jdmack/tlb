@@ -1,6 +1,9 @@
+#include "GL/glew.h"
+#include "GL/glu.h"
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include "SDL2/SDL_ttf.h"
+#include "SDL2/SDL_opengl.h"
 
 #include "gfx/renderer.h"
 #include "gfx/camera.h"
@@ -12,6 +15,7 @@
 #include "hit_point.h"
 #include "entity.h"
 #include "util/math.h"
+#include "util/file_reader.h"
 #include "frame.h"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -36,46 +40,226 @@ bool Renderer::init()
     // Initialize SDL
     // TODO(2013-08-23/JM): Move this elsewhere, init function for whole game
     if(SDL_Init(SDL_INIT_VIDEO) == -1) {
+        Logger::write(Logger::ss << "SDL could not initialize. SDL Error: " << SDL_GetError());
         return false;
     }
+
+    // Initialize for core context, getting rid of old OpenGL functionality
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE); // No idea what this does
+
+    // Set OpenGL Version
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+
     int img_flags = IMG_INIT_PNG;
 
+    // Initialize SDL_image
     if(!(IMG_Init(img_flags) & img_flags)) {
-        Logger::write(Logger::ss << "SDL_image could not initialize! SDL_image Error: " <<  IMG_GetError());
+        Logger::write(Logger::ss << "ERROR: SDL_image could not initialize! SDL_image Error: " <<  IMG_GetError());
         return false;
     }
 
-
-
+    // Initialize SDL_ttf
     if(TTF_Init() == -1) {
-        Logger::write(Logger::ss << "TTF_Init: " << TTF_GetError());
+        Logger::write(Logger::ss << "ERROR: TTF_Init: " << TTF_GetError());
         return false;
     }
 
     // Setup renderer
-    window_ = SDL_CreateWindow(kWindowName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, kRendererWidth, kRendererHeight, SDL_WINDOW_SHOWN);
-
-
-    //renderer_ = SDL_CreateRenderer(window_, -1, 0);
-    renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
-
-
-    // Check renderer was setup successfully
-    if((window_ == nullptr) || (renderer_ == nullptr)) {
+    window_ = SDL_CreateWindow(kWindowName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
+        kRendererWidth, kRendererHeight, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+    if(window_ == nullptr) {
+        Logger::write(Logger::ss << "ERROR: Could not create window! SDL Error: " << SDL_GetError());
         return false;
     }
 
+    // Renderer for 2D opengl, leaving uncommented to prevent crashing but remove eventually
+    renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+    if(renderer_ == nullptr) {
+        Logger::write(Logger::ss << "ERROR: Could not create renderer! SDL Error: " << SDL_GetError());
+        return false;
+    }
+    
+    // Create context
+    context_ = SDL_GL_CreateContext(window_);
+    if(context_ == nullptr) {
+        Logger::write(Logger::ss << "ERROR: Could not create OpenGL context! SDL Error: " << SDL_GetError());
+        return false;
+    }
 
-/*
-    int w;
-    int h;
-    SDL_GetWindowMinimumSize(window_, &w, &h);
-    Logger::write(Logger::ss << "Minimum: (" << w << " x " << h << ")");
-    SDL_GetWindowMaximumSize(window_, &w, &h);
-    Logger::write(Logger::ss << "Maximum: (" << w << " x " << h << ")");
-    */
+    // Initialize GLEW
+    glewExperimental = GL_TRUE;
+    GLenum glewError = glewInit();
+    if(glewError != GLEW_OK) {
+        Logger::write(Logger::ss << "ERROR: Could not initialize GLEW! GLEW Error: " << glewGetErrorString(glewError));
+        return false;
+    }
+
+    // Enable VSync
+    if(SDL_GL_SetSwapInterval(1) < 0) {
+        Logger::write(Logger::ss << "ERROR: Could not set VSync! SDL Error: " << SDL_GetError());
+        return false;
+    }
+
+    // Initialize OpenGL
+    if(!initShader()) {
+        Logger::write(Logger::ss << "ERROR: Could not initialize OpenGL!");
+        return false;
+    }
+
+    //int w;
+    //int h;
+    //SDL_GetWindowMinimumSize(window_, &w, &h);
+    //Logger::write(Logger::ss << "Minimum: (" << w << " x " << h << ")");
+    //SDL_GetWindowMaximumSize(window_, &w, &h);
+    //Logger::write(Logger::ss << "Maximum: (" << w << " x " << h << ")");
 
     return true;
+}
+
+bool Renderer::initShader()
+{
+    // Generate program
+    programID_ = glCreateProgram();
+
+    // Create vertex shader
+    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+
+    // Get vertex shader source
+    //const GLchar * vertexShaderSource[] = FileReader::read_file("shader/v1.vs");
+    std::string vertexShaderStr = FileReader::read_file("shader/v1.vs");
+    const GLchar * vertexShaderSource = vertexShaderStr.c_str();
+    
+    //{
+    //    "#version 130\nin vec2 LVertexPos2D; void main() { gl_Position = vec4(LVertexPos2D.x, LVertexPos2D.y, 0, 1); }" 
+    //};
+
+    // Set vertex source
+    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+
+    // Compile vertex source
+    glCompileShader(vertexShader);
+
+    // Check vertex shader for errors
+    GLint vShaderCompiled = GL_FALSE;
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &vShaderCompiled);
+
+    if(vShaderCompiled != GL_TRUE) {
+        Logger::write(Logger::ss << "ERROR: Could not compile vertex shader: " << vertexShader);
+        printShaderLog(vertexShader);
+        return false;
+    }
+
+    // Attach vertex shader to program
+    glAttachShader(programID_, vertexShader);
+
+    // Create fragment shader
+    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+
+    // Get fragment source
+    std::string fragmentShaderStr = FileReader::read_file("shader/f1.fs");
+    const GLchar * fragmentShaderSource = fragmentShaderStr.c_str();
+
+    //{
+    //    "#version 130\nout vec4 LFragment; void main() { LFragment = vec4(1.0, 1.0, 1.0, 1.0); }"
+    //};
+
+    // Set fragment source
+    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+
+    // Compile fragment source
+    glCompileShader(fragmentShader);
+
+    // Check fragment shader for errors
+    GLint fShaderCompiled = GL_FALSE;
+    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &fShaderCompiled);
+
+    if(fShaderCompiled != GL_TRUE) {
+        Logger::write(Logger::ss << "ERROR: Could not compile fragment shader: " << fragmentShader);
+        printShaderLog(fragmentShader);
+        return false;
+    }
+
+    // Attach fragment shader to program
+    glAttachShader(programID_, fragmentShader);
+
+    // Link program
+    glLinkProgram(programID_);
+
+    // Check for errors
+    GLint programSuccess = GL_TRUE;
+    glGetProgramiv(programID_, GL_LINK_STATUS, &programSuccess);
+
+    if(programSuccess != GL_TRUE) {
+        Logger::write(Logger::ss << "ERROR: Could not link program: " << programID_);
+        printProgramLog(programID_); 
+        return false;
+    }
+
+    return true;
+
+}
+
+void Renderer::printProgramLog(GLuint program)
+{
+    // Make sure name is program
+    if(glIsProgram(program)) {
+        
+        // Program log length
+        int infoLogLength = 0;
+        int maxLength = infoLogLength;
+
+        // Get info string length
+        glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
+
+        // Allocate string
+        char * infoLog = new char[maxLength];
+
+        // Get info log
+        glGetProgramInfoLog(program, maxLength, &infoLogLength, infoLog);
+
+        if(infoLogLength > 0) {
+            // Print log
+            printf("%s\n", infoLog);
+        }
+        
+        // Deallocate string
+        delete[] infoLog;
+    }
+    else {
+        printf("Name %d is not a program\n", program);
+    }
+}
+
+void Renderer::printShaderLog(GLuint shader)
+{
+    // Make sure name is shader
+    if(glIsShader(shader)) {
+        
+        // Program log length
+        int infoLogLength = 0;
+        int maxLength = infoLogLength;
+
+        // Get info string length
+        glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
+
+        // Allocate string
+        char * infoLog = new char[maxLength];
+
+        // Get info log
+        glGetShaderInfoLog(shader, maxLength, &infoLogLength, infoLog);
+
+        if(infoLogLength > 0) {
+            // Print log
+            printf("%s\n", infoLog);
+        }
+        
+        // Deallocate string
+        delete[] infoLog;
+    }
+    else {
+        printf("Name %d is not a shader\n", shader);
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -179,7 +363,8 @@ void Renderer::clear(Color clear_color)
 void Renderer::update()
 {
     //if(debug_) debug_frame_->render();
-    SDL_RenderPresent(renderer_);
+    //SDL_RenderPresent(renderer_);
+    SDL_GL_SwapWindow(window_);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -193,6 +378,12 @@ void Renderer::clean_up()
 
     //NOTE/TODO: Uncomment this when SDL_ttf is installed
     //TTF_Quit();
+    
+    // Deallocate program
+    glDeleteProgram(programID_);
+
+    // Destroy window
+    SDL_DestroyWindow(window_);
 
     SDL_Quit();
 }
