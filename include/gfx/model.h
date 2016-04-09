@@ -7,7 +7,8 @@ class Model
 {
     private:
         //GLfloat vertexData[8]; 
-        GLuint vertexPos2DLocation;
+        GLuint vertexPositionLoc_;
+        GLuint worldLoc_;
         GLuint vbo;
         GLuint ibo;
         

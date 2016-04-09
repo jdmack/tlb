@@ -4,7 +4,8 @@
 #include <string>
 
 const int kRendererWidth  = 1176;
-const int kRendererHeight = 864;
+const int kRendererHeight = 600;
+//const int kRendererHeight = 864;
 
 
 /* Strings */

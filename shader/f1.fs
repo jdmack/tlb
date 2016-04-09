@@ -1,6 +1,7 @@
 #version 130
-out vec4 LFragment;
+in vec4 Color;
+out vec4 FragColor;
 void main()
 {
-    LFragment = vec4(1.0, 1.0, 1.0, 1.0);
+    FragColor = Color;
 }    

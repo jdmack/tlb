@@ -27,6 +27,7 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	@mkdir -p $(BUILDDIR)
 	@mkdir -p $(BUILDDIR)/gfx
 	@mkdir -p $(BUILDDIR)/util
+	@mkdir -p $(BUILDDIR)/util/math
 	@mkdir -p $(BUILDDIR)/action
 	@mkdir -p $(BUILDDIR)/ai_state
 	@mkdir -p $(BUILDDIR)/ui

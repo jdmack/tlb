@@ -1,6 +1,9 @@
 #version 130
-in vec2 LVertexPos2D;
+in vec3 Position;
+uniform mat4 World;
+out vec4 Color;
 void main()
 {
-    gl_Position = vec4(LVertexPos2D.x, LVertexPos2D.y, 0, 1);
+    gl_Position = World * vec4(Position, 1.0);
+    Color = vec4(clamp(Position, 0.0, 1.0), 1.0);
 }

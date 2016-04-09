@@ -4,7 +4,7 @@
 #include "game.h"
 #include "util/logger.h"
 #include "point.h"
-#include "util/math.h"
+#include "util/math/math.h"
 
 Camera::Camera()
 {

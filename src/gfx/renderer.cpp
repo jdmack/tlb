@@ -14,7 +14,7 @@
 #include "point.h"
 #include "hit_point.h"
 #include "entity.h"
-#include "util/math.h"
+#include "util/math/math.h"
 #include "util/file_reader.h"
 #include "frame.h"
 

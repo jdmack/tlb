@@ -13,7 +13,7 @@
 #include "gfx/tile.h"
 #include "gfx/tileset.h"
 #include "util/logger.h"
-#include "util/math.h"
+#include "util/math/math.h"
 #include "rapidxml/rapidxml.hpp"
 
 
