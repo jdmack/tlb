@@ -40,7 +40,7 @@ bool Model::init()
     glClearColor(0.f, 0.f, 0.f, 1.f);
 
     // VBO data
-    Vector3 vertices[3];
+    Vector3 vertices[4];
     vertices[0] = Vector3(-1.0f, -1.0f, 0.0f);
     vertices[1] = Vector3(0.0f, -1.0f, 1.0f);
     vertices[2] = Vector3(1.0f, -1.0f, 0.0f);
