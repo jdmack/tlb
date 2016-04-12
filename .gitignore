@@ -19,3 +19,6 @@ config.status
 *.la
 gtest-1.7.0/libtool
 *.cache
+tlb.vcxproj.user
+tlb.VC.db
+tlb.VC.VC.opendb

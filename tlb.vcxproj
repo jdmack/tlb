@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5D28228D-AE6E-4405-A457-83851F2D4D50}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\tlb\lib;D:\vs_lib\include;D:\tlb\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\vs_lib\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\51_SDL_and_modern_opengl.cpp" />
+    <ClCompile Include="src\action\action.cpp" />
+    <ClCompile Include="src\action\attack_action.cpp" />
+    <ClCompile Include="src\action\dead_action.cpp" />
+    <ClCompile Include="src\action\idle_action.cpp" />
+    <ClCompile Include="src\action\move_action.cpp" />
+    <ClCompile Include="src\action\rotate_action.cpp" />
+    <ClCompile Include="src\ai_state\ai_state.cpp" />
+    <ClCompile Include="src\ai_state\ai_state_machine.cpp" />
+    <ClCompile Include="src\ai_state\attack_state.cpp" />
+    <ClCompile Include="src\ai_state\dead_state.cpp" />
+    <ClCompile Include="src\ai_state\global_state.cpp" />
+    <ClCompile Include="src\ai_state\idle_state.cpp" />
+    <ClCompile Include="src\ai_state\move_state.cpp" />
+    <ClCompile Include="src\ai_state\rotate_state.cpp" />
+    <ClCompile Include="src\ai_state\seek_state.cpp" />
+    <ClCompile Include="src\color.cpp" />
+    <ClCompile Include="src\cooldown.cpp" />
+    <ClCompile Include="src\duration.cpp" />
+    <ClCompile Include="src\entity.cpp" />
+    <ClCompile Include="src\entity_manager.cpp" />
+    <ClCompile Include="src\event\eh_level.cpp" />
+    <ClCompile Include="src\event\event.cpp" />
+    <ClCompile Include="src\event\event_dispatcher.cpp" />
+    <ClCompile Include="src\event\event_handler.cpp" />
+    <ClCompile Include="src\event\e_key_press.cpp" />
+    <ClCompile Include="src\event\e_mouse_click.cpp" />
+    <ClCompile Include="src\event_manager.cpp" />
+    <ClCompile Include="src\frame.cpp" />
+    <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\game_object.cpp" />
+    <ClCompile Include="src\gfx\animation.cpp" />
+    <ClCompile Include="src\gfx\camera.cpp" />
+    <ClCompile Include="src\gfx\graphic.cpp" />
+    <ClCompile Include="src\gfx\model.cpp" />
+    <ClCompile Include="src\gfx\renderer.cpp" />
+    <ClCompile Include="src\gfx\sprite.cpp" />
+    <ClCompile Include="src\gfx\tile.cpp" />
+    <ClCompile Include="src\gfx\tileset.cpp" />
+    <ClCompile Include="src\grid.cpp" />
+    <ClCompile Include="src\grid_node.cpp" />
+    <ClCompile Include="src\gs_level.cpp" />
+    <ClCompile Include="src\gs_level_select.cpp" />
+    <ClCompile Include="src\gs_main_menu.cpp" />
+    <ClCompile Include="src\hit_point.cpp" />
+    <ClCompile Include="src\level.cpp" />
+    <ClCompile Include="src\level_graph.cpp" />
+    <ClCompile Include="src\level_node.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\movement.cpp" />
+    <ClCompile Include="src\pathfinder.cpp" />
+    <ClCompile Include="src\pathfinder_hex.cpp" />
+    <ClCompile Include="src\pathfinder_square.cpp" />
+    <ClCompile Include="src\point.cpp" />
+    <ClCompile Include="src\ui\button.cpp" />
+    <ClCompile Include="src\ui\character_panel.cpp" />
+    <ClCompile Include="src\ui\game_timer.cpp" />
+    <ClCompile Include="src\ui\panel.cpp" />
+    <ClCompile Include="src\ui\text.cpp" />
+    <ClCompile Include="src\ui\text_panel.cpp" />
+    <ClCompile Include="src\ui\ui_element.cpp" />
+    <ClCompile Include="src\ui\user_interface.cpp" />
+    <ClCompile Include="src\util\date_time.cpp" />
+    <ClCompile Include="src\util\file_reader.cpp" />
+    <ClCompile Include="src\util\global_timer.cpp" />
+    <ClCompile Include="src\util\logger.cpp" />
+    <ClCompile Include="src\util\math\math.cpp" />
+    <ClCompile Include="src\util\math\matrix4.cpp" />
+    <ClCompile Include="src\util\math\vector3.cpp" />
+    <ClCompile Include="src\util\math\vector4.cpp" />
+    <ClCompile Include="src\util\timer.cpp" />
+    <ClCompile Include="src\vector.cpp" />
+    <ClCompile Include="src\win_condition.cpp" />
+    <ClCompile Include="void\debug_frame.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\action\action.h" />
+    <ClInclude Include="include\action\attack_action.h" />
+    <ClInclude Include="include\action\dead_action.h" />
+    <ClInclude Include="include\action\idle_action.h" />
+    <ClInclude Include="include\action\move_action.h" />
+    <ClInclude Include="include\action\rotate_action.h" />
+    <ClInclude Include="include\ai_state\ai_state.h" />
+    <ClInclude Include="include\ai_state\ai_state_machine.h" />
+    <ClInclude Include="include\ai_state\attack_state.h" />
+    <ClInclude Include="include\ai_state\dead_state.h" />
+    <ClInclude Include="include\ai_state\global_state.h" />
+    <ClInclude Include="include\ai_state\idle_state.h" />
+    <ClInclude Include="include\ai_state\move_state.h" />
+    <ClInclude Include="include\ai_state\rotate_state.h" />
+    <ClInclude Include="include\ai_state\seek_state.h" />
+    <ClInclude Include="include\assets.h" />
+    <ClInclude Include="include\color.h" />
+    <ClInclude Include="include\constants.h" />
+    <ClInclude Include="include\cooldown.h" />
+    <ClInclude Include="include\duration.h" />
+    <ClInclude Include="include\entity.h" />
+    <ClInclude Include="include\entity_manager.h" />
+    <ClInclude Include="include\event\eh_level.h" />
+    <ClInclude Include="include\event\event.h" />
+    <ClInclude Include="include\event\event_dispatcher.h" />
+    <ClInclude Include="include\event\event_handler.h" />
+    <ClInclude Include="include\event\e_key_press.h" />
+    <ClInclude Include="include\event\e_mouse_click.h" />
+    <ClInclude Include="include\event_manager.h" />
+    <ClInclude Include="include\frame.h" />
+    <ClInclude Include="include\game.h" />
+    <ClInclude Include="include\game_object.h" />
+    <ClInclude Include="include\game_state.h" />
+    <ClInclude Include="include\gfx\animation.h" />
+    <ClInclude Include="include\gfx\camera.h" />
+    <ClInclude Include="include\gfx\graphic.h" />
+    <ClInclude Include="include\gfx\model.h" />
+    <ClInclude Include="include\gfx\renderer.h" />
+    <ClInclude Include="include\gfx\sprite.h" />
+    <ClInclude Include="include\gfx\tile.h" />
+    <ClInclude Include="include\gfx\tileset.h" />
+    <ClInclude Include="include\grid.h" />
+    <ClInclude Include="include\grid_node.h" />
+    <ClInclude Include="include\gs_level.h" />
+    <ClInclude Include="include\gs_level_select.h" />
+    <ClInclude Include="include\gs_main_menu.h" />
+    <ClInclude Include="include\hit_point.h" />
+    <ClInclude Include="include\level.h" />
+    <ClInclude Include="include\level_graph.h" />
+    <ClInclude Include="include\level_node.h" />
+    <ClInclude Include="include\movement.h" />
+    <ClInclude Include="include\pathfinder.h" />
+    <ClInclude Include="include\pathfinder_hex.h" />
+    <ClInclude Include="include\pathfinder_square.h" />
+    <ClInclude Include="include\point.h" />
+    <ClInclude Include="include\ui\button.h" />
+    <ClInclude Include="include\ui\character_panel.h" />
+    <ClInclude Include="include\ui\game_timer.h" />
+    <ClInclude Include="include\ui\panel.h" />
+    <ClInclude Include="include\ui\text.h" />
+    <ClInclude Include="include\ui\text_panel.h" />
+    <ClInclude Include="include\ui\ui_element.h" />
+    <ClInclude Include="include\ui\user_interface.h" />
+    <ClInclude Include="include\util\date_time.h" />
+    <ClInclude Include="include\util\file_reader.h" />
+    <ClInclude Include="include\util\global_timer.h" />
+    <ClInclude Include="include\util\logger.h" />
+    <ClInclude Include="include\util\math\math.h" />
+    <ClInclude Include="include\util\math\matrix4.h" />
+    <ClInclude Include="include\util\math\vector3.h" />
+    <ClInclude Include="include\util\math\vector4.h" />
+    <ClInclude Include="include\util\timer.h" />
+    <ClInclude Include="include\vector.h" />
+    <ClInclude Include="include\win_condition.h" />
+    <ClInclude Include="lib\rapidxml\rapidxml.hpp" />
+    <ClInclude Include="lib\rapidxml\rapidxml_iterators.hpp" />
+    <ClInclude Include="lib\rapidxml\rapidxml_print.hpp" />
+    <ClInclude Include="lib\rapidxml\rapidxml_utils.hpp" />
+    <ClInclude Include="void\debug_frame.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lib\rapidxml\manual.html" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
