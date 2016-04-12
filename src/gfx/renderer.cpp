@@ -39,17 +39,21 @@ bool Renderer::init()
 {
     // Initialize SDL
     // TODO(2013-08-23/JM): Move this elsewhere, init function for whole game
-    if(SDL_Init(SDL_INIT_VIDEO) == -1) {
+    if(SDL_Init(SDL_INIT_VIDEO) < 0) {
         Logger::write(Logger::ss << "SDL could not initialize. SDL Error: " << SDL_GetError());
         return false;
     }
 
-    // Initialize for core context, getting rid of old OpenGL functionality
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE); // No idea what this does
+    
 
     // Set OpenGL Version
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+
+    // Initialize for core context, getting rid of old OpenGL functionality
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY); // No idea what this does
+    /* 3.2 and higher won't work because code currently doesn't use VAOs */
+
 
     int img_flags = IMG_INIT_PNG;
 
@@ -113,7 +117,6 @@ bool Renderer::init()
     //Logger::write(Logger::ss << "Minimum: (" << w << " x " << h << ")");
     //SDL_GetWindowMaximumSize(window_, &w, &h);
     //Logger::write(Logger::ss << "Maximum: (" << w << " x " << h << ")");
-
     return true;
 }
 

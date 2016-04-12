@@ -29,6 +29,7 @@ void Logger::write(std::string message)
     //Logger::output_file << datetime.timestamp() + message + "\n";
     Logger::output_file << "  " + message + "\n";
     Logger::output_file.flush();
+    std::cout << message << std::endl;
 }
 
 void Logger::write(std::basic_ostream<char>& message)
