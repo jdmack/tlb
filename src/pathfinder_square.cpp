@@ -3,9 +3,9 @@
 #include <string>
 #include <stdlib.h>
 
-#include "pathfinder_square.h"
+#include "pathfinderSquare.h"
 #include "grid.h"
-#include "grid_node.h"
+#include "gridNode.h"
 #include "util/logger.h"
 
 static int compare_GridNodes (const GridNode* a, const GridNode* b);
@@ -15,35 +15,35 @@ PathfinderSquare::PathfinderSquare(Grid * grid)
     grid_ = grid;
 }
 
-std::list<GridNode *> * PathfinderSquare::run(GridNode * start_node, GridNode * end_node)
+std::list<GridNode *> * PathfinderSquare::run(GridNode * startNode, GridNode * endNode)
 {
-    bool allow_diagonals = true;
+    bool allowDiagonals = true;
     //Logger::write(Logger::ss << "PathfinderSquare start");
     reset();
 
-    //Logger::write(Logger::ss << "Start: " << start_node->to_string());
-    //Logger::write(Logger::ss << "End: " << end_node->to_string());
+    //Logger::write(Logger::ss << "Start: " << startNode->toString());
+    //Logger::write(Logger::ss << "End: " << endNode->toString());
 
 
     // 1. Add the starting square (or node) to the open list.
-    open_list.push_back(start_node);
+    openList.pushBack(startNode);
 
-    GridNode * current_node = nullptr;
+    GridNode * currentNode = nullptr;
 
     std::list<GridNode *> * path = new std::list<GridNode *>();
 
     // 2. Repeat the following:
     while(true) {
         // a) Look for the lowest F cost square on the open list. We refer to this as the current square.
-        if(!open_list.empty()) {
+        if(!openList.empty()) {
 
-            open_list.sort(compare_GridNodes);
-            //Logger::write(Logger::ss << open_list_to_string());
+            openList.sort(compare_GridNodes);
+            //Logger::write(Logger::ss << openListToString());
 
-            current_node = open_list.front();
-            open_list.pop_front();
+            currentNode = openList.front();
+            openList.popFront();
 
-            //Logger::write(Logger::ss << "current_node: " << current_node->to_string());
+            //Logger::write(Logger::ss << "currentNode: " << currentNode->toString());
         }
         else { 
             // Return empty list for "no path"
@@ -52,140 +52,140 @@ std::list<GridNode *> * PathfinderSquare::run(GridNode * start_node, GridNode * 
         }
 
         // b) Switch it to the closed list.
-        closed_list.push_back(current_node);
+        closedList.pushBack(currentNode);
 
         // c) For each of the 8 squares adjacent to this current square
-        GridNode * adjacent_node = nullptr;
-        int g_cost_inc = 0;
+        GridNode * adjacentNode = nullptr;
+        int gCostInc = 0;
         for(int i = 0; i < 8; i++) {
-            bool can_go_left  = false;
-            bool can_go_right = false;
-            bool can_go_up    = false;
-            bool can_go_down  = false;
+            bool canGoLeft  = false;
+            bool canGoRight = false;
+            bool canGoUp    = false;
+            bool canGoDown  = false;
 
-            if(current_node->column() > 0) {
-                can_go_left = is_walkable(current_node->row(), current_node->column() - 1);
+            if(currentNode->column() > 0) {
+                canGoLeft = isWalkable(currentNode->row(), currentNode->column() - 1);
             }
-            if(current_node->column() + 1 < grid_->columns()) {
-                can_go_right = is_walkable(current_node->row(), current_node->column() + 1);;
+            if(currentNode->column() + 1 < grid_->columns()) {
+                canGoRight = isWalkable(currentNode->row(), currentNode->column() + 1);;
             }
-            if(current_node->row() > 0) {
-                can_go_up = is_walkable(current_node->row() - 1, current_node->column());;
+            if(currentNode->row() > 0) {
+                canGoUp = isWalkable(currentNode->row() - 1, currentNode->column());;
             }
-            if(current_node->row() + 1 < grid_->rows()) {
-                can_go_down = is_walkable(current_node->row() + 1, current_node->column());;
+            if(currentNode->row() + 1 < grid_->rows()) {
+                canGoDown = isWalkable(currentNode->row() + 1, currentNode->column());;
             }
 
             switch(i) {
                 // up/left
                 case 0:
-                    if(!allow_diagonals) continue;
+                    if(!allowDiagonals) continue;
 
                     // Go diagonal only if the two corner nodes are walkable (don't cut corners)
-                    if((!can_go_left) || (!can_go_up)) {
+                    if((!canGoLeft) || (!canGoUp)) {
                         continue;
                     }
-                    adjacent_node = grid_->node(current_node->row() - 1, current_node->column() - 1);
-                    g_cost_inc = kNodeCostDia;
+                    adjacentNode = grid_->node(currentNode->row() - 1, currentNode->column() - 1);
+                    gCostInc = kNodeCostDia;
                     break;
                 // up
                 case 1:
                     // Check falling off top
-                    if(current_node->row() - 1 < 0) {
+                    if(currentNode->row() - 1 < 0) {
                         // invalid node
                         continue;
                     }
-                    adjacent_node = grid_->node(current_node->row() - 1, current_node->column());
-                    g_cost_inc = kNodeCostVer;
+                    adjacentNode = grid_->node(currentNode->row() - 1, currentNode->column());
+                    gCostInc = kNodeCostVer;
                     break;
                 // up/right
                 case 2:
-                    if(!allow_diagonals) continue;
+                    if(!allowDiagonals) continue;
 
                     // Go diagonal only if the two corner nodes are walkable (don't cut corners)
-                    if((!can_go_up) || (!can_go_right)) {
+                    if((!canGoUp) || (!canGoRight)) {
                         continue;
                     }
-                    adjacent_node = grid_->node(current_node->row() - 1, current_node->column() + 1);
-                    g_cost_inc = kNodeCostDia;
+                    adjacentNode = grid_->node(currentNode->row() - 1, currentNode->column() + 1);
+                    gCostInc = kNodeCostDia;
                     break;
                 // left
                 case 3:
                     // Check falling off left
-                    if(current_node->column() - 1 < 0) {
+                    if(currentNode->column() - 1 < 0) {
                         // invalid node
                         continue;
                     }
-                    adjacent_node = grid_->node(current_node->row(), current_node->column() - 1);
-                    g_cost_inc = kNodeCostHor;
+                    adjacentNode = grid_->node(currentNode->row(), currentNode->column() - 1);
+                    gCostInc = kNodeCostHor;
                     break;
                 // right
                 case 4:
                     // Check falling off right
-                    if(current_node->column() + 1 >= grid_->columns()) {
+                    if(currentNode->column() + 1 >= grid_->columns()) {
                         // invalid node
                         continue;
                     }
-                    adjacent_node = grid_->node(current_node->row(), current_node->column() + 1);
-                    g_cost_inc = kNodeCostHor;
+                    adjacentNode = grid_->node(currentNode->row(), currentNode->column() + 1);
+                    gCostInc = kNodeCostHor;
                     break;
                 // down/left
                 case 5:
-                    if(!allow_diagonals) continue;
+                    if(!allowDiagonals) continue;
 
                     // Go diagonal only if the two corner nodes are walkable (don't cut corners)
-                    if((!can_go_down) || (!can_go_left)) {
+                    if((!canGoDown) || (!canGoLeft)) {
                         continue;
                     }
-                    adjacent_node = grid_->node(current_node->row() + 1, current_node->column() - 1);
-                    g_cost_inc = kNodeCostDia;
+                    adjacentNode = grid_->node(currentNode->row() + 1, currentNode->column() - 1);
+                    gCostInc = kNodeCostDia;
                     break;
                 // down
                 case 6:
                     // Check falling off bottom
-                    if(current_node->row() + 1 >= grid_->rows()) {
+                    if(currentNode->row() + 1 >= grid_->rows()) {
                         // invalid node
                         continue;
                     }
-                    adjacent_node = grid_->node(current_node->row() + 1, current_node->column());
-                    g_cost_inc = kNodeCostVer;
+                    adjacentNode = grid_->node(currentNode->row() + 1, currentNode->column());
+                    gCostInc = kNodeCostVer;
                     break;
                 // down/right
                 case 7:
-                    if(!allow_diagonals) continue;
+                    if(!allowDiagonals) continue;
 
                     // Go diagonal only if the two corner nodes are walkable (don't cut corners)
-                    if((!can_go_down) || (!can_go_right)) {
+                    if((!canGoDown) || (!canGoRight)) {
                         continue;
                     }
-                    adjacent_node = grid_->node(current_node->row() + 1, current_node->column() + 1);
-                    g_cost_inc = kNodeCostDia;
+                    adjacentNode = grid_->node(currentNode->row() + 1, currentNode->column() + 1);
+                    gCostInc = kNodeCostDia;
                     break;
             }
-            //Logger::write(Logger::ss << "\tConsidering Node: " << adjacent_node->to_string());
+            //Logger::write(Logger::ss << "\tConsidering Node: " << adjacentNode->toString());
         
             // If it is not walkable or if it is on the closed list, ignore it. Otherwise do the following.
-            //if(closed_list_contains(adjacent_node)) {
-            if(!adjacent_node->walkable()) {
+            //if(closedListContains(adjacentNode)) {
+            if(!adjacentNode->walkable()) {
                 //Logger::write(Logger::ss << "\t\tNode not walkable");
                 continue;
             }
-            if(closed_list_contains(adjacent_node)) {
+            if(closedListContains(adjacentNode)) {
                 //Logger::write(Logger::ss << "\t\tNode already on closed list");
                 continue;
             }
 
             // If it isn't on the open list, add it to the open list. Make the current square the parent of this
             // square. 
-            if(!open_list_contains(adjacent_node)) {
-                open_list.push_back(adjacent_node);
-                adjacent_node->set_parent(current_node);
+            if(!openListContains(adjacentNode)) {
+                openList.pushBack(adjacentNode);
+                adjacentNode->setParent(currentNode);
 
                 // Record the F, G, and H costs of the square.
-                adjacent_node->set_g_score(current_node->g_score() + g_cost_inc);
-                adjacent_node->set_h_score((abs(adjacent_node->row() - end_node->row()) + abs(adjacent_node->column() - 
-                    end_node->column())) * kNodeCostHor);
-                adjacent_node->set_f_score(adjacent_node->g_score() + adjacent_node->h_score());
+                adjacentNode->setGScore(currentNode->gScore() + gCostInc);
+                adjacentNode->setHScore((abs(adjacentNode->row() - endNode->row()) + abs(adjacentNode->column() - 
+                    endNode->column())) * kNodeCostHor);
+                adjacentNode->setFScore(adjacentNode->gScore() + adjacentNode->hScore());
             }
 
             // If it is on the open list already, check to see if this path to that square is better, using G cost
@@ -194,10 +194,10 @@ std::list<GridNode *> * PathfinderSquare::run(GridNode * start_node, GridNode * 
             // keeping your open list sorted by F score, you may need to resort the list to account for the
             // change.
             else {
-                if((current_node->g_score() + g_cost_inc) < adjacent_node->g_score()) {
-                    adjacent_node->set_parent(current_node);
-                    adjacent_node->set_g_score(current_node->g_score() + g_cost_inc);
-                    adjacent_node->set_f_score(adjacent_node->g_score() + adjacent_node->h_score());
+                if((currentNode->gScore() + gCostInc) < adjacentNode->gScore()) {
+                    adjacentNode->setParent(currentNode);
+                    adjacentNode->setGScore(currentNode->gScore() + gCostInc);
+                    adjacentNode->setFScore(adjacentNode->gScore() + adjacentNode->hScore());
                 }
             }
         }
@@ -206,33 +206,33 @@ std::list<GridNode *> * PathfinderSquare::run(GridNode * start_node, GridNode * 
         // Add the target square to the closed list, in which case the path has been found (see note
         // below), or
         // Fail to find the target square, and the open list is empty. In this case, there is no path.
-        if((current_node->row() == end_node->row()) && (current_node->column() == end_node->column())) {
+        if((currentNode->row() == endNode->row()) && (currentNode->column() == endNode->column())) {
             break;
         }
     }
 
     // 3.  Save the path. Working backwards from the target square, go from each square to its parent square
     // until you reach the starting square. That is your path.
-    GridNode * node = end_node;
+    GridNode * node = endNode;
     while(node->parent() != nullptr) {
-        path->push_front(node);
+        path->pushFront(node);
         node = node->parent();
     }
-    path->push_front(start_node);
+    path->pushFront(startNode);
 
     return path;
 }
 
 void PathfinderSquare::reset()
 {
-    open_list.clear();
-    closed_list.clear();
+    openList.clear();
+    closedList.clear();
 }
 
-bool PathfinderSquare::open_list_contains(GridNode * node)
+bool PathfinderSquare::openListContains(GridNode * node)
 {
-    std::list<GridNode *>::iterator it = open_list.begin();
-    for(unsigned int i = 0; i < open_list.size(); i++) {
+    std::list<GridNode *>::iterator it = openList.begin();
+    for(unsigned int i = 0; i < openList.size(); i++) {
         if(((*it)->row() == node->row()) && ((*it)->column() == node->column())) {
             return true;
         }
@@ -242,10 +242,10 @@ bool PathfinderSquare::open_list_contains(GridNode * node)
     return false;
 }
 
-bool PathfinderSquare::closed_list_contains(GridNode * node)
+bool PathfinderSquare::closedListContains(GridNode * node)
 {
-    std::list<GridNode *>::iterator it = closed_list.begin();
-    for(unsigned int i = 0; i < closed_list.size(); i++) {
+    std::list<GridNode *>::iterator it = closedList.begin();
+    for(unsigned int i = 0; i < closedList.size(); i++) {
         if(((*it)->row() == node->row()) && ((*it)->column() == node->column())) {
             return true;
         }
@@ -255,27 +255,27 @@ bool PathfinderSquare::closed_list_contains(GridNode * node)
     return false;
 }
 
-std::string PathfinderSquare::open_list_to_string()
+std::string PathfinderSquare::openListToString()
 {
     std::ostringstream convert;
-    convert << "open_list: \n";
-    if(!open_list.empty()) {
-        for(std::list<GridNode *>::iterator it = open_list.begin(); it != open_list.end(); ++it) {
-            convert << "\t" << (*it)->to_string() << " f_score: " << (*it)->f_score() << std::endl;
+    convert << "openList: \n";
+    if(!openList.empty()) {
+        for(std::list<GridNode *>::iterator it = openList.begin(); it != openList.end(); ++it) {
+            convert << "\t" << (*it)->toString() << " fScore: " << (*it)->fScore() << std::endl;
         }
     }
     else {
         convert << "empty";
     }
-    return static_cast<std::ostringstream*>( &(convert) )->str();
+    return staticCast<std::ostringstream*>( &(convert) )->str();
 }
 
 static int compare_GridNodes (const GridNode* a, const GridNode* b)
 {
-    return a->f_score() < b->f_score();
+    return a->fScore() < b->fScore();
 }
 
-bool PathfinderSquare::is_walkable(int row, int col)
+bool PathfinderSquare::isWalkable(int row, int col)
 {
     return grid_->node(row, col)->walkable();
 }

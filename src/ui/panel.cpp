@@ -21,39 +21,39 @@ Panel::~Panel()
 }
 
 
-void Panel::add_element(UIElement * element)
+void Panel::addElement(UIElement * element)
 {
-    elements_.push_back(element);
+    elements_.pushBack(element);
 }
 
 void Panel::render(Frame * frame)
 {
     if(frame_ != nullptr) {
-        frame_->set_parent(frame);
+        frame_->setParent(frame);
     }
     UIElement::render(frame);
-    for(std::vector<UIElement *>::iterator element_iterator = elements_.begin(); element_iterator != elements_.end(); ++element_iterator) {
-        (*element_iterator)->render(frame_);
+    for(std::vector<UIElement *>::iterator elementIterator = elements_.begin(); elementIterator != elements_.end(); ++elementIterator) {
+        (*elementIterator)->render(frame_);
     }
 }
 
 void Panel::update()
 {
-    for(std::vector<UIElement *>::iterator element_iterator = elements_.begin(); element_iterator != elements_.end(); ++element_iterator) {
-        (*element_iterator)->update();
+    for(std::vector<UIElement *>::iterator elementIterator = elements_.begin(); elementIterator != elements_.end(); ++elementIterator) {
+        (*elementIterator)->update();
     }
 }
 
-bool Panel::load_texture(std::string art_asset)
+bool Panel::loadTexture(std::string artAsset)
 {
-    bool load_result = UIElement::load_texture(art_asset);
+    bool loadResult = UIElement::loadTexture(artAsset);
     frame_ = new Frame(position_.x(), position_.y(), width_, height_);
-    return load_result;
+    return loadResult;
 }
 
-void Panel::set_position(Point point)
+void Panel::setPosition(Point point)
 {
-    UIElement::set_position(point);
-    frame_->set_x(position_.x());
-    frame_->set_y(position_.y());
+    UIElement::setPosition(point);
+    frame_->setX(position_.x());
+    frame_->setY(position_.y());
 }

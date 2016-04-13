@@ -26,9 +26,9 @@ struct Vector3
 
     // mutators
     // Element access 'set': set the vector coordinates
-    void set_x(float x) { x_ = x; }
-    void set_y(float y) { y_ = y; }
-    void set_z(float z) { z_ = z; }
+    void setX(float x) { x_ = x; }
+    void setY(float y) { y_ = y; }
+    void setZ(float z) { z_ = z; }
     void set(float x, float y, float z);
     void set(int i, float val);
 
@@ -57,10 +57,10 @@ struct Vector3
     Vector3 operator/(float param);
 
     // Dot product
-    float dot_product(Vector3 param);
+    float dotProduct(Vector3 param);
 
     // Cross product
-    Vector3 cross_product(Vector3 param);
+    Vector3 crossProduct(Vector3 param);
     Vector3 operator*(Vector3 param);
 
     // Magnitude (length of vector)
@@ -71,7 +71,7 @@ struct Vector3
 
     void transform(Matrix4 param);
     
-    float distance_from(Vector3 point);
+    float distanceFrom(Vector3 point);
 
     // Print (display the vector's components numerically on the screen)
     void print();

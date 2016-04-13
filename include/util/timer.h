@@ -4,8 +4,8 @@
 class Timer
 {
     private:
-        int start_ticks_;
-        int paused_ticks_;
+        int startTicks_;
+        int pausedTicks_;
         bool paused_;
         bool started_;
 
@@ -16,7 +16,7 @@ class Timer
         void stop();
         void pause();
         void unpause();
-        int get_ticks();
+        int getTicks();
 
         // accessors
         bool started() const { return started_; }

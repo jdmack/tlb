@@ -40,8 +40,8 @@ bool Tileset::load(std::string filename)
 
     rapidxml::xml_node<> * tileset = doc.first_node();
 
-    std::string asset_filename = tileset->first_attribute("asset")->value();
-    texture_ = Game::instance()->renderer()->load_texture(asset_filename);
+    std::string assetFilename = tileset->first_attribute("asset")->value();
+    texture_ = Game::instance()->renderer()->loadTexture(assetFilename);
 
     // Iterate through tiles
     for(rapidxml::xml_node<> * tile = tileset->first_node("tile"); tile; tile = tile->next_sibling()) {

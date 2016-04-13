@@ -7,7 +7,7 @@
 class DateTime
 {
     private:
-        time_t time_;
+        timeT time_;
     public:
         DateTime();
         std::string timestamp();

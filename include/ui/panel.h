@@ -6,7 +6,7 @@
 #include "constants.h"
 #include "gfx/renderer.h"
 #include "point.h"
-#include "ui/ui_element.h"
+#include "ui/uiElement.h"
 
 class Frame;
 
@@ -25,14 +25,14 @@ class Panel : public UIElement
         Frame * frame() const { return frame_; }
 
         // mutators
-        void set_position(Point point);
-        void set_frame(Frame * frame) { frame_ = frame; }
+        void setPosition(Point point);
+        void setFrame(Frame * frame) { frame_ = frame; }
 
-        void add_element(UIElement * element);
+        void addElement(UIElement * element);
 
         void render(Frame * frame = nullptr);
         void update();
-        bool load_texture(std::string art_asset);
+        bool loadTexture(std::string artAsset);
 };
 
 #endif

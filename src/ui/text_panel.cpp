@@ -1,8 +1,8 @@
-#include "ui/text_panel.h"
+#include "ui/textPanel.h"
 #include "point.h"
 #include "util/logger.h"
 #include "frame.h"
-#include "util/global_timer.h"
+#include "util/globalTimer.h"
 #include "ui/text.h"
 
 TextPanel::TextPanel()

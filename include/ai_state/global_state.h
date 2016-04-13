@@ -1,7 +1,7 @@
 #ifndef TLB_AI_STATE_GLOBAL_STATE_H_
 #define TLB_AI_STATE_GLOBAL_STATE_H_
 
-#include "ai_state/ai_state.h"
+#include "aiState/aiState.h"
 #include "action/action.h"
 
 class Entity;
@@ -12,18 +12,18 @@ class GlobalState : public AIState
     private:
 
     public:
-        GlobalState(AIStateMachine * state_machine, Entity * entity);
+        GlobalState(AIStateMachine * stateMachine, Entity * entity);
         ~GlobalState();
 
         // accessors
 
         // mutators
 
-        bool update(int delta_ticks);
+        bool update(int deltaTicks);
         void stop();
         void start();
         void end();
-        ActionType action_type();
+        ActionType actionType();
 
 };
 

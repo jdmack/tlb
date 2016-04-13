@@ -3,9 +3,9 @@
 
 #include "point.h"
 #include "entity.h"
-#include "game_state.h"
+#include "gameState.h"
 #include "frame.h"
-#include "win_condition.h"
+#include "winCondition.h"
 
 
 // FOR TESTING
@@ -17,10 +17,10 @@ class Model;
 class GSLevel : public GameState
 {
     private:
-        UserInterface * user_interface_;
-        Frame * level_area_;
-        EHLevel * event_handler_;
-        WinCondition win_condition_;
+        UserInterface * userInterface_;
+        Frame * levelArea_;
+        EHLevel * eventHandler_;
+        WinCondition winCondition_;
 
         // FOR TESTING
         Model * model_;
@@ -28,15 +28,15 @@ class GSLevel : public GameState
     public:
         GSLevel();
 
-        UserInterface * user_interface() const { return user_interface_; }
-        Frame * level_area() const { return level_area_; }
+        UserInterface * userInterface() const { return userInterface_; }
+        Frame * levelArea() const { return levelArea_; }
 
         bool init();
-        bool update(int delta_ticks);
+        bool update(int deltaTicks);
         void render();
         void end();
 
-        Entity * spawn_entity(EntityType type, Point position, double rotation);
+        Entity * spawnEntity(EntityType type, Point position, double rotation);
 };
 
 #endif

@@ -36,13 +36,13 @@ struct Matrix4
     Vector4 operator*(Vector4 & param);
 
     // Make a rotation matrix about the x axis
-    void rotate_x(float angle);
+    void rotateX(float angle);
 
     // Make a rotation matrix about the y axis
-    void rotate_y(float angle);
+    void rotateY(float angle);
 
     // Make a rotation matrix about the z axis
-    void rotate_z(float angle);
+    void rotateZ(float angle);
 
     // Make a rotation matrix about an arbitrary (unit) axis
     void rotate(float angle, Vector4 axis);

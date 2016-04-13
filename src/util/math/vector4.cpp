@@ -73,7 +73,7 @@ float & Vector4::get(char coordinate)
 
 // mutators
 // Element access 'set': set the vector coordinates
-void Vector4::set_coordinates(float x, float y, float z, float w)
+void Vector4::setCoordinates(float x, float y, float z, float w)
 {
     x_ = x;
     y_ = y;
@@ -120,12 +120,12 @@ void Vector4::add(Vector4 param)
 // Overload operator '+' for addition
 Vector4 Vector4::operator+(Vector4 param)
 {
-    float new_x = x_ + param.x();
-    float new_y = y_ + param.y();
-    float new_z = z_ + param.z();
-    float new_w = w_ + param.w();
+    float newX = x_ + param.x();
+    float newY = y_ + param.y();
+    float newZ = z_ + param.z();
+    float newW = w_ + param.w();
 
-    return Vector4(new_x, new_y, new_z, new_w);
+    return Vector4(newX, newY, newZ, newW);
 }
 
 // Vector subtraction
@@ -140,37 +140,37 @@ void Vector4::subtract(Vector4 param)
 // Overload operator '-' for subtraction
 Vector4 Vector4::operator-(Vector4 param)
 {
-    float new_x = x_ - param.x();
-    float new_y = y_ - param.y();
-    float new_z = z_ - param.z();
-    float new_w = w_ - param.w();
+    float newX = x_ - param.x();
+    float newY = y_ - param.y();
+    float newZ = z_ - param.z();
+    float newW = w_ - param.w();
 
-    return Vector4(new_x, new_y, new_z, new_w);
+    return Vector4(newX, newY, newZ, newW);
 }
 
 // Dot product
-float Vector4::dot_product(Vector4 param)
+float Vector4::dotProduct(Vector4 param)
 {
-    float dot_product = (x_ * param.x())
+    float dotProduct = (x_ * param.x())
                        + (y_ * param.y())
                        + (z_ * param.z())
                        + (w_ * param.w());
 
-    return dot_product;
+    return dotProduct;
 }
 
 // Multiply (vector-times-matrix)
 Vector4 Vector4::multiply(Matrix4 param)
 {
-    Vector4 this_v = Vector4(x_, y_, z_, w_);
-    Vector4 result = param.multiply(this_v);
+    Vector4 thisV = Vector4(x_, y_, z_, w_);
+    Vector4 result = param.multiply(thisV);
 
     return result;
 }
 
 float Vector4::operator*(Vector4 & param)
 {
-    return dot_product(param);
+    return dotProduct(param);
 }
 
 Vector4 Vector4::operator*(Matrix4 & param)

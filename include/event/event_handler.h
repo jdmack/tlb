@@ -8,7 +8,7 @@ class EventHandler
     public:
         EventHandler();
         ~EventHandler();
-        virtual void handle_event(Event * event);
+        virtual void handleEvent(Event * event);
 
 };
 

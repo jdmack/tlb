@@ -1,11 +1,11 @@
 #include "util/timer.h"
-#include "util/global_timer.h"
+#include "util/globalTimer.h"
 
 Timer::Timer()
 {
     // Initialize the variables
-    start_ticks_ = 0;
-    paused_ticks_ = 0;
+    startTicks_ = 0;
+    pausedTicks_ = 0;
     paused_ = false;
     started_ = false;
 }
@@ -19,7 +19,7 @@ void Timer::start()
     paused_ = false;
 
     // Get the current clock time
-    start_ticks_ = GlobalTimer::instance()->get_ticks();
+    startTicks_ = GlobalTimer::instance()->getTicks();
 }
 
 void Timer::stop()
@@ -39,7 +39,7 @@ void Timer::pause()
         paused_ = true;
 
         // Calculate the paused_ ticks
-        paused_ticks_ = GlobalTimer::instance()->get_ticks() - start_ticks_;
+        pausedTicks_ = GlobalTimer::instance()->getTicks() - startTicks_;
     }
 }
 
@@ -51,25 +51,25 @@ void Timer::unpause()
         paused_ = false;
 
         // Reset the starting ticks
-        start_ticks_ = GlobalTimer::instance()->get_ticks() - paused_ticks_;
+        startTicks_ = GlobalTimer::instance()->getTicks() - pausedTicks_;
 
         // Reset the paused_ ticks
-        paused_ticks_ = 0;
+        pausedTicks_ = 0;
     }
 }
 
-int Timer::get_ticks()
+int Timer::getTicks()
 {
     // If the timer is running
     if(started_ == true) {
         // If the timer is paused_
         if(paused_ == true) {
             // Return the number of ticks when the timer was paused_
-            return paused_ticks_;
+            return pausedTicks_;
         }
         else {
             // Return the current time minus the start time
-            return GlobalTimer::instance()->get_ticks() - start_ticks_;
+            return GlobalTimer::instance()->getTicks() - startTicks_;
         }
     }
 

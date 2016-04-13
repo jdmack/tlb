@@ -2,7 +2,7 @@
 #define TLB_UI_TEXT_H_
 
 #include "SDL2/SDL.h"
-#include "SDL2/SDL_ttf.h"
+#include "SDL2/SDLTtf.h"
 #include "gfx/renderer.h"
 #include "color.h"
 #include "point.h"
@@ -22,7 +22,7 @@ class Text
         int wrap_;
         bool visible_;
         std::string text_;
-        std::string font_asset_;
+        std::string fontAsset_;
         Color color_;
 
         SDL_Texture * texture_;
@@ -39,21 +39,21 @@ class Text
         bool visible() const { return visible_; }
 
         // mutators
-        void set_position(Point position) { position_ = position; }
-        void set_width(int width) { width_ = width; }
-        void set_height(int height) { height_ = height; }
-        void set_size(int size) { size_ = size; }
-        void set_wrap(int wrap) { wrap_ = wrap; }
-        void set_visible(bool visible) { visible_ = visible; }
-        void set_color(Color color) { color_ = color; }
-        void set_font_asset(std::string font_asset) { font_asset_ = font_asset; }
+        void setPosition(Point position) { position_ = position; }
+        void setWidth(int width) { width_ = width; }
+        void setHeight(int height) { height_ = height; }
+        void setSize(int size) { size_ = size; }
+        void setWrap(int wrap) { wrap_ = wrap; }
+        void setVisible(bool visible) { visible_ = visible; }
+        void setColor(Color color) { color_ = color; }
+        void setFontAsset(std::string fontAsset) { fontAsset_ = fontAsset; }
 
-        void set_text(std::string text);
+        void setText(std::string text);
 
         void update();
         void render(Frame * frame = nullptr);
-        TTF_Font * load_font(std::string filename, int size);
-        void reload_font();
+        TTF_Font * loadFont(std::string filename, int size);
+        void reloadFont();
 };
 
 #endif

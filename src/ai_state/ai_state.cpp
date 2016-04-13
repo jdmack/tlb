@@ -1,10 +1,10 @@
-#include "ai_state/ai_state.h"
+#include "aiState/aiState.h"
 #include "action/action.h"
 
 AIState::AIState()
 {
     entity_ = nullptr;
-    state_machine_ = nullptr;
+    stateMachine_ = nullptr;
     type_ = STATE_IDLE;
 }
 
@@ -13,7 +13,7 @@ AIState::~AIState()
 
 }
 
-bool AIState::update(int delta_ticks)
+bool AIState::update(int deltaTicks)
 {
     return true;
 }
@@ -32,7 +32,7 @@ void AIState::end()
 {
 }
 
-ActionType AIState::action_type()
+ActionType AIState::actionType()
 {
     return ACTION_IDLE;
 }

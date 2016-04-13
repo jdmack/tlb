@@ -1,7 +1,7 @@
 
 #include <sstream>
 #include "point.h"
-#include "hit_point.h"
+#include "hitPoint.h"
 
 HitPoint::HitPoint()
 {
@@ -15,12 +15,12 @@ HitPoint::HitPoint(int total)
     current_= total;
 }
 
-void HitPoint::add_points(int points)
+void HitPoint::addPoints(int points)
 {
     current_ += points;
 }
 
-void HitPoint::minus_points(int points)
+void HitPoint::minusPoints(int points)
 {
     current_ -= points;
 }
@@ -33,7 +33,7 @@ bool HitPoint::empty()
     return false;
 }
 
-std::string HitPoint::to_string()
+std::string HitPoint::toString()
 {
     std::stringstream ss;
     ss << "(" << current_ << "," << total_ << ")";

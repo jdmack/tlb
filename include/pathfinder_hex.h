@@ -14,10 +14,10 @@ class PathfinderHex : public Pathfinder
 {
     private:
         Grid * grid_;
-        std::list<GridNode *> open_list;
-        std::list<GridNode *> closed_list;
+        std::list<GridNode *> openList;
+        std::list<GridNode *> closedList;
 
-        bool is_walkable(int row, int col);
+        bool isWalkable(int row, int col);
 
     public:
         // constructors
@@ -27,19 +27,19 @@ class PathfinderHex : public Pathfinder
         Grid * grid() const { return grid_; }
 
         // mutators
-        void set_grid(Grid * grid) { grid_ = grid; }
+        void setGrid(Grid * grid) { grid_ = grid; }
 
-        std::list<GridNode *> * run(GridNode * start_node, GridNode * end_node);
+        std::list<GridNode *> * run(GridNode * startNode, GridNode * endNode);
         void reset();
 
         // list
-        bool open_list_contains(GridNode * node);
-        bool closed_list_contains(GridNode * node);
+        bool openListContains(GridNode * node);
+        bool closedListContains(GridNode * node);
 
-        std::string open_list_to_string();
-        //void closed_list_to_string();
+        std::string openListToString();
+        //void closedListToString();
 
-        int calculate_h(GridNode * start, GridNode * end);
+        int calculateH(GridNode * start, GridNode * end);
 
 };
 #endif

@@ -14,27 +14,27 @@ class GameObject;
 class Camera
 {
     private:
-        double x_position_;
-        double y_position_;
+        double xPosition_;
+        double yPosition_;
         double width_;
         double height_;
 
     public:
         Camera();
-        double x_position() const { return x_position_; }
-        double y_position() const { return y_position_; }
+        double xPosition() const { return xPosition_; }
+        double yPosition() const { return yPosition_; }
         double width() const { return width_; }
         double height() const { return height_; }
 
 
         void move(double x, double y);
         void center(GameObject * object);
-        void fix_bounds();
+        void fixBounds();
         bool contains(SDL_Rect rect);
         SDL_Rect rect();
 
-        double x_adjust(double x);
-        double y_adjust(double y);
+        double xAdjust(double x);
+        double yAdjust(double y);
 };
 
 #endif

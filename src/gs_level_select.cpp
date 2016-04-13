@@ -1,7 +1,7 @@
 
-#include "gs_level_select.h"
-#include "level_graph.h"
-#include "level_node.h"
+#include "gsLevelSelect.h"
+#include "levelGraph.h"
+#include "levelNode.h"
 #include "assets.h"
 #include "gfx/graphic.h"
 
@@ -9,47 +9,47 @@
 
 GSLevelSelect::GSLevelSelect()
 {
-    level_graph_ = new LevelGraph();
+    levelGraph_ = new LevelGraph();
     type_ = GS_LEVEL_SELECT;
-    user_interface_ = nullptr;
-    //event_handler_ = new EHLevel();
+    userInterface_ = nullptr;
+    //eventHandler_ = new EHLevel();
 
     background_ = new Graphic();
-    background_->load_texture("assets/art/level_select_background.png");
+    background_->loadTexture("assets/art/levelSelectBackground.png");
 }
 
 bool GSLevelSelect::init()
 {
     LevelNode * node1 = new LevelNode();
-    node1->set_position(Point(200, 200));
-    node1->set_width(200);
-    node1->set_height(200);
-    node1->set_level_file(kMapTest24x18);
+    node1->setPosition(Point(200, 200));
+    node1->setWidth(200);
+    node1->setHeight(200);
+    node1->setLevelFile(kMapTest24x18);
     Graphic * graphic1 = new Graphic();
-    graphic1->set_position(node1->position());
-    graphic1->load_texture("assets/art/level_node.png");
-    node1->set_graphic(graphic1);
+    graphic1->setPosition(node1->position());
+    graphic1->loadTexture("assets/art/levelNode.png");
+    node1->setGraphic(graphic1);
 
     LevelNode * node2 = new LevelNode();
-    node2->set_position(Point(600, 200));
-    node2->set_width(200);
-    node2->set_height(200);
-    node2->set_level_file(kMapTest24x18);
+    node2->setPosition(Point(600, 200));
+    node2->setWidth(200);
+    node2->setHeight(200);
+    node2->setLevelFile(kMapTest24x18);
     Graphic * graphic2 = new Graphic();
-    graphic2->set_position(node2->position());
-    graphic2->load_texture("assets/art/level_node.png");
-    node2->set_graphic(graphic2);
+    graphic2->setPosition(node2->position());
+    graphic2->loadTexture("assets/art/levelNode.png");
+    node2->setGraphic(graphic2);
 
-    node1->add_adjacent(node2);
-    node2->add_adjacent(node1);
+    node1->addAdjacent(node2);
+    node2->addAdjacent(node1);
 
-    level_graph_->add_node(node1);
-    level_graph_->add_node(node2);
+    levelGraph_->addNode(node1);
+    levelGraph_->addNode(node2);
 
     return true;
 }
 
-bool GSLevelSelect::update(int delta_ticks)
+bool GSLevelSelect::update(int deltaTicks)
 {
     return true;
 }
@@ -57,13 +57,13 @@ bool GSLevelSelect::update(int delta_ticks)
 void GSLevelSelect::render()
 {
     background_->render();
-    level_graph_->render();
+    levelGraph_->render();
 
 }
 
 void GSLevelSelect::end()
 {
-    delete level_graph_;
+    delete levelGraph_;
     delete background_;
 }
 

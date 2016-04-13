@@ -16,7 +16,7 @@ class LevelGraph
         LevelGraph();
         ~LevelGraph();
 
-        void add_node(LevelNode * node);
+        void addNode(LevelNode * node);
         void render(Frame * frame = nullptr);
 
 

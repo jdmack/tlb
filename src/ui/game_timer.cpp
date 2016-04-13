@@ -1,8 +1,8 @@
-#include "ui/game_timer.h"
+#include "ui/gameTimer.h"
 #include "point.h"
 #include "util/logger.h"
 #include "frame.h"
-#include "util/global_timer.h"
+#include "util/globalTimer.h"
 #include "ui/text.h"
 
 GameTimer::GameTimer()
@@ -13,11 +13,11 @@ GameTimer::GameTimer()
 
     texture_ = nullptr;
     visible_ = true;
-    start_ticks_ = GlobalTimer::instance()->get_ticks();
+    startTicks_ = GlobalTimer::instance()->getTicks();
     text_ = new Text("00:00");
-    text_->set_position(Point(25, 25));
-    text_->set_size(55);
-    text_->reload_font();
+    text_->setPosition(Point(25, 25));
+    text_->setSize(55);
+    text_->reloadFont();
     text_->update();
 
 }
@@ -36,27 +36,27 @@ void GameTimer::render(Frame * frame)
 
 void GameTimer::update()
 {
-    int ticks = GlobalTimer::instance()->get_ticks();
+    int ticks = GlobalTimer::instance()->getTicks();
     std::string str = "";
-    if((ticks - start_ticks_) >= 1000) {
-        str = convert_time(ticks - start_ticks_);
-        text_->set_text(str);
+    if((ticks - startTicks_) >= 1000) {
+        str = convertTime(ticks - startTicks_);
+        text_->setText(str);
     }
 }
 
-std::string GameTimer::convert_time(int ticks)
+std::string GameTimer::convertTime(int ticks)
 {
 
     int minutes = (ticks % (1000*60*60)) / (1000*60);
     int seconds = ((ticks % (1000*60*60)) % (1000*60)) / 1000;
 
-    std::ostringstream string_stream;
+    std::ostringstream stringStream;
 
-    if(minutes < 10) string_stream << "0";
-    string_stream << minutes << ":";
-    if(seconds < 10) string_stream << "0";
-    string_stream << seconds;
-    std::string str = string_stream.str();
+    if(minutes < 10) stringStream << "0";
+    stringStream << minutes << ":";
+    if(seconds < 10) stringStream << "0";
+    stringStream << seconds;
+    std::string str = stringStream.str();
 
     return str;
 

@@ -17,15 +17,15 @@ class Point
         double y() const { return y_; }
 
         // mutators
-        void set_x(double x) { x_= x; }
-        void set_y(double y) { y_= y; }
+        void setX(double x) { x_= x; }
+        void setY(double y) { y_= y; }
 
         bool operator==(const Point &other) const;
         bool operator!=(const Point &other) const;
 
-        double distance_from(Point point);
+        double distanceFrom(Point point);
 
-        std::string to_string();
+        std::string toString();
 };
 
 #endif

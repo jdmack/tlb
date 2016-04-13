@@ -7,15 +7,15 @@ int main(int argc, char* argv[])
     Logger::open(kLogFilename);
     Logger::write("Initializing game");
 
-    int exit_code = 0;
+    int exitCode = 0;
 
     Game * game = Game::instance();
 
-    game->process_arguments(argc, argv);
-    exit_code = game->run();
+    game->processArguments(argc, argv);
+    exitCode = game->run();
 
     delete game;
     game = nullptr;
 
-    return exit_code;
+    return exitCode;
 }

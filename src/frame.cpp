@@ -42,7 +42,7 @@ int Frame::y() const
 
 }
 
-bool Frame::contains_point(double x, double y)
+bool Frame::containsPoint(double x, double y)
 {
     if((x < (x_- (width_ / 2))) || (x > (x_+ (width_ / 2)))) {
         return false;
@@ -54,7 +54,7 @@ bool Frame::contains_point(double x, double y)
     return true;
 }
 
-std::string Frame::to_string()
+std::string Frame::toString()
 {
     std::stringstream ss;
     ss << "Frame(" << x_ << "," << y_ << "," << width_ << "," << height_ << ")";

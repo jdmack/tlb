@@ -5,16 +5,16 @@
 #include <sstream>
 #include <string>
 
-#include "action/rotate_action.h"
+#include "action/rotateAction.h"
 
-#include "game_object.h"
+#include "gameObject.h"
 #include "grid.h"
-#include "grid_node.h"
+#include "gridNode.h"
 #include "level.h"
 #include "movement.h"
 #include "point.h"
-#include "pathfinder_hex.h"
-#include "pathfinder_square.h"
+#include "pathfinderHex.h"
+#include "pathfinderSquare.h"
 #include "util/logger.h"
 #include "entity.h"
 
@@ -22,15 +22,15 @@ RotateAction::RotateAction(double direction)
 {
     direction_ = direction;
 }
-RotateAction::RotateAction(Entity * entity, Point mouse_point)
+RotateAction::RotateAction(Entity * entity, Point mousePoint)
 {
-    Vector vector = Vector(Point(entity->x_position(), entity->y_position()), mouse_point);
+    Vector vector = Vector(Point(entity->xPosition(), entity->yPosition()), mousePoint);
     direction_ = vector.direction();
-    Logger::write(Logger::ss << "RotateAction - " << mouse_point.to_string() << " - " << direction_);
+    Logger::write(Logger::ss << "RotateAction - " << mousePoint.toString() << " - " << direction_);
 }
 
 
-std::string RotateAction::to_string()
+std::string RotateAction::toString()
 {
 	//for (std::list<GridNode *>::iterator iterator = nodes->begin(), end = nodes->end(); iterator != end; ++iterator) {
 	//    Logger::ss << "(" << (**iterator).row() << ", " << (**iterator).column() << ") ";
@@ -38,19 +38,19 @@ std::string RotateAction::to_string()
 	return "";
 }
 
-bool RotateAction::update(Entity * entity, int delta_ticks)
+bool RotateAction::update(Entity * entity, int deltaTicks)
 {
-    bool return_value = true;
+    bool returnValue = true;
 
     // Grab variables from entity to manipulate here, will update them at end
     double rotation = entity->rotation();
 
-    if(delta_ticks <= 0) {
-        return return_value;
+    if(deltaTicks <= 0) {
+        return returnValue;
     }
 
     bool clockwise = false;
-    double direction_degrees = 0;
+    double directionDegrees = 0;
 
     // Check rotation
     if(rotation != direction_) {
@@ -70,9 +70,9 @@ bool RotateAction::update(Entity * entity, int delta_ticks)
             dir += 360;
         }
 
-        direction_degrees = std::abs(dir);
+        directionDegrees = std::abs(dir);
 
-        double degrees = kEntityRotationVelocity * (delta_ticks / 1000.f);
+        double degrees = kEntityRotationVelocity * (deltaTicks / 1000.f);
         // Turn CW
         if(clockwise) {
             rotation -= degrees;
@@ -83,17 +83,17 @@ bool RotateAction::update(Entity * entity, int delta_ticks)
         }
 
         // check if turned far enough
-        direction_degrees = direction_degrees - degrees;
-        if(direction_degrees < 0) {
+        directionDegrees = directionDegrees - degrees;
+        if(directionDegrees < 0) {
             rotation = direction_;
-            return_value = false;
+            returnValue = false;
         }
     }
 
     // Update new values of variables
-    entity->set_rotation(rotation);
+    entity->setRotation(rotation);
 
-    return return_value;
+    return returnValue;
 }
 
 void RotateAction::stop()
@@ -106,10 +106,10 @@ bool RotateAction::facing(Entity * entity, Entity * target, double arc)
     Vector vector = Vector(entity->position(), target->position());
 
 
-    double e_dir = entity->rotation();
-    double t_dir = vector.direction();
+    double eDir = entity->rotation();
+    double tDir = vector.direction();
 
-    double diff = std::abs(e_dir - t_dir);
+    double diff = std::abs(eDir - tDir);
 
     if(diff >= 180) {
         diff = std::abs(diff - 360);

@@ -22,8 +22,8 @@ class EventDispatcher
         
         static EventDispatcher * instance();
 
-        void register_handler(EventHandler * handler);
-        void send_event(Event * event);
+        void registerHandler(EventHandler * handler);
+        void sendEvent(Event * event);
 
 };
 

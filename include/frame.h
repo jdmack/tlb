@@ -25,14 +25,14 @@ class Frame
         Frame * parent() const { return parent_; }
 
         // mutators
-        void set_x(int x) { x_ = x; }
-        void set_y(int y) { y_ = y; }
-        void set_width(int width) { width_ = width; }
-        void set_height(int height) { height_ = height; }
-        void set_parent(Frame * parent) { parent_ = parent; }
+        void setX(int x) { x_ = x; }
+        void setY(int y) { y_ = y; }
+        void setWidth(int width) { width_ = width; }
+        void setHeight(int height) { height_ = height; }
+        void setParent(Frame * parent) { parent_ = parent; }
 
-        bool contains_point(double x, double y);
-        std::string to_string();
+        bool containsPoint(double x, double y);
+        std::string toString();
 
 };
 

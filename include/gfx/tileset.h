@@ -27,8 +27,8 @@ class Tileset
 
         SDL_Rect clips(int type) { return clips_[type]; }
 
-        void set_width(double width) { width_ = width; }
-        void set_height(double height) { height_ = height; }
+        void setWidth(double width) { width_ = width; }
+        void setHeight(double height) { height_ = height; }
 
         bool load(std::string filename);
 

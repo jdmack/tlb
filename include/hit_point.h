@@ -18,15 +18,15 @@ class HitPoint
         int current() const { return current_; }
 
         // mutators
-        void set_total(int total) { total_= total; }
-        void set_current(int current) { current_ = current; }
+        void setTotal(int total) { total_= total; }
+        void setCurrent(int current) { current_ = current; }
 
-        void add_points(int points);
-        void minus_points(int points);
+        void addPoints(int points);
+        void minusPoints(int points);
 
         bool empty();
 
-        std::string to_string();
+        std::string toString();
 };
 
 #endif

@@ -1,8 +1,8 @@
 #ifndef TLB_DOT_H_
 #define TLB_DOT_H_
 
-#include "game_object.h"
-#include "hit_point.h"
+#include "gameObject.h"
+#include "hitPoint.h"
 #include "point.h"
 #include "action/action.h"
 
@@ -40,10 +40,10 @@ class Entity : public GameObject
         HitPoint * hp_;
         bool controllable_;
         EntityType type_;
-        double maximum_speed_;
+        double maximumSpeed_;
         bool dead_;
-        //Action * current_action_;
-        AIStateMachine * state_machine_;
+        //Action * currentAction_;
+        AIStateMachine * stateMachine_;
 
     public:
         // constructors/destructors
@@ -53,12 +53,12 @@ class Entity : public GameObject
         // overridden
         //void select();
         //void deselect();
-        bool contains_point(double x, double y);
+        bool containsPoint(double x, double y);
         void move(Point point);
         void rotate(Point point);
         void attack(Entity * target);
 
-        void take_damage(int damage, Entity * attacker);
+        void takeDamage(int damage, Entity * attacker);
 
         void update(int deltaTicks);
         void stop();
@@ -68,18 +68,18 @@ class Entity : public GameObject
         // accessors
         HitPoint * hp() const { return hp_; }
         bool controllable() const { return controllable_; }
-        double maximum_speed() const { return maximum_speed_; }
+        double maximumSpeed() const { return maximumSpeed_; }
         EntityType type() const { return type_; }
         bool dead() const { return dead_; }
 
         // mutators
-        void set_controllable(bool controllable) { controllable_ = controllable; }
-        void set_maximum_speed(double maximum_speed) { maximum_speed_ = maximum_speed; }
-        void set_type(EntityType type) { type_ = type; }
-        void set_dead(bool dead);
+        void setControllable(bool controllable) { controllable_ = controllable; }
+        void setMaximumSpeed(double maximumSpeed) { maximumSpeed_ = maximumSpeed; }
+        void setType(EntityType type) { type_ = type; }
+        void setDead(bool dead);
 
-        bool is_entity() const { return true; }
-        ActionType action_type();
+        bool isEntity() const { return true; }
+        ActionType actionType();
 
 };
 

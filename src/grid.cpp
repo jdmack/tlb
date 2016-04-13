@@ -1,5 +1,5 @@
 #include "grid.h"
-#include "grid_node.h"
+#include "gridNode.h"
 #include "point.h"
 #include "util/logger.h"
 
@@ -7,8 +7,8 @@ Grid::Grid()
 {
     rows_    = 0;
     columns_ = 0;
-    node_width_ = kGridNodeWidth;
-    node_height_ = kGridNodeWidth;
+    nodeWidth_ = kGridNodeWidth;
+    nodeHeight_ = kGridNodeWidth;
 
     nodes_ = new std::vector<GridNode *>();
 }
@@ -17,8 +17,8 @@ Grid::Grid(int rows, int columns)
 {
     rows_    = rows;
     columns_ = columns;
-    node_width_ = kGridNodeWidth;
-    node_height_ = kGridNodeWidth;
+    nodeWidth_ = kGridNodeWidth;
+    nodeHeight_ = kGridNodeWidth;
 
     nodes_ = new std::vector<GridNode *>();
 
@@ -27,7 +27,7 @@ Grid::Grid(int rows, int columns)
 
     for(int r = 0; r < rows ; r++)
         for(int c = 0; c < columns ; c++)
-            nodes_->push_back(new GridNode(r, c));
+            nodes_->pushBack(new GridNode(r, c));
 
 }
 
@@ -37,79 +37,79 @@ GridNode * Grid::node(int row, int column)
     return nodes_->at((columns_ * row) + column);
 }
 
-void Grid::add_node() 
+void Grid::addNode() 
 {
-    nodes_->push_back(new GridNode(rows_, columns_++ ));
+    nodes_->pushBack(new GridNode(rows_, columns_++ ));
 }
 
-GridNode * Grid::node_at_point(Point point)
+GridNode * Grid::nodeAtPoint(Point point)
 {
-    bool hex_grid = false;
+    bool hexGrid = false;
 
     int col;
 	int row;
 
-	if(hex_grid) {
+	if(hexGrid) {
         // TODO(2014-08-13/JM): Hard coded numbers here for h, s and r
-        int x_section = point.x() / (2 * 21);
-        int y_section = point.y() / (12 + 24);
-        int x_section_pixel = point.x() - x_section * (2 * 21);
-        int y_section_pixel = point.y() - y_section * (12 + 24);
+        int xSection = point.x() / (2 * 21);
+        int ySection = point.y() / (12 + 24);
+        int xSectionPixel = point.x() - xSection * (2 * 21);
+        int ySectionPixel = point.y() - ySection * (12 + 24);
 
         // A section
-        if(y_section % 2 == 0) {
+        if(ySection % 2 == 0) {
 
             // middle
-            row = y_section;
-            col = x_section;
+            row = ySection;
+            col = xSection;
 
             // left
-            if(y_section_pixel < (12 - x_section_pixel * 12/21)) {
-                row = y_section - 1;
-                col = x_section - 1;
+            if(ySectionPixel < (12 - xSectionPixel * 12/21)) {
+                row = ySection - 1;
+                col = xSection - 1;
             }
 
             // right
-            if(y_section_pixel < (-1 * (12 + x_section_pixel * 12/21))) {
-                row = y_section - 1;
-                col = x_section;
+            if(ySectionPixel < (-1 * (12 + xSectionPixel * 12/21))) {
+                row = ySection - 1;
+                col = xSection;
             }
         }
         else {
             // right
-            if(x_section_pixel >= 21) {
-                if(y_section_pixel < (2 * 12 - x_section_pixel * 12/21)) {
-                    row = y_section - 1;
-                    col = x_section - 1;
+            if(xSectionPixel >= 21) {
+                if(ySectionPixel < (2 * 12 - xSectionPixel * 12/21)) {
+                    row = ySection - 1;
+                    col = xSection - 1;
                 }
                 else {
-                    row = y_section;
-                    col = x_section;
+                    row = ySection;
+                    col = xSection;
                 }
             }
             // left
-            if(x_section_pixel < 21) {
-                if(y_section_pixel < (x_section_pixel * 12/21)) {
-                    row = y_section - 1;
-                    col = x_section;
+            if(xSectionPixel < 21) {
+                if(ySectionPixel < (xSectionPixel * 12/21)) {
+                    row = ySection - 1;
+                    col = xSection;
                 }
                 else {
-                    row = y_section;
-                    col = x_section - 1;
+                    row = ySection;
+                    col = xSection - 1;
                 }
             }
         }
 	}
 	else {
-	    col = point.x() / node_width_;
-	    row = point.y() / node_height_;
+	    col = point.x() / nodeWidth_;
+	    row = point.y() / nodeHeight_;
 	}
 
 	//Logger::write(Logger::ss << "Returning node(" << col << "," << row << ")");
 	return node(row, col);
 }
 
-void Grid::reset_pathfinding()
+void Grid::resetPathfinding()
 {
     for(std::vector<GridNode *>::iterator it = nodes_->begin(); it != nodes_->end(); ++it) {
         (*it)->reset();

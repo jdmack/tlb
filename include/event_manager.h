@@ -11,13 +11,13 @@ const double kFocusTimeout = 10000;
 class EventManager
 {
     private:
-        Timer focus_timer_;
+        Timer focusTimer_;
 
     public:
         EventManager();
-        void handle_events();
+        void handleEvents();
 
-        static Point mouse_position();
+        static Point mousePosition();
 };
 
 #endif

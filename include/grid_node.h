@@ -20,9 +20,9 @@ class GridNode
         int column_;
         double width_;
         double height_;
-        int f_score_;
-        int g_score_;
-        int h_score_;
+        int fScore_;
+        int gScore_;
+        int hScore_;
         bool walkable_;
 
         GridNode * parent_;
@@ -35,32 +35,32 @@ class GridNode
         // accessors
         int row() const { return row_; }
         int column() const { return column_; }
-        int f_score() const { return f_score_; }
-        int g_score() const { return g_score_; }
-        int h_score() const { return h_score_; }
+        int fScore() const { return fScore_; }
+        int gScore() const { return gScore_; }
+        int hScore() const { return hScore_; }
         bool walkable() const { return walkable_; }
         GridNode * parent() const { return parent_; }
 
         // mutators
-        void set_row(int row) { row_ = row; }
-        void set_column(int column) { column_ = column; }
-        void set_f_score(int f_score) { f_score_ = f_score; }
-        void set_g_score(int g_score) { g_score_ = g_score; }
-        void set_h_score(int h_score) { h_score_ = h_score; }
-        void set_parent(GridNode * parent) { parent_ = parent; }
-        void set_walkable(bool walkable) { walkable_ = walkable; }
+        void setRow(int row) { row_ = row; }
+        void setColumn(int column) { column_ = column; }
+        void setFScore(int fScore) { fScore_ = fScore; }
+        void setGScore(int gScore) { gScore_ = gScore; }
+        void setHScore(int hScore) { hScore_ = hScore; }
+        void setParent(GridNode * parent) { parent_ = parent; }
+        void setWalkable(bool walkable) { walkable_ = walkable; }
 
         bool operator>(const GridNode &other) const;
 
 
-        void set_scores(int f_score, int g_score, int h_score);
+        void setScores(int fScore, int gScore, int hScore);
 
         int compare(GridNode * node);
 
-        Point center_point();
+        Point centerPoint();
 
         void reset();
-        std::string to_string();
+        std::string toString();
 
 };
 

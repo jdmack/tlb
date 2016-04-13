@@ -1,19 +1,19 @@
-#include "ai_state/idle_state.h"
-#include "ai_state/seek_state.h"
-#include "ai_state/attack_state.h"
-#include "ai_state/ai_state.h"
-#include "ai_state/ai_state_machine.h"
+#include "aiState/idleState.h"
+#include "aiState/seekState.h"
+#include "aiState/attackState.h"
+#include "aiState/aiState.h"
+#include "aiState/aiStateMachine.h"
 #include "action/action.h"
-#include "action/rotate_action.h"
+#include "action/rotateAction.h"
 #include "entity.h"
 #include "game.h"
-#include "entity_manager.h"
+#include "entityManager.h"
 #include "util/logger.h"
 
-IdleState::IdleState(AIStateMachine * state_machine, Entity * entity)
+IdleState::IdleState(AIStateMachine * stateMachine, Entity * entity)
 {
     type_ = STATE_IDLE;
-    state_machine_ = state_machine;
+    stateMachine_ = stateMachine;
     entity_ = entity;
     stop_ = false;
 }
@@ -23,7 +23,7 @@ IdleState::~IdleState()
 
 }
 
-bool IdleState::update(int delta_ticks)
+bool IdleState::update(int deltaTicks)
 {
     Point position = entity_->position();
     std::vector<Entity *> entities;
@@ -38,7 +38,7 @@ bool IdleState::update(int delta_ticks)
         // PLAYER
 
         // Check for entities within Aggro Range
-        entities = Game::instance()->entity_manager()->get_entities_near(position, kPlayerAttackRange);
+        entities = Game::instance()->entityManager()->getEntitiesNear(position, kPlayerAttackRange);
         Entity * target = nullptr;
 
         //TODO(2014-07-24/JM): Choose way of selecting target if there are multiple
@@ -47,32 +47,32 @@ bool IdleState::update(int delta_ticks)
                 //Logger::write(Logger::ss << "Found nothing nearby");
                 return true;
             }
-            if(entities.back()->object_id() == entity_->object_id()) {
-                entities.pop_back();
+            if(entities.back()->objectId() == entity_->objectId()) {
+                entities.popBack();
                 continue;
             }
             if(entities.back()->dead()) {
-                entities.pop_back();
+                entities.popBack();
                 continue;
             }
             if(entities.back()->type() != ZOMBIE) {
-                entities.pop_back();
+                entities.popBack();
                 continue;
             }
             // Check in arc
             if(!RotateAction::facing(entity_, entities.back(), 60)) {
-                entities.pop_back();
+                entities.popBack();
                 continue;
             }
 
             // Found a target, setup next action
             target = entities.back();
-            entities.pop_back();
+            entities.popBack();
 
             if(target != nullptr) {
                 // Found target, decide next action
-                state_machine_->attack_state()->set_target(target);
-                state_machine_->set_next_state(STATE_ATTACK);
+                stateMachine_->attackState()->setTarget(target);
+                stateMachine_->setNextState(STATE_ATTACK);
                 return false;
             }
 
@@ -85,7 +85,7 @@ bool IdleState::update(int delta_ticks)
         // ZOMBIE
 
         // Check for entities within Aggro Range
-        entities = Game::instance()->entity_manager()->get_entities_near(position, kZombieAggroRadius);
+        entities = Game::instance()->entityManager()->getEntitiesNear(position, kZombieAggroRadius);
         Entity * target = nullptr;
 
         //TODO(2014-07-24/JM): Choose way of selecting target if there are multiple
@@ -94,28 +94,28 @@ bool IdleState::update(int delta_ticks)
                 //Logger::write(Logger::ss << "Found nothing nearby");
                 return true;
             }
-            if(entities.back()->object_id() == entity_->object_id()) {
-                entities.pop_back();
+            if(entities.back()->objectId() == entity_->objectId()) {
+                entities.popBack();
                 continue;
             }
             if(entities.back()->dead()) {
-                entities.pop_back();
+                entities.popBack();
                 continue;
             }
             if(entities.back()->type() == ZOMBIE) {
-                entities.pop_back();
+                entities.popBack();
                 continue;
             }
 
             // Found a target, setup next action
             target = entities.back();
-            entities.pop_back();
+            entities.popBack();
         }
 
         if(target != nullptr) {
             // Found target, decide next action
-            state_machine_->seek_state()->set_target(target);
-            state_machine_->set_next_state(STATE_SEEK);
+            stateMachine_->seekState()->setTarget(target);
+            stateMachine_->setNextState(STATE_SEEK);
             return false;
         }
 
@@ -130,16 +130,16 @@ void IdleState::stop()
 
 void IdleState::start()
 {
-    Logger::write(Logger::ss << "Entity: " << entity_->object_id() << " - Entering State: IDLE");
+    Logger::write(Logger::ss << "Entity: " << entity_->objectId() << " - Entering State: IDLE");
     stop_ = false;
 }
 
 void IdleState::end()
 {
-    Logger::write(Logger::ss << "Entity: " << entity_->object_id() << " - Exiting  State: IDLE");
+    Logger::write(Logger::ss << "Entity: " << entity_->objectId() << " - Exiting  State: IDLE");
 }
 
-ActionType IdleState::action_type()
+ActionType IdleState::actionType()
 {
     return ACTION_IDLE;
 }

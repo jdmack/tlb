@@ -17,7 +17,7 @@ class EMouseClick : public Event
 
     public:
         EMouseClick();
-        EMouseClick(MouseButton key_type, Point point);
+        EMouseClick(MouseButton keyType, Point point);
         ~EMouseClick();
 
         // accessors

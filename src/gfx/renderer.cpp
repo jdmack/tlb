@@ -1,21 +1,21 @@
 #include "GL/glew.h"
 #include "GL/glu.h"
 #include "SDL2/SDL.h"
-#include "SDL2/SDL_image.h"
-#include "SDL2/SDL_ttf.h"
-#include "SDL2/SDL_opengl.h"
+#include "SDL2/SDLImage.h"
+#include "SDL2/SDLTtf.h"
+#include "SDL2/SDLOpengl.h"
 
 #include "gfx/renderer.h"
 #include "gfx/camera.h"
 #include "color.h"
-#include "game_object.h"
+#include "gameObject.h"
 #include "gfx/sprite.h"
 #include "util/logger.h"
 #include "point.h"
-#include "hit_point.h"
+#include "hitPoint.h"
 #include "entity.h"
 #include "util/math/math.h"
-#include "util/file_reader.h"
+#include "util/fileReader.h"
 #include "frame.h"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -55,22 +55,22 @@ bool Renderer::init()
     /* 3.2 and higher won't work because code currently doesn't use VAOs */
 
 
-    int img_flags = IMG_INIT_PNG;
+    int imgFlags = IMG_INIT_PNG;
 
-    // Initialize SDL_image
-    if(!(IMG_Init(img_flags) & img_flags)) {
-        Logger::write(Logger::ss << "ERROR: SDL_image could not initialize! SDL_image Error: " <<  IMG_GetError());
+    // Initialize SDLImage
+    if(!(IMG_Init(imgFlags) & imgFlags)) {
+        Logger::write(Logger::ss << "ERROR: SDLImage could not initialize! SDLImage Error: " <<  IMG_GetError());
         return false;
     }
 
-    // Initialize SDL_ttf
+    // Initialize SDLTtf
     if(TTF_Init() == -1) {
         Logger::write(Logger::ss << "ERROR: TTF_Init: " << TTF_GetError());
         return false;
     }
 
     // Setup renderer
-    window_ = SDL_CreateWindow(kWindowName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
+    window_ = SDL_CreateWindow(kWindowName.cStr(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
         kRendererWidth, kRendererHeight, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
     if(window_ == nullptr) {
         Logger::write(Logger::ss << "ERROR: Could not create window! SDL Error: " << SDL_GetError());
@@ -129,9 +129,9 @@ bool Renderer::initShader()
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
     // Get vertex shader source
-    //const GLchar * vertexShaderSource[] = FileReader::read_file("shader/v1.vs");
-    std::string vertexShaderStr = FileReader::read_file("shader/v1.vs");
-    const GLchar * vertexShaderSource = vertexShaderStr.c_str();
+    //const GLchar * vertexShaderSource[] = FileReader::readFile("shader/v1.vs");
+    std::string vertexShaderStr = FileReader::readFile("shader/v1.vs");
+    const GLchar * vertexShaderSource = vertexShaderStr.cStr();
     
     //{
     //    "#version 130\nin vec2 LVertexPos2D; void main() { gl_Position = vec4(LVertexPos2D.x, LVertexPos2D.y, 0, 1); }" 
@@ -160,8 +160,8 @@ bool Renderer::initShader()
     GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
     // Get fragment source
-    std::string fragmentShaderStr = FileReader::read_file("shader/f1.fs");
-    const GLchar * fragmentShaderSource = fragmentShaderStr.c_str();
+    std::string fragmentShaderStr = FileReader::readFile("shader/f1.fs");
+    const GLchar * fragmentShaderSource = fragmentShaderStr.cStr();
 
     //{
     //    "#version 130\nout vec4 LFragment; void main() { LFragment = vec4(1.0, 1.0, 1.0, 1.0); }"
@@ -270,18 +270,18 @@ void Renderer::printShaderLog(GLuint shader)
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Renderer::render_texture(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect * clip)
+void Renderer::renderTexture(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect * clip)
 {
     // TODO(2013-09-09/JM): Add render offset checks
     Point point = Point(offset->x, offset->y);
-    point = Math::convert_to_isometric(point);
+    point = Math::convertToIsometric(point);
 
-    //SDL_Rect rect = { (int)offset->x - (int)camera_->x_position(), (int)offset->y - (int)camera_->y_position(), (int)offset->w, (int)offset->h };
-    SDL_Rect rect = { (int)point.x() - (int)camera_->x_position(), (int)point.y() - (int)camera_->y_position(), (int)offset->w, (int)offset->h };
+    //SDL_Rect rect = { (int)offset->x - (int)camera_->xPosition(), (int)offset->y - (int)camera_->yPosition(), (int)offset->w, (int)offset->h };
+    SDL_Rect rect = { (int)point.x() - (int)camera_->xPosition(), (int)point.y() - (int)camera_->yPosition(), (int)offset->w, (int)offset->h };
 
-    int return_code = SDL_RenderCopy(renderer_, texture, clip, &rect);
+    int returnCode = SDL_RenderCopy(renderer_, texture, clip, &rect);
 
-    if(return_code != 0) {
+    if(returnCode != 0) {
         Logger::write(Logger::ss << "Render Error: " << SDL_GetError());
     }
 }
@@ -291,20 +291,20 @@ void Renderer::render_texture(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Renderer::render_texture_frame(SDL_Texture * texture, Frame * frame, SDL_Rect * offset, SDL_Rect * clip)
+void Renderer::renderTextureFrame(SDL_Texture * texture, Frame * frame, SDL_Rect * offset, SDL_Rect * clip)
 {
     if(frame == nullptr) {
-        render_texture(texture, offset, clip);
+        renderTexture(texture, offset, clip);
     }
     else {
-        //Logger::write(Logger::ss << frame->to_string());
-        SDL_Rect * new_offset = new SDL_Rect;
-        new_offset->x = offset->x + frame->x();
-        new_offset->y = offset->y + frame->y();
-        new_offset->w = offset->w;
-        new_offset->h = offset->h;
+        //Logger::write(Logger::ss << frame->toString());
+        SDL_Rect * newOffset = new SDL_Rect;
+        newOffset->x = offset->x + frame->x();
+        newOffset->y = offset->y + frame->y();
+        newOffset->w = offset->w;
+        newOffset->h = offset->h;
 
-        render_texture(texture, new_offset, clip);
+        renderTexture(texture, newOffset, clip);
     }
 }
 
@@ -313,15 +313,15 @@ void Renderer::render_texture_frame(SDL_Texture * texture, Frame * frame, SDL_Re
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Renderer::render_texture_rotate(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect * clip, double angle)
+void Renderer::renderTextureRotate(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect * clip, double angle)
 {
     // TODO(2013-09-09/JM): Add render offset checks
 
-    SDL_Rect rect = { (int)offset->x - (int)camera_->x_position(), (int)offset->y - (int)camera_->y_position(), (int)offset->w, (int)offset->h };
+    SDL_Rect rect = { (int)offset->x - (int)camera_->xPosition(), (int)offset->y - (int)camera_->yPosition(), (int)offset->w, (int)offset->h };
 
-    int return_code = SDL_RenderCopyEx(renderer_, texture, nullptr, &rect, -angle, nullptr, SDL_FLIP_NONE);
+    int returnCode = SDL_RenderCopyEx(renderer_, texture, nullptr, &rect, -angle, nullptr, SDL_FLIP_NONE);
 
-    if(return_code != 0) {
+    if(returnCode != 0) {
         Logger::write(Logger::ss << "Render Error: " << SDL_GetError());
     }
 }
@@ -331,7 +331,7 @@ void Renderer::render_texture_rotate(SDL_Texture * texture, SDL_Rect * offset, S
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Renderer::apply_surface(SDL_Surface * source, SDL_Surface * destination, SDL_Rect * offset, SDL_Rect * clip)
+void Renderer::applySurface(SDL_Surface * source, SDL_Surface * destination, SDL_Rect * offset, SDL_Rect * clip)
 {
     SDL_BlitSurface(source, clip, destination, offset );
 }
@@ -352,7 +352,7 @@ void Renderer::clear()
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Renderer::clear(Color clear_color)
+void Renderer::clear(Color clearColor)
 {
     SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 255);
     SDL_RenderClear(renderer_);
@@ -365,7 +365,7 @@ void Renderer::clear(Color clear_color)
 ////////////////////////////////////////////////////////////////////////////////
 void Renderer::update()
 {
-    //if(debug_) debug_frame_->render();
+    //if(debug_) debugFrame_->render();
     //SDL_RenderPresent(renderer_);
     SDL_GL_SwapWindow(window_);
 }
@@ -375,11 +375,11 @@ void Renderer::update()
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Renderer::clean_up()
+void Renderer::cleanUp()
 {
     // TODO(2013-08-23/JM): Move this elsewhere, cleanup function for whole game
 
-    //NOTE/TODO: Uncomment this when SDL_ttf is installed
+    //NOTE/TODO: Uncomment this when SDLTtf is installed
     //TTF_Quit();
     
     // Deallocate program
@@ -396,21 +396,21 @@ void Renderer::clean_up()
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-SDL_Surface * Renderer::load_image(std::string filename)
+SDL_Surface * Renderer::loadImage(std::string filename)
 {
-    SDL_Surface* loaded_image    = nullptr;
+    SDL_Surface* loadedImage    = nullptr;
 
-    loaded_image = IMG_Load(filename.c_str());
+    loadedImage = IMG_Load(filename.cStr());
 
-    if(loaded_image == nullptr) {
+    if(loadedImage == nullptr) {
         Logger::write(Logger::ss << "IMG_Load Error: " << IMG_GetError());
     }
     else {
-        Uint32 colorkey = SDL_MapRGB(loaded_image->format, 0xFF, 0, 0xFF);
-        SDL_SetColorKey(loaded_image, SDL_TRUE, colorkey);
+        Uint32 colorkey = SDL_MapRGB(loadedImage->format, 0xFF, 0, 0xFF);
+        SDL_SetColorKey(loadedImage, SDL_TRUE, colorkey);
     }
 
-    return loaded_image;
+    return loadedImage;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -418,15 +418,15 @@ SDL_Surface * Renderer::load_image(std::string filename)
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-SDL_Surface * Renderer::load_image_alpha(std::string filename)
+SDL_Surface * Renderer::loadImageAlpha(std::string filename)
 {
-    SDL_Surface* loaded_image = nullptr;
+    SDL_Surface* loadedImage = nullptr;
 
-    loaded_image = IMG_Load(filename.c_str());
-    if(loaded_image == nullptr) {
+    loadedImage = IMG_Load(filename.cStr());
+    if(loadedImage == nullptr) {
         Logger::write(Logger::ss << "IMG_Load Error: " << IMG_GetError());
     }
-    return loaded_image;
+    return loadedImage;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -434,9 +434,9 @@ SDL_Surface * Renderer::load_image_alpha(std::string filename)
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-SDL_Texture * Renderer::load_texture(std::string filename)
+SDL_Texture * Renderer::loadTexture(std::string filename)
 {
-    SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer_, load_image(filename));
+    SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer_, loadImage(filename));
 
     if(texture == nullptr) {
         Logger::write(Logger::ss << "Error creating texture: " << SDL_GetError());
@@ -450,9 +450,9 @@ SDL_Texture * Renderer::load_texture(std::string filename)
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-SDL_Texture * Renderer::load_texture_alpha(std::string filename)
+SDL_Texture * Renderer::loadTextureAlpha(std::string filename)
 {
-    SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer_, load_image_alpha(filename));
+    SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer_, loadImageAlpha(filename));
 
     if(texture == nullptr) {
         Logger::write(Logger::ss << "Error creating texture: " << SDL_GetError());
@@ -465,10 +465,10 @@ SDL_Texture * Renderer::load_texture_alpha(std::string filename)
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Renderer::init_object(GameObject * object)
+void Renderer::initObject(GameObject * object)
 {
-    object->sprite()->set_texture(load_texture_alpha(object->sprite()->art_asset()));
-    object->sprite()->set_renderer(this);
+    object->sprite()->setTexture(loadTextureAlpha(object->sprite()->artAsset()));
+    object->sprite()->setRenderer(this);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -476,7 +476,7 @@ void Renderer::init_object(GameObject * object)
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Renderer::draw_life_bar(Entity * entity, Frame * frame)
+void Renderer::drawLifeBar(Entity * entity, Frame * frame)
 {
     int kBorderRed   = 0x00;
     int kBorderGreen = 0x00;
@@ -493,20 +493,20 @@ void Renderer::draw_life_bar(Entity * entity, Frame * frame)
     int kNegativeBlue  = 0x00;
     int kNegativeAlpha = 0xFF;
 
-    int width_per_point = 4;
+    int widthPerPoint = 4;
 
-    int total_hp = entity->hp()->total();
-    int current_hp = entity->hp()->current();
+    int totalHp = entity->hp()->total();
+    int currentHp = entity->hp()->current();
 
-    int width = total_hp * width_per_point;
+    int width = totalHp * widthPerPoint;
     int height = 5;
-    int x = entity->x_position() + frame->x()- (total_hp * width_per_point / 2);
-    int y = entity->y_position() + frame->y() - (entity->height() / 2) - height;
-    x = x - camera_->x_position();
-    y = y - camera_->y_position();
+    int x = entity->xPosition() + frame->x()- (totalHp * widthPerPoint / 2);
+    int y = entity->yPosition() + frame->y() - (entity->height() / 2) - height;
+    x = x - camera_->xPosition();
+    y = y - camera_->yPosition();
 
     Point point = Point(x,y);
-    point = Math::convert_to_isometric(point);
+    point = Math::convertToIsometric(point);
     x = point.x();
     y = point.y();
 
@@ -520,17 +520,17 @@ void Renderer::draw_life_bar(Entity * entity, Frame * frame)
     SDL_Rect positiveRect = {
         x,
         y,
-        current_hp * width_per_point,
+        currentHp * widthPerPoint,
         height
     };
 
     SDL_Rect negativeRect = {
-        x + (current_hp * width_per_point),
+        x + (currentHp * widthPerPoint),
         y,
-        (total_hp - current_hp) * width_per_point,
+        (totalHp - currentHp) * widthPerPoint,
         height
     };
-    // TODO(2014-08-21/JM): Red is showing when entity is at full life. Add is_full_life() and is_zero_life() to lifepoint
+    // TODO(2014-08-21/JM): Red is showing when entity is at full life. Add isFullLife() and isZeroLife() to lifepoint
     // and use those tests to determine if you should draw the part of the life bar that isn't needed
     // Border
     SDL_SetRenderDrawColor(renderer_, kBorderRed, kBorderGreen, kBorderBlue, kBorderAlpha);
@@ -546,13 +546,13 @@ void Renderer::draw_life_bar(Entity * entity, Frame * frame)
 }
 
 
-void Renderer::draw_rectangle(SDL_Rect rect, Color color)
+void Renderer::drawRectangle(SDL_Rect rect, Color color)
 {
     SDL_SetRenderDrawColor(renderer_, color.red(), color.green(), color.blue(), 255);
     SDL_RenderDrawRect(renderer_, &rect );
 }
 
-void Renderer::draw_line(Point start, Point end, Color color)
+void Renderer::drawLine(Point start, Point end, Color color)
 {
     SDL_SetRenderDrawColor(renderer_, color.red(), color.green(), color.blue(), 255);
     SDL_RenderDrawLine(renderer_, start.x(), start.y(), end.x(), end.y());

@@ -17,14 +17,14 @@ class Cooldown
         double length() const { return length_; }
 
         // mutators
-        void set_length(double length) { length_ = length; }
+        void setLength(double length) { length_ = length; }
 
         void start();
         void reset();
 
         bool ready();
-        bool is_complete();
-        bool is_running();
+        bool isComplete();
+        bool isRunning();
 };
 
 #endif

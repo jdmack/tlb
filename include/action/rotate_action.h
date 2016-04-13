@@ -17,18 +17,18 @@ class RotateAction : public Action
 
     public:
         RotateAction(double direction);
-        RotateAction(Entity * entity, Point mouse_point);
+        RotateAction(Entity * entity, Point mousePoint);
 
         // accessors
 		double direction() const { return direction_; }
 
         // overridden
-        bool update(Entity * entity, int delta_ticks);
+        bool update(Entity * entity, int deltaTicks);
         void stop();
 
         static bool facing(Entity * entity, Entity * target, double arc);
 
-        std::string to_string();
+        std::string toString();
 };
 
 #endif

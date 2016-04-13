@@ -1,20 +1,20 @@
-#include "ai_state/attack_state.h"
-#include "ai_state/rotate_state.h"
-#include "ai_state/seek_state.h"
-#include "ai_state/ai_state.h"
-#include "ai_state/ai_state_machine.h"
+#include "aiState/attackState.h"
+#include "aiState/rotateState.h"
+#include "aiState/seekState.h"
+#include "aiState/aiState.h"
+#include "aiState/aiStateMachine.h"
 #include "util/logger.h"
 #include "entity.h"
-#include "action/attack_action.h"
-#include "action/rotate_action.h"
+#include "action/attackAction.h"
+#include "action/rotateAction.h"
 
-AttackState::AttackState(AIStateMachine * state_machine, Entity * entity)
+AttackState::AttackState(AIStateMachine * stateMachine, Entity * entity)
 {
     type_ = STATE_ATTACK;
-    state_machine_ = state_machine;
+    stateMachine_ = stateMachine;
     entity_ = entity;
     target_ = nullptr;
-    attack_action_ = nullptr;
+    attackAction_ = nullptr;
     command_ = false;
     damage_ = 0;
     range_ = 0;
@@ -25,37 +25,37 @@ AttackState::~AttackState()
 
 }
 
-bool AttackState::update(int delta_ticks)
+bool AttackState::update(int deltaTicks)
 {
 
     Point position = entity_->position();
-    Point target_position = Point(target_->x_position(), target_->y_position());
+    Point targetPosition = Point(target_->xPosition(), target_->yPosition());
 
     // Only do checks if the next state hasn't been determined yet
-    if(state_machine_->next_state() == nullptr) {
+    if(stateMachine_->nextState() == nullptr) {
         // Check if we are in range
-        if(target_position.distance_from(position) > attack_action_->range()) {
+        if(targetPosition.distanceFrom(position) > attackAction_->range()) {
             if(command_) {
-                state_machine_->set_next_state(STATE_SEEK);
-                state_machine_->seek_state()->set_target(target_);
+                stateMachine_->setNextState(STATE_SEEK);
+                stateMachine_->seekState()->setTarget(target_);
             }
             else {
-                state_machine_->set_next_state(STATE_IDLE);
+                stateMachine_->setNextState(STATE_IDLE);
             }
             Logger::write("ATTACK: Target out of attack range");
             return false;
         }
 
         // Check if we are facing the target
-        if(!RotateAction::facing(entity_, target_, attack_action_->arc())) {
+        if(!RotateAction::facing(entity_, target_, attackAction_->arc())) {
             // TODO(2014-09-12/JM): Need to implement a way for the renderer to tell which direction entity is
             // rotating if we end up with a rotation animation at some point
             if(command_ || (entity_->type() == ZOMBIE)) {
-                state_machine_->set_next_state(STATE_ROTATE);
-                state_machine_->rotate_state()->set_position(target_position);
+                stateMachine_->setNextState(STATE_ROTATE);
+                stateMachine_->rotateState()->setPosition(targetPosition);
             }
             else {
-                state_machine_->set_next_state(STATE_IDLE);
+                stateMachine_->setNextState(STATE_IDLE);
             }
             Logger::write("ATTACK: Not facing target");
             return false;
@@ -63,35 +63,35 @@ bool AttackState::update(int delta_ticks)
     }
 
     // Perform attack
-    //if(next_state_ != BLANK) break;   // NOT SURE WHAT THIS WAS DOING
+    //if(nextState_ != BLANK) break;   // NOT SURE WHAT THIS WAS DOING
 
-    bool keep_action = attack_action_->update(entity_, delta_ticks);
+    bool keepAction = attackAction_->update(entity_, deltaTicks);
 
-    if(!keep_action) {
-        if(state_machine_->next_state() == nullptr) {
-            state_machine_->set_next_state(STATE_IDLE);
+    if(!keepAction) {
+        if(stateMachine_->nextState() == nullptr) {
+            stateMachine_->setNextState(STATE_IDLE);
         }
     }
 
-    return keep_action;
+    return keepAction;
 }
 
 void AttackState::stop()
 {
-    if(attack_action_ != nullptr) {
-        attack_action_->stop();
+    if(attackAction_ != nullptr) {
+        attackAction_->stop();
     }
 }
 
 void AttackState::start()
 {
-    Logger::write(Logger::ss << "Entity: " << entity_->object_id() << " - Entering State: ATTACK");
-    //attack_action_->reset();
-    attack_action_ = new AttackAction(target_);
+    Logger::write(Logger::ss << "Entity: " << entity_->objectId() << " - Entering State: ATTACK");
+    //attackAction_->reset();
+    attackAction_ = new AttackAction(target_);
 
-    attack_action_->set_entity(entity_);
-    attack_action_->set_damage(damage_);
-    attack_action_->set_range(range_);
+    attackAction_->setEntity(entity_);
+    attackAction_->setDamage(damage_);
+    attackAction_->setRange(range_);
     // TODO(2014-09-12/JM): Set attack cooldown and duration
 
 
@@ -100,16 +100,16 @@ void AttackState::start()
 
 void AttackState::end()
 {
-    Logger::write(Logger::ss << "Entity: " << entity_->object_id() << " - Exiting  State: ATTACK");
-    delete attack_action_;
-    attack_action_ = nullptr;
+    Logger::write(Logger::ss << "Entity: " << entity_->objectId() << " - Exiting  State: ATTACK");
+    delete attackAction_;
+    attackAction_ = nullptr;
     command_ = false;
 }
 
-ActionType AttackState::action_type()
+ActionType AttackState::actionType()
 {
-    if(attack_action_ != nullptr) {
-        return attack_action_->type();
+    if(attackAction_ != nullptr) {
+        return attackAction_->type();
     }
     return ACTION_ATTACK;
 }

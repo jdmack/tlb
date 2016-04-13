@@ -1,6 +1,6 @@
 #include <vector>
 
-#include "gs_main_menu.h"
+#include "gsMainMenu.h"
 
 #include "gfx/renderer.h"
 #include "game.h"
@@ -15,13 +15,13 @@ GSMainMenu::GSMainMenu()
 
 bool GSMainMenu::init()
 {
-    int return_code = 0;
+    int returnCode = 0;
 
 
-    return return_code;
+    return returnCode;
 }
 
-bool GSMainMenu::update(int delta_ticks)
+bool GSMainMenu::update(int deltaTicks)
 {
 
     return true;

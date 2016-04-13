@@ -1,7 +1,7 @@
 #include "GL/glew.h"
 #include "GL/glu.h"
 #include "SDL2/SDL.h"
-#include "SDL2/SDL_opengl.h"
+#include "SDL2/SDLOpengl.h"
 
 #include "gfx/model.h"
 #include "game.h"

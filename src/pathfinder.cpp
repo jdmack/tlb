@@ -2,13 +2,13 @@
 #include <list>
 
 #include "pathfinder.h"
-#include "grid_node.h"
+#include "gridNode.h"
 
 Pathfinder::Pathfinder()
 {
 }
 
-std::list<GridNode *> * Pathfinder::run(GridNode * start_node, GridNode * end_node)
+std::list<GridNode *> * Pathfinder::run(GridNode * startNode, GridNode * endNode)
 {
     return new std::list<GridNode *>();
 }

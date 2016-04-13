@@ -26,7 +26,7 @@ void Graphic::render(Frame * frame)
 {
     Renderer * renderer = Game::instance()->renderer();
     SDL_Rect offset = { position_.x(), position_.y(), width_, height_ };
-    renderer->render_texture_frame(texture_, frame, &offset);
+    renderer->renderTextureFrame(texture_, frame, &offset);
 }
 
 bool Graphic::toggle()
@@ -43,7 +43,7 @@ void Graphic::update()
 bool Graphic::click(Point point)
 {
     return false;
-    if(contains_point(point)) {
+    if(containsPoint(point)) {
         return true;
     }
     else {
@@ -51,7 +51,7 @@ bool Graphic::click(Point point)
     }
 }
 
-bool Graphic::contains_point(Point point)
+bool Graphic::containsPoint(Point point)
 {
     if((point.x() < position_.x()) || (point.x() > position_.x() + width_)) {
         return false;
@@ -62,14 +62,14 @@ bool Graphic::contains_point(Point point)
 
     return true;
 }
-bool Graphic::load_texture(std::string art_asset)
+bool Graphic::loadTexture(std::string artAsset)
 {
-    art_asset_ = art_asset;
+    artAsset_ = artAsset;
     Renderer * renderer = Game::instance()->renderer();
 
-    texture_ = renderer->load_texture(art_asset_);
+    texture_ = renderer->loadTexture(artAsset_);
     if(texture_ == nullptr) {
-        Logger::write(Logger::ss << "Error loading asset: " << art_asset);
+        Logger::write(Logger::ss << "Error loading asset: " << artAsset);
         return false;
     }
 

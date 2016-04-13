@@ -1,4 +1,4 @@
-#include "level_node.h"
+#include "levelNode.h"
 #include "gfx/graphic.h"
 #include "frame.h"
 
@@ -12,9 +12,9 @@ LevelNode::LevelNode()
     graphic_ = nullptr;
 }
 
-void LevelNode::add_adjacent(LevelNode * node)
+void LevelNode::addAdjacent(LevelNode * node)
 {
-    adjacent_.push_back(node);
+    adjacent_.pushBack(node);
 }
 
 void LevelNode::render(Frame * frame)

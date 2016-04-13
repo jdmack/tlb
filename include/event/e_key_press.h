@@ -6,15 +6,15 @@
 class EKeyPress : public Event
 {
     private:
-        KeyType key_type_;
+        KeyType keyType_;
 
     public:
         EKeyPress();
-        EKeyPress(KeyType key_type);
+        EKeyPress(KeyType keyType);
         ~EKeyPress();
 
         // accessors
-        KeyType key_type() const { return key_type_; }
+        KeyType keyType() const { return keyType_; }
 
 };
 

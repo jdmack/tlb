@@ -12,14 +12,14 @@ class Frame;
 class GameObject
 {
     protected:
-        static int id_counter_;
-        int object_id_;
-        double x_position_;
-        double y_position_;
-        double x_velocity_;
-        double y_velocity_;
-        double x_acceleration_;
-        double y_acceleration_;
+        static int idCounter_;
+        int objectId_;
+        double xPosition_;
+        double yPosition_;
+        double xVelocity_;
+        double yVelocity_;
+        double xAcceleration_;
+        double yAcceleration_;
         double rotation_;
         double width_;
         double height_;
@@ -27,8 +27,8 @@ class GameObject
         bool selected_;
         // TODO(2013-09-06/JM): Create "to string" function for objects to use with logging
 
-        double x_abs_;
-        double y_abs_;
+        double xAbs_;
+        double yAbs_;
 
         Point position_;
         Sprite * sprite_;
@@ -40,55 +40,55 @@ class GameObject
         virtual ~GameObject();
 
         // accessors
-        int object_id() const { return object_id_; }
-        double x_position() const { return x_position_; }
-        double y_position() const { return y_position_; }
-        double x_velocity() const { return x_velocity_; }
-        double y_velocity() const { return y_velocity_; }
-        double x_acceleration() const { return x_acceleration_; }
-        double y_acceleration() const { return y_acceleration_; }
+        int objectId() const { return objectId_; }
+        double xPosition() const { return xPosition_; }
+        double yPosition() const { return yPosition_; }
+        double xVelocity() const { return xVelocity_; }
+        double yVelocity() const { return yVelocity_; }
+        double xAcceleration() const { return xAcceleration_; }
+        double yAcceleration() const { return yAcceleration_; }
         double rotation() const { return rotation_; }
         double width() const { return width_; }
         double height() const { return height_; }
         bool selectable() const { return selectable_; }
         bool selected() const { return selected_; }
 
-        double x_abs() const { return x_abs_; }
-        double y_abs() const { return y_abs_; }
+        double xAbs() const { return xAbs_; }
+        double yAbs() const { return yAbs_; }
 
         Sprite * sprite() const { return sprite_; }
         SDL_Rect rect();
         Point position();
 
         // mutators
-        void set_x_position(double x_position) { x_position_ = x_position; }
-        void set_y_position(double y_position) { y_position_ = y_position; }
-        void set_x_velocity(double x_velocity) { x_velocity_ = x_velocity; }
-        void set_y_velocity(double y_velocity) { y_velocity_ = y_velocity; }
-        void set_x_acceleration(double x_acceleration) { x_acceleration_ = x_acceleration; }
-        void set_y_acceleration(double y_acceleration) { y_acceleration_ = y_acceleration; }
-        void set_rotation(double rotation) { rotation_ = rotation; }
-        void set_width(double width) { width_ = width; }
-        void set_height(double height) { height_ = height; }
-        void set_selectable(bool selectable) { selectable_ = selectable; }
-        void set_position(Point position);
+        void setXPosition(double xPosition) { xPosition_ = xPosition; }
+        void setYPosition(double yPosition) { yPosition_ = yPosition; }
+        void setXVelocity(double xVelocity) { xVelocity_ = xVelocity; }
+        void setYVelocity(double yVelocity) { yVelocity_ = yVelocity; }
+        void setXAcceleration(double xAcceleration) { xAcceleration_ = xAcceleration; }
+        void setYAcceleration(double yAcceleration) { yAcceleration_ = yAcceleration; }
+        void setRotation(double rotation) { rotation_ = rotation; }
+        void setWidth(double width) { width_ = width; }
+        void setHeight(double height) { height_ = height; }
+        void setSelectable(bool selectable) { selectable_ = selectable; }
+        void setPosition(Point position);
 
-        void set_x_abs(double x_abs) { x_abs_ = x_abs; }
-        void set_y_abs(double y_abs) { y_abs_ = y_abs; }
+        void setXAbs(double xAbs) { xAbs_ = xAbs; }
+        void setYAbs(double yAbs) { yAbs_ = yAbs; }
 
-        void create_sprite(std::string asset);
+        void createSprite(std::string asset);
 
         virtual void select();
         virtual void deselect();
-        virtual bool contains_point(double x, double y);
+        virtual bool containsPoint(double x, double y);
         virtual void move(Point point);
         void render(Frame * frame = nullptr);
-        void set_sprite(Sprite * sprite) { sprite_ = sprite; }
+        void setSprite(Sprite * sprite) { sprite_ = sprite; }
 
-        bool check_collision(SDL_Rect rect);
-        void fix_collision(SDL_Rect rect);
+        bool checkCollision(SDL_Rect rect);
+        void fixCollision(SDL_Rect rect);
 
-        virtual bool is_entity() const { return false; }
+        virtual bool isEntity() const { return false; }
 };
 
 #endif

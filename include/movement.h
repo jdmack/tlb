@@ -28,13 +28,13 @@ class Movement : public Action
         Point destination() const { return destination_; }
 
         // mutators
-        void set_clockwise(bool clockwise) { clockwise_ = clockwise; }
-        void set_degrees(double degrees) { degrees_ = degrees; }
-        void set_vector(Vector vector) { vector_ = vector; }
-        void set_start(Point start) { start_ = start; }
-        void set_destination(Point destination) { destination_ = destination; }
+        void setClockwise(bool clockwise) { clockwise_ = clockwise; }
+        void setDegrees(double degrees) { degrees_ = degrees; }
+        void setVector(Vector vector) { vector_ = vector; }
+        void setStart(Point start) { start_ = start; }
+        void setDestination(Point destination) { destination_ = destination; }
 
-        std::string to_string();
+        std::string toString();
 };
 
 #endif

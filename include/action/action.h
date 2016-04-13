@@ -27,7 +27,7 @@ class Action
         virtual ActionType type() { return type_; }
 
         virtual ~Action();
-        virtual bool update(Entity * entity, int delta_ticks);
+        virtual bool update(Entity * entity, int deltaTicks);
         virtual void stop();
 
 };

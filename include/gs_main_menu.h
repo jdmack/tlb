@@ -2,7 +2,7 @@
 #define TLB_GS_MAIN_MENU_H_
 
 #include "point.h"
-#include "game_state.h"
+#include "gameState.h"
 
 class GSMainMenu : public GameState
 {
@@ -12,7 +12,7 @@ class GSMainMenu : public GameState
         GSMainMenu();
 
         bool init();
-        bool update(int delta_ticks);
+        bool update(int deltaTicks);
         void render();
         void end();
 

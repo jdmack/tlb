@@ -1,7 +1,7 @@
 #include <ctime>
 #include <string>
 
-#include "util/date_time.h"
+#include "util/dateTime.h"
 
 DateTime::DateTime()
 {
@@ -15,6 +15,6 @@ std::string DateTime::timestamp()
     time_ = time(NULL);
     struct tm * p = localtime(&time_);
     strftime(s, 1000, "[%a %b %d %H:%M:%S %Y] ", p);
-    std::string return_string(s);
-    return return_string;
+    std::string returnString(s);
+    return returnString;
 }

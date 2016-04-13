@@ -1,5 +1,5 @@
 #include "SDL2/SDL.h"
-#include "ui/ui_element.h"
+#include "ui/uiElement.h"
 #include "point.h"
 #include "util/logger.h"
 #include "gfx/renderer.h"
@@ -26,7 +26,7 @@ void UIElement::render(Frame * frame)
 {
     Renderer * renderer = Game::instance()->renderer();
     SDL_Rect offset = { position_.x(), position_.y(), width_, height_ };
-    renderer->render_texture_frame(texture_, frame, &offset);
+    renderer->renderTextureFrame(texture_, frame, &offset);
 }
 
 bool UIElement::toggle()
@@ -43,7 +43,7 @@ void UIElement::update()
 bool UIElement::click(Point point)
 {
     return false;
-    if(contains_point(point)) {
+    if(containsPoint(point)) {
         return true;
     }
     else {
@@ -51,7 +51,7 @@ bool UIElement::click(Point point)
     }
 }
 
-bool UIElement::contains_point(Point point)
+bool UIElement::containsPoint(Point point)
 {
     if((point.x() < position_.x()) || (point.x() > position_.x() + width_)) {
         return false;
@@ -62,12 +62,12 @@ bool UIElement::contains_point(Point point)
 
     return true;
 }
-bool UIElement::load_texture(std::string art_asset)
+bool UIElement::loadTexture(std::string artAsset)
 {
-    art_asset_ = art_asset;
+    artAsset_ = artAsset;
     Renderer * renderer = Game::instance()->renderer();
 
-    texture_ = renderer->load_texture(art_asset_);
+    texture_ = renderer->loadTexture(artAsset_);
     if(texture_ == nullptr) {
         return false;
     }

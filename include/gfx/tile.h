@@ -11,8 +11,8 @@ class Frame;
 class Tile
 {
     private:
-        double x_position_;
-        double y_position_;
+        double xPosition_;
+        double yPosition_;
         double width_;
         double height_;
         int row_;
@@ -23,8 +23,8 @@ class Tile
     public:
         Tile();
         Tile(Point point, double width, double height, int type);
-        double x_position() const { return x_position_; }
-        double y_position() const { return y_position_; }
+        double xPosition() const { return xPosition_; }
+        double yPosition() const { return yPosition_; }
         double width() const { return width_; }
         double height() const { return height_; }
         int row() const { return row_; }
@@ -35,9 +35,9 @@ class Tile
         SDL_Rect box();
         void render(Frame * frame = nullptr);
 
-        void set_width(double width) { width_ = width; }
-        void set_height(double height) { height_ = height; }
-        void set_tileset(Tileset * tileset) { tileset_ = tileset; }
+        void setWidth(double width) { width_ = width; }
+        void setHeight(double height) { height_ = height; }
+        void setTileset(Tileset * tileset) { tileset_ = tileset; }
 };
 
 #endif

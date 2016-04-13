@@ -6,7 +6,7 @@
 #include "constants.h"
 #include "gfx/renderer.h"
 #include "point.h"
-#include "ui/ui_element.h"
+#include "ui/uiElement.h"
 
 class Frame;
 class Text;
@@ -24,7 +24,7 @@ class TextPanel : public UIElement
         Text * text() { return text_; }
 
         // mutators
-        void set_text(Text * text) { text_ = text; }
+        void setText(Text * text) { text_ = text; }
 
         void render(Frame * frame = nullptr);
         void update();

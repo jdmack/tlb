@@ -104,11 +104,11 @@ void Vector3::add(Vector3 param)
 // Overload operator '+' for addition
 Vector3 Vector3::operator+(Vector3 param)
 {
-    float new_x = x_ + param.x();
-    float new_y = y_ + param.y();
-    float new_z = z_ + param.z();
+    float newX = x_ + param.x();
+    float newY = y_ + param.y();
+    float newZ = z_ + param.z();
     
-    return Vector3(new_x, new_y, new_z);
+    return Vector3(newX, newY, newZ);
 }
 
 // Vector subtraction
@@ -122,11 +122,11 @@ void Vector3::subtract(Vector3 param)
 // Overload operator '-' for subtraction
 Vector3 Vector3::operator-(Vector3 param)
 {
-    float new_x = x_ - param.x();
-    float new_y = y_ - param.y();
-    float new_z = z_ - param.z();
+    float newX = x_ - param.x();
+    float newY = y_ - param.y();
+    float newZ = z_ - param.z();
     
-    return Vector3(new_x, new_y, new_z);
+    return Vector3(newX, newY, newZ);
 }
 
 // Negation
@@ -146,43 +146,43 @@ void Vector3::scale(float param)
 }
 Vector3 Vector3::operator*(float param)
 {
-    float new_x = x_ * param;
-    float new_y = y_ * param;
-    float new_z = z_ * param;
-    return Vector3(new_x, new_y, new_z);
+    float newX = x_ * param;
+    float newY = y_ * param;
+    float newZ = z_ * param;
+    return Vector3(newX, newY, newZ);
 }
 
 Vector3 Vector3::operator/(float param)
 {
-    float new_x = x_ / param;
-    float new_y = y_ / param;
-    float new_z = z_ / param;
-    return Vector3(new_x, new_y, new_z);
+    float newX = x_ / param;
+    float newY = y_ / param;
+    float newZ = z_ / param;
+    return Vector3(newX, newY, newZ);
 }
 
 // Dot product
-float Vector3::dot_product(Vector3 param)
+float Vector3::dotProduct(Vector3 param)
 {
-    float dot_product = (x_ * param.x())
+    float dotProduct = (x_ * param.x())
                        + (y_ * param.y())
                        + (z_ * param.z());
 
-    return dot_product;
+    return dotProduct;
 }
 
 // Cross product
-Vector3 Vector3::cross_product(Vector3 param)
+Vector3 Vector3::crossProduct(Vector3 param)
 {
-    float new_x = ((y_ * param.z()) - (z_ * param.y()));
-    float new_y = ((z_ * param.x()) - (x_ * param.z()));
-    float new_z = ((x_ * param.y()) - (y_ * param.x()));
+    float newX = ((y_ * param.z()) - (z_ * param.y()));
+    float newY = ((z_ * param.x()) - (x_ * param.z()));
+    float newZ = ((x_ * param.y()) - (y_ * param.x()));
     
-    return Vector3(new_x, new_y, new_z);
+    return Vector3(newX, newY, newZ);
 }
 
 Vector3 Vector3::operator*(Vector3 param)
 {
-    return cross_product(param);
+    return crossProduct(param);
 }
 
 // Magnitude (length of vector)
@@ -214,7 +214,7 @@ void Vector3::transform(Matrix4 param)
     y_ = v4.y();
     z_ = v4.z();
 }
-float Vector3::distance_from(Vector3 point)
+float Vector3::distanceFrom(Vector3 point)
 {
     float x = x_ - point.x();
     float y = y_ - point.y();
@@ -233,11 +233,11 @@ void Vector3::print()
 
 float Vector3::angle(Vector3 v)
 {
-    float dot_product = this->dot_product(v);
-    float this_mag    = this->magnitude();
-    float v_mag       = v.magnitude();
+    float dotProduct = this->dotProduct(v);
+    float thisMag    = this->magnitude();
+    float vMag       = v.magnitude();
 
-    return std::acos(dot_product / (this_mag * v_mag));
+    return std::acos(dotProduct / (thisMag * vMag));
 }
 
 std::string Vector3::str()

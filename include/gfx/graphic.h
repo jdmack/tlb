@@ -15,7 +15,7 @@ class Graphic
         int width_;                 // auto-populated
         int height_;                // auto-populated
         bool visible_;
-        std::string art_asset_;
+        std::string artAsset_;
 
         SDL_Texture * texture_;
 
@@ -29,22 +29,22 @@ class Graphic
         int width() const { return width_; }
         int height() const { return height_; }
         bool visible() const { return visible_; }
-        std::string art_asset() const { return art_asset_; }
+        std::string artAsset() const { return artAsset_; }
 
         // mutators
-        void set_position(Point position) { position_ = position; }
-        void set_width(int width) { width_ = width; }
-        void set_height(int height) { height_ = height; }
-        void set_visible(bool visible) { visible_ = visible; }
-        void set_art_asset(std::string art_asset) { art_asset_ = art_asset; }
+        void setPosition(Point position) { position_ = position; }
+        void setWidth(int width) { width_ = width; }
+        void setHeight(int height) { height_ = height; }
+        void setVisible(bool visible) { visible_ = visible; }
+        void setArtAsset(std::string artAsset) { artAsset_ = artAsset; }
 
         virtual void render(Frame * frame = nullptr);
         virtual void update();
         virtual bool toggle();
         virtual bool click(Point point);
-        bool contains_point(Point point);
+        bool containsPoint(Point point);
 
-        virtual bool load_texture(std::string art_asset);
+        virtual bool loadTexture(std::string artAsset);
 };
 
 #endif

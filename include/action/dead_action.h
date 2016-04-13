@@ -12,7 +12,7 @@ class DeadAction : public Action
     public:
         DeadAction();
 
-        bool update(Entity * entity, int delta_ticks);
+        bool update(Entity * entity, int deltaTicks);
 
 };
 

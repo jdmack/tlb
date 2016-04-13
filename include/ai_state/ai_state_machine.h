@@ -3,7 +3,7 @@
 
 #include "action/action.h"
 #include "point.h"
-#include "ai_state/ai_state.h"
+#include "aiState/aiState.h"
 
 class Entity;
 class AIState;
@@ -19,17 +19,17 @@ class AIStateMachine
 {
     private:
         Entity * entity_;
-        AIState * current_state_;
-        AIState * previous_state_;
-        AIState * next_state_;
-        GlobalState * global_state_;
+        AIState * currentState_;
+        AIState * previousState_;
+        AIState * nextState_;
+        GlobalState * globalState_;
 
-        AttackState * attack_state_;
-        DeadState * dead_state_;
-        IdleState * idle_state_;
-        MoveState * move_state_;
-        RotateState * rotate_state_;
-        SeekState * seek_state_;
+        AttackState * attackState_;
+        DeadState * deadState_;
+        IdleState * idleState_;
+        MoveState * moveState_;
+        RotateState * rotateState_;
+        SeekState * seekState_;
 
     public:
         AIStateMachine(Entity * entity);
@@ -37,35 +37,35 @@ class AIStateMachine
 
         // accessors
         Entity * entity() { return entity_; }
-        AIState * current_state() { return current_state_; }
-        AIState * previous_state() { return previous_state_; }
-        AIState * next_state() { return next_state_; }
-        GlobalState * global_state() { return global_state_; }
-        AttackState * attack_state() { return attack_state_; }
-        DeadState * dead_state() { return dead_state_; }
-        IdleState * idle_state() { return idle_state_; }
-        MoveState * move_state() { return move_state_; }
-        RotateState * rotate_state() { return rotate_state_; }
-        SeekState * seek_state() { return seek_state_; }
+        AIState * currentState() { return currentState_; }
+        AIState * previousState() { return previousState_; }
+        AIState * nextState() { return nextState_; }
+        GlobalState * globalState() { return globalState_; }
+        AttackState * attackState() { return attackState_; }
+        DeadState * deadState() { return deadState_; }
+        IdleState * idleState() { return idleState_; }
+        MoveState * moveState() { return moveState_; }
+        RotateState * rotateState() { return rotateState_; }
+        SeekState * seekState() { return seekState_; }
 
         // mutators
-        void set_entity(Entity * entity) { entity_ = entity; }
-        void set_current_state(AIState * current_state) { current_state_ = current_state; }
-        void set_previous_state(AIState * previous_state) { previous_state_ = previous_state; }
-        void set_next_state(AIState * next_state) { next_state_ = next_state; }
-        void set_global_state(GlobalState * global_state) { global_state_ = global_state; }
+        void setEntity(Entity * entity) { entity_ = entity; }
+        void setCurrentState(AIState * currentState) { currentState_ = currentState; }
+        void setPreviousState(AIState * previousState) { previousState_ = previousState; }
+        void setNextState(AIState * nextState) { nextState_ = nextState; }
+        void setGlobalState(GlobalState * globalState) { globalState_ = globalState; }
 
-        void set_next_state(AIStateType type);
-        void set_previous_state(AIStateType type);
+        void setNextState(AIStateType type);
+        void setPreviousState(AIStateType type);
 
-        void move_command(Point destination);
-        void attack_command(Entity * target);
-        void rotate_command(Point position);
+        void moveCommand(Point destination);
+        void attackCommand(Entity * target);
+        void rotateCommand(Point position);
         void aggro(Entity * target);
 
-        bool update(int delta_ticks);
+        bool update(int deltaTicks);
         void stop();
-        ActionType action_type();
+        ActionType actionType();
 
 };
 

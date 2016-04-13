@@ -5,9 +5,9 @@
 #include <stdlib.h>
 #include <cmath>
 
-#include "pathfinder_hex.h"
+#include "pathfinderHex.h"
 #include "grid.h"
-#include "grid_node.h"
+#include "gridNode.h"
 #include "util/logger.h"
 
 static int compare_GridNodes (const GridNode* a, const GridNode* b);
@@ -17,29 +17,29 @@ PathfinderHex::PathfinderHex(Grid * grid)
     grid_ = grid;
 }
 
-std::list<GridNode *> * PathfinderHex::run(GridNode * start_node, GridNode * end_node)
+std::list<GridNode *> * PathfinderHex::run(GridNode * startNode, GridNode * endNode)
 {
     //Logger::write(Logger::ss << "PathfinderHex start");
     reset();
     // 1. Add the starting square (or node) to the open list.
-    open_list.push_back(start_node);
+    openList.pushBack(startNode);
 
-    GridNode * current_node = nullptr;
+    GridNode * currentNode = nullptr;
 
     std::list<GridNode *> * path = new std::list<GridNode *>();
 
     // 2. Repeat the following:
     while(true) {
         // a) Look for the lowest F cost square on the open list. We refer to this as the current square.
-        if(!open_list.empty()) {
+        if(!openList.empty()) {
 
-            open_list.sort(compare_GridNodes);
-            //Logger::write(Logger::ss << open_list_to_string());
+            openList.sort(compare_GridNodes);
+            //Logger::write(Logger::ss << openListToString());
 
-            current_node = open_list.front();
-            open_list.pop_front();
+            currentNode = openList.front();
+            openList.popFront();
 
-            //Logger::write(Logger::ss << "current_node: " << current_node->to_string());
+            //Logger::write(Logger::ss << "currentNode: " << currentNode->toString());
         }
         else { 
             // Return empty list for "no path"
@@ -48,66 +48,66 @@ std::list<GridNode *> * PathfinderHex::run(GridNode * start_node, GridNode * end
         }
 
         // b) Switch it to the closed list.
-        closed_list.push_back(current_node);
+        closedList.pushBack(currentNode);
 
         // c) For each of the 8 squares adjacent to this current square
-        GridNode * adjacent_node = nullptr;
-        int g_cost_inc = 0;
+        GridNode * adjacentNode = nullptr;
+        int gCostInc = 0;
 
-        bool even_row = false;
-        if(current_node->row() % 2 == 0) {
-            even_row = true;
+        bool evenRow = false;
+        if(currentNode->row() % 2 == 0) {
+            evenRow = true;
         }
 
-        bool can_go_0 = false;
-        bool can_go_1 = false;
-        bool can_go_2 = false;
-        bool can_go_3 = false;
-        bool can_go_4 = false;
-        bool can_go_5 = false;
+        bool canGo_0 = false;
+        bool canGo_1 = false;
+        bool canGo_2 = false;
+        bool canGo_3 = false;
+        bool canGo_4 = false;
+        bool canGo_5 = false;
 
-        if(current_node->column() + 1 < grid_->columns()) {
-            can_go_2 = is_walkable(current_node->row(), current_node->column() + 1);
+        if(currentNode->column() + 1 < grid_->columns()) {
+            canGo_2 = isWalkable(currentNode->row(), currentNode->column() + 1);
         }
-        if(current_node->column() > 0) {
-            can_go_5 = is_walkable(current_node->row(), current_node->column() - 1);
+        if(currentNode->column() > 0) {
+            canGo_5 = isWalkable(currentNode->row(), currentNode->column() - 1);
         }
 
-        if(even_row) {
-            if((current_node->row() > 0) && (current_node->column() > 0)) {
-                can_go_0 = is_walkable(current_node->row() - 1, current_node->column() - 1);
+        if(evenRow) {
+            if((currentNode->row() > 0) && (currentNode->column() > 0)) {
+                canGo_0 = isWalkable(currentNode->row() - 1, currentNode->column() - 1);
             }
-            if(current_node->row() > 0) {
-                can_go_1 = is_walkable(current_node->row() - 1, current_node->column());
+            if(currentNode->row() > 0) {
+                canGo_1 = isWalkable(currentNode->row() - 1, currentNode->column());
             }
-            if(current_node->row() + 1 < grid_->rows()) {
-                can_go_3 = is_walkable(current_node->row() + 1, current_node->column());
+            if(currentNode->row() + 1 < grid_->rows()) {
+                canGo_3 = isWalkable(currentNode->row() + 1, currentNode->column());
             }
-            if((current_node->row() + 1 < grid_->rows()) && (current_node->column() > 0)) {
-                can_go_4 = is_walkable(current_node->row() + 1, current_node->column() - 1);
+            if((currentNode->row() + 1 < grid_->rows()) && (currentNode->column() > 0)) {
+                canGo_4 = isWalkable(currentNode->row() + 1, currentNode->column() - 1);
             }
         }
         else {
-            if(current_node->row() > 0) {
-                can_go_0 = is_walkable(current_node->row() - 1, current_node->column());
+            if(currentNode->row() > 0) {
+                canGo_0 = isWalkable(currentNode->row() - 1, currentNode->column());
             }
-            if((current_node->row() > 0) && (current_node->column() + 1 < grid_->columns())) {
-                can_go_1 = is_walkable(current_node->row() - 1, current_node->column() + 1);
+            if((currentNode->row() > 0) && (currentNode->column() + 1 < grid_->columns())) {
+                canGo_1 = isWalkable(currentNode->row() - 1, currentNode->column() + 1);
             }
-            if((current_node->row() + 1 < grid_->rows()) && (current_node->column() + 1 < grid_->columns())) {
-                can_go_3 = is_walkable(current_node->row() + 1, current_node->column() + 1);
+            if((currentNode->row() + 1 < grid_->rows()) && (currentNode->column() + 1 < grid_->columns())) {
+                canGo_3 = isWalkable(currentNode->row() + 1, currentNode->column() + 1);
             }
-            if(current_node->row() + 1 < grid_->rows()) {
-                can_go_4 = is_walkable(current_node->row() + 1, current_node->column());
+            if(currentNode->row() + 1 < grid_->rows()) {
+                canGo_4 = isWalkable(currentNode->row() + 1, currentNode->column());
             }
         }
 
-        //Logger::write(Logger::ss << "can_go_0: " << can_go_0);
-        //Logger::write(Logger::ss << "can_go_1: " << can_go_1);
-        //Logger::write(Logger::ss << "can_go_2: " << can_go_2);
-        //Logger::write(Logger::ss << "can_go_3: " << can_go_3);
-        //Logger::write(Logger::ss << "can_go_4: " << can_go_4);
-        //Logger::write(Logger::ss << "can_go_5: " << can_go_5);
+        //Logger::write(Logger::ss << "canGo_0: " << canGo_0);
+        //Logger::write(Logger::ss << "canGo_1: " << canGo_1);
+        //Logger::write(Logger::ss << "canGo_2: " << canGo_2);
+        //Logger::write(Logger::ss << "canGo_3: " << canGo_3);
+        //Logger::write(Logger::ss << "canGo_4: " << canGo_4);
+        //Logger::write(Logger::ss << "canGo_5: " << canGo_5);
         //Logger::write(Logger::ss);
 
         for(int i = 0; i < 6; i++) {
@@ -134,91 +134,91 @@ std::list<GridNode *> * PathfinderHex::run(GridNode * start_node, GridNode * end
 
             switch(i) {
                 case 0:
-                    if(!can_go_0) continue;
+                    if(!canGo_0) continue;
                     //Logger::write(Logger::ss << "0");
 
-                    if(even_row) {
-                        adjacent_node = grid_->node(current_node->row() - 1, current_node->column() - 1);
+                    if(evenRow) {
+                        adjacentNode = grid_->node(currentNode->row() - 1, currentNode->column() - 1);
                     }
                     else {
-                        adjacent_node = grid_->node(current_node->row() - 1, current_node->column());
+                        adjacentNode = grid_->node(currentNode->row() - 1, currentNode->column());
                     }
-                    g_cost_inc = kNodeCostAdj;
+                    gCostInc = kNodeCostAdj;
                     break;
                 case 1:
-                    if(!can_go_1) continue;
+                    if(!canGo_1) continue;
                     //Logger::write(Logger::ss << "1");
 
-                    if(even_row) {
-                        adjacent_node = grid_->node(current_node->row() - 1, current_node->column());
+                    if(evenRow) {
+                        adjacentNode = grid_->node(currentNode->row() - 1, currentNode->column());
                     }
                     else {
-                        adjacent_node = grid_->node(current_node->row() - 1, current_node->column() + 1);
+                        adjacentNode = grid_->node(currentNode->row() - 1, currentNode->column() + 1);
                     }
-                    g_cost_inc = kNodeCostAdj;
+                    gCostInc = kNodeCostAdj;
                     break;
                 case 2:
-                    if(!can_go_2) continue;
+                    if(!canGo_2) continue;
                     //Logger::write(Logger::ss << "2");
 
-                    adjacent_node = grid_->node(current_node->row(), current_node->column() + 1);
-                    g_cost_inc = kNodeCostAdj;
+                    adjacentNode = grid_->node(currentNode->row(), currentNode->column() + 1);
+                    gCostInc = kNodeCostAdj;
                     break;
                 case 3:
-                    if(!can_go_3) continue;
+                    if(!canGo_3) continue;
                     //Logger::write(Logger::ss << "3");
 
-                    if(even_row) {
-                        adjacent_node = grid_->node(current_node->row() + 1, current_node->column());
+                    if(evenRow) {
+                        adjacentNode = grid_->node(currentNode->row() + 1, currentNode->column());
                     }
                     else {
-                        adjacent_node = grid_->node(current_node->row() + 1, current_node->column() + 1);
+                        adjacentNode = grid_->node(currentNode->row() + 1, currentNode->column() + 1);
                     }
-                    g_cost_inc = kNodeCostAdj;
+                    gCostInc = kNodeCostAdj;
                     break;
                 case 4:
-                    if(!can_go_4) continue;
+                    if(!canGo_4) continue;
                     //Logger::write(Logger::ss << "4");
 
-                    if(even_row) {
-                        adjacent_node = grid_->node(current_node->row() + 1, current_node->column() - 1);
+                    if(evenRow) {
+                        adjacentNode = grid_->node(currentNode->row() + 1, currentNode->column() - 1);
                     }
                     else {
-                        adjacent_node = grid_->node(current_node->row() + 1, current_node->column());
+                        adjacentNode = grid_->node(currentNode->row() + 1, currentNode->column());
                     }
-                    g_cost_inc = kNodeCostAdj;
+                    gCostInc = kNodeCostAdj;
                     break;
                 case 5:
-                    if(!can_go_5) continue;
+                    if(!canGo_5) continue;
                     //Logger::write(Logger::ss << "5");
 
-                    adjacent_node = grid_->node(current_node->row(), current_node->column() - 1);
-                    g_cost_inc = kNodeCostAdj;
+                    adjacentNode = grid_->node(currentNode->row(), currentNode->column() - 1);
+                    gCostInc = kNodeCostAdj;
                     break;
             }
-            //Logger::write(Logger::ss << "\tConsidering Node: " << adjacent_node->to_string());
+            //Logger::write(Logger::ss << "\tConsidering Node: " << adjacentNode->toString());
         
             // If it is not walkable or if it is on the closed list, ignore it. Otherwise do the following.
-            //if(closed_list_contains(adjacent_node)) {
-            if(!adjacent_node->walkable()) {
+            //if(closedListContains(adjacentNode)) {
+            if(!adjacentNode->walkable()) {
                 //Logger::write(Logger::ss << "\t\tNode not walkable");
                 continue;
             }
-            if(closed_list_contains(adjacent_node)) {
+            if(closedListContains(adjacentNode)) {
                 //Logger::write(Logger::ss << "\t\tNode already on closed list");
                 continue;
             }
 
             // If it isn't on the open list, add it to the open list. Make the current square the parent of this
             // square. 
-            if(!open_list_contains(adjacent_node)) {
-                open_list.push_back(adjacent_node);
-                adjacent_node->set_parent(current_node);
+            if(!openListContains(adjacentNode)) {
+                openList.pushBack(adjacentNode);
+                adjacentNode->setParent(currentNode);
 
                 // Record the F, G, and H costs of the square.
-                adjacent_node->set_g_score(current_node->g_score() + g_cost_inc);
-                adjacent_node->set_h_score(calculate_h(adjacent_node, end_node));
-                adjacent_node->set_f_score(adjacent_node->g_score() + adjacent_node->h_score());
+                adjacentNode->setGScore(currentNode->gScore() + gCostInc);
+                adjacentNode->setHScore(calculateH(adjacentNode, endNode));
+                adjacentNode->setFScore(adjacentNode->gScore() + adjacentNode->hScore());
             }
 
             // If it is on the open list already, check to see if this path to that square is better, using G cost
@@ -227,10 +227,10 @@ std::list<GridNode *> * PathfinderHex::run(GridNode * start_node, GridNode * end
             // keeping your open list sorted by F score, you may need to resort the list to account for the
             // change.
             else {
-                if((current_node->g_score() + g_cost_inc) < adjacent_node->g_score()) {
-                    adjacent_node->set_parent(current_node);
-                    adjacent_node->set_g_score(current_node->g_score() + g_cost_inc);
-                    adjacent_node->set_f_score(adjacent_node->g_score() + adjacent_node->h_score());
+                if((currentNode->gScore() + gCostInc) < adjacentNode->gScore()) {
+                    adjacentNode->setParent(currentNode);
+                    adjacentNode->setGScore(currentNode->gScore() + gCostInc);
+                    adjacentNode->setFScore(adjacentNode->gScore() + adjacentNode->hScore());
                 }
             }
         }
@@ -239,33 +239,33 @@ std::list<GridNode *> * PathfinderHex::run(GridNode * start_node, GridNode * end
         // Add the target square to the closed list, in which case the path has been found (see note
         // below), or
         // Fail to find the target square, and the open list is empty. In this case, there is no path.
-        if((current_node->row() == end_node->row()) && (current_node->column() == end_node->column())) {
+        if((currentNode->row() == endNode->row()) && (currentNode->column() == endNode->column())) {
             break;
         }
     }
 
     // 3.  Save the path. Working backwards from the target square, go from each square to its parent square
     // until you reach the starting square. That is your path.
-    GridNode * node = end_node;
+    GridNode * node = endNode;
     while(node->parent() != nullptr) {
-        path->push_front(node);
+        path->pushFront(node);
         node = node->parent();
     }
-    path->push_front(start_node);
+    path->pushFront(startNode);
 
     return path;
 }
 
 void PathfinderHex::reset()
 {
-    open_list.clear();
-    closed_list.clear();
+    openList.clear();
+    closedList.clear();
 }
 
-bool PathfinderHex::open_list_contains(GridNode * node)
+bool PathfinderHex::openListContains(GridNode * node)
 {
-    std::list<GridNode *>::iterator it = open_list.begin();
-    for(unsigned int i = 0; i < open_list.size(); i++) {
+    std::list<GridNode *>::iterator it = openList.begin();
+    for(unsigned int i = 0; i < openList.size(); i++) {
         if(((*it)->row() == node->row()) && ((*it)->column() == node->column())) {
             return true;
         }
@@ -275,10 +275,10 @@ bool PathfinderHex::open_list_contains(GridNode * node)
     return false;
 }
 
-bool PathfinderHex::closed_list_contains(GridNode * node)
+bool PathfinderHex::closedListContains(GridNode * node)
 {
-    std::list<GridNode *>::iterator it = closed_list.begin();
-    for(unsigned int i = 0; i < closed_list.size(); i++) {
+    std::list<GridNode *>::iterator it = closedList.begin();
+    for(unsigned int i = 0; i < closedList.size(); i++) {
         if(((*it)->row() == node->row()) && ((*it)->column() == node->column())) {
             return true;
         }
@@ -288,47 +288,47 @@ bool PathfinderHex::closed_list_contains(GridNode * node)
     return false;
 }
 
-std::string PathfinderHex::open_list_to_string()
+std::string PathfinderHex::openListToString()
 {
     std::ostringstream convert;
-    convert << "open_list: \n";
-    if(!open_list.empty()) {
-        for(std::list<GridNode *>::iterator it = open_list.begin(); it != open_list.end(); ++it) {
-            convert << "\t" << (*it)->to_string() << " f_score: " << (*it)->f_score() << std::endl;
+    convert << "openList: \n";
+    if(!openList.empty()) {
+        for(std::list<GridNode *>::iterator it = openList.begin(); it != openList.end(); ++it) {
+            convert << "\t" << (*it)->toString() << " fScore: " << (*it)->fScore() << std::endl;
         }
     }
     else {
         convert << "empty"; }
-    return static_cast<std::ostringstream*>( &(convert) )->str();
+    return staticCast<std::ostringstream*>( &(convert) )->str();
 }
 
 static int compare_GridNodes (const GridNode* a, const GridNode* b)
 {
-    return a->f_score() < b->f_score();
+    return a->fScore() < b->fScore();
 }
 
-bool PathfinderHex::is_walkable(int row, int col)
+bool PathfinderHex::isWalkable(int row, int col)
 {
     return grid_->node(row, col)->walkable();
 }
 
-int PathfinderHex::calculate_h(GridNode * start, GridNode * end)
+int PathfinderHex::calculateH(GridNode * start, GridNode * end)
 {
-    int start_column = start->column();
-    int start_row = start->row();
-    int end_column = end->column();
-    int end_row = end->row();
+    int startColumn = start->column();
+    int startRow = start->row();
+    int endColumn = end->column();
+    int endRow = end->row();
 
     // Use Amit's page to determine distance
-    int start_x = start_column - (start_row - (start_row % 2)) / 2;
-    int start_z = start_row;
-    int start_y = - start_x - start_z;
+    int startX = startColumn - (startRow - (startRow % 2)) / 2;
+    int startZ = startRow;
+    int startY = - startX - startZ;
 
-    int end_x = end_column - (end_row - (end_row % 2)) / 2;
-    int end_z = end_row;
-    int end_y = - end_x - end_z;
+    int endX = endColumn - (endRow - (endRow % 2)) / 2;
+    int endZ = endRow;
+    int endY = - endX - endZ;
 
-    int distance = (std::abs(end_x - start_x) + std::abs(end_y - start_y) + std::abs(end_z - start_z)) / 2;
+    int distance = (std::abs(endX - startX) + std::abs(endY - startY) + std::abs(endZ - startZ)) / 2;
 
     return distance;
 }

@@ -22,9 +22,9 @@ void Duration::reset()
     timer_.start();
 }
 
-bool Duration::is_complete()
+bool Duration::isComplete()
 {
-    if(timer_.get_ticks() >= length_) {
+    if(timer_.getTicks() >= length_) {
         return true;
     }
     return false;

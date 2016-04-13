@@ -1,4 +1,4 @@
-#include "game_object.h"
+#include "gameObject.h"
 #include "gfx/renderer.h"
 #include "util/logger.h"
 #include "vector.h"
@@ -11,16 +11,16 @@
 // TODO (2013-08-26/JM): Refactor constructor to use constructor delegation when
 // you get a gcc 4.7 compiler
 
-int GameObject::id_counter_ = 1;
+int GameObject::idCounter_ = 1;
 
 GameObject::GameObject()
 {
-    x_position_ = 0;
-    y_position_ = 0;
-    x_velocity_ = 0;
-    y_velocity_ = 0;
-    x_acceleration_ = 0;
-    y_acceleration_ = 0;
+    xPosition_ = 0;
+    yPosition_ = 0;
+    xVelocity_ = 0;
+    yVelocity_ = 0;
+    xAcceleration_ = 0;
+    yAcceleration_ = 0;
     rotation_ = 0;
     width_ = 0;
     height_ = 0;
@@ -28,22 +28,22 @@ GameObject::GameObject()
     selectable_ = false;
     selected_ = false;
 
-    object_id_ = id_counter_++;
+    objectId_ = idCounter_++;
 
     sprite_ = nullptr;
 
-    x_abs_ = 0;
-    y_abs_ = 0;
+    xAbs_ = 0;
+    yAbs_ = 0;
 }
 
 GameObject::GameObject(Point position, double rot)
 {
-    x_position_ = position.x();
-    y_position_ = position.y();
-    x_velocity_ = 0;
-    y_velocity_ = 0;
-    x_acceleration_ = 0;
-    y_acceleration_ = 0;
+    xPosition_ = position.x();
+    yPosition_ = position.y();
+    xVelocity_ = 0;
+    yVelocity_ = 0;
+    xAcceleration_ = 0;
+    yAcceleration_ = 0;
     rotation_ = rot;
     width_ = 0;
     height_ = 0;
@@ -51,12 +51,12 @@ GameObject::GameObject(Point position, double rot)
     selectable_ = false;
     selected_ = false;
 
-    object_id_ = id_counter_++;
+    objectId_ = idCounter_++;
 
     sprite_ = nullptr;
 
-    x_abs_ = 0;
-    y_abs_ = 0;
+    xAbs_ = 0;
+    yAbs_ = 0;
 
 }
 
@@ -65,7 +65,7 @@ GameObject::~GameObject()
 
 }
 
-void GameObject::create_sprite(std::string asset)
+void GameObject::createSprite(std::string asset)
 {
     // TODO(2014-08-20/JM): Get rid of the selection asset string
     sprite_ = new Sprite(this, asset, asset);
@@ -74,13 +74,13 @@ void GameObject::create_sprite(std::string asset)
 void GameObject::render(Frame * frame)
 {
     sprite_->render(frame);
-    x_abs_ = x_position_ + frame->x();
-    y_abs_ = y_position_ + frame->y();
+    xAbs_ = xPosition_ + frame->x();
+    yAbs_ = yPosition_ + frame->y();
 }
 
-bool GameObject::contains_point(double x, double y)
+bool GameObject::containsPoint(double x, double y)
 {
-    Logger::write("GameObject::contains_point");
+    Logger::write("GameObject::containsPoint");
     return true;
 }
 
@@ -104,46 +104,46 @@ void GameObject::move(Point point)
 
 SDL_Rect GameObject::rect()
 {
-    SDL_Rect rect = { (int)x_position_, (int)y_position_, (int)width_, (int)height_ };
+    SDL_Rect rect = { (int)xPosition_, (int)yPosition_, (int)width_, (int)height_ };
     return rect;
 }
 
-bool GameObject::check_collision(SDL_Rect rect)
+bool GameObject::checkCollision(SDL_Rect rect)
 {
-    double this_top = y_position_ - (height_ / 2);
-    double this_bottom = y_position_ + (height_ / 2);
-    double this_left = x_position_ - (width_ / 2);
-    double this_right = x_position_ + (width_ / 2);
+    double thisTop = yPosition_ - (height_ / 2);
+    double thisBottom = yPosition_ + (height_ / 2);
+    double thisLeft = xPosition_ - (width_ / 2);
+    double thisRight = xPosition_ + (width_ / 2);
 
-    double other_top = rect.y;
-    double other_bottom = rect.y + rect.h;
-    double other_left = rect.x;
-    double other_right = rect.x + rect.w;
+    double otherTop = rect.y;
+    double otherBottom = rect.y + rect.h;
+    double otherLeft = rect.x;
+    double otherRight = rect.x + rect.w;
 
 
-    if(this_top >= other_bottom) {
+    if(thisTop >= otherBottom) {
         return false;
     }
 
-    if(this_bottom <= other_top) {
+    if(thisBottom <= otherTop) {
         return false;
     }
 
 
-    if(this_left >= other_right) {
+    if(thisLeft >= otherRight) {
         return false;
     }
 
-    if(this_right <= other_left) {
+    if(thisRight <= otherLeft) {
         return false;
     }
 
     return true;
 }
 // TODO(2013-09-05/JM): Create a colission class to add to all objects to use for top/bottom/left/right/etc boundaries instead of always doing this x + (w/2) stuff
-void GameObject::fix_collision(SDL_Rect rect)
+void GameObject::fixCollision(SDL_Rect rect)
 {
-    //if(x_velocity_ >
+    //if(xVelocity_ >
 // TODO(2013-09-05/JM): Finish this function
 
 
@@ -152,14 +152,14 @@ void GameObject::fix_collision(SDL_Rect rect)
 
 Point GameObject::position()
 {
-    position_ = Point(x_position_, y_position_);
+    position_ = Point(xPosition_, yPosition_);
     return position_;
 }
 
-void GameObject::set_position(Point position)
+void GameObject::setPosition(Point position)
 {
     position_ = position;
-    x_position_ = position_.x();
-    y_position_ = position_.y();
+    xPosition_ = position_.x();
+    yPosition_ = position_.y();
 }
 

@@ -1,7 +1,7 @@
 #include <vector>
 
-#include "win_condition.h"
-#include "entity_manager.h"
+#include "winCondition.h"
+#include "entityManager.h"
 #include "entity.h"
 #include "game.h"
 
@@ -12,12 +12,12 @@ WinCondition::WinCondition()
 
 bool WinCondition::check()
 {
-    return check_enemies();
+    return checkEnemies();
 }
 
-bool WinCondition::check_enemies()
+bool WinCondition::checkEnemies()
 {
-    std::vector<Entity *> entities = Game::instance()->entity_manager()->get_entities();
+    std::vector<Entity *> entities = Game::instance()->entityManager()->getEntities();
     for(std::vector<Entity *>::iterator it = entities.begin(); it != entities.end(); ++it) {
         if((*it)->type() == ZOMBIE) {
             if(!(*it)->dead()) {

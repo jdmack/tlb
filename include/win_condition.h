@@ -4,7 +4,7 @@
 class WinCondition
 {
     private:
-        bool check_enemies();
+        bool checkEnemies();
 
     public:
         WinCondition();

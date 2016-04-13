@@ -16,7 +16,7 @@ class Pathfinder
         virtual ~Pathfinder();
 
 
-        virtual std::list<GridNode *> * run(GridNode * start_node, GridNode * end_node);
+        virtual std::list<GridNode *> * run(GridNode * startNode, GridNode * endNode);
 
 };
 #endif

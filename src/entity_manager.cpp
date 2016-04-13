@@ -1,8 +1,8 @@
 
-#include "entity_manager.h"
+#include "entityManager.h"
 #include "gfx/renderer.h"
 #include "game.h"
-#include "game_object.h"
+#include "gameObject.h"
 #include "util/logger.h"
 #include "point.h"
 #include "entity.h"
@@ -24,9 +24,9 @@ EntityManager::EntityManager()
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void EntityManager::add_object(GameObject * object)
+void EntityManager::addObject(GameObject * object)
 {
-    objects_->push_back(object);
+    objects_->pushBack(object);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -34,15 +34,15 @@ void EntityManager::add_object(GameObject * object)
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void EntityManager::remove_object(GameObject * object)
+void EntityManager::removeObject(GameObject * object)
 {
-    std::list<GameObject *>::iterator object_iterator = objects_->begin();
-    while(object_iterator != objects_->end()) {
-        if(object == *object_iterator) {
-            object_iterator = objects_->erase(object_iterator);
+    std::list<GameObject *>::iterator objectIterator = objects_->begin();
+    while(objectIterator != objects_->end()) {
+        if(object == *objectIterator) {
+            objectIterator = objects_->erase(objectIterator);
         }
         else {
-            object_iterator++;
+            objectIterator++;
         }
     }
 }
@@ -52,17 +52,17 @@ void EntityManager::remove_object(GameObject * object)
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void EntityManager::delete_object(GameObject * object)
+void EntityManager::deleteObject(GameObject * object)
 {
-    std::list<GameObject *>::iterator object_iterator = objects_->begin();
-    while(object_iterator != objects_->end()) {
+    std::list<GameObject *>::iterator objectIterator = objects_->begin();
+    while(objectIterator != objects_->end()) {
 
-        if(object == *object_iterator) {
-            object_iterator = objects_->erase(object_iterator);
+        if(object == *objectIterator) {
+            objectIterator = objects_->erase(objectIterator);
             delete object;
         }
         else {
-            object_iterator++;
+            objectIterator++;
         }
     }
 }
@@ -72,15 +72,15 @@ void EntityManager::delete_object(GameObject * object)
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void EntityManager::delete_all()
+void EntityManager::deleteAll()
 {
-    deselect_all();
+    deselectAll();
 
-    std::list<GameObject *>::iterator object_iterator = objects_->begin();
-    while(object_iterator != objects_->end()) {
+    std::list<GameObject *>::iterator objectIterator = objects_->begin();
+    while(objectIterator != objects_->end()) {
 
-        GameObject * object = *object_iterator;
-        object_iterator = objects_->erase(object_iterator);
+        GameObject * object = *objectIterator;
+        objectIterator = objects_->erase(objectIterator);
         object->deselect();
         delete object;
     }
@@ -91,12 +91,12 @@ void EntityManager::delete_all()
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-GameObject * EntityManager::get_object_at(double x, double y)
+GameObject * EntityManager::getObjectAt(double x, double y)
 {
-    Logger::write(Logger::ss << "get_object_at(" << x << ", " << y << ")");
-    for(std::list<GameObject *>::iterator object_iterator = objects_->begin(); object_iterator != objects_->end(); ++object_iterator) {
-        if((*object_iterator)->contains_point(x, y)) {
-            return *object_iterator;
+    Logger::write(Logger::ss << "getObjectAt(" << x << ", " << y << ")");
+    for(std::list<GameObject *>::iterator objectIterator = objects_->begin(); objectIterator != objects_->end(); ++objectIterator) {
+        if((*objectIterator)->containsPoint(x, y)) {
+            return *objectIterator;
         }
     }
 
@@ -108,15 +108,15 @@ GameObject * EntityManager::get_object_at(double x, double y)
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-std::vector<Entity *> EntityManager::get_entities()
+std::vector<Entity *> EntityManager::getEntities()
 {
     std::vector<Entity *> entities;
 
-    for(std::list<GameObject *>::iterator object_iterator = objects_->begin(); object_iterator != objects_->end(); ++object_iterator) {
-        GameObject * object = *object_iterator;
-        if(object->is_entity()) {
-            Entity * entity = static_cast<Entity *>(object);
-            entities.push_back(entity);
+    for(std::list<GameObject *>::iterator objectIterator = objects_->begin(); objectIterator != objects_->end(); ++objectIterator) {
+        GameObject * object = *objectIterator;
+        if(object->isEntity()) {
+            Entity * entity = staticCast<Entity *>(object);
+            entities.pushBack(entity);
         }
     }
 
@@ -128,18 +128,18 @@ std::vector<Entity *> EntityManager::get_entities()
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-std::vector<Entity *> EntityManager::get_entities_near(Point position, double radius)
+std::vector<Entity *> EntityManager::getEntitiesNear(Point position, double radius)
 {
     std::vector<Entity *> entities;
 
-    for(std::list<GameObject *>::iterator object_iterator = objects_->begin(); object_iterator != objects_->end(); ++object_iterator) {
-        GameObject * object = *object_iterator;
-        if(object->is_entity()) {
-            Entity * entity = static_cast<Entity *>(object);
-            Point p = Point(entity->x_position(), entity->y_position());
-            double distance = p.distance_from(position);
+    for(std::list<GameObject *>::iterator objectIterator = objects_->begin(); objectIterator != objects_->end(); ++objectIterator) {
+        GameObject * object = *objectIterator;
+        if(object->isEntity()) {
+            Entity * entity = staticCast<Entity *>(object);
+            Point p = Point(entity->xPosition(), entity->yPosition());
+            double distance = p.distanceFrom(position);
             if(distance <= radius) {
-                entities.push_back(entity);
+                entities.pushBack(entity);
             }
         }
     }
@@ -155,8 +155,8 @@ std::vector<Entity *> EntityManager::get_entities_near(Point position, double ra
 void EntityManager::select(GameObject * object)
 {
     object->select();
-    selected_ = static_cast<Entity *>(object);
-    //selected_->push_back(object);
+    selected_ = staticCast<Entity *>(object);
+    //selected_->pushBack(object);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -168,17 +168,17 @@ void EntityManager::deselect(GameObject * object)
 {
     object->deselect();
     /*
-    std::list<GameObject *>::iterator selected_iterator = selected_->begin();
+    std::list<GameObject *>::iterator selectedIterator = selected_->begin();
 
-    while(selected_iterator != selected_->end()) {
+    while(selectedIterator != selected_->end()) {
 
-        if((*selected_iterator)->object_id() == object->object_id()) {
-            (*selected_iterator)->deselect();
-            selected_iterator = selected_->erase(selected_iterator);
+        if((*selectedIterator)->objectId() == object->objectId()) {
+            (*selectedIterator)->deselect();
+            selectedIterator = selected_->erase(selectedIterator);
             break;
         }
         else {
-            selected_iterator++;
+            selectedIterator++;
         }
     }
     */
@@ -190,20 +190,20 @@ void EntityManager::deselect(GameObject * object)
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
-void EntityManager::deselect_all()
+void EntityManager::deselectAll()
 {
     if(selected_ != nullptr) {
         selected_->deselect();
         selected_ = nullptr;
     }
     /*
-    std::list<GameObject *>::iterator selected_iterator = selected_->begin();
+    std::list<GameObject *>::iterator selectedIterator = selected_->begin();
 
-    while(selected_iterator != selected_->end()) {
+    while(selectedIterator != selected_->end()) {
 
-        (*selected_iterator)->deselect();
+        (*selectedIterator)->deselect();
 
-        selected_iterator = selected_->erase(selected_iterator);
+        selectedIterator = selected_->erase(selectedIterator);
     }
     */
 }

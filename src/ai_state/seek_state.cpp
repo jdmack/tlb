@@ -1,18 +1,18 @@
-#include "ai_state/seek_state.h"
-#include "ai_state/idle_state.h"
-#include "ai_state/attack_state.h"
-#include "ai_state/ai_state_machine.h"
+#include "aiState/seekState.h"
+#include "aiState/idleState.h"
+#include "aiState/attackState.h"
+#include "aiState/aiStateMachine.h"
 #include "util/logger.h"
 #include "entity.h"
-#include "action/move_action.h"
+#include "action/moveAction.h"
 #include "game.h"
 
-SeekState::SeekState(AIStateMachine * state_machine, Entity * entity)
+SeekState::SeekState(AIStateMachine * stateMachine, Entity * entity)
 {
     type_ = STATE_SEEK;
-    state_machine_ = state_machine;
+    stateMachine_ = stateMachine;
     entity_ = entity;
-    move_action_ = nullptr;
+    moveAction_ = nullptr;
     target_ = nullptr;
 }
 
@@ -21,14 +21,14 @@ SeekState::~SeekState()
 
 }
 
-bool SeekState::update(int delta_ticks)
+bool SeekState::update(int deltaTicks)
 {
-    // Only do state transition checks if next_state hasn't been chosen yet
-    if(state_machine_->next_state() == nullptr) {
+    // Only do state transition checks if nextState hasn't been chosen yet
+    if(stateMachine_->nextState() == nullptr) {
 
         if(target_ == nullptr) {
             // switch to IDLE
-            state_machine_->set_next_state(STATE_IDLE);
+            stateMachine_->setNextState(STATE_IDLE);
             return false;
         }
 
@@ -36,77 +36,77 @@ bool SeekState::update(int delta_ticks)
 
         // check if target has exceeded leash range
         if(entity_->type() == ZOMBIE) {
-            if(position.distance_from(Point(target_->x_position(), target_->y_position())) > kZombieLeashRadius) {
-                move_action_->stop();
-                state_machine_->set_next_state(STATE_IDLE);
+            if(position.distanceFrom(Point(target_->xPosition(), target_->yPosition())) > kZombieLeashRadius) {
+                moveAction_->stop();
+                stateMachine_->setNextState(STATE_IDLE);
 
                 Logger::write("SEEK: Out of leash range");
-                Logger::write(Logger::ss << position.distance_from(Point(target_->x_position(), target_->y_position())));
+                Logger::write(Logger::ss << position.distanceFrom(Point(target_->xPosition(), target_->yPosition())));
 
-                Point target_position = Point(target_->x_position(), target_->y_position());
-                Point entity_position = Point(entity_->x_position(), entity_->y_position());
+                Point targetPosition = Point(target_->xPosition(), target_->yPosition());
+                Point entityPosition = Point(entity_->xPosition(), entity_->yPosition());
 
-                Logger::write(Logger::ss << "Entity Position: " << entity_position.to_string());
-                Logger::write(Logger::ss << "Target Position: " << target_position.to_string());
+                Logger::write(Logger::ss << "Entity Position: " << entityPosition.toString());
+                Logger::write(Logger::ss << "Target Position: " << targetPosition.toString());
             }
         }
 
         // check if target has moved far from we think it is
         // TODO(2014-08-15/JM): Hard coded number 12 here for distance, change
-        else if(target_last_position_.distance_from(target_->position()) >= 12) {
-            move_action_->stop();
-            state_machine_->set_next_state(STATE_SEEK);
+        else if(targetLastPosition_.distanceFrom(target_->position()) >= 12) {
+            moveAction_->stop();
+            stateMachine_->setNextState(STATE_SEEK);
             Logger::write("SEEK: Recalculating movement to target");
         }
 
         // check if we are in attack range
-        else if(entity_->position().distance_from(target_->position()) <= state_machine_->attack_state()->range()) {
-            move_action_->stop();
-            state_machine_->set_next_state(STATE_ATTACK);
-            state_machine_->attack_state()->set_target(target_);
+        else if(entity_->position().distanceFrom(target_->position()) <= stateMachine_->attackState()->range()) {
+            moveAction_->stop();
+            stateMachine_->setNextState(STATE_ATTACK);
+            stateMachine_->attackState()->setTarget(target_);
         }
 
     }
 
     // Perform movement
 
-    bool keep_action = move_action_->update(entity_, delta_ticks);
+    bool keepAction = moveAction_->update(entity_, deltaTicks);
 
-    if(!keep_action) {
-        if(state_machine_->next_state() == nullptr) {
-            state_machine_->attack_state()->set_target(target_);
-            state_machine_->set_next_state(STATE_ATTACK);
+    if(!keepAction) {
+        if(stateMachine_->nextState() == nullptr) {
+            stateMachine_->attackState()->setTarget(target_);
+            stateMachine_->setNextState(STATE_ATTACK);
         }
     }
 
-    return keep_action;
+    return keepAction;
 }
 
 void SeekState::stop()
 {
-    if(move_action_ != nullptr) {
-        move_action_->stop();
+    if(moveAction_ != nullptr) {
+        moveAction_->stop();
     }
 }
 
 void SeekState::start()
 {
-    Logger::write(Logger::ss << "Entity: " << entity_->object_id() << " - Entering State: SEEK");
+    Logger::write(Logger::ss << "Entity: " << entity_->objectId() << " - Entering State: SEEK");
 
-    move_action_ = new MoveAction(entity_->position(), target_->position(), Game::instance()->level());
-    move_action_->remove_movements_back();
-    target_last_position_ = Point(target_->x_position(), target_->y_position());
+    moveAction_ = new MoveAction(entity_->position(), target_->position(), Game::instance()->level());
+    moveAction_->removeMovementsBack();
+    targetLastPosition_ = Point(target_->xPosition(), target_->yPosition());
 
 }
 
 void SeekState::end()
 {
-    Logger::write(Logger::ss << "Entity: " << entity_->object_id() << " - Exiting  State: SEEK");
-    delete move_action_;
-    move_action_ = nullptr;
+    Logger::write(Logger::ss << "Entity: " << entity_->objectId() << " - Exiting  State: SEEK");
+    delete moveAction_;
+    moveAction_ = nullptr;
 }
 
-ActionType SeekState::action_type()
+ActionType SeekState::actionType()
 {
     return ACTION_MOVE;
 }

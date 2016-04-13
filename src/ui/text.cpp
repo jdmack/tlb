@@ -1,4 +1,4 @@
-#include "SDL2/SDL_ttf.h"
+#include "SDL2/SDLTtf.h"
 #include "SDL2/SDL.h"
 #include "ui/text.h"
 #include "point.h"
@@ -17,11 +17,11 @@ Text::Text()
     visible_ = true;
     text_ = "";
     color_ = Color(0, 0, 0);
-    font_asset_ = kAssetFontUbuntuMono;
+    fontAsset_ = kAssetFontUbuntuMono;
 
     texture_ = nullptr;
     renderer_ = nullptr;
-    font_ = load_font(font_asset_, size_);
+    font_ = loadFont(fontAsset_, size_);
 }
 
 Text::Text(std::string text, int size)
@@ -33,12 +33,12 @@ Text::Text(std::string text, int size)
     wrap_ = kDefaultTextWrap;
     visible_ = true;
     color_ = Color(255, 255, 255);
-    font_asset_ = kAssetFontUbuntuMono;
+    fontAsset_ = kAssetFontUbuntuMono;
     texture_ = nullptr;
     renderer_ = nullptr;
-    font_ = load_font(font_asset_, size_);
+    font_ = loadFont(fontAsset_, size_);
 
-    set_text(text);
+    setText(text);
 }
 
 Text::~Text()
@@ -46,16 +46,16 @@ Text::~Text()
     SDL_DestroyTexture(texture_);
 }
 
-void Text::set_text(std::string text)
+void Text::setText(std::string text)
 {
     text_ = text;
 
     //Render text surface
     SDL_Color color = { color_.red(), color_.green(), color_.blue() };
-    //SDL_Surface * surface = TTF_RenderText_Solid(font_, text_.c_str(), color);
-    SDL_Surface * surface = TTF_RenderText_Blended_Wrapped(font_, text_.c_str(), color, wrap_);
+    //SDL_Surface * surface = TTF_RenderText_Solid(font_, text_.cStr(), color);
+    SDL_Surface * surface = TTF_RenderText_Blended_Wrapped(font_, text_.cStr(), color, wrap_);
     if(surface == nullptr) {
-        Logger::write(Logger::ss << "Unable to render text surface! SDL_ttf Error: " << TTF_GetError());
+        Logger::write(Logger::ss << "Unable to render text surface! SDLTtf Error: " << TTF_GetError());
     }
     else
     {
@@ -74,11 +74,11 @@ void Text::set_text(std::string text)
     }
 }
 
-TTF_Font * Text::load_font(std::string filename, int size)
+TTF_Font * Text::loadFont(std::string filename, int size)
 {
-    TTF_Font * font = TTF_OpenFont(filename.c_str(), size);
+    TTF_Font * font = TTF_OpenFont(filename.cStr(), size);
         if(font == nullptr) {
-            Logger::write(Logger::ss << "Failed to load font! SDL_ttf Error: " << TTF_GetError());
+            Logger::write(Logger::ss << "Failed to load font! SDLTtf Error: " << TTF_GetError());
         }
         return font;
 }
@@ -91,16 +91,16 @@ void Text::render(Frame * frame)
     SDL_Rect offset = { (int)position_.x(), (int)position_.y(), width_, height_ };
 
     Renderer * renderer = Game::instance()->renderer();
-    renderer->render_texture_frame(texture_, frame, &offset);
+    renderer->renderTextureFrame(texture_, frame, &offset);
 
 }
 
 void Text::update()
 {
-    set_text(text_);
+    setText(text_);
 }
 
-void Text::reload_font()
+void Text::reloadFont()
 {
-    font_ = load_font(font_asset_, size_);
+    font_ = loadFont(fontAsset_, size_);
 }

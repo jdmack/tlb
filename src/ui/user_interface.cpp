@@ -1,13 +1,13 @@
 #include <vector>
-#include "ui/user_interface.h"
-#include "ui/ui_element.h"
+#include "ui/userInterface.h"
+#include "ui/uiElement.h"
 #include "ui/panel.h"
 #include "assets.h"
-#include "ui/game_timer.h"
+#include "ui/gameTimer.h"
 #include "ui/text.h"
-#include "ui/text_panel.h"
-#include "ui/character_panel.h"
-#include "util/global_timer.h"
+#include "ui/textPanel.h"
+#include "ui/characterPanel.h"
+#include "util/globalTimer.h"
 
 UserInterface::UserInterface()
 {
@@ -15,34 +15,34 @@ UserInterface::UserInterface()
 
     // setup UI elements
     Panel * panel = new Panel();
-    panel->load_texture(kAssetUIBackgroundPanel);
-    panel->set_position(Point(0, 0));
-    add_element(panel);
+    panel->loadTexture(kAssetUIBackgroundPanel);
+    panel->setPosition(Point(0, 0));
+    addElement(panel);
 
     GameTimer * timer = new GameTimer();
-    timer->load_texture(kAssetUIGameTimerPanel);
-    timer->set_position(Point(9, 9));
-    panel->add_element(timer);
+    timer->loadTexture(kAssetUIGameTimerPanel);
+    timer->setPosition(Point(9, 9));
+    panel->addElement(timer);
 
-    paused_panel_ = new TextPanel();
-    paused_panel_->load_texture(kAssetUIPausedPanel);
-    paused_panel_->set_position(Point(9, 101));
-    panel->add_element(paused_panel_);
+    pausedPanel_ = new TextPanel();
+    pausedPanel_->loadTexture(kAssetUIPausedPanel);
+    pausedPanel_->setPosition(Point(9, 101));
+    panel->addElement(pausedPanel_);
     Text * text = new Text("PAUSED");
-    text->set_position(Point(22, 118));
-    text->set_size(50);
-    text->reload_font();
+    text->setPosition(Point(22, 118));
+    text->setSize(50);
+    text->reloadFont();
     text->update();
-    paused_panel_->set_text(text);
+    pausedPanel_->setText(text);
 
-    character_panel_[0] = new CharacterPanel();
-    character_panel_[0]->set_position(Point(9, 195));
+    characterPanel_[0] = new CharacterPanel();
+    characterPanel_[0]->setPosition(Point(9, 195));
 
     /*
     UIElement * element = new UIElement();
-    element->load_texture(kAssetUIGameTimerPanel);
-    element->set_position(Point(9, 9));
-    panel->add_element(element);
+    element->loadTexture(kAssetUIGameTimerPanel);
+    element->setPosition(Point(9, 9));
+    panel->addElement(element);
     */
 
     //element
@@ -50,48 +50,48 @@ UserInterface::UserInterface()
 
 UserInterface::~UserInterface()
 {
-    for(std::vector<UIElement *>::iterator element_iterator = elements_.begin(); element_iterator != elements_.end(); ++element_iterator) {
-        delete *element_iterator;
+    for(std::vector<UIElement *>::iterator elementIterator = elements_.begin(); elementIterator != elements_.end(); ++elementIterator) {
+        delete *elementIterator;
     }
 }
 
-void UserInterface::add_element(UIElement * element)
+void UserInterface::addElement(UIElement * element)
 {
-    elements_.push_back(element);
+    elements_.pushBack(element);
 }
 
 void UserInterface::render(Frame * frame)
 {
-    for(std::vector<UIElement *>::iterator element_iterator = elements_.begin(); element_iterator != elements_.end(); ++element_iterator) {
-        (*element_iterator)->render(frame);
+    for(std::vector<UIElement *>::iterator elementIterator = elements_.begin(); elementIterator != elements_.end(); ++elementIterator) {
+        (*elementIterator)->render(frame);
     }
-    character_panel_[0]->render(frame);
+    characterPanel_[0]->render(frame);
 }
 
 void UserInterface::update()
 {
-    for(std::vector<UIElement *>::iterator element_iterator = elements_.begin(); element_iterator != elements_.end(); ++element_iterator) {
-        (*element_iterator)->update();
+    for(std::vector<UIElement *>::iterator elementIterator = elements_.begin(); elementIterator != elements_.end(); ++elementIterator) {
+        (*elementIterator)->update();
     }
-    if(paused_panel_ != nullptr) {
-        paused_panel_->text()->set_visible(GlobalTimer::instance()->paused());
+    if(pausedPanel_ != nullptr) {
+        pausedPanel_->text()->setVisible(GlobalTimer::instance()->paused());
     }
 }
 
 bool UserInterface::click(Point point)
 {
-    for(std::vector<UIElement *>::iterator element_iterator = elements_.begin(); element_iterator != elements_.end(); ++element_iterator) {
-        bool click_return = (*element_iterator)->click(point);
-        if(click_return) return click_return;
+    for(std::vector<UIElement *>::iterator elementIterator = elements_.begin(); elementIterator != elements_.end(); ++elementIterator) {
+        bool clickReturn = (*elementIterator)->click(point);
+        if(clickReturn) return clickReturn;
     }
-    return character_panel_[0]->click(point);
+    return characterPanel_[0]->click(point);
 }
 
-bool UserInterface::contains_point(Point point)
+bool UserInterface::containsPoint(Point point)
 {
-    for(std::vector<UIElement *>::iterator element_iterator = elements_.begin(); element_iterator != elements_.end(); ++element_iterator) {
-        bool value = (*element_iterator)->contains_point(point);
+    for(std::vector<UIElement *>::iterator elementIterator = elements_.begin(); elementIterator != elements_.end(); ++elementIterator) {
+        bool value = (*elementIterator)->containsPoint(point);
         if(value) return value;
     }
-    return character_panel_[0]->contains_point(point);
+    return characterPanel_[0]->containsPoint(point);
 }

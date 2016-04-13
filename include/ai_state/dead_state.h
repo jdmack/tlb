@@ -1,7 +1,7 @@
 #ifndef TLB_AI_STATE_DEAD_STATE_H_
 #define TLB_AI_STATE_DEAD_STATE_H_
 
-#include "ai_state/ai_state.h"
+#include "aiState/aiState.h"
 #include "action/action.h"
 
 class Entity;
@@ -12,7 +12,7 @@ class DeadState : public AIState
     private:
 
     public:
-        DeadState(AIStateMachine * state_machine, Entity * entity);
+        DeadState(AIStateMachine * stateMachine, Entity * entity);
         ~DeadState();
 
         // accessors
@@ -20,11 +20,11 @@ class DeadState : public AIState
 
         // mutators
 
-        bool update(int delta_ticks);
+        bool update(int deltaTicks);
         void stop();
         void start();
         void end();
-        ActionType action_type();
+        ActionType actionType();
 
 };
 

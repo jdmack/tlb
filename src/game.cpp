@@ -6,32 +6,32 @@
 #include "game.h"
 #include "entity.h"
 #include "gfx/renderer.h"
-#include "entity_manager.h"
-#include "event_manager.h"
+#include "entityManager.h"
+#include "eventManager.h"
 #include "util/logger.h"
 #include "gfx/camera.h"
 #include "level.h"
-#include "gs_level.h"
-#include "gs_level_select.h"
-#include "game_state.h"
-#include "util/global_timer.h"
-#include "event/event_dispatcher.h"
+#include "gsLevel.h"
+#include "gsLevelSelect.h"
+#include "gameState.h"
+#include "util/globalTimer.h"
+#include "event/eventDispatcher.h"
 
 Game * Game::instance_;// = nullptr;
 
 Game::Game()
 {
-    exit_code_ = 0;
+    exitCode_ = 0;
     quit_ = false;
     renderer_ = new Renderer();
-    entity_manager_ = new EntityManager();
-    event_manager_ = new EventManager();
+    entityManager_ = new EntityManager();
+    eventManager_ = new EventManager();
     camera_ = new Camera();
-    renderer_->set_camera(camera_);
+    renderer_->setCamera(camera_);
     level_ = nullptr;
 
-    current_state_ = nullptr;
-    next_state_ = nullptr;
+    currentState_ = nullptr;
+    nextState_ = nullptr;
 }
 
 Game::~Game()
@@ -59,10 +59,10 @@ int Game::run()
     }
 
     // Setup initial state - need to do this after renderer is initialized or bad things happen
-    current_state_ = static_cast<GameState *>(new GSLevel());   // change this
-    //current_state_ = static_cast<GameState *>(new GSLevelSelect());
+    currentState_ = staticCast<GameState *>(new GSLevel());   // change this
+    //currentState_ = staticCast<GameState *>(new GSLevelSelect());
 
-    if(!current_state_->init()) {
+    if(!currentState_->init()) {
         return 1;
     }
 
@@ -70,58 +70,58 @@ int Game::run()
     EventDispatcher::instance();
     GlobalTimer::instance()->start();
 
-    delta_timer_.start();
+    deltaTimer_.start();
 
-    game_loop();
+    gameLoop();
 
     //Clean up
-    renderer_->clean_up();
+    renderer_->cleanUp();
 
     Logger::write("Game shutting down");
-    return exit_code_;
+    return exitCode_;
 }
 
-void Game::game_loop()
+void Game::gameLoop()
 {
-    //current_state_->init();
+    //currentState_->init();
     // Main Loop
     while(!quit_) {
 
         // Handle Events - state agnostic
-        event_manager_->handle_events();
+        eventManager_->handleEvents();
 
         // Update
-        //if(delta_timer_.get_ticks() >= 33) {
-        bool keep_state = current_state_->update(delta_timer_.get_ticks());
+        //if(deltaTimer_.getTicks() >= 33) {
+        bool keepState = currentState_->update(deltaTimer_.getTicks());
 
-        delta_timer_.start();
+        deltaTimer_.start();
 
         // Draw
         //renderer_->clear();
-        current_state_->render();
+        currentState_->render();
 
         renderer_->update();
 
-        if(!keep_state) {
-            change_state();
+        if(!keepState) {
+            changeState();
         }
     }
 
 }
 
-bool Game::change_state()
+bool Game::changeState()
 {
-    current_state_->end();
+    currentState_->end();
 
-    if(next_state_ == nullptr) {
+    if(nextState_ == nullptr) {
         quit_ = true;
         return true;
     }
 
-    current_state_ = next_state_;
-    next_state_ = nullptr;
+    currentState_ = nextState_;
+    nextState_ = nullptr;
 
-    current_state_->init();
+    currentState_->init();
 
     return true;
 }
@@ -129,7 +129,7 @@ bool Game::change_state()
 
 // placeholder functions (not implemented yet)
 
-void Game::process_arguments(int argc, char * argv[])
+void Game::processArguments(int argc, char * argv[])
 {
 
 }

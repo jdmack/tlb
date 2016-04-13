@@ -1,27 +1,27 @@
 #include <vector>
 
-#include "gs_level.h"
+#include "gsLevel.h"
 
 #include "gfx/renderer.h"
 #include "game.h"
 #include "level.h"
-#include "entity_manager.h"
+#include "entityManager.h"
 #include "entity.h"
 #include "assets.h"
 #include "util/logger.h"
-#include "ui/user_interface.h"
-#include "event/eh_level.h"
-#include "event/event_dispatcher.h"
-#include "ui/character_panel.h"
+#include "ui/userInterface.h"
+#include "event/ehLevel.h"
+#include "event/eventDispatcher.h"
+#include "ui/characterPanel.h"
 #include "gfx/model.h"
 
 
 GSLevel::GSLevel()
 {
     type_ = GS_LEVEL;
-    user_interface_ = nullptr;
-    level_area_ = new Frame(200, 0, 976, 864);
-    event_handler_ = new EHLevel();
+    userInterface_ = nullptr;
+    levelArea_ = new Frame(200, 0, 976, 864);
+    eventHandler_ = new EHLevel();
 }
 
 bool GSLevel::init()
@@ -35,21 +35,21 @@ bool GSLevel::init()
     //    return false;
     //}
 
-    //Game::instance()->set_level(level);
+    //Game::instance()->setLevel(level);
 
-    //user_interface_ = new UserInterface();
+    //userInterface_ = new UserInterface();
 
-    EventDispatcher::instance()->register_handler(event_handler_);
+    EventDispatcher::instance()->registerHandler(eventHandler_);
 
     // (264,216)
-    ///*Entity * char1   = */spawn_entity(PLAYER, Point(48 * 1 + 24, 48 * 1 + 24), 90);
-    ///*Entity * zombie1 = */spawn_entity(ZOMBIE, Point(48 * 5 + 24, 48 * 5 + 24), 270);
+    ///*Entity * char1   = */spawnEntity(PLAYER, Point(48 * 1 + 24, 48 * 1 + 24), 90);
+    ///*Entity * zombie1 = */spawnEntity(ZOMBIE, Point(48 * 5 + 24, 48 * 5 + 24), 270);
 
-    //Entity * zombie2 = spawn_entity(ZOMBIE, Point(48 * 5 + 24, 48 * 1 + 24), 90);
-    //Entity * zombie3 = spawn_entity(ZOMBIE, Point(48 * 6 + 24, 48 * 1 + 24), 90);
-    //Entity * zombie4 = spawn_entity(ZOMBIE, Point(48 * 7 + 24, 48 * 1 + 24), 90);
-    //Entity * zombie5 = spawn_entity(ZOMBIE, Point(48 * 8 + 24, 48 * 1 + 24), 0);
-    //Entity * zombie6 = spawn_entity(ZOMBIE, Point(48 * 7 + 24, 48 * 1 + 24), 0);
+    //Entity * zombie2 = spawnEntity(ZOMBIE, Point(48 * 5 + 24, 48 * 1 + 24), 90);
+    //Entity * zombie3 = spawnEntity(ZOMBIE, Point(48 * 6 + 24, 48 * 1 + 24), 90);
+    //Entity * zombie4 = spawnEntity(ZOMBIE, Point(48 * 7 + 24, 48 * 1 + 24), 90);
+    //Entity * zombie5 = spawnEntity(ZOMBIE, Point(48 * 8 + 24, 48 * 1 + 24), 0);
+    //Entity * zombie6 = spawnEntity(ZOMBIE, Point(48 * 7 + 24, 48 * 1 + 24), 0);
 
     // FOR TESTING
     model_ = new Model();
@@ -57,39 +57,39 @@ bool GSLevel::init()
     return true;
 }
 
-bool GSLevel::update(int delta_ticks)
+bool GSLevel::update(int deltaTicks)
 {
-    //if(win_condition_.check()) {
+    //if(winCondition_.check()) {
         // TODO(2015-05-13/JM): Going to want to change this to transition to another state instead of quit
-    //    Game::instance()->set_quit(true);
+    //    Game::instance()->setQuit(true);
     //}
 
-    std::vector<Entity *> entities = Game::instance()->entity_manager()->get_entities();
+    std::vector<Entity *> entities = Game::instance()->entityManager()->getEntities();
 
     // Update
-    for(std::vector<Entity *>::iterator entity_iterator = entities.begin(); entity_iterator != entities.end(); ++entity_iterator) {
-        (*entity_iterator)->update(delta_ticks);
+    for(std::vector<Entity *>::iterator entityIterator = entities.begin(); entityIterator != entities.end(); ++entityIterator) {
+        (*entityIterator)->update(deltaTicks);
     }
 
-    //user_interface_->update();
+    //userInterface_->update();
 
     return true;
 }
 void GSLevel::render()
 {
-    //Game::instance()->level()->render(level_area_);
+    //Game::instance()->level()->render(levelArea_);
 
     // Render
-    std::vector<Entity *> entities = Game::instance()->entity_manager()->get_entities();
-    for(std::vector<Entity *>::iterator entity_iterator = entities.begin(); entity_iterator != entities.end(); ++entity_iterator) {
-        (*entity_iterator)->render(level_area_);
+    std::vector<Entity *> entities = Game::instance()->entityManager()->getEntities();
+    for(std::vector<Entity *>::iterator entityIterator = entities.begin(); entityIterator != entities.end(); ++entityIterator) {
+        (*entityIterator)->render(levelArea_);
 
-        if(((*entity_iterator)->type() == PLAYER) || ((*entity_iterator)->type() == ZOMBIE)) {
-            Game::instance()->renderer()->draw_life_bar(*entity_iterator, level_area_);
+        if(((*entityIterator)->type() == PLAYER) || ((*entityIterator)->type() == ZOMBIE)) {
+            Game::instance()->renderer()->drawLifeBar(*entityIterator, levelArea_);
         }
     }
 
-    //user_interface_->render();
+    //userInterface_->render();
 
     // FOR TESTING
     model_->render();
@@ -97,34 +97,34 @@ void GSLevel::render()
 
 void GSLevel::end()
 {
-    Game::instance()->entity_manager()->delete_all();
+    Game::instance()->entityManager()->deleteAll();
     // TODO(2014-08-06/JM): Move Level into this class
     // TODO(2014-08-06/JM): Delete Level
 }
 
-Entity * GSLevel::spawn_entity(EntityType type, Point position, double rotation)
+Entity * GSLevel::spawnEntity(EntityType type, Point position, double rotation)
 {
     Entity * entity = new Entity(type, position, rotation);
     if(type == PLAYER) {
-        entity->set_controllable(true);
-        entity->create_sprite(kAssetSpriteHuman1);
-        //user_interface_->character_panel(0)->set_entity(entity);
+        entity->setControllable(true);
+        entity->createSprite(kAssetSpriteHuman1);
+        //userInterface_->characterPanel(0)->setEntity(entity);
     }
     else if(type == HUMAN) {
-        entity->set_controllable(false);
-        entity->create_sprite(kAssetSpriteHuman1);
+        entity->setControllable(false);
+        entity->createSprite(kAssetSpriteHuman1);
     }
     else if(type == ZOMBIE) {
-        entity->set_selectable(false);
-        entity->set_controllable(false);
-        entity->set_maximum_speed(kEntityDefaultVelocity * 0.6);
+        entity->setSelectable(false);
+        entity->setControllable(false);
+        entity->setMaximumSpeed(kEntityDefaultVelocity * 0.6);
 
-        int random_num = rand() % 5 + 1;
+        int randomNum = rand() % 5 + 1;
 
         std::string asset;
         asset = kAssetSpriteZombie1;
 
-     /* switch(random_num) {
+     /* switch(randomNum) {
             case 1: asset = kAssetSpriteZombie1; break;
             case 2: asset = kAssetSpriteZombie2; break;
             case 3: asset = kAssetSpriteZombie3; break;
@@ -133,11 +133,11 @@ Entity * GSLevel::spawn_entity(EntityType type, Point position, double rotation)
             case 6: asset = kAssetSpriteZombie6; break;
             default: asset = kAssetSpriteZombie1; break;
        } */
-        entity->create_sprite(asset);
+        entity->createSprite(asset);
     }
 
-    Game::instance()->entity_manager()->add_object(entity);
-    Game::instance()->renderer()->init_object(entity);
+    Game::instance()->entityManager()->addObject(entity);
+    Game::instance()->renderer()->initObject(entity);
 
 
     return entity;

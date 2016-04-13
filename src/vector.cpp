@@ -5,8 +5,8 @@
 
 Vector::Vector()
 {
-    x_component_ = 0;
-    y_component_ = 0;
+    xComponent_ = 0;
+    yComponent_ = 0;
 
     direction_ = 0;
     magnitude_ = 0;
@@ -16,23 +16,23 @@ Vector::Vector()
 Vector::Vector(Point start, Point end)
 {
     if(start == end) {
-        x_component_ = 0;
-        y_component_ = 0;
+        xComponent_ = 0;
+        yComponent_ = 0;
 
         direction_ = 0;
         magnitude_ = 0;
 
         return;
     }
-    //x_component_ = std::abs(end.x() - start.x());
-    //y_component_ = std::abs(end.y() - start.y());
-    x_component_ = end.x() - start.x();
-    y_component_ = end.y() - start.y();
+    //xComponent_ = std::abs(end.x() - start.x());
+    //yComponent_ = std::abs(end.y() - start.y());
+    xComponent_ = end.x() - start.x();
+    yComponent_ = end.y() - start.y();
 
-    magnitude_ = sqrt(pow(x_component_, 2) + pow(y_component_, 2));
+    magnitude_ = sqrt(pow(xComponent_, 2) + pow(yComponent_, 2));
 
-    if(x_component_ == 0) {
-        if(y_component_ > 0) {
+    if(xComponent_ == 0) {
+        if(yComponent_ > 0) {
             direction_ = 90;
         }
         else {
@@ -40,8 +40,8 @@ Vector::Vector(Point start, Point end)
         }
 
     }
-    else if(y_component_ == 0) {
-        if(x_component_ > 0) {
+    else if(yComponent_ == 0) {
+        if(xComponent_ > 0) {
             direction_ = 0;
         }
         else {
@@ -50,38 +50,38 @@ Vector::Vector(Point start, Point end)
     }
     else {
 
-        int quadrant = determine_quadrant(start, end);
-        //double theta = std::round(radians_to_degrees(acos(x_component_ / magnitude_)));
-        double theta = radians_to_degrees(acos(x_component_ / magnitude_));
+        int quadrant = determineQuadrant(start, end);
+        //double theta = std::round(radiansToDegrees(acos(xComponent_ / magnitude_)));
+        double theta = radiansToDegrees(acos(xComponent_ / magnitude_));
         //Logger::write(Logger::ss << "Theta: " << theta);
         //direction_ = theta;
-        direction_ = determine_direction(quadrant, theta);
+        direction_ = determineDirection(quadrant, theta);
     }
 
-    set_component_signs(direction_);
+    setComponentSigns(direction_);
 
     //Logger::write(Logger::ss << "creating vector: " <<
     //    "magnitude: " << magnitude_ <<
     //    ", direction: " << direction_ <<
-    //    ", x_component: " << x_component_ <<
-    //    ", y_component: " << y_component_ <<
+    //    ", xComponent: " << xComponent_ <<
+    //    ", yComponent: " << yComponent_ <<
     //    ", start(" << start.x() << "," << start.y() << "),  end(" << end.x() << "," << end.y() << ")");
 }
 
 Vector::Vector(double magnitude, double direction)
 {
 
-    x_component_ = magnitude * cos(degrees_to_radians(direction));
-    y_component_ = magnitude * sin(degrees_to_radians(direction));
+    xComponent_ = magnitude * cos(degreesToRadians(direction));
+    yComponent_ = magnitude * sin(degreesToRadians(direction));
 
-    if(std::abs(x_component_) == magnitude) {
-        y_component_ = 0;
+    if(std::abs(xComponent_) == magnitude) {
+        yComponent_ = 0;
     }
-    if(std::abs(y_component_) == magnitude) {
-        x_component_ = 0;
+    if(std::abs(yComponent_) == magnitude) {
+        xComponent_ = 0;
     }
 
-    set_component_signs(direction);
+    setComponentSigns(direction);
 
     magnitude_ = magnitude;
     direction_ = direction;
@@ -89,88 +89,88 @@ Vector::Vector(double magnitude, double direction)
     //Logger::write(Logger::ss << "creating vector: " <<
     //"magnitude: " << magnitude_ <<
     //", direction: " << direction_ <<
-    //", x_component: " << x_component_ <<
-    //", y_component: " << y_component_);
+    //", xComponent: " << xComponent_ <<
+    //", yComponent: " << yComponent_);
 }
 
-double Vector::radians_to_degrees(double radians)
+double Vector::radiansToDegrees(double radians)
 {
     return radians / kPi * 180;
 }
 
-double Vector::degrees_to_radians(double degrees)
+double Vector::degreesToRadians(double degrees)
 {
     return degrees * kPi / 180;
 }
 
-int Vector::determine_quadrant(Point start, Point end)
+int Vector::determineQuadrant(Point start, Point end)
 {
     if(end.x() > start.x()) {
         if(end.y() > start.y()) {
             // (+,+)
-            //Logger::write("determine_quadrant: I");
+            //Logger::write("determineQuadrant: I");
             return kQuadrantI;
         }
         else if(end.y() < start.y()) {
             // (+,-)
-            //Logger::write("determine_quadrant: IV");
+            //Logger::write("determineQuadrant: IV");
             return kQuadrantIV;
         }
     }
     else if(end.x() < start.x()) {
         if(end.y() > start.y()) {
             // (+,+)
-            //Logger::write("determine_quadrant: II");
+            //Logger::write("determineQuadrant: II");
             return kQuadrantII;
         }
         else if(end.y() < start.y()) {
             // (+,+)
-            //Logger::write("determine_quadrant: III");
+            //Logger::write("determineQuadrant: III");
             return kQuadrantIII;
         }
     }
     return 0;
 }
 
-void Vector::set_component_signs(double direction)
+void Vector::setComponentSigns(double direction)
 {
     // Quadrant IV (+,-)
     if(direction > 270.0) {
-        //Logger::write(Logger::ss << "set_component_signs - quadrant: IV");
-        //make_positive(x_component_);
-        //make_positive(y_component_);
-        make_positive(x_component_);
-        make_negative(y_component_);
+        //Logger::write(Logger::ss << "setComponentSigns - quadrant: IV");
+        //makePositive(xComponent_);
+        //makePositive(yComponent_);
+        makePositive(xComponent_);
+        makeNegative(yComponent_);
     }
     // Quadrant III (-,-)
     else if(direction > 180.0) {
-        //Logger::write(Logger::ss << "set_component_signs - quadrant: III");
-        //make_negative(x_component_);
-        //make_positive(y_component_);
-        make_negative(x_component_);
-        make_negative(y_component_);
+        //Logger::write(Logger::ss << "setComponentSigns - quadrant: III");
+        //makeNegative(xComponent_);
+        //makePositive(yComponent_);
+        makeNegative(xComponent_);
+        makeNegative(yComponent_);
     }
     // Quadrant II (-,+)
     else if(direction > 90.0) {
-        //Logger::write(Logger::ss << "set_component_signs - quadrant: II");
-        //make_negative(x_component_);
-        //make_negative(y_component_);
-        make_negative(x_component_);
-        make_positive(y_component_);
+        //Logger::write(Logger::ss << "setComponentSigns - quadrant: II");
+        //makeNegative(xComponent_);
+        //makeNegative(yComponent_);
+        makeNegative(xComponent_);
+        makePositive(yComponent_);
     }
     // Quadrant I (+,+)
     else  {
-        //Logger::write(Logger::ss << "set_component_signs - quadrant: I");
-        //make_positive(x_component_);
-        //make_negative(y_component_);
-        make_positive(x_component_);
-        make_positive(y_component_);
+        //Logger::write(Logger::ss << "setComponentSigns - quadrant: I");
+        //makePositive(xComponent_);
+        //makeNegative(yComponent_);
+        makePositive(xComponent_);
+        makePositive(yComponent_);
     }
 }
 
-double Vector::determine_direction(int quadrant, double theta)
+double Vector::determineDirection(int quadrant, double theta)
 {
-    //Logger::write(Logger::ss << "determine_direction - quadrant: " << quadrant << " theta: " << theta);
+    //Logger::write(Logger::ss << "determineDirection - quadrant: " << quadrant << " theta: " << theta);
     switch(quadrant) {
         case kQuadrantI:
             return theta;
@@ -191,12 +191,12 @@ double Vector::determine_direction(int quadrant, double theta)
     }
 }
 
-void Vector::make_positive(double & number)
+void Vector::makePositive(double & number)
 {
     number = std::abs(number);
 }
 
-void Vector::make_negative(double & number)
+void Vector::makeNegative(double & number)
 {
     number = std::abs(number) * -1;
 }

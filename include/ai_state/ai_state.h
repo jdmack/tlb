@@ -22,7 +22,7 @@ class AIState
     protected:
         AIStateType type_;
         Entity * entity_;
-        AIStateMachine * state_machine_;
+        AIStateMachine * stateMachine_;
 
     public:
         AIState();
@@ -31,11 +31,11 @@ class AIState
         // accessors
         AIStateType type() { return type_; }
 
-        virtual bool update(int delta_ticks);
+        virtual bool update(int deltaTicks);
         virtual void stop();
         virtual void start();
         virtual void end();
-        virtual ActionType action_type();
+        virtual ActionType actionType();
 
 };
 

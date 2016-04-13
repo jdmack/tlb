@@ -24,16 +24,16 @@ class EntityManager
         //std::list<GameObject *> * selected() { return selected_; }
         Entity * selected() { return selected_; }
 
-        void add_object(GameObject * object);
-        void remove_object(GameObject * object);
-        void delete_object(GameObject * object);
-        void delete_all();
+        void addObject(GameObject * object);
+        void removeObject(GameObject * object);
+        void deleteObject(GameObject * object);
+        void deleteAll();
         void select(GameObject * object);
         void deselect(GameObject * object);
-        void deselect_all();
-        GameObject * get_object_at(double x, double y);
-        std::vector<Entity *> get_entities_near(Point position, double radius);
-        std::vector<Entity *> get_entities();
+        void deselectAll();
+        GameObject * getObjectAt(double x, double y);
+        std::vector<Entity *> getEntitiesNear(Point position, double radius);
+        std::vector<Entity *> getEntities();
 };
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef TLB_AI_STATE_SEEK_STATE_H_
 #define TLB_AI_STATE_SEEK_STATE_H_
 
-#include "ai_state/ai_state.h"
+#include "aiState/aiState.h"
 #include "action/action.h"
 #include "point.h"
 
@@ -13,24 +13,24 @@ class SeekState : public AIState
 {
     private:
         Entity * target_;
-        MoveAction * move_action_;
-        Point target_last_position_;
+        MoveAction * moveAction_;
+        Point targetLastPosition_;
 
     public:
-        SeekState(AIStateMachine * state_machine, Entity * entity);
+        SeekState(AIStateMachine * stateMachine, Entity * entity);
         ~SeekState();
 
         // accessors
 
 
         // mutators
-        void set_target(Entity * target) { target_ = target; }
+        void setTarget(Entity * target) { target_ = target; }
 
-        bool update(int delta_ticks);
+        bool update(int deltaTicks);
         void stop();
         void start();
         void end();
-        ActionType action_type();
+        ActionType actionType();
 };
 
 #endif

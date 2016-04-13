@@ -11,8 +11,8 @@ class Grid
     private:
         int rows_;
         int columns_;
-        int node_width_;
-        int node_height_;
+        int nodeWidth_;
+        int nodeHeight_;
 
         std::vector<GridNode *> * nodes_;
 
@@ -31,9 +31,9 @@ class Grid
         void columns(int columns) { columns_ = columns; }
 
         GridNode * node(int row, int column);
-        void add_node();
-        GridNode * node_at_point(Point point);
-        void reset_pathfinding();
+        void addNode();
+        GridNode * nodeAtPoint(Point point);
+        void resetPathfinding();
 };
 
 #endif

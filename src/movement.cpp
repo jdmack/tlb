@@ -3,7 +3,7 @@
 #include <string>
 #include "movement.h"
 #include "point.h"
-#include "game_object.h"
+#include "gameObject.h"
 #include "util/logger.h"
 
 Movement::Movement(Vector vector, Point start, Point destination)
@@ -15,10 +15,10 @@ Movement::Movement(Vector vector, Point start, Point destination)
     degrees_ = 0;
 }
 
-std::string Movement::to_string()
+std::string Movement::toString()
 {
     std::stringstream ss;
-    ss << "Movement(Start:" << start_.to_string() << ", Destination:" << destination_.to_string() << ")";
+    ss << "Movement(Start:" << start_.toString() << ", Destination:" << destination_.toString() << ")";
     return ss.str();
 
 }

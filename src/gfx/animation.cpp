@@ -15,19 +15,19 @@ Animation::Animation(std::string key, int time)
     current_ = 0;
 }
 
-void Animation::insert_frame(std::string frame_key, SDL_Rect frame)
+void Animation::insertFrame(std::string frameKey, SDL_Rect frame)
 {
-    //frames_.insert(std::pair<std::string, SDL_Rect>(frame_key, frame));
-    frames_.push_back(frame);
+    //frames_.insert(std::pair<std::string, SDL_Rect>(frameKey, frame));
+    frames_.pushBack(frame);
     //current_ = frames_.begin();
 }
 
-SDL_Rect Animation::current_frame()
+SDL_Rect Animation::currentFrame()
 {
     return frames_.at(current_);
 }
 
-void Animation::next_frame()
+void Animation::nextFrame()
 {
     //Logger::write(Logger::ss << std::distance(frames_.begin(), current_));
     //Logger::write(Logger::ss << frames_.size());

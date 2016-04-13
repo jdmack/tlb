@@ -1,44 +1,44 @@
 
 #include <list>
 #include "SDL2/SDL.h"
-#include "event_manager.h"
-#include "entity_manager.h"
-#include "gs_level.h"
+#include "eventManager.h"
+#include "entityManager.h"
+#include "gsLevel.h"
 #include "game.h"
-#include "game_object.h"
+#include "gameObject.h"
 #include "util/logger.h"
 #include "point.h"
 #include "entity.h"
 #include "gfx/camera.h"
 #include "util/math/math.h"
-#include "action/rotate_action.h"
-#include "util/global_timer.h"
+#include "action/rotateAction.h"
+#include "util/globalTimer.h"
 #include "event/event.h"
-#include "event/event_dispatcher.h"
-#include "event/e_key_press.h"
-#include "event/e_mouse_click.h"
+#include "event/eventDispatcher.h"
+#include "event/eKeyPress.h"
+#include "event/eMouseClick.h"
 
 EventManager::EventManager()
 {
 
 }
 
-void EventManager::handle_events()
+void EventManager::handleEvents()
 {
     SDL_Event event;
     while(SDL_PollEvent(&event)) {
 
-        const Uint8 * current_key_states = SDL_GetKeyboardState(NULL);
+        const Uint8 * currentKeyStates = SDL_GetKeyboardState(NULL);
         // timer checks
-        if((focus_timer_.started()) && (focus_timer_.get_ticks() >= kFocusTimeout)) {
-            Game::instance()->set_quit(true);
+        if((focusTimer_.started()) && (focusTimer_.getTicks() >= kFocusTimeout)) {
+            Game::instance()->setQuit(true);
             Logger::write("Setting game quit");
         }
 
         // Handle Events
         switch(event.type) {
             case SDL_QUIT:  // Quit Event (user x's the window)
-                Game::instance()->set_quit(true);
+                Game::instance()->setQuit(true);
                 break;
 
             case SDL_KEYDOWN:   // Keypress
@@ -48,13 +48,13 @@ void EventManager::handle_events()
                     case SDLK_ESCAPE:   // Escape
                         key = KEY_ESCAPE;
                         break;
-                    case SDLK_a:    // A
+                    case SDLKA:    // A
                         key = KEY_A;
                         break;
-                    case SDLK_r:    // R
+                    case SDLKR:    // R
                         key = KEY_R;
                         break;
-                    case SDLK_s:    // S
+                    case SDLKS:    // S
                         key = KEY_S;
                         break;
                     case SDLK_UP:       // Up Arrow
@@ -73,7 +73,7 @@ void EventManager::handle_events()
                         key = KEY_SPACE;
                         break;
                 }
-                EventDispatcher::instance()->send_event(new EKeyPress(key));
+                EventDispatcher::instance()->sendEvent(new EKeyPress(key));
                 break;
 
             case SDL_KEYUP:
@@ -91,41 +91,41 @@ void EventManager::handle_events()
 
             case SDL_MOUSEBUTTONDOWN:
                 // mouse Points adjusted to camera position
-                double mouse_x = event.button.x + Game::instance()->camera()->x_position();
-                double mouse_y = event.button.y + Game::instance()->camera()->y_position();
+                double mouseX = event.button.x + Game::instance()->camera()->xPosition();
+                double mouseY = event.button.y + Game::instance()->camera()->yPosition();
 
-                Point mouse_point = Point(mouse_x, mouse_y);
-                mouse_point = Math::convert_to_cartesian(mouse_point);
+                Point mousePoint = Point(mouseX, mouseY);
+                mousePoint = Math::convertToCartesian(mousePoint);
 
-                mouse_x = mouse_point.x();
-                mouse_y = mouse_point.y();
+                mouseX = mousePoint.x();
+                mouseY = mousePoint.y();
 
-                //Logger::write(Logger::ss << "mouse: (" << mouse_x << "," << mouse_y << ")");
+                //Logger::write(Logger::ss << "mouse: (" << mouseX << "," << mouseY << ")");
 
-                EMouseClick * mouse_event;
+                EMouseClick * mouseEvent;
 
                 // SDL_BUTTON_LEFT - Selection
                 if(event.button.button == SDL_BUTTON_LEFT)
                 {
-                    mouse_event = new EMouseClick(MOUSE_LEFT, mouse_point);
+                    mouseEvent = new EMouseClick(MOUSE_LEFT, mousePoint);
                 }
                 // SDL_BUTTON_RIGHT - Command
                 else if(event.button.button == SDL_BUTTON_RIGHT)
                 {
-                    mouse_event = new EMouseClick(MOUSE_RIGHT, mouse_point);
+                    mouseEvent = new EMouseClick(MOUSE_RIGHT, mousePoint);
                 }
 
-                EventDispatcher::instance()->send_event(mouse_event);
+                EventDispatcher::instance()->sendEvent(mouseEvent);
 
 /*
                 if(event.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
-                    focus_timer_.start();
-                    //Logger::write("focus_timer started");
+                    focusTimer_.start();
+                    //Logger::write("focusTimer started");
                 }
                 if(event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
-                    if(focus_timer_.started()) {
-                        focus_timer_.stop();
-                        //Logger::write("focus_timer stopped");
+                    if(focusTimer_.started()) {
+                        focusTimer_.stop();
+                        //Logger::write("focusTimer stopped");
                     }
                 }
                 */
@@ -134,7 +134,7 @@ void EventManager::handle_events()
     }
 }
 
-Point EventManager::mouse_position()
+Point EventManager::mousePosition()
 {
     int x, y = 0;
     SDL_GetMouseState(&x, &y);

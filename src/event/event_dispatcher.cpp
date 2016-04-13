@@ -1,5 +1,5 @@
-#include "event/event_dispatcher.h"
-#include "event/event_handler.h"
+#include "event/eventDispatcher.h"
+#include "event/eventHandler.h"
 #include <vector>
 
 
@@ -24,16 +24,16 @@ EventDispatcher * EventDispatcher::instance()
 }
 
 
-void EventDispatcher::register_handler(EventHandler * handler)
+void EventDispatcher::registerHandler(EventHandler * handler)
 {
-    handlers_.push_back(handler);
+    handlers_.pushBack(handler);
 }
 
-void EventDispatcher::send_event(Event * event)
+void EventDispatcher::sendEvent(Event * event)
 {
     //for(std::vector<EventHandler *>::iterator iterator = handlers_.begin(); iterator != handlers_.end(); ++iterator) {
     for(std::list<EventHandler *>::iterator iterator = handlers_.begin(); iterator != handlers_.end(); ++iterator) {
-        (*iterator)->handle_event(event);
+        (*iterator)->handleEvent(event);
     }
 }
 

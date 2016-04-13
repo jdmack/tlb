@@ -24,8 +24,8 @@ void Cooldown::reset()
 
 bool Cooldown::ready()
 {
-    if(is_running()) {
-        if(is_complete()) {
+    if(isRunning()) {
+        if(isComplete()) {
             return true;
         }
         return false;
@@ -33,15 +33,15 @@ bool Cooldown::ready()
     return true;
 }
 
-bool Cooldown::is_complete()
+bool Cooldown::isComplete()
 {
-    if(timer_.get_ticks() >= length_) {
+    if(timer_.getTicks() >= length_) {
         return true;
     }
     return false;
 }
 
-bool Cooldown::is_running()
+bool Cooldown::isRunning()
 {
     return timer_.started();
 }

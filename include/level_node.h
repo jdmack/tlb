@@ -16,7 +16,7 @@ class LevelNode
         int height_;
 
         std::list<LevelNode *> adjacent_;
-        std::string level_file_;
+        std::string levelFile_;
 
         Graphic * graphic_;
 
@@ -29,13 +29,13 @@ class LevelNode
         int height() const { return height_; }
         std::list<LevelNode *> adjacent() const { return adjacent_; }
 
-        void set_position(Point position) { position_ = position; }
-        void set_width(int width) { width_ = width; }
-        void set_height(int height) { height_ = height; }
-        void set_level_file(std::string level_file) { level_file_ = level_file; }
-        void set_graphic(Graphic * graphic) { graphic_ = graphic; }
+        void setPosition(Point position) { position_ = position; }
+        void setWidth(int width) { width_ = width; }
+        void setHeight(int height) { height_ = height; }
+        void setLevelFile(std::string levelFile) { levelFile_ = levelFile; }
+        void setGraphic(Graphic * graphic) { graphic_ = graphic; }
 
-        void add_adjacent(LevelNode * node);
+        void addAdjacent(LevelNode * node);
         void render(Frame * frame = nullptr);
 
 };

@@ -1,7 +1,7 @@
 
 #include <sstream>
 
-#include "grid_node.h"
+#include "gridNode.h"
 #include "point.h"
 #include "util/logger.h"
 
@@ -11,9 +11,9 @@ GridNode::GridNode()
     column_  = 0;
     width_   = kGridNodeWidth;
     height_  = kGridNodeHeight;
-    f_score_ = 0;
-    g_score_ = 0;
-    h_score_ = 0;
+    fScore_ = 0;
+    gScore_ = 0;
+    hScore_ = 0;
 
     walkable_ = true;
     parent_   = nullptr;
@@ -25,27 +25,27 @@ GridNode::GridNode(int row, int column)
     column_  = column;
     width_   = kGridNodeWidth;
     height_  = kGridNodeHeight;
-    f_score_ = 0;
-    g_score_ = 0;
-    h_score_ = 0;
+    fScore_ = 0;
+    gScore_ = 0;
+    hScore_ = 0;
 
     walkable_ = true;
     parent_   = nullptr;
 }
 
-void GridNode::set_scores(int f_score, int g_score, int h_score)
+void GridNode::setScores(int fScore, int gScore, int hScore)
 {
-    f_score_ = f_score;
-    g_score_ = g_score;
-    h_score_ = h_score;
+    fScore_ = fScore;
+    gScore_ = gScore;
+    hScore_ = hScore;
 }
 
 int GridNode::compare(GridNode * node)
 {
-    if(f_score_ > node->f_score()) {
+    if(fScore_ > node->fScore()) {
         return 1;
     }
-    else if(f_score_ > node->f_score()) {
+    else if(fScore_ > node->fScore()) {
         return -1;
     }
     else {
@@ -53,13 +53,13 @@ int GridNode::compare(GridNode * node)
     }
 }
 
-Point GridNode::center_point()
+Point GridNode::centerPoint()
 {
-    bool hex_grid = false;
+    bool hexGrid = false;
 
     int x;
     int y;
-    if(hex_grid) {
+    if(hexGrid) {
         int width = 42;
         int height = 48;
         int radius = 21;
@@ -92,13 +92,13 @@ Point GridNode::center_point()
 
 void GridNode::reset()
 {
-    set_scores(0,0,0);
+    setScores(0,0,0);
     parent_ = nullptr;
 }
 
 bool GridNode::operator>(const GridNode &other) const {
 
-    if(f_score_ > other.f_score()) {
+    if(fScore_ > other.fScore()) {
         return true;
     }
     else {
@@ -106,7 +106,7 @@ bool GridNode::operator>(const GridNode &other) const {
     }
 }
 
-std::string GridNode::to_string()
+std::string GridNode::toString()
 {
     std::stringstream ss;
     ss << "GridNode(" << column_ << "," << row_ << ")";

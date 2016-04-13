@@ -114,7 +114,7 @@ Vector4 Matrix4::operator*(Vector4 & param)
 }
 
 // Make a rotation matrix about the x axis
-void Matrix4::rotate_x(float angle)
+void Matrix4::rotateX(float angle)
 {
     angle = angle / 180.0 * M_PI;  // convert from degrees to radians
      Matrix4 param(1,          0,           0, 0,
@@ -126,7 +126,7 @@ void Matrix4::rotate_x(float angle)
 
 // Make a rotation matrix about the y axis
 // angle in degrees
-void Matrix4::rotate_y(float angle)
+void Matrix4::rotateY(float angle)
 {
     angle = (angle / 180.0) * M_PI;  // convert from degrees to radians
     Matrix4 param( cos(angle), 0, sin(angle), 0, 
@@ -137,7 +137,7 @@ void Matrix4::rotate_y(float angle)
 }
 
 // Make a rotation matrix about the z axis
-void Matrix4::rotate_z(float angle)
+void Matrix4::rotateZ(float angle)
 {
     angle = angle / 180.0 * M_PI;  // convert from degrees to radians  
     Matrix4 param(cos(angle), -sin(angle), 0, 0,

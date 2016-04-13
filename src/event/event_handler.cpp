@@ -1,4 +1,4 @@
-#include "event/event_handler.h"
+#include "event/eventHandler.h"
 
 EventHandler::EventHandler()
 {
@@ -11,7 +11,7 @@ EventHandler::~EventHandler()
 
 }
 
-void EventHandler::handle_event(Event * event)
+void EventHandler::handleEvent(Event * event)
 {
 
 }

@@ -16,7 +16,7 @@ Point::Point(double x, double y)
     y_= y;
 }
 
-std::string Point::to_string()
+std::string Point::toString()
 {
     std::stringstream ss;
     ss << "(" << x_ << "," << y_ << ")";
@@ -38,9 +38,9 @@ bool Point::operator!=(const Point &other) const
     return !(*this == other);
 }
 
-double Point::distance_from(Point point)
+double Point::distanceFrom(Point point)
 {
-    double x_distance = point.x() - x_;
-    double y_distance = point.y() - y_;
-    return sqrt((x_distance * x_distance) + (y_distance * y_distance));
+    double xDistance = point.x() - x_;
+    double yDistance = point.y() - y_;
+    return sqrt((xDistance * xDistance) + (yDistance * yDistance));
 }

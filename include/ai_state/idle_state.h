@@ -1,7 +1,7 @@
 #ifndef TLB_AI_STATE_IDLE_STATE_H_
 #define TLB_AI_STATE_IDLE_STATE_H_
 
-#include "ai_state/ai_state.h"
+#include "aiState/aiState.h"
 #include "action/action.h"
 
 class Entity;
@@ -13,7 +13,7 @@ class IdleState : public AIState
         bool stop_;
 
     public:
-        IdleState(AIStateMachine * state_machine, Entity * entity);
+        IdleState(AIStateMachine * stateMachine, Entity * entity);
         ~IdleState();
 
         // accessors
@@ -21,11 +21,11 @@ class IdleState : public AIState
 
         // mutators
 
-        bool update(int delta_ticks);
+        bool update(int deltaTicks);
         void stop();
         void start();
         void end();
-        ActionType action_type();
+        ActionType actionType();
 
 };
 

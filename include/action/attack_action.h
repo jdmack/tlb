@@ -18,8 +18,8 @@ class AttackAction : public Action
     private:
         bool stopped_;
         int damage_;
-        int cooldown_length_;
-        int duration_length_;
+        int cooldownLength_;
+        int durationLength_;
         double arc_;
         double range_;
         AttackStateType state_;
@@ -40,19 +40,19 @@ class AttackAction : public Action
         Entity * target() { return target_; }
 
         // mutators
-        void set_damage(int damage) { damage_ = damage; }
-        void set_range(double range) { range_ = range; }
-        void set_cooldown_length(int cooldown_length) { cooldown_length_ = cooldown_length; cooldown_.set_length(cooldown_length_);}
-        void set_duration_length(int duration_length) { duration_length_ = duration_length; duration_.set_length(duration_length_);}
-        void set_arc(double arc) { arc_ = arc; }
-        void set_entity(Entity * entity) { entity_ = entity; }
-        void set_target(Entity * target) { target_ = target; }
+        void setDamage(int damage) { damage_ = damage; }
+        void setRange(double range) { range_ = range; }
+        void setCooldownLength(int cooldownLength) { cooldownLength_ = cooldownLength; cooldown_.setLength(cooldownLength_);}
+        void setDurationLength(int durationLength) { durationLength_ = durationLength; duration_.setLength(durationLength_);}
+        void setArc(double arc) { arc_ = arc; }
+        void setEntity(Entity * entity) { entity_ = entity; }
+        void setTarget(Entity * target) { target_ = target; }
 
         void reset();
         void stop();
 
         // overridden
-        bool update(Entity * entity, int delta_ticks);
+        bool update(Entity * entity, int deltaTicks);
         ActionType type();
 
 };

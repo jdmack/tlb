@@ -1,7 +1,7 @@
 #ifndef TLB_UI_CHARACTER_PANEL_H_
 #define TLB_UI_CHARACTER_PANEL_H_
 
-#include "ui/ui_element.h"
+#include "ui/uiElement.h"
 #include "point.h"
 
 class Frame;
@@ -17,7 +17,7 @@ class CharacterPanel : public UIElement
         TextPanel * name_;
         TextPanel * role_;
 
-        SDL_Texture * selected_texture_;
+        SDL_Texture * selectedTexture_;
 
 
     public:
@@ -29,8 +29,8 @@ class CharacterPanel : public UIElement
         Entity * entity() { return entity_; }
 
         // mutators
-        void set_frame(Frame * frame) { frame_ =  frame; }
-        void set_entity(Entity * entity) { entity_ = entity; }
+        void setFrame(Frame * frame) { frame_ =  frame; }
+        void setEntity(Entity * entity) { entity_ = entity; }
 
 
         void render(Frame * frame = nullptr);

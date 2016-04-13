@@ -1,19 +1,19 @@
-#include "ai_state/rotate_state.h"
-#include "ai_state/ai_state.h"
+#include "aiState/rotateState.h"
+#include "aiState/aiState.h"
 #include "point.h"
 #include "action/action.h"
-#include "action/rotate_action.h"
+#include "action/rotateAction.h"
 #include "game.h"
 #include "entity.h"
 #include "util/logger.h"
 
-RotateState::RotateState(AIStateMachine * state_machine, Entity * entity)
+RotateState::RotateState(AIStateMachine * stateMachine, Entity * entity)
 {
     type_ = STATE_ROTATE;
-    state_machine_ = state_machine;
+    stateMachine_ = stateMachine;
     entity_ = entity;
     position_ = Point(0, 0);
-    rotate_action_ = nullptr;
+    rotateAction_ = nullptr;
 }
 
 RotateState::~RotateState()
@@ -21,36 +21,36 @@ RotateState::~RotateState()
 
 }
 
-bool RotateState::update(int delta_ticks)
+bool RotateState::update(int deltaTicks)
 {
-    bool keep_action = rotate_action_->update(entity_, delta_ticks);
+    bool keepAction = rotateAction_->update(entity_, deltaTicks);
 
-    return keep_action;
+    return keepAction;
 }
 
 void RotateState::stop()
 {
-    if(rotate_action_ != nullptr) {
-        rotate_action_->stop();
+    if(rotateAction_ != nullptr) {
+        rotateAction_->stop();
     }
 }
 
 void RotateState::start()
 {
-    Logger::write(Logger::ss << "Entity: " << entity_->object_id() << " - Entering State: ROTATE");
+    Logger::write(Logger::ss << "Entity: " << entity_->objectId() << " - Entering State: ROTATE");
     // Create rotate action
-    rotate_action_ = new RotateAction(entity_, position_);
+    rotateAction_ = new RotateAction(entity_, position_);
 }
 
 void RotateState::end()
 {
-    Logger::write(Logger::ss << "Entity: " << entity_->object_id() << " - Exiting  State: ROTATE");
+    Logger::write(Logger::ss << "Entity: " << entity_->objectId() << " - Exiting  State: ROTATE");
     // clear out old data
-    delete rotate_action_;
-    rotate_action_ = nullptr;
+    delete rotateAction_;
+    rotateAction_ = nullptr;
 }
 
-ActionType RotateState::action_type()
+ActionType RotateState::actionType()
 {
     return ACTION_ROTATE;
 }

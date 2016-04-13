@@ -18,7 +18,7 @@ class MoveAction : public Action
 		Point start_;
 		Point end_;
 		Level * level_;
-		Vector current_max_velocity_;
+		Vector currentMaxVelocity_;
 		bool started_;
 
 		std::vector<Movement *> * path_;
@@ -34,18 +34,18 @@ class MoveAction : public Action
 		Movement * current() const { return *current_; }
 		Level * level() const { return level_; }
 
-		void find_path();
-		bool next_movement();
-        std::string to_string();
-        bool empty_path();
+		void findPath();
+		bool nextMovement();
+        std::string toString();
+        bool emptyPath();
 
         // overridden
-        bool update(Entity * entity, int delta_ticks);
+        bool update(Entity * entity, int deltaTicks);
         void stop();
 
-		Vector current_max_velocity() const { return current_max_velocity_; }
-		void set_current_max_velocity(Vector vector) { current_max_velocity_ = vector; }
-		void remove_movements_back(int number = 1);
+		Vector currentMaxVelocity() const { return currentMaxVelocity_; }
+		void setCurrentMaxVelocity(Vector vector) { currentMaxVelocity_ = vector; }
+		void removeMovementsBack(int number = 1);
 
 };
 

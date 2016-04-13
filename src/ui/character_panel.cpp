@@ -1,8 +1,8 @@
-#include "ui/character_panel.h"
+#include "ui/characterPanel.h"
 #include "frame.h"
 #include "game.h"
-#include "entity_manager.h"
-#include "game_object.h"
+#include "entityManager.h"
+#include "gameObject.h"
 #include "entity.h"
 #include "assets.h"
 #include "gfx/renderer.h"
@@ -16,9 +16,9 @@ CharacterPanel::CharacterPanel()
     name_ = nullptr;
     role_ = nullptr;
 
-    //texture_ = Game::instance()->renderer()->load_texture(kAssetUICharacterPanel);
-    load_texture(kAssetUICharacterPanel);
-    selected_texture_ = Game::instance()->renderer()->load_texture(kAssetUICharacterPanelSelected);
+    //texture_ = Game::instance()->renderer()->loadTexture(kAssetUICharacterPanel);
+    loadTexture(kAssetUICharacterPanel);
+    selectedTexture_ = Game::instance()->renderer()->loadTexture(kAssetUICharacterPanelSelected);
 
 }
 
@@ -30,7 +30,7 @@ CharacterPanel::~CharacterPanel()
 void CharacterPanel::render(Frame * frame)
 {
     if(frame_ != nullptr) {
-        frame_->set_parent(frame);
+        frame_->setParent(frame);
     }
     UIElement::render(frame);
 }
@@ -41,10 +41,10 @@ void CharacterPanel::update()
 
 bool CharacterPanel::click(Point point)
 {
-    if(contains_point(point)) {
-        GameObject * object = static_cast<GameObject *>(entity_);
-        Game::instance()->entity_manager()->select(static_cast<GameObject *>(entity_));
-        Game::instance()->entity_manager()->select(entity_);
+    if(containsPoint(point)) {
+        GameObject * object = staticCast<GameObject *>(entity_);
+        Game::instance()->entityManager()->select(staticCast<GameObject *>(entity_));
+        Game::instance()->entityManager()->select(entity_);
         return false;
     }
     else {

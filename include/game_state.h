@@ -20,7 +20,7 @@ class GameState
         GameStateType type() const { return type_; }
 
         virtual bool init() = 0;
-        virtual bool update(int delta_ticks) = 0;
+        virtual bool update(int deltaTicks) = 0;
         virtual void render() = 0;
         virtual void end() = 0;
 };

@@ -1,5 +1,5 @@
 #include "action/action.h"
-#include "action/attack_action.h"
+#include "action/attackAction.h"
 #include "entity.h"
 #include "util/logger.h"
 
@@ -14,8 +14,8 @@ AttackAction::AttackAction()
     arc_ = 60;
     state_ = ATTACKING;
     stopped_ = false;
-    cooldown_length_ = 3000;
-    duration_length_ = 1000;
+    cooldownLength_ = 3000;
+    durationLength_ = 1000;
     range_ = 0;
 
     entity_ = nullptr;
@@ -34,16 +34,16 @@ AttackAction::AttackAction(Entity * target)
     duration_.start();
     stopped_ = false;
 
-    cooldown_length_ = 3000;
-    duration_length_ = 1000;
+    cooldownLength_ = 3000;
+    durationLength_ = 1000;
     range_ = 0;
 
     entity_ = nullptr;
 
 }
-bool AttackAction::update(Entity * entity, int delta_ticks)
+bool AttackAction::update(Entity * entity, int deltaTicks)
 {
-    //bool return_value = true;
+    //bool returnValue = true;
 
     if(target_ == nullptr) {
         Logger::write("Target is NULL");
@@ -55,16 +55,16 @@ bool AttackAction::update(Entity * entity, int delta_ticks)
     if(target_->dead()) {
         return false;
     }
-    if(entity->position().distance_from(target_->position()) > range_) {
+    if(entity->position().distanceFrom(target_->position()) > range_) {
         return false;
     }
 
     switch(state_) {
         case ATTACKING:
-            if(duration_.is_complete()) {
+            if(duration_.isComplete()) {
                 //Logger::write(Logger::ss << "DAMAGE");
-                //target_->hp()->minus_points(damage_);
-                target_->take_damage(damage_, entity_);
+                //target_->hp()->minusPoints(damage_);
+                target_->takeDamage(damage_, entity_);
                 cooldown_.reset();
                 state_ = COOLDOWN;
             }

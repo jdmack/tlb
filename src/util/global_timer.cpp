@@ -1,5 +1,5 @@
 #include "SDL2/SDL.h"
-#include "util/global_timer.h"
+#include "util/globalTimer.h"
 #include "util/logger.h"
 
 GlobalTimer * GlobalTimer::instance_;
@@ -7,8 +7,8 @@ GlobalTimer * GlobalTimer::instance_;
 GlobalTimer::GlobalTimer()
 {
     // Initialize the variables
-    start_ticks_ = 0;
-    paused_ticks_ = 0;
+    startTicks_ = 0;
+    pausedTicks_ = 0;
     paused_ = false;
     started_ = false;
     instance_ = nullptr;
@@ -32,7 +32,7 @@ void GlobalTimer::start()
     paused_ = false;
 
     // Get the current clock time
-    start_ticks_ = SDL_GetTicks();
+    startTicks_ = SDL_GetTicks();
 }
 
 void GlobalTimer::stop()
@@ -52,7 +52,7 @@ void GlobalTimer::pause()
         paused_ = true;
 
         // Calculate the paused_ ticks
-        paused_ticks_ = SDL_GetTicks() - start_ticks_;
+        pausedTicks_ = SDL_GetTicks() - startTicks_;
     }
 }
 
@@ -64,14 +64,14 @@ void GlobalTimer::unpause()
         paused_ = false;
 
         // Reset the starting ticks
-        start_ticks_ = SDL_GetTicks() - paused_ticks_;
+        startTicks_ = SDL_GetTicks() - pausedTicks_;
 
         // Reset the paused_ ticks
-        paused_ticks_ = 0;
+        pausedTicks_ = 0;
     }
 }
 
-void GlobalTimer::toggle_pause()
+void GlobalTimer::togglePause()
 {
     if(paused_) {
         Logger::write("Un-Pausing");
@@ -83,18 +83,18 @@ void GlobalTimer::toggle_pause()
     }
 }
 
-int GlobalTimer::get_ticks()
+int GlobalTimer::getTicks()
 {
     // If the timer is running
     if(started_ == true) {
         // If the timer is paused_
         if(paused_ == true) {
             // Return the number of ticks when the timer was paused_
-            return paused_ticks_;
+            return pausedTicks_;
         }
         else {
             // Return the current time minus the start time
-            return SDL_GetTicks() - start_ticks_;
+            return SDL_GetTicks() - startTicks_;
         }
     }
 

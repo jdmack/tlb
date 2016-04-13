@@ -6,8 +6,8 @@
 
 namespace Math
 {
-    Point convert_to_isometric(Point point);
-    Point convert_to_cartesian(Point point);
+    Point convertToIsometric(Point point);
+    Point convertToCartesian(Point point);
 }
 
 #endif

@@ -19,32 +19,32 @@ class Sprite
         int height_;
         SDL_Texture * texture_;
         Renderer * renderer_;
-        std::string art_asset_;
-        std::string select_art_asset_;
+        std::string artAsset_;
+        std::string selectArtAsset_;
         GameObject * object_;
-        ActionType current_action_;
-        double current_direction_;
+        ActionType currentAction_;
+        double currentDirection_;
 
-        Animation current_animation_;
+        Animation currentAnimation_;
         std::map<std::string, Animation> animations_;
 
-        Timer animation_timer_;
+        Timer animationTimer_;
 
     public:
-        Sprite(GameObject * object, std::string asset, std::string select_asset);
+        Sprite(GameObject * object, std::string asset, std::string selectAsset);
 
         // accessors
         double width() const { return width_; }
         double height() const { return height_; }
-        std::string art_asset() const { return art_asset_; }
+        std::string artAsset() const { return artAsset_; }
         SDL_Texture * texture() const { return texture_; }
         Renderer * renderer() const { return renderer_; }
         std::map<std::string, Animation> animations() const { return animations_; }
 
         // mutators
-        void set_texture(SDL_Texture * texture) { texture_ = texture; }
-        void set_renderer(Renderer * renderer) { renderer_ = renderer; }
-        void set_object(GameObject * object) { object_ = object; }
+        void setTexture(SDL_Texture * texture) { texture_ = texture; }
+        void setRenderer(Renderer * renderer) { renderer_ = renderer; }
+        void setObject(GameObject * object) { object_ = object; }
 
         void render(Frame * frame = nullptr);
         void select();

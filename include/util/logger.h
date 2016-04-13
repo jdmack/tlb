@@ -4,14 +4,14 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "date_time.h"
+#include "dateTime.h"
 
 namespace Logger
 {
     extern std::stringstream ss;
     void open(std::string filename);
     void write(std::string message);
-    void write(std::basic_ostream<char>&);
+    void write(std::basicOstream<char>&);
     void close();
 }
 

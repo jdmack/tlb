@@ -24,9 +24,9 @@ class Animation
         std::vector<SDL_Rect> frames() {return frames_; }
         int current() const { return current_; }
 
-        void insert_frame(std::string frame_key, SDL_Rect frame);
-        void next_frame();
-        SDL_Rect current_frame();
+        void insertFrame(std::string frameKey, SDL_Rect frame);
+        void nextFrame();
+        SDL_Rect currentFrame();
 };
 
 #endif

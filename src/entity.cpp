@@ -7,24 +7,24 @@
 #include "point.h"
 #include "game.h"
 #include "level.h"
-#include "action/move_action.h"
-#include "action/dead_action.h"
+#include "action/moveAction.h"
+#include "action/deadAction.h"
 #include "action/action.h"
-#include "action/attack_action.h"
-#include "action/rotate_action.h"
+#include "action/attackAction.h"
+#include "action/rotateAction.h"
 #include "movement.h"
 #include "gfx/renderer.h"
 #include "gfx/sprite.h"
 #include "vector.h"
 #include "util/logger.h"
-#include "ai_state/ai_state_machine.h"
+#include "aiState/aiStateMachine.h"
 
 Entity::Entity(EntityType type) : GameObject()
 {
     type_ = type;
 
-    x_velocity_ = 0;
-    y_velocity_ = 0;
+    xVelocity_ = 0;
+    yVelocity_ = 0;
 
     width_  = kEntityWidth;
     height_ = kEntityHeight;
@@ -34,19 +34,19 @@ Entity::Entity(EntityType type) : GameObject()
     selectable_ = true;
     controllable_ = false;
 
-    maximum_speed_ = kEntityDefaultVelocity;
+    maximumSpeed_ = kEntityDefaultVelocity;
 
     dead_ = false;
 
-    state_machine_ = new AIStateMachine(this);
+    stateMachine_ = new AIStateMachine(this);
 }
 
 Entity::Entity(EntityType type, Point position, double rot) : GameObject(position, rot)
 {
     type_ = type;
 
-    x_velocity_ = 0;
-    y_velocity_ = 0;
+    xVelocity_ = 0;
+    yVelocity_ = 0;
 
     width_  = kEntityWidth;
     height_ = kEntityHeight;
@@ -56,30 +56,30 @@ Entity::Entity(EntityType type, Point position, double rot) : GameObject(positio
     selectable_ = true;
     controllable_ = false;
 
-    maximum_speed_ = kEntityDefaultVelocity;
+    maximumSpeed_ = kEntityDefaultVelocity;
 
     dead_ = false;
-    state_machine_ = new AIStateMachine(this);
+    stateMachine_ = new AIStateMachine(this);
 }
 
-void Entity::update(int delta_ticks)
+void Entity::update(int deltaTicks)
 {
     // TODO(2014-08-21/JM): Can create a DeadAction that contains a duration to trigger DYING animation
     // and then will be a DEAD state
 
-    if(state_machine_ != nullptr) {
-        state_machine_->update(delta_ticks);
+    if(stateMachine_ != nullptr) {
+        stateMachine_->update(deltaTicks);
     }
 }
 
-bool Entity::contains_point(double x, double y)
+bool Entity::containsPoint(double x, double y)
 {
-    //if((x < (x_abs_ - (width_ / 2))) || (x > (x_abs_ + (width_ / 2)))) {
-    if((x < (x_position_ - (width_ / 2))) || (x > (x_position_ + (width_ / 2)))) {
+    //if((x < (xAbs_ - (width_ / 2))) || (x > (xAbs_ + (width_ / 2)))) {
+    if((x < (xPosition_ - (width_ / 2))) || (x > (xPosition_ + (width_ / 2)))) {
         return false;
     }
-    //else if((y < (y_abs_ - (width_ / 2))) || (y > (y_abs_ + (height_ / 2)))) {
-    else if((y < (y_position_ - (width_ / 2))) || (y > (y_position_ + (height_ / 2)))) {
+    //else if((y < (yAbs_ - (width_ / 2))) || (y > (yAbs_ + (height_ / 2)))) {
+    else if((y < (yPosition_ - (width_ / 2))) || (y > (yPosition_ + (height_ / 2)))) {
         return false;
     }
 
@@ -88,7 +88,7 @@ bool Entity::contains_point(double x, double y)
 
 //void Entity::select()
 //{
-//    Logger::write(Logger::ss << "Entity::select object_id: " << object_id_ << " (x,y): (" << x_position_ << ", " <<  y_position_ << ")");
+//    Logger::write(Logger::ss << "Entity::select objectId: " << objectId_ << " (x,y): (" << xPosition_ << ", " <<  yPosition_ << ")");
 //    //GameObject::select();
 //}
 
@@ -100,53 +100,53 @@ bool Entity::contains_point(double x, double y)
 
 void Entity::move(Point point)
 {
-    // TODO(2014-11-05/JM): May want to add distinction between "move" and "move_command". Depends on if there
+    // TODO(2014-11-05/JM): May want to add distinction between "move" and "moveCommand". Depends on if there
     // is ever need for the case of an AI or event issuing a move directive to non-controllable entities
     if(controllable_) {
         Logger::write(Logger::ss << "Move - (x,y): (" << point.x() << "," << point.y() << ")");
-        state_machine_->move_command(point);
+        stateMachine_->moveCommand(point);
     }
 }
 
 void Entity::rotate(Point point)
 {
-    Logger::write(Logger::ss << "Rotate - " << point.to_string());
-    state_machine_->rotate_command(point);
+    Logger::write(Logger::ss << "Rotate - " << point.toString());
+    stateMachine_->rotateCommand(point);
 }
 
 void Entity::attack(Entity * target)
 {
-    Logger::write(Logger::ss << "Attack - (Entity): (" << target->object_id() << ")");
-    state_machine_->attack_command(target);
+    Logger::write(Logger::ss << "Attack - (Entity): (" << target->objectId() << ")");
+    stateMachine_->attackCommand(target);
 }
 
 void Entity::stop()
 {
-    state_machine_->stop();
+    stateMachine_->stop();
 }
 
 bool Entity::stopped()
 {
-    if((x_velocity_ == 0) && (y_velocity_ == 0) && (x_acceleration_ == 0) && (y_acceleration_ == 0)) {
+    if((xVelocity_ == 0) && (yVelocity_ == 0) && (xAcceleration_ == 0) && (yAcceleration_ == 0)) {
         return true;
     }
     return false;
 }
 
-ActionType Entity::action_type()
+ActionType Entity::actionType()
 {
-    return state_machine_->action_type();   
+    return stateMachine_->actionType();   
 }
 
-void Entity::set_dead(bool dead)
+void Entity::setDead(bool dead)
 {
     dead_ = dead;
     selectable_ = !dead;
     controllable_ = !dead;
 }
 
-void Entity::take_damage(int damage, Entity * attacker)
+void Entity::takeDamage(int damage, Entity * attacker)
 {
-    hp_->minus_points(damage);
-    state_machine_->aggro(attacker);
+    hp_->minusPoints(damage);
+    stateMachine_->aggro(attacker);
 }

@@ -20,9 +20,9 @@ class Level
         double height_;
         double rows_;
         double columns_;
-        double tile_width_;
-        double tile_height_;
-        int total_tiles_;
+        double tileWidth_;
+        double tileHeight_;
+        int totalTiles_;
         std::vector<Tile *> * tiles_;
         Grid * grid_;
         Tileset * tileset_;
@@ -35,17 +35,17 @@ class Level
         // accessors
         double width() const { return width_; }
         double height() const { return height_; }
-        int total_tiles() const { return total_tiles_; }
+        int totalTiles() const { return totalTiles_; }
         std::vector<Tile *> * tiles() const { return tiles_; }
         Grid * grid() const { return grid_; }
 
         bool load(std::string filename);
-        bool touches_wall(GameObject * object, SDL_Rect * rect);
+        bool touchesWall(GameObject * object, SDL_Rect * rect);
 
         void render(Frame * frame = nullptr);
-        void build_grid();
+        void buildGrid();
 
-        bool is_walkable(int row, int col);
+        bool isWalkable(int row, int col);
 };
 
 #endif

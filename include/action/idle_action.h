@@ -12,7 +12,7 @@ class IdleAction : public Action
     public:
         IdleAction();
 
-        bool update(Entity * entity, int delta_ticks);
+        bool update(Entity * entity, int deltaTicks);
 
 };
 

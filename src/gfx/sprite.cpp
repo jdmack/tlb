@@ -2,24 +2,24 @@
 #include "action/action.h"
 #include "gfx/sprite.h"
 #include "gfx/renderer.h"
-#include "game_object.h"
+#include "gameObject.h"
 #include "util/logger.h"
 #include "rapidxml/rapidxml.hpp"
 #include "entity.h"
 #include "frame.h"
 
-Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
+Sprite::Sprite(GameObject * object, std::string asset, std::string selectAsset)
 {
     object_ = object;
-    art_asset_ = asset;
-    select_art_asset_ = select_asset;
+    artAsset_ = asset;
+    selectArtAsset_ = selectAsset;
     texture_ = nullptr;
     renderer_ = nullptr;
     height_ = object->height();
     width_ = object->width();
 
-    current_action_ = ACTION_IDLE;
-    current_direction_ = object_->rotation();
+    currentAction_ = ACTION_IDLE;
+    currentDirection_ = object_->rotation();
 
     // open xml doc
     rapidxml::xml_document<> doc;
@@ -34,78 +34,78 @@ Sprite::Sprite(GameObject * object, std::string asset, std::string select_asset)
     rapidxml::xml_node<> *sprite = doc.first_node();     // this is the sprite element
 
     // Iterate through animations
-    for(rapidxml::xml_node<> *animation = sprite->first_node("animation"); animation; animation = animation->next_sibling()) {
+    for(rapidxml::xml_node<> *animation = sprite->first_node("animation"); animation; animation = animation->nextSibling()) {
 
-        std::string animation_key;
-        int animation_time;
+        std::string animationKey;
+        int animationTime;
 
-        for (rapidxml::xml_attribute<> *attribute = animation->first_attribute(); attribute; attribute = attribute->next_attribute()) {
+        for (rapidxml::xmlAttribute<> *attribute = animation->first_attribute(); attribute; attribute = attribute->nextAttribute()) {
 
-                std::string attribute_name = attribute->name();
+                std::string attributeName = attribute->name();
 
-                if(attribute_name.compare("key") == 0) {
-                    animation_key = attribute->value();
+                if(attributeName.compare("key") == 0) {
+                    animationKey = attribute->value();
                 }
-                else if(attribute_name.compare("time") == 0) {
-                    animation_time = atoi(attribute->value());
+                else if(attributeName.compare("time") == 0) {
+                    animationTime = atoi(attribute->value());
                 }
 
         }
-        //Logger::write(Logger::ss << "Reading Animation: " << animation_key);
-        Animation this_animation(animation_key, animation_time);
+        //Logger::write(Logger::ss << "Reading Animation: " << animationKey);
+        Animation thisAnimation(animationKey, animationTime);
 
         // Iterate through frames
-        for(rapidxml::xml_node<> *frame = animation->first_node("frame"); frame; frame = frame->next_sibling()) {
+        for(rapidxml::xml_node<> *frame = animation->first_node("frame"); frame; frame = frame->nextSibling()) {
 
-            std::string frame_key;
-            int frame_x, frame_y, frame_width, frame_height;
+            std::string frameKey;
+            int frameX, frameY, frameWidth, frameHeight;
 
             // Iterate through attributes
-            for (rapidxml::xml_attribute<> *attribute = frame->first_attribute(); attribute; attribute = attribute->next_attribute()) {
+            for (rapidxml::xmlAttribute<> *attribute = frame->first_attribute(); attribute; attribute = attribute->nextAttribute()) {
 
-                std::string attribute_name = attribute->name();
+                std::string attributeName = attribute->name();
 
-                if(attribute_name.compare("key") == 0) {
-                    frame_key = attribute->value();
+                if(attributeName.compare("key") == 0) {
+                    frameKey = attribute->value();
                 }
-                else if(attribute_name.compare("x") == 0) {
-                    frame_x = atoi(attribute->value());
+                else if(attributeName.compare("x") == 0) {
+                    frameX = atoi(attribute->value());
                 }
-                else if(attribute_name.compare("y") == 0) {
-                    frame_y = atoi(attribute->value());
+                else if(attributeName.compare("y") == 0) {
+                    frameY = atoi(attribute->value());
                 }
-                else if(attribute_name.compare("width") == 0) {
-                    frame_width = atoi(attribute->value());
+                else if(attributeName.compare("width") == 0) {
+                    frameWidth = atoi(attribute->value());
                 }
-                else if(attribute_name.compare("height") == 0) {
-                    frame_height = atoi(attribute->value());
+                else if(attributeName.compare("height") == 0) {
+                    frameHeight = atoi(attribute->value());
                 }
             }
 
-            SDL_Rect this_frame = { frame_x, frame_y, frame_width, frame_height };
-            this_animation.insert_frame(animation_key + frame_key, this_frame);
+            SDL_Rect thisFrame = { frameX, frameY, frameWidth, frameHeight };
+            thisAnimation.insertFrame(animationKey + frameKey, thisFrame);
         }
 
-    animations_.insert(std::pair<std::string, Animation>(animation_key, this_animation));
+    animations_.insert(std::pair<std::string, Animation>(animationKey, thisAnimation));
 
     }
 
-    animation_timer_.start();
-    current_animation_ = animations_["idle_right"];
+    animationTimer_.start();
+    currentAnimation_ = animations_["idleRight"];
 
     double rotation = object_->rotation();
 
     if((rotation >= 45) && (rotation <= 135)) {
-        current_animation_ = animations_["idle_down"];
+        currentAnimation_ = animations_["idleDown"];
     }
     else if((rotation >= 135) && (rotation <= 225)) {
-        current_animation_ = animations_["idle_left"];
+        currentAnimation_ = animations_["idleLeft"];
     }
     else if((rotation >= 225) && (rotation <= 315)) {
-        current_animation_ = animations_["idle_up"];
+        currentAnimation_ = animations_["idleUp"];
     }
     else {
-        current_animation_ = animations_["idle_right"];
+        currentAnimation_ = animations_["idleRight"];
     }
 }
 
@@ -114,8 +114,8 @@ void Sprite::select()
     /*
     SDL_DestroyTexture(texture_);
 
-    SDL_Surface * surface = renderer_->load_image_alpha(art_asset_);
-    SDL_Surface * select_surface = renderer_->load_image_alpha(select_art_asset_);
+    SDL_Surface * surface = renderer_->loadImageAlpha(artAsset_);
+    SDL_Surface * selectSurface = renderer_->loadImageAlpha(selectArtAsset_);
 
     SDL_Rect offset;
     offset.x = 0;
@@ -123,10 +123,10 @@ void Sprite::select()
     offset.w = width_;
     offset.h = height_;
 
-    renderer_->apply_surface(select_surface, surface, &offset);
+    renderer_->applySurface(selectSurface, surface, &offset);
 
     texture_ = SDL_CreateTextureFromSurface(renderer_->renderer(), surface);
-    SDL_FreeSurface(select_surface);
+    SDL_FreeSurface(selectSurface);
     */
 }
 
@@ -135,7 +135,7 @@ void Sprite::deselect()
     /*
     SDL_DestroyTexture(texture_);
     texture_ = nullptr;
-    texture_ = renderer_->load_texture_alpha(art_asset_);
+    texture_ = renderer_->loadTextureAlpha(artAsset_);
     */
 }
 
@@ -144,21 +144,21 @@ void Sprite::render(Frame * frame)
     update();
 
     // convert floating-point positions to integers for drawing
-    SDL_Rect offset = { (int)object_->x_position() - ((int)object_->width() / 2), (int)object_->y_position() - ((int)object_->height() / 2), height_, width_ };
-    SDL_Rect clip = current_animation_.current_frame();
-    renderer_->render_texture_frame(texture_, frame, &offset, &clip);
+    SDL_Rect offset = { (int)object_->xPosition() - ((int)object_->width() / 2), (int)object_->yPosition() - ((int)object_->height() / 2), height_, width_ };
+    SDL_Rect clip = currentAnimation_.currentFrame();
+    renderer_->renderTextureFrame(texture_, frame, &offset, &clip);
 
     if(object_->selected()) {
 
         Color color = Color(255, 0, 255);
         SDL_Rect rect = {
-            (int)(object_->x_position() + frame->x() - width_ / 2),
-            (int)(object_->y_position() + frame->y() - height_ / 2),
+            (int)(object_->xPosition() + frame->x() - width_ / 2),
+            (int)(object_->yPosition() + frame->y() - height_ / 2),
             width_,
             height_
         };
 
-        renderer_->draw_rectangle(rect, color);
+        renderer_->drawRectangle(rect, color);
 
     }
 }
@@ -166,20 +166,20 @@ void Sprite::render(Frame * frame)
 void Sprite::update()
 {
     // update current animation based on current action
-    ActionType action_type;
+    ActionType actionType;
     Entity * entity;
     std::string animation = "";
 
-    if(object_->is_entity()) {
-        entity = static_cast<Entity *>(object_);
+    if(object_->isEntity()) {
+        entity = staticCast<Entity *>(object_);
 
-        action_type = entity->action_type();
+        actionType = entity->actionType();
 
         // TODO(2014-09-09/JM): Remember "last action" in a way so we don't have to always recheck this
-        if((action_type != current_action_) || (current_direction_ != object_->rotation())) {
-            current_action_ = action_type;
+        if((actionType != currentAction_) || (currentDirection_ != object_->rotation())) {
+            currentAction_ = actionType;
 
-            switch(action_type) {
+            switch(actionType) {
                 case ACTION_ATTACK:
                     animation += "attack";
                     break;
@@ -200,8 +200,8 @@ void Sprite::update()
             animation += "_";
 
             // TODO(2014-09-09/JM): Remember "last rotation" as a string or enum so we don't have to always check these regions
-            //if(current_direction_ != object_->rotation()) {
-            current_direction_ = object_->rotation();
+            //if(currentDirection_ != object_->rotation()) {
+            currentDirection_ = object_->rotation();
 
             // determine direction
             double rotation = object_->rotation();
@@ -219,19 +219,19 @@ void Sprite::update()
                 animation += "right";
             }
             //}
-            current_animation_ = animations_[animation];
+            currentAnimation_ = animations_[animation];
         }
     }
     else {
         // This is for regular GameObjects. 
         // TODO(2014-09-09/JM): Decide how to handle animations for GameObjects (i.e. a "default" animation)
-        animation = "idle_right";
-        current_animation_ = animations_[animation];
+        animation = "idleRight";
+        currentAnimation_ = animations_[animation];
     }
 
     // update frame of current animation
-    if(animation_timer_.get_ticks() >= current_animation_.time()) {
-        current_animation_.next_frame();
-        animation_timer_.start();
+    if(animationTimer_.getTicks() >= currentAnimation_.time()) {
+        currentAnimation_.nextFrame();
+        animationTimer_.start();
     }
 }

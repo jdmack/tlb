@@ -4,8 +4,8 @@
 class GlobalTimer
 {
     private:
-        int start_ticks_;
-        int paused_ticks_;
+        int startTicks_;
+        int pausedTicks_;
         bool paused_;
         bool started_;
         static GlobalTimer * instance_;
@@ -23,8 +23,8 @@ class GlobalTimer
         void stop();
         void pause();
         void unpause();
-        void toggle_pause();
-        int get_ticks();
+        void togglePause();
+        int getTicks();
 
         // accessors
         bool started() const { return started_; }

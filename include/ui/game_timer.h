@@ -6,7 +6,7 @@
 #include "constants.h"
 #include "gfx/renderer.h"
 #include "point.h"
-#include "ui/ui_element.h"
+#include "ui/uiElement.h"
 
 class Frame;
 class Text;
@@ -14,7 +14,7 @@ class Text;
 class GameTimer : public UIElement
 {
     private:
-        int start_ticks_;
+        int startTicks_;
         Text * text_;
 
     public:
@@ -29,7 +29,7 @@ class GameTimer : public UIElement
         void render(Frame * frame = nullptr);
         void update();
 
-        std::string convert_time(int ticks);
+        std::string convertTime(int ticks);
 };
 
 #endif

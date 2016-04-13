@@ -1,7 +1,7 @@
 #ifndef TLB_AI_STATE_ATTACK_STATE_H_
 #define TLB_AI_STATE_ATTACK_STATE_H_
 
-#include "ai_state/ai_state.h"
+#include "aiState/aiState.h"
 #include "action/action.h"
 
 class Entity;
@@ -12,13 +12,13 @@ class AttackState : public AIState
 {
     private:
         Entity * target_;
-        AttackAction * attack_action_;
+        AttackAction * attackAction_;
         int damage_;
         double range_;
         bool command_;
 
     public:
-        AttackState(AIStateMachine * state_machine, Entity * entity);
+        AttackState(AIStateMachine * stateMachine, Entity * entity);
         ~AttackState();
 
         // accessors
@@ -27,16 +27,16 @@ class AttackState : public AIState
         bool command() const { return command_; }
 
         // mutators
-        void set_target(Entity * target) { target_ = target; }
-        void set_damage(int damage) { damage_ = damage; }
-        void set_range(double range) { range_ = range; }
-        void set_command(bool command) { command_ = command; }
+        void setTarget(Entity * target) { target_ = target; }
+        void setDamage(int damage) { damage_ = damage; }
+        void setRange(double range) { range_ = range; }
+        void setCommand(bool command) { command_ = command; }
 
-        bool update(int delta_ticks);
+        bool update(int deltaTicks);
         void stop();
         void start();
         void end();
-        ActionType action_type();
+        ActionType actionType();
 
 };
 

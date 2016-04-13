@@ -1,7 +1,7 @@
 #ifndef TLB_GS_LEVEL_SELECT_H_
 #define TLB_GS_LEVEL_SELECT_H_
 
-#include "game_state.h"
+#include "gameState.h"
 
 
 // FOR TESTING
@@ -14,9 +14,9 @@ class Graphic;
 class GSLevelSelect : public GameState
 {
     private:
-        LevelGraph * level_graph_;
-        UserInterface * user_interface_;
-        EHLevel * event_handler_;
+        LevelGraph * levelGraph_;
+        UserInterface * userInterface_;
+        EHLevel * eventHandler_;
 
         Graphic * background_;
 
@@ -26,10 +26,10 @@ class GSLevelSelect : public GameState
     public:
         GSLevelSelect();
 
-        UserInterface * user_interface() const { return user_interface_; }
+        UserInterface * userInterface() const { return userInterface_; }
 
         bool init();
-        bool update(int delta_ticks);
+        bool update(int deltaTicks);
         void render();
         void end();
 

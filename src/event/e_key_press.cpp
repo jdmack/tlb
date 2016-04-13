@@ -1,16 +1,16 @@
-#include "event/e_key_press.h"
+#include "event/eKeyPress.h"
 #include "event/event.h"
 
 EKeyPress::EKeyPress()
 {
     type_ = EVENT_KEY_PRESS;
-    key_type_ = KEY_NONE;
+    keyType_ = KEY_NONE;
 }
 
-EKeyPress::EKeyPress(KeyType key_type)
+EKeyPress::EKeyPress(KeyType keyType)
 {
     type_ = EVENT_KEY_PRESS;
-    key_type_ = key_type;
+    keyType_ = keyType;
 }
 
 EKeyPress::~EKeyPress()

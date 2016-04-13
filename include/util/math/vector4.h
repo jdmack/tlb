@@ -30,11 +30,11 @@ struct Vector4
 
     // mutators
     // Element access 'set': set each coordinate separately
-    void set_x(float x) { x_ = x; }
-    void set_y(float y) { y_ = y; }
-    void set_z(float z) { z_ = z; }
-    void set_w(float w) { w_ = w; }
-    void set_coordinates(float x, float y, float z, float w);
+    void setX(float x) { x_ = x; }
+    void setY(float y) { y_ = y; }
+    void setZ(float z) { z_ = z; }
+    void setW(float w) { w_ = w; }
+    void setCoordinates(float x, float y, float z, float w);
     void set(int coordinate, float value);
 
     // Overload operator '[]' as alternative to 'get' method
@@ -53,7 +53,7 @@ struct Vector4
     // Overload operator '-' for subtraction
     Vector4 operator-(Vector4 param);
 
-    float dot_product(Vector4 param);
+    float dotProduct(Vector4 param);
     float operator*(Vector4 & param);
 
     Vector4 multiply(Matrix4 param);
