@@ -29,7 +29,7 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	@mkdir -p $(BUILDDIR)/util
 	@mkdir -p $(BUILDDIR)/util/math
 	@mkdir -p $(BUILDDIR)/action
-	@mkdir -p $(BUILDDIR)/ai_state
+	@mkdir -p $(BUILDDIR)/aiState
 	@mkdir -p $(BUILDDIR)/ui
 	@mkdir -p $(BUILDDIR)/event
 	@echo " $(CC) $(CFLAGS) $(INC) -c -o $@ $<"; $(CC) $(CFLAGS) $(INC) -c -o $@ $<

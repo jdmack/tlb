@@ -1,6 +1,6 @@
-#include "constants.h"
-#include "game.h"
-#include "util/logger.h"
+#include "Constants.h"
+#include "Game.h"
+#include "util/Logger.h"
 
 int main(int argc, char* argv[])
 {
