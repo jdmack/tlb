@@ -153,6 +153,7 @@
     <ClCompile Include="src\PathfinderHex.cpp" />
     <ClCompile Include="src\PathfinderSquare.cpp" />
     <ClCompile Include="src\Point.cpp" />
+    <ClCompile Include="src\Transform.cpp" />
     <ClCompile Include="src\ui\Button.cpp" />
     <ClCompile Include="src\ui\CharacterPanel.cpp" />
     <ClCompile Include="src\ui\GameTimer.cpp" />
@@ -229,6 +230,7 @@
     <ClInclude Include="include\PathfinderHex.h" />
     <ClInclude Include="include\PathfinderSquare.h" />
     <ClInclude Include="include\Point.h" />
+    <ClInclude Include="include\Transform.h" />
     <ClInclude Include="include\ui\Button.h" />
     <ClInclude Include="include\ui\CharacterPanel.h" />
     <ClInclude Include="include\ui\GameTimer.h" />

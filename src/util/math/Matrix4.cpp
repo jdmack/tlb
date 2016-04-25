@@ -3,6 +3,7 @@
 #include <math.h>
 
 #include "util/math/Matrix4.h"
+#include "Transform.h"
 
 // Note: Matrix is stored row-major.
 
@@ -313,6 +314,123 @@ void Matrix4::copy_3x3(Matrix4 param)
     m_[1][2] = param.get(1, 2);
     m_[2][2] = param.get(2, 2);
 }
+
+void Matrix4::initScaleTransform(float ScaleX, float ScaleY, float ScaleZ)
+{
+    m_[0][0] = ScaleX; m_[0][1] = 0.0f;   m_[0][2] = 0.0f;   m_[0][3] = 0.0f;
+    m_[1][0] = 0.0f;   m_[1][1] = ScaleY; m_[1][2] = 0.0f;   m_[1][3] = 0.0f;
+    m_[2][0] = 0.0f;   m_[2][1] = 0.0f;   m_[2][2] = ScaleZ; m_[2][3] = 0.0f;
+    m_[3][0] = 0.0f;   m_[3][1] = 0.0f;   m_[3][2] = 0.0f;   m_[3][3] = 1.0f;
+}
+
+void Matrix4::initRotateTransform(float rotateX, float rotateY, float rotateZ)
+{
+    Matrix4 rx, ry, rz;
+
+    const float x = toRadian(rotateX);
+    const float y = toRadian(rotateY);
+    const float z = toRadian(rotateZ);
+
+    rx.m_[0][0] = 1.0f; rx.m_[0][1] = 0.0f; rx.m_[0][2] = 0.0f; rx.m_[0][3] = 0.0f;
+    rx.m_[1][0] = 0.0f; rx.m_[1][1] = cosf(x); rx.m_[1][2] = -sinf(x); rx.m_[1][3] = 0.0f;
+    rx.m_[2][0] = 0.0f; rx.m_[2][1] = sinf(x); rx.m_[2][2] = cosf(x); rx.m_[2][3] = 0.0f;
+    rx.m_[3][0] = 0.0f; rx.m_[3][1] = 0.0f; rx.m_[3][2] = 0.0f; rx.m_[3][3] = 1.0f;
+
+    ry.m_[0][0] = cosf(y); ry.m_[0][1] = 0.0f; ry.m_[0][2] = -sinf(y); ry.m_[0][3] = 0.0f;
+    ry.m_[1][0] = 0.0f; ry.m_[1][1] = 1.0f; ry.m_[1][2] = 0.0f; ry.m_[1][3] = 0.0f;
+    ry.m_[2][0] = sinf(y); ry.m_[2][1] = 0.0f; ry.m_[2][2] = cosf(y); ry.m_[2][3] = 0.0f;
+    ry.m_[3][0] = 0.0f; ry.m_[3][1] = 0.0f; ry.m_[3][2] = 0.0f; ry.m_[3][3] = 1.0f;
+
+    rz.m_[0][0] = cosf(z); rz.m_[0][1] = -sinf(z); rz.m_[0][2] = 0.0f; rz.m_[0][3] = 0.0f;
+    rz.m_[1][0] = sinf(z); rz.m_[1][1] = cosf(z); rz.m_[1][2] = 0.0f; rz.m_[1][3] = 0.0f;
+    rz.m_[2][0] = 0.0f; rz.m_[2][1] = 0.0f; rz.m_[2][2] = 1.0f; rz.m_[2][3] = 0.0f;
+    rz.m_[3][0] = 0.0f; rz.m_[3][1] = 0.0f; rz.m_[3][2] = 0.0f; rz.m_[3][3] = 1.0f;
+
+    *this = rz * ry * rx;
+}
+
+/*
+void Matrix4::InitRotateTransform(const Quaternion& quat)
+{
+    float yy2 = 2.0f * quat.y * quat.y;
+    float xy2 = 2.0f * quat.x * quat.y;
+    float xz2 = 2.0f * quat.x * quat.z;
+    float yz2 = 2.0f * quat.y * quat.z;
+    float zz2 = 2.0f * quat.z * quat.z;
+    float wz2 = 2.0f * quat.w * quat.z;
+    float wy2 = 2.0f * quat.w * quat.y;
+    float wx2 = 2.0f * quat.w * quat.x;
+    float xx2 = 2.0f * quat.x * quat.x;
+    m_[0][0] = -yy2 - zz2 + 1.0f;
+    m_[0][1] = xy2 + wz2;
+    m_[0][2] = xz2 - wy2;
+    m_[0][3] = 0;
+    m_[1][0] = xy2 - wz2;
+    m_[1][1] = -xx2 - zz2 + 1.0f;
+    m_[1][2] = yz2 + wx2;
+    m_[1][3] = 0;
+    m_[2][0] = xz2 + wy2;
+    m_[2][1] = yz2 - wx2;
+    m_[2][2] = -xx2 - yy2 + 1.0f;
+    m_[2][3] = 0.0f;
+    m_[3][0] = m_[3][1] = m_[3][2] = 0;
+    m_[3][3] = 1.0f;
+}
+*/
+
+void Matrix4::initTranslationTransform(float x, float y, float z)
+{
+    m_[0][0] = 1.0f; m_[0][1] = 0.0f; m_[0][2] = 0.0f; m_[0][3] = x;
+    m_[1][0] = 0.0f; m_[1][1] = 1.0f; m_[1][2] = 0.0f; m_[1][3] = y;
+    m_[2][0] = 0.0f; m_[2][1] = 0.0f; m_[2][2] = 1.0f; m_[2][3] = z;
+    m_[3][0] = 0.0f; m_[3][1] = 0.0f; m_[3][2] = 0.0f; m_[3][3] = 1.0f;
+}
+
+/*
+void Matrix4::initCameraTransform(const Vector3& Target, const Vector3& Up)
+{
+    Vector3 n = Target;
+    n.normalize();
+    Vector3 u = Up;
+    u.normalize();
+    u = u.crossProduct(n);
+    Vector3 V = N.crossProduct(U);
+
+    m_[0][0] = u.x;   m_[0][1] = u.y;   m_[0][2] = u.z;   m_[0][3] = 0.0f;
+    m_[1][0] = v.x;   m_[1][1] = v.y;   m_[1][2] = v.z;   m_[1][3] = 0.0f;
+    m_[2][0] = n.x;   m_[2][1] = n.y;   m_[2][2] = n.z;   m_[2][3] = 0.0f;
+    m_[3][0] = 0.0f;  m_[3][1] = 0.0f;  m_[3][2] = 0.0f;  m_[3][3] = 1.0f;
+}
+*/
+
+void Matrix4::initPersProjTransform(const PersProjInfo& p)
+{
+    const float ar = p.width_ / p.height_;
+    const float zRange = p.zNear_ - p.zFar_;
+    const float tanHalfFOV = tanf(toRadian(p.fov_ / 2.0f));
+
+    m_[0][0] = 1.0f / (tanHalfFOV * ar); m_[0][1] = 0.0f;              m_[0][2] = 0.0f;                         m_[0][3] = 0.0;
+    m_[1][0] = 0.0f;                     m_[1][1] = 1.0f / tanHalfFOV; m_[1][2] = 0.0f;                         m_[1][3] = 0.0;
+    m_[2][0] = 0.0f;                     m_[2][1] = 0.0f;              m_[2][2] = (-p.zNear_ - p.zFar_) / zRange; m_[2][3] = 2.0f*p.zFar_*p.zNear_ / zRange;
+    m_[3][0] = 0.0f;                     m_[3][1] = 0.0f;              m_[3][2] = 1.0f;                         m_[3][3] = 0.0;
+}
+
+/*
+void Matrix4::initOrthoProjTransform(const OrthoProjInfo& p)
+{
+    float l = p.l;
+    float r = p.r;
+    float b = p.b;
+    float t = p.t;
+    float n = p.n;
+    float f = p.f;
+
+    m_[0][0] = 2.0f / (r - l); m_[0][1] = 0.0f;         m_[0][2] = 0.0f;         m_[0][3] = -(r + l) / (r - l);
+    m_[1][0] = 0.0f;         m_[1][1] = 2.0f / (t - b); m_[1][2] = 0.0f;         m_[1][3] = -(t + b) / (t - b);
+    m_[2][0] = 0.0f;         m_[2][1] = 0.0f;         m_[2][2] = 2.0f / (f - n); m_[2][3] = -(f + n) / (f - n);
+    m_[3][0] = 0.0f;         m_[3][1] = 0.0f;         m_[3][2] = 0.0f;         m_[3][3] = 1.0;
+}
+*/
 
 
 
