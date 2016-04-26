@@ -1,5 +1,7 @@
 #include "Transform.h"
-
+#include "util/math/Vector3.h"
+#include "util/math/Vector4.h"
+#include "util/math/Matrix4.h"
 
 Transform::Transform()
 {
@@ -13,40 +15,40 @@ void Transform::scale(float s)
     scale(s, s, s);
 }
  
-void Transform::scale(const Vector3 & scale)
+void Transform::scale(Vector3 s)
 {
-    this->scale(scale.x, scale.y, scale.z);
+    scale(s.x(), s.y(), s.z());
 }
  
 void Transform::scale(float scaleX, float scaleY, float scaleZ)
 {
-    scale_.x = scaleX;
-    scale_.y = scaleY;
-    scale_.z = scaleZ;
+    scale_.setX(scaleX);
+    scale_.setY(scaleY);
+    scale_.setZ(scaleZ);
 }
 
 void Transform::worldPos(float x, float y, float z)
 {
-    worldPos_.x = x;
-    worldPos_.y = y;
-    worldPos_.z = z;
+    worldPos_.setX(x);
+    worldPos_.setY(y);
+    worldPos_.setZ(z);
 }
  
-void Transform::worldPos(const Vector3 & position)
+void Transform::worldPos(Vector3 position)
 {
     worldPos_ = position;
 }
 
 void Transform::rotate(float rotateX, float rotateY, float rotateZ)
 {
-    rotateInfo_.x = rotateX;
-    rotateInfo_.y = rotateY;
-    rotateInfo_.z = rotateZ;
+    rotateInfo_.setX(rotateX);
+    rotateInfo_.setY(rotateY);
+    rotateInfo_.setZ(rotateZ);
 }
  
-void Transform::rotate(const Vector3 & r)
+void Transform::rotate(Vector3 r)
 {
-    rotate(r.x, r.y, r.z);
+    rotate(r.x(), r.y(), r.z());
 }
 
 void Transform::setPerspectiveProj(const PersProjInfo & p)
@@ -66,16 +68,18 @@ void Transform::setPerspectiveProj(const PersProjInfo & p)
 //    setCamera(camera.position(), camera.target(), camera.up());
 //}
  
+/*
 void Transform::orient(const Orientation & o)
 {
     scale_      = o.scale_;
     worldPos_   = o.position_;
     rotateInfo_ = o.rotation_;
 }
+*/
 
 const Matrix4& Transform::getProjTrans() 
 {
-    InitPersProjTransform(persProjInfo_);
+    //projTransformation_.initPersProjTransform(persProjInfo_);
     return projTransformation_;
 }
 
@@ -92,10 +96,9 @@ const Matrix4& Transform::getWorldTrans()
 {
     Matrix4 ScaleTrans, RotateTrans, TranslationTrans;
 
-    ScaleTrans.initScaleTransform(scale_.x, scale_.y, scale_.z);
-    RotateTrans.initRotateTransform(rotateInfo_.x, rotateInfo_.y, rotateInfo_.z);
-    TranslationTrans.initTranslationTransform(worldPos_.x, worldPos_.y, worldPos_.z);
-
+    //ScaleTrans.initScaleTransform(scale_.x, scale_.y, scale_.z);
+    //RotateTrans.initRotateTransform(rotateInfo_.x, rotateInfo_.y, rotateInfo_.z);
+    //TranslationTrans.initTranslationTransform(worldPos_.x, worldPos_.y, worldPos_.z);
     Wtransformation_ = TranslationTrans * RotateTrans * ScaleTrans;
     return Wtransformation_;
 }
@@ -129,7 +132,7 @@ const Matrix4& Transform::getWVOrthoPTrans()
     Matrix4 p;
     //p.initOrthoProjTransform(persProjInfo_);
     
-    WVPtransformation_ = p * Vtransformation_ * Wtransformation_;
+    //WVPtransformation_ = p * Vtransformation_ * Wtransformation_;
     return WVPtransformation_;
 }
 
@@ -149,9 +152,9 @@ const Matrix4& Transform::getWPTrans()
 	Matrix4 PersProjTrans;
 
 	getWorldTrans();
-	PersProjTrans.initPersProjTransform(persProjInfo_);
+	//PersProjTrans.initPersProjTransform(persProjInfo_);
 
-	WPtransformation_ = PersProjTrans * Wtransformation_;
+	//WPtransformation_ = PersProjTrans * Wtransformation_;
 	return WPtransformation_;
 }
 

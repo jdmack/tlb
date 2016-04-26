@@ -1,11 +1,15 @@
 #ifndef TLB_TRANSFORM_H_
 #define TLB_TRANSFORM_H_
 
-#include "util/math/vector3.h"
-#include "util/math/vector3.h"
-#include "util/math/vector3.h"
+//#include "util/math/Vector3.h"
+//#include "util/math/Vector4."h
+//#include "util/math/Matrix4.h"
 //#include "ogldev_camera.h"
 
+class Matrix4;
+class Vector3;
+class Vector4;
+/*
 struct Orientation
 {
     Vector3 scale_;
@@ -19,6 +23,7 @@ struct Orientation
         position_ = Vector3(0.0f, 0.0f, 0.0f);
     }
 };
+*/
 
 // TODO(2016-04-24/JM): Possibly move this struct somewhere else
 struct PersProjInfo
@@ -30,7 +35,13 @@ struct PersProjInfo
     float zFar_;
 
 };
-
+/*
+struct Camera {
+    Vector3 position;
+    Vector3 target;
+    Vector3 up;
+};
+*/
 
 class Transform
 {
@@ -40,12 +51,7 @@ class Transform
        Vector3 rotateInfo_;
 
        PersProjInfo persProjInfo_;
-
-       struct {
-           Vector3 position;
-           Vector3 target;
-           Vector3 up;
-       } camera_;
+       //Camera camera_;
 
        Matrix4 WVPtransformation_;
        Matrix4 VPtransformation_;
@@ -59,16 +65,16 @@ class Transform
        Transform();
 
        void scale(float s);
-       void scale(const Vector3 & scale);
+       void scale(Vector3 scale);
        void scale(float scaleX, float scaleY, float scaleZ);
        void worldPos(float x, float y, float z);
-       void worldPos(const Vector3 & position);
+       void worldPos(Vector3 position);
        void rotate(float rotateX, float rotateY, float rotateZ);
-       void rotate(const Vector3 & rotation);
+       void rotate(Vector3 rotation);
        void setPerspectiveProj(const PersProjInfo& p);
        //void setCamera(const Vector3 & position, const Vector3 & target, const Vector3 & up);
        //void setCamera(const Camera & camera);
-       void orient(const Orientation & o);
+//       void orient(const Orientation & o);
 
        const Matrix4 & getWPTrans();
        const Matrix4 & getWVTrans();

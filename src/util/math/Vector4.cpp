@@ -1,5 +1,7 @@
 #include <iostream>
 #include "util/math/Vector4.h"
+#include "util/math/Matrix4.h"
+
 
 // constructors
 Vector4::Vector4()

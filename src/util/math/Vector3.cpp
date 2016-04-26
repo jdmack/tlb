@@ -22,6 +22,7 @@ Vector3::Vector3(float x, float y, float z)
 
 // accessors
 // Element access 'get': return a specific coordinate of the vector
+/*
 float & Vector3::get(int coordinate)
 {
     switch(coordinate) {
@@ -38,7 +39,9 @@ float & Vector3::get(int coordinate)
             return x_;
     }
 }
+*/
 
+/*
 float & Vector3::get(char coordinate)
 {
     switch(coordinate) {
@@ -56,6 +59,7 @@ float & Vector3::get(char coordinate)
     }
 
 }
+*/
 
 // mutators
 // Element access 'set': set the vector coordinates
@@ -84,13 +88,26 @@ void Vector3::set(int i, float val)
 }
 
 // Overload operator '[]' as alternative to 'get' method
-float & Vector3::operator[](int coordinate)
+
+/*
+const float & Vector3::operator[](int coordinate)
 {
     return get(coordinate);
 }
-float & Vector3::operator[](char coordinate)
+const float & Vector3::operator[](char coordinate)
 {
     return get(coordinate);
+}
+*/
+
+// Copy assignment operator
+Vector3 & Vector3::operator=(Vector3 v)
+{
+    x_ = v.x();
+    y_ = v.y();
+    z_ = v.z();
+
+    return *this;
 }
 
 // Vector addition

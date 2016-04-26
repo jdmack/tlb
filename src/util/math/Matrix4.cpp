@@ -3,7 +3,8 @@
 #include <math.h>
 
 #include "util/math/Matrix4.h"
-#include "Transform.h"
+#include "util/math/Vector4.h"
+//#include "Transform.h"
 
 // Note: Matrix is stored row-major.
 
@@ -73,6 +74,28 @@ void Matrix4::set(Matrix4 param)
             m_[row][col] = param.get(row,col);
         }
     }
+}
+
+// Copy assignment operator
+Matrix4 & Matrix4::operator=(Matrix4 m)
+{
+    m_[0][0] = m.get(0,0);
+    m_[0][1] = m.get(0,1);
+    m_[0][2] = m.get(0,2);
+    m_[0][3] = m.get(0,3);
+    m_[1][0] = m.get(1,0);
+    m_[1][1] = m.get(1,1);
+    m_[1][2] = m.get(1,2);
+    m_[1][3] = m.get(1,3);
+    m_[2][0] = m.get(2,0);
+    m_[2][1] = m.get(2,1);
+    m_[2][2] = m.get(2,2);
+    m_[2][3] = m.get(2,3);
+    m_[3][0] = m.get(3,0);
+    m_[3][1] = m.get(3,1);
+    m_[3][2] = m.get(3,2);
+    m_[3][3] = m.get(3,3);
+    return *this;
 }
 // Multiply (matrix-times-matrix)
 Matrix4 Matrix4::multiply(Matrix4 param)
@@ -315,14 +338,17 @@ void Matrix4::copy_3x3(Matrix4 param)
     m_[2][2] = param.get(2, 2);
 }
 
-void Matrix4::initScaleTransform(float ScaleX, float ScaleY, float ScaleZ)
+/*
+void Matrix4::initScaleTransform(float scaleX, float scaleY, float scaleZ)
 {
-    m_[0][0] = ScaleX; m_[0][1] = 0.0f;   m_[0][2] = 0.0f;   m_[0][3] = 0.0f;
-    m_[1][0] = 0.0f;   m_[1][1] = ScaleY; m_[1][2] = 0.0f;   m_[1][3] = 0.0f;
-    m_[2][0] = 0.0f;   m_[2][1] = 0.0f;   m_[2][2] = ScaleZ; m_[2][3] = 0.0f;
+    m_[0][0] = scaleX; m_[0][1] = 0.0f;   m_[0][2] = 0.0f;   m_[0][3] = 0.0f;
+    m_[1][0] = 0.0f;   m_[1][1] = scaleY; m_[1][2] = 0.0f;   m_[1][3] = 0.0f;
+    m_[2][0] = 0.0f;   m_[2][1] = 0.0f;   m_[2][2] = scaleZ; m_[2][3] = 0.0f;
     m_[3][0] = 0.0f;   m_[3][1] = 0.0f;   m_[3][2] = 0.0f;   m_[3][3] = 1.0f;
 }
+*/
 
+/*
 void Matrix4::initRotateTransform(float rotateX, float rotateY, float rotateZ)
 {
     Matrix4 rx, ry, rz;
@@ -348,6 +374,7 @@ void Matrix4::initRotateTransform(float rotateX, float rotateY, float rotateZ)
 
     *this = rz * ry * rx;
 }
+*/
 
 /*
 void Matrix4::InitRotateTransform(const Quaternion& quat)
@@ -377,7 +404,7 @@ void Matrix4::InitRotateTransform(const Quaternion& quat)
     m_[3][3] = 1.0f;
 }
 */
-
+/*
 void Matrix4::initTranslationTransform(float x, float y, float z)
 {
     m_[0][0] = 1.0f; m_[0][1] = 0.0f; m_[0][2] = 0.0f; m_[0][3] = x;
@@ -385,6 +412,7 @@ void Matrix4::initTranslationTransform(float x, float y, float z)
     m_[2][0] = 0.0f; m_[2][1] = 0.0f; m_[2][2] = 1.0f; m_[2][3] = z;
     m_[3][0] = 0.0f; m_[3][1] = 0.0f; m_[3][2] = 0.0f; m_[3][3] = 1.0f;
 }
+*/
 
 /*
 void Matrix4::initCameraTransform(const Vector3& Target, const Vector3& Up)
@@ -402,7 +430,7 @@ void Matrix4::initCameraTransform(const Vector3& Target, const Vector3& Up)
     m_[3][0] = 0.0f;  m_[3][1] = 0.0f;  m_[3][2] = 0.0f;  m_[3][3] = 1.0f;
 }
 */
-
+/*
 void Matrix4::initPersProjTransform(const PersProjInfo& p)
 {
     const float ar = p.width_ / p.height_;
@@ -414,6 +442,7 @@ void Matrix4::initPersProjTransform(const PersProjInfo& p)
     m_[2][0] = 0.0f;                     m_[2][1] = 0.0f;              m_[2][2] = (-p.zNear_ - p.zFar_) / zRange; m_[2][3] = 2.0f*p.zFar_*p.zNear_ / zRange;
     m_[3][0] = 0.0f;                     m_[3][1] = 0.0f;              m_[3][2] = 1.0f;                         m_[3][3] = 0.0;
 }
+*/
 
 /*
 void Matrix4::initOrthoProjTransform(const OrthoProjInfo& p)
