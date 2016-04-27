@@ -2,8 +2,8 @@
 #define TLB_UTIL_MATH_VECTOR3_H_
 
 #include <string>
-//#include "util/math/Vector4.h"
-//#include "util/math/Matrix4.h"
+#include "util/math/Vector4.h"
+#include "util/math/Matrix4.h"
 #define kPi 3.14159265359
 
 class Vector4;

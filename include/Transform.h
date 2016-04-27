@@ -1,9 +1,9 @@
 #ifndef TLB_TRANSFORM_H_
 #define TLB_TRANSFORM_H_
 
-//#include "util/math/Vector3.h"
-//#include "util/math/Vector4."h
-//#include "util/math/Matrix4.h"
+#include "util/math/Vector3.h"
+#include "util/math/Vector4.h"
+#include "util/math/Matrix4.h"
 //#include "ogldev_camera.h"
 
 class Matrix4;
