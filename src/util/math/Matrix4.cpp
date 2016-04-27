@@ -4,7 +4,7 @@
 
 #include "util/math/Matrix4.h"
 #include "util/math/Vector4.h"
-//#include "Transform.h"
+#include "Transform.h"
 
 // Note: Matrix is stored row-major.
 
@@ -338,7 +338,6 @@ void Matrix4::copy_3x3(Matrix4 param)
     m_[2][2] = param.get(2, 2);
 }
 
-/*
 void Matrix4::initScaleTransform(float scaleX, float scaleY, float scaleZ)
 {
     m_[0][0] = scaleX; m_[0][1] = 0.0f;   m_[0][2] = 0.0f;   m_[0][3] = 0.0f;
@@ -346,9 +345,7 @@ void Matrix4::initScaleTransform(float scaleX, float scaleY, float scaleZ)
     m_[2][0] = 0.0f;   m_[2][1] = 0.0f;   m_[2][2] = scaleZ; m_[2][3] = 0.0f;
     m_[3][0] = 0.0f;   m_[3][1] = 0.0f;   m_[3][2] = 0.0f;   m_[3][3] = 1.0f;
 }
-*/
 
-/*
 void Matrix4::initRotateTransform(float rotateX, float rotateY, float rotateZ)
 {
     Matrix4 rx, ry, rz;
@@ -374,10 +371,9 @@ void Matrix4::initRotateTransform(float rotateX, float rotateY, float rotateZ)
 
     *this = rz * ry * rx;
 }
-*/
 
 /*
-void Matrix4::InitRotateTransform(const Quaternion& quat)
+void Matrix4::initRotateTransform(const Quaternion& quat)
 {
     float yy2 = 2.0f * quat.y * quat.y;
     float xy2 = 2.0f * quat.x * quat.y;
@@ -404,7 +400,7 @@ void Matrix4::InitRotateTransform(const Quaternion& quat)
     m_[3][3] = 1.0f;
 }
 */
-/*
+
 void Matrix4::initTranslationTransform(float x, float y, float z)
 {
     m_[0][0] = 1.0f; m_[0][1] = 0.0f; m_[0][2] = 0.0f; m_[0][3] = x;
@@ -412,25 +408,22 @@ void Matrix4::initTranslationTransform(float x, float y, float z)
     m_[2][0] = 0.0f; m_[2][1] = 0.0f; m_[2][2] = 1.0f; m_[2][3] = z;
     m_[3][0] = 0.0f; m_[3][1] = 0.0f; m_[3][2] = 0.0f; m_[3][3] = 1.0f;
 }
-*/
 
-/*
-void Matrix4::initCameraTransform(const Vector3& Target, const Vector3& Up)
+void Matrix4::initCameraTransform(Vector3 & target, Vector3& up)
 {
-    Vector3 n = Target;
+    Vector3 n = target;
     n.normalize();
-    Vector3 u = Up;
+    Vector3 u = up;
     u.normalize();
     u = u.crossProduct(n);
-    Vector3 V = N.crossProduct(U);
+    Vector3 v = n.crossProduct(u);
 
-    m_[0][0] = u.x;   m_[0][1] = u.y;   m_[0][2] = u.z;   m_[0][3] = 0.0f;
-    m_[1][0] = v.x;   m_[1][1] = v.y;   m_[1][2] = v.z;   m_[1][3] = 0.0f;
-    m_[2][0] = n.x;   m_[2][1] = n.y;   m_[2][2] = n.z;   m_[2][3] = 0.0f;
-    m_[3][0] = 0.0f;  m_[3][1] = 0.0f;  m_[3][2] = 0.0f;  m_[3][3] = 1.0f;
+    m_[0][0] = u.x();   m_[0][1] = u.y();   m_[0][2] = u.z();   m_[0][3] = 0.0f;
+    m_[1][0] = v.x();   m_[1][1] = v.y();   m_[1][2] = v.z();   m_[1][3] = 0.0f;
+    m_[2][0] = n.x();   m_[2][1] = n.y();   m_[2][2] = n.z();   m_[2][3] = 0.0f;
+    m_[3][0] = 0.0f;    m_[3][1] = 0.0f;    m_[3][2] = 0.0f;    m_[3][3] = 1.0f;
 }
-*/
-/*
+
 void Matrix4::initPersProjTransform(const PersProjInfo& p)
 {
     const float ar = p.width_ / p.height_;
@@ -442,24 +435,21 @@ void Matrix4::initPersProjTransform(const PersProjInfo& p)
     m_[2][0] = 0.0f;                     m_[2][1] = 0.0f;              m_[2][2] = (-p.zNear_ - p.zFar_) / zRange; m_[2][3] = 2.0f*p.zFar_*p.zNear_ / zRange;
     m_[3][0] = 0.0f;                     m_[3][1] = 0.0f;              m_[3][2] = 1.0f;                         m_[3][3] = 0.0;
 }
-*/
 
-/*
 void Matrix4::initOrthoProjTransform(const OrthoProjInfo& p)
 {
-    float l = p.l;
-    float r = p.r;
-    float b = p.b;
-    float t = p.t;
-    float n = p.n;
-    float f = p.f;
+    float l = p.l_;
+    float r = p.r_;
+    float b = p.b_;
+    float t = p.t_;
+    float n = p.n_;
+    float f = p.f_;
 
     m_[0][0] = 2.0f / (r - l); m_[0][1] = 0.0f;         m_[0][2] = 0.0f;         m_[0][3] = -(r + l) / (r - l);
     m_[1][0] = 0.0f;         m_[1][1] = 2.0f / (t - b); m_[1][2] = 0.0f;         m_[1][3] = -(t + b) / (t - b);
     m_[2][0] = 0.0f;         m_[2][1] = 0.0f;         m_[2][2] = 2.0f / (f - n); m_[2][3] = -(f + n) / (f - n);
     m_[3][0] = 0.0f;         m_[3][1] = 0.0f;         m_[3][2] = 0.0f;         m_[3][3] = 1.0;
 }
-*/
 
 
 

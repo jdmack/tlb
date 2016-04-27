@@ -1,8 +1,6 @@
 #ifndef TLB_UTIL_MATH_VECTOR4_H_
 #define TLB_UTIL_MATH_VECTOR4_H_
 
-//#include "util/math/Matrix4.h"
-
 class Matrix4;
 
 class Vector4

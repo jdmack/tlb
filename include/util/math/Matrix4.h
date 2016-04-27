@@ -1,17 +1,16 @@
 #ifndef TLB_UTIL_MATH_MATRIX4_H_
 #define TLB_UTIL_MATH_MATRIX4_H_
 
-//#include "util/math/Vector4.h"
-//#include "util/math/Vector3.h"
-//#include "Transform.h"
+#include "util/math/Vector3.h"
 
 #define M_PI 3.14159265358979323846
 
 #define toRadian(x) (float)(((x) * M_PI / 180.0f))
 #define toDegree(x) (float)(((x) * 180.0f / M_PI))
 
+struct PersProjInfo;
+struct OrthoProjInfo;
 class Vector3;
-class Vector4;
 
 class Matrix4
 {
@@ -79,13 +78,13 @@ class Matrix4
         void copy_3x3(Matrix4 param);
 
         // TODO(2016-04-24/JM): Possibly move this function somewhere else, probably want a perspective projection as part of the renderer
-        //void initScaleTransform(float scaleX, float scaleY, float scaleZ);
-        //void initRotateTransform(float rotateX, float rotateY, float rotateZ);
+        void initScaleTransform(float scaleX, float scaleY, float scaleZ);
+        void initRotateTransform(float rotateX, float rotateY, float rotateZ);
         //void initRotateTransform(const Quaternion& quat);
-        //void initTranslationTransform(float x, float y, float z);
-        //void initCameraTransform(const Vector3f& Target, const Vector3f& Up);
-        //void initPersProjTransform(const PersProjInfo& p);
-        //void initOrthoProjTransform(const OrthoProjInfo& p);
+        void initTranslationTransform(float x, float y, float z);
+        void initCameraTransform(Vector3 & target, Vector3 & up);
+        void initPersProjTransform(const PersProjInfo& p);
+        void initOrthoProjTransform(const OrthoProjInfo& p);
 
 };
 

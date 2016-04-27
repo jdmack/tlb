@@ -6,8 +6,6 @@
 #include "util/math/Matrix4.h"
 #define kPi 3.14159265359
 
-class Vector4;
-class Matrix4;
 
 class Vector3
 {
@@ -24,11 +22,11 @@ class Vector3
 
         // accessors
         // Element access 'get': return a specific coordinate of the vector
-        const float & x() { return x_; }
-        const float & y() { return y_; }
-        const float & z() { return z_; }
-        //const float & get(int coordinate);
-        //const float & get(char coordinate);
+        float & x() { return x_; }
+        float & y() { return y_; }
+        float & z() { return z_; }
+        float & get(int coordinate);
+        float & get(char coordinate);
 
         // mutators
         // Element access 'set': set the vector coordinates
@@ -39,8 +37,8 @@ class Vector3
         void set(int i, float val);
 
         // Overload operator '[]' as alternative to 'get' method
-        //const float & operator[](int coordinate);
-        //const float & operator[](char coordinate);
+        float & operator[](int coordinate);
+        float & operator[](char coordinate);
 
         // Copy assignment operator
         Vector3 & operator=(Vector3 v);
