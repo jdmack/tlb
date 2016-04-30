@@ -3,6 +3,7 @@
 
 enum EventType {
     EVENT_MOUSE_CLICK,
+    EVENT_MOUSE_MOTION,
     EVENT_KEY_PRESS,
     EVENT_GAME_QUIT,
     EVENT_BLANK
