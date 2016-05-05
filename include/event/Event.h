@@ -16,6 +16,8 @@ enum KeyType {
     KEY_DOWN,
     KEY_LEFT,
     KEY_RIGHT,
+    KEY_PAGE_UP,
+    KEY_PAGE_DOWN,
     KEY_A,
     KEY_B,
     KEY_C,

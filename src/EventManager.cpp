@@ -91,8 +91,8 @@ void EventManager::handleEvents()
 
             case SDL_MOUSEBUTTONDOWN:
                 // mouse Points adjusted to camera position
-                double mouseX = event.button.x + Game::instance()->camera()->xPosition();
-                double mouseY = event.button.y + Game::instance()->camera()->yPosition();
+                double mouseX = event.button.x;// +Game::instance()->camera()->xPosition();
+                double mouseY = event.button.y;// + Game::instance()->camera()->yPosition();
 
                 Point mousePoint = Point(mouseX, mouseY);
                 mousePoint = Math::convertToCartesian(mousePoint);

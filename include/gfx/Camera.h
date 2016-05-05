@@ -1,40 +1,52 @@
-#ifndef TLB_CAMERA_H_
-#define TLB_CAMERA_H_
+#ifndef TLB_GFX_CAMERA_H_
+#define TLB_GFX_CAMERA_H_
 
-#include "SDL2/SDL.h"
-#include "Constants.h"
-
-const double kCameraInitialX = 0;
-const double kCameraInitialY = 0;
-const double kCameraWidth = kRendererWidth;
-const double kCameraHeight = kRendererHeight;
-
-class GameObject;
+#include "util/math/Vector3.h"
+#include "util/math/Vector2i.h"
+#include "event/Event.h"
 
 class Camera
 {
-    private:
-        double xPosition_;
-        double yPosition_;
-        double width_;
-        double height_;
-
-    public:
-        Camera();
-        double xPosition() const { return xPosition_; }
-        double yPosition() const { return yPosition_; }
-        double width() const { return width_; }
-        double height() const { return height_; }
+   private:
 
 
-        void move(double x, double y);
-        void center(GameObject * object);
-        void fixBounds();
-        bool contains(SDL_Rect rect);
-        SDL_Rect rect();
+       Vector3 position_;
+       Vector3 target_;
+       Vector3 up_;
 
-        double xAdjust(double x);
-        double yAdjust(double y);
+       int m_windowWidth;
+       int m_windowHeight;
+
+       float angleH_;
+       float angleV_;
+
+       bool onUpperEdge_;
+       bool onLowerEdge_;
+       bool onLeftEdge_;
+       bool onRightEdge_;
+
+       Vector2i mousePosition_;
+
+       void init();
+       void update();
+
+   public:
+
+       Camera(int windowWindow, int windowHeight);
+
+       Camera(int windowWidth, int windowHeight, const Vector3 & position, const Vector3 & target, const Vector3 & up);
+
+       bool onKeyboard(KeyType key);
+
+       void onMouse(int x, int y);
+
+       void onRender();
+
+       const Vector3 & position() const { return position_; }
+       const Vector3 & GetTarget() const { return target_; } 
+       const Vector3 & GetUp() const { return up_; }
+
 };
 
 #endif
+

@@ -121,6 +121,7 @@
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\EntityManager.cpp" />
     <ClCompile Include="src\EventManager.cpp" />
+    <ClCompile Include="src\event\EHCamera.cpp" />
     <ClCompile Include="src\event\EHLevel.cpp" />
     <ClCompile Include="src\event\EKeyPress.cpp" />
     <ClCompile Include="src\event\EMouseClick.cpp" />
@@ -132,6 +133,7 @@
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\gfx\Animation.cpp" />
     <ClCompile Include="src\gfx\Camera.cpp" />
+    <ClCompile Include="src\gfx\Camera2D.cpp" />
     <ClCompile Include="src\gfx\Graphic.cpp" />
     <ClCompile Include="src\gfx\Model.cpp" />
     <ClCompile Include="src\gfx\Renderer.cpp" />
@@ -168,6 +170,7 @@
     <ClCompile Include="src\util\Logger.cpp" />
     <ClCompile Include="src\util\math\Math.cpp" />
     <ClCompile Include="src\util\math\Matrix4.cpp" />
+    <ClCompile Include="src\util\math\Vector2i.cpp" />
     <ClCompile Include="src\util\math\Vector3.cpp" />
     <ClCompile Include="src\util\math\Vector4.cpp" />
     <ClCompile Include="src\util\Timer.cpp" />
@@ -198,6 +201,7 @@
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\EntityManager.h" />
     <ClInclude Include="include\EventManager.h" />
+    <ClInclude Include="include\event\EHCamera.h" />
     <ClInclude Include="include\event\EHLevel.h" />
     <ClInclude Include="include\event\EKeyPress.h" />
     <ClInclude Include="include\event\EMouseClick.h" />
@@ -210,6 +214,7 @@
     <ClInclude Include="include\GameState.h" />
     <ClInclude Include="include\gfx\Animation.h" />
     <ClInclude Include="include\gfx\Camera.h" />
+    <ClInclude Include="include\gfx\Camera2D.h" />
     <ClInclude Include="include\gfx\Graphic.h" />
     <ClInclude Include="include\gfx\Model.h" />
     <ClInclude Include="include\gfx\Renderer.h" />
@@ -245,6 +250,7 @@
     <ClInclude Include="include\util\Logger.h" />
     <ClInclude Include="include\util\math\Math.h" />
     <ClInclude Include="include\util\math\Matrix4.h" />
+    <ClInclude Include="include\util\math\Vector2i.h" />
     <ClInclude Include="include\util\math\Vector3.h" />
     <ClInclude Include="include\util\math\Vector4.h" />
     <ClInclude Include="include\util\Timer.h" />
