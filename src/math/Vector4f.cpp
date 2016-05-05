@@ -1,10 +1,10 @@
 #include <iostream>
-#include "math/Vector4.h"
-#include "math/Matrix4.h"
+#include "math/Vector4f.h"
+#include "math/Matrix4f.h"
 
 
 // constructors
-Vector4::Vector4()
+Vector4f::Vector4f()
 {
     x_ = 0;
     y_ = 0;
@@ -13,7 +13,7 @@ Vector4::Vector4()
 }
 
 // A constructor with three parameters for point coordinates
-Vector4::Vector4(float x, float y, float z)
+Vector4f::Vector4f(float x, float y, float z)
 {
     x_ = x;
     y_ = y;
@@ -22,7 +22,7 @@ Vector4::Vector4(float x, float y, float z)
 }
 
 // A constructor with four parameters
-Vector4::Vector4(float x, float y, float z, float w)
+Vector4f::Vector4f(float x, float y, float z, float w)
 {
     x_ = x;
     y_ = y;
@@ -32,7 +32,7 @@ Vector4::Vector4(float x, float y, float z, float w)
 
 // accessors
 // Element access 'get': return one of the four coordinates
-float Vector4::get(int coordinate) const
+float Vector4f::get(int coordinate) const
 {
     switch(coordinate) {
         case 0:
@@ -52,7 +52,7 @@ float Vector4::get(int coordinate) const
     }
 }
 
-float Vector4::get(char coordinate) const
+float Vector4f::get(char coordinate) const
 {
     switch(coordinate) {
         case 'x':
@@ -75,14 +75,14 @@ float Vector4::get(char coordinate) const
 
 // mutators
 // Element access 'set': set the vector coordinates
-void Vector4::setCoordinates(float x, float y, float z, float w)
+void Vector4f::setCoordinates(float x, float y, float z, float w)
 {
     x_ = x;
     y_ = y;
     z_ = z;
     w_ = w;
 }
-void Vector4::set(int coordinate, float value)
+void Vector4f::set(int coordinate, float value)
 {
     switch(coordinate) {
         case 0:
@@ -101,17 +101,17 @@ void Vector4::set(int coordinate, float value)
 }
 
 // Overload operator '[]' as alternative to 'get' method
-float Vector4::operator[](int coordinate) const
+float Vector4f::operator[](int coordinate) const
 {
     return get(coordinate);
 }
-float Vector4::operator[](char coordinate) const
+float Vector4f::operator[](char coordinate) const
 {
     return get(coordinate);
 }
 
 // Vector addition
-void Vector4::add(Vector4 param)
+void Vector4f::add(Vector4f param)
 {
     x_ = x_ + param.x();
     y_ = y_ + param.y();
@@ -120,18 +120,18 @@ void Vector4::add(Vector4 param)
 }
 
 // Overload operator '+' for addition
-Vector4 Vector4::operator+(Vector4 param)
+Vector4f Vector4f::operator+(Vector4f param)
 {
     float newX = x_ + param.x();
     float newY = y_ + param.y();
     float newZ = z_ + param.z();
     float newW = w_ + param.w();
 
-    return Vector4(newX, newY, newZ, newW);
+    return Vector4f(newX, newY, newZ, newW);
 }
 
 // Vector subtraction
-void Vector4::subtract(Vector4 param)
+void Vector4f::subtract(Vector4f param)
 {
     x_ = x_ - param.x();
     y_ = y_ - param.y();
@@ -140,18 +140,18 @@ void Vector4::subtract(Vector4 param)
 }
 
 // Overload operator '-' for subtraction
-Vector4 Vector4::operator-(Vector4 param)
+Vector4f Vector4f::operator-(Vector4f param)
 {
     float newX = x_ - param.x();
     float newY = y_ - param.y();
     float newZ = z_ - param.z();
     float newW = w_ - param.w();
 
-    return Vector4(newX, newY, newZ, newW);
+    return Vector4f(newX, newY, newZ, newW);
 }
 
 // Dot product
-float Vector4::dotProduct(Vector4 param)
+float Vector4f::dotProduct(Vector4f param)
 {
     float dotProduct = (x_ * param.x())
                        + (y_ * param.y())
@@ -162,26 +162,26 @@ float Vector4::dotProduct(Vector4 param)
 }
 
 // Multiply (vector-times-matrix)
-Vector4 Vector4::multiply(Matrix4 param)
+Vector4f Vector4f::multiply(Matrix4f param)
 {
-    Vector4 thisV = Vector4(x_, y_, z_, w_);
-    Vector4 result = param.multiply(thisV);
+    Vector4f thisV = Vector4f(x_, y_, z_, w_);
+    Vector4f result = param.multiply(thisV);
 
     return result;
 }
 
-float Vector4::operator*(Vector4 & param)
+float Vector4f::operator*(Vector4f & param)
 {
     return dotProduct(param);
 }
 
-Vector4 Vector4::operator*(Matrix4 & param)
+Vector4f Vector4f::operator*(Matrix4f & param)
 {
     return multiply(param);
 }
 
 // Dehomogenize (make fourth component equal to 1)
-void Vector4::dehomogenize()
+void Vector4f::dehomogenize()
 {
     // TODO: account for W = 0;
     x_ /= w_;
@@ -191,7 +191,7 @@ void Vector4::dehomogenize()
 }
 
 // Print (display the point's components numerically on the screen)
-void Vector4::print()
+void Vector4f::print()
 {
     std::cout << "(" << x_ << ", " << y_ << ", " << z_ << ", " << w_ << ")" << std::endl;
 }

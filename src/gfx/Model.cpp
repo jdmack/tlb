@@ -8,8 +8,8 @@
 #include "gfx/Renderer.h"
 #include "util/Logger.h"
 
-#include "math/Vector3.h"
-#include "math/Matrix4.h"
+#include "math/Vector3f.h"
+#include "math/Matrix4f.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -40,11 +40,11 @@ bool Model::init()
     glClearColor(0.f, 0.f, 0.f, 1.f);
 
     // VBO data
-    Vector3 vertices[4];
-    vertices[0] = Vector3(-1.0f, -1.0f, 0.0f);
-    vertices[1] = Vector3(0.0f, -1.0f, 1.0f);
-    vertices[2] = Vector3(1.0f, -1.0f, 0.0f);
-    vertices[3] = Vector3(0.0f, 1.0f, 0.0f);
+    Vector3f vertices[4];
+    vertices[0] = Vector3f(-1.0f, -1.0f, 0.0f);
+    vertices[1] = Vector3f(0.0f, -1.0f, 1.0f);
+    vertices[2] = Vector3f(1.0f, -1.0f, 0.0f);
+    vertices[3] = Vector3f(0.0f, 1.0f, 0.0f);
 
     // IBO data
     GLuint indices[] = { 0, 3, 1,
@@ -81,7 +81,7 @@ void Model::render()
     scale += 0.01f;
 
     // World matrix
-    Matrix4 world = Matrix4(cosf(scale), 0.0f, -sinf(scale), 0.0f,
+    Matrix4f world = Matrix4f(cosf(scale), 0.0f, -sinf(scale), 0.0f,
                             0.0f,        1.0f,         0.0f, 0.0f,
                             sinf(scale), 0.0f,  cosf(scale), 0.0f,
                             0.0f,        0.0f,         0.0f, 1.0f);

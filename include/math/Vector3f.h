@@ -2,11 +2,11 @@
 #define TLB_UTIL_MATH_VECTOR3_H_
 
 #include <string>
-#include "math/Vector4.h"
-#include "math/Matrix4.h"
+#include "math/Vector4f.h"
+#include "math/Matrix4f.h"
 
 
-class Vector3
+class Vector3f
 {
     private:
         float x_;
@@ -15,9 +15,9 @@ class Vector3
 
     public:
         // constructors
-        Vector3();
+        Vector3f();
         // A constructor with three parameters for the vector coordinates
-        Vector3(float x, float y, float z);
+        Vector3f(float x, float y, float z);
 
         // accessors
         // Element access 'get': return a specific coordinate of the vector
@@ -40,34 +40,34 @@ class Vector3
         float operator[](char coordinate) const;
 
         // Copy assignment operator
-        Vector3 & operator=(Vector3 v);
+        Vector3f & operator=(Vector3f v);
 
         // Vector addition
-        void add(Vector3 param);
+        void add(Vector3f param);
 
         // Overload operator '+' for addition
-        Vector3 operator+(Vector3 param);
+        Vector3f operator+(Vector3f param);
 
         // Vector subtraction
-        void subtract(Vector3 param);
+        void subtract(Vector3f param);
 
         // Overload operator '-' for subtraction
-        Vector3 operator-(Vector3 param);
+        Vector3f operator-(Vector3f param);
 
         // Negation
         void negate();
 
         // Scale (multiplication with scalar value)
         void scale(float param);
-        Vector3 operator*(float param);
-        Vector3 operator/(float param);
+        Vector3f operator*(float param);
+        Vector3f operator/(float param);
 
         // Dot product
-        float dotProduct(Vector3 param);
+        float dotProduct(Vector3f param);
 
         // Cross product
-        Vector3 crossProduct(const Vector3 & param) const;
-        Vector3 operator*(Vector3 param);
+        Vector3f crossProduct(const Vector3f & param) const;
+        Vector3f operator*(Vector3f param);
 
         // Magnitude (length of vector)
         float magnitude();
@@ -75,17 +75,17 @@ class Vector3
         // Normalize
         void normalize();
 
-        void transform(Matrix4 param);
+        void transform(Matrix4f param);
 
-        void rotate(float angle, const Vector3 axis);
+        void rotate(float angle, const Vector3f axis);
         
-        float distanceFrom(Vector3 point);
+        float distanceFrom(Vector3f point);
 
         // Print (display the vector's components numerically on the screen)
         void print();
         std::string str();
 
-        float angle(Vector3 v);
+        float angle(Vector3f v);
 
 };
 

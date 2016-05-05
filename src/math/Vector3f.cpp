@@ -1,21 +1,21 @@
 #include <iostream>
 #include <sstream>
 #include <cmath>
-#include "math/Vector3.h"
-#include "math/Vector4.h"
-#include "math/Matrix4.h"
+#include "math/Vector3f.h"
+#include "math/Vector4f.h"
+#include "math/Matrix4f.h"
 #include "math/Math.h"
 #include "math/Quaternion.h"
 
 // constructors
-Vector3::Vector3()
+Vector3f::Vector3f()
 {
     x_ = 0;
     y_ = 0;
     z_ = 0;
 }
 // A constructor with three parameters for the vector coordinates
-Vector3::Vector3(float x, float y, float z)
+Vector3f::Vector3f(float x, float y, float z)
 {
     x_ = x;
     y_ = y;
@@ -24,7 +24,7 @@ Vector3::Vector3(float x, float y, float z)
 
 // accessors
 // Element access 'get': return a specific coordinate of the vector
-float Vector3::get(int coordinate) const
+float Vector3f::get(int coordinate) const
 {
     switch(coordinate) {
         case 0:
@@ -41,7 +41,7 @@ float Vector3::get(int coordinate) const
     }
 }
 
-float Vector3::get(char coordinate) const 
+float Vector3f::get(char coordinate) const 
 {
     switch(coordinate) {
         case 'x':
@@ -61,14 +61,14 @@ float Vector3::get(char coordinate) const
 
 // mutators
 // Element access 'set': set the vector coordinates
-void Vector3::set(float x, float y, float z)
+void Vector3f::set(float x, float y, float z)
 {
     x_ = x;
     y_ = y;
     z_ = z;
 }
 
-void Vector3::set(int i, float val)
+void Vector3f::set(int i, float val)
 {
     switch(i) {
         case 0:
@@ -87,17 +87,17 @@ void Vector3::set(int i, float val)
 
 // Overload operator '[]' as alternative to 'get' method
 
-float Vector3::operator[](int coordinate) const
+float Vector3f::operator[](int coordinate) const
 {
     return get(coordinate);
 }
-float Vector3::operator[](char coordinate) const
+float Vector3f::operator[](char coordinate) const
 {
     return get(coordinate);
 }
 
 // Copy assignment operator
-Vector3 & Vector3::operator=(Vector3 v)
+Vector3f & Vector3f::operator=(Vector3f v)
 {
     x_ = v.x();
     y_ = v.y();
@@ -107,7 +107,7 @@ Vector3 & Vector3::operator=(Vector3 v)
 }
 
 // Vector addition
-void Vector3::add(Vector3 param)
+void Vector3f::add(Vector3f param)
 {
     x_ = x_ + param.x();
     y_ = y_ + param.y();
@@ -115,17 +115,17 @@ void Vector3::add(Vector3 param)
 }
 
 // Overload operator '+' for addition
-Vector3 Vector3::operator+(Vector3 param)
+Vector3f Vector3f::operator+(Vector3f param)
 {
     float newX = x_ + param.x();
     float newY = y_ + param.y();
     float newZ = z_ + param.z();
     
-    return Vector3(newX, newY, newZ);
+    return Vector3f(newX, newY, newZ);
 }
 
 // Vector subtraction
-void Vector3::subtract(Vector3 param)
+void Vector3f::subtract(Vector3f param)
 {
     x_ = x_ - param.x();
     y_ = y_ - param.y();
@@ -133,17 +133,17 @@ void Vector3::subtract(Vector3 param)
 }
 
 // Overload operator '-' for subtraction
-Vector3 Vector3::operator-(Vector3 param)
+Vector3f Vector3f::operator-(Vector3f param)
 {
     float newX = x_ - param.x();
     float newY = y_ - param.y();
     float newZ = z_ - param.z();
     
-    return Vector3(newX, newY, newZ);
+    return Vector3f(newX, newY, newZ);
 }
 
 // Negation
-void Vector3::negate()
+void Vector3f::negate()
 {
     x_ = -x_;
     y_ = -y_;
@@ -151,30 +151,30 @@ void Vector3::negate()
 }
 
 // Scale (multiplication with scalar value)
-void Vector3::scale(float param)
+void Vector3f::scale(float param)
 {
     x_ *= param;
     y_ *= param;
     z_ *= param;
 }
-Vector3 Vector3::operator*(float param)
+Vector3f Vector3f::operator*(float param)
 {
     float newX = x_ * param;
     float newY = y_ * param;
     float newZ = z_ * param;
-    return Vector3(newX, newY, newZ);
+    return Vector3f(newX, newY, newZ);
 }
 
-Vector3 Vector3::operator/(float param)
+Vector3f Vector3f::operator/(float param)
 {
     float newX = x_ / param;
     float newY = y_ / param;
     float newZ = z_ / param;
-    return Vector3(newX, newY, newZ);
+    return Vector3f(newX, newY, newZ);
 }
 
 // Dot product
-float Vector3::dotProduct(Vector3 param)
+float Vector3f::dotProduct(Vector3f param)
 {
     float dotProduct = (x_ * param.x())
                        + (y_ * param.y())
@@ -184,22 +184,22 @@ float Vector3::dotProduct(Vector3 param)
 }
 
 // Cross product
-Vector3 Vector3::crossProduct(const Vector3 & param) const
+Vector3f Vector3f::crossProduct(const Vector3f & param) const
 {
     float newX = ((y_ * param.z()) - (z_ * param.y()));
     float newY = ((z_ * param.x()) - (x_ * param.z()));
     float newZ = ((x_ * param.y()) - (y_ * param.x()));
     
-    return Vector3(newX, newY, newZ);
+    return Vector3f(newX, newY, newZ);
 }
 
-Vector3 Vector3::operator*(Vector3 param)
+Vector3f Vector3f::operator*(Vector3f param)
 {
     return crossProduct(param);
 }
 
 // Magnitude (length of vector)
-float Vector3::magnitude()
+float Vector3f::magnitude()
 {
     float magnitude = std::sqrt(std::pow(x_, 2) 
                                + std::pow(y_, 2) 
@@ -210,7 +210,7 @@ float Vector3::magnitude()
 }
 
 // Normalize
-void Vector3::normalize()
+void Vector3f::normalize()
 {
     float magnitude = this->magnitude();
     x_ /= magnitude;
@@ -218,7 +218,7 @@ void Vector3::normalize()
     z_ /= magnitude;
 }
 
-void Vector3::rotate(float angle, const Vector3 axis)
+void Vector3f::rotate(float angle, const Vector3f axis)
 {
     const float sinHalfAngle = sinf(toRadian(angle / 2));
     const float cosHalfAngle = cosf(toRadian(angle / 2));
@@ -239,16 +239,16 @@ void Vector3::rotate(float angle, const Vector3 axis)
     z_ = w.z();
 }
 
-void Vector3::transform(Matrix4 param)
+void Vector3f::transform(Matrix4f param)
 {
-    Vector4 v4 = Vector4(x_, y_, z_);
+    Vector4f v4 = Vector4f(x_, y_, z_);
     v4 = param.multiply(v4);
 
     x_ = v4.x();
     y_ = v4.y();
     z_ = v4.z();
 }
-float Vector3::distanceFrom(Vector3 point)
+float Vector3f::distanceFrom(Vector3f point)
 {
     float x = x_ - point.x();
     float y = y_ - point.y();
@@ -260,12 +260,12 @@ float Vector3::distanceFrom(Vector3 point)
 
 
 // Print (display the vector's components numerically on the screen)
-void Vector3::print()
+void Vector3f::print()
 {
     //std::cout << "(" << x_ << ", " << y_ << ", " << z_ << ")" << std::endl;
 }
 
-float Vector3::angle(Vector3 v)
+float Vector3f::angle(Vector3f v)
 {
     float dotProduct = this->dotProduct(v);
     float thisMag    = this->magnitude();
@@ -274,7 +274,7 @@ float Vector3::angle(Vector3 v)
     return std::acos(dotProduct / (thisMag * vMag));
 }
 
-std::string Vector3::str()
+std::string Vector3f::str()
 {
     std::stringstream ss;
     ss << "<" << x_ << ", " << y_ << ", " << z_ << ">";

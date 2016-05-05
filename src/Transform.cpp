@@ -1,15 +1,15 @@
 #include "Transform.h"
-#include "math/Vector3.h"
-#include "math/Vector4.h"
-#include "math/Matrix4.h"
+#include "math/Vector3f.h"
+#include "math/Vector4f.h"
+#include "math/Matrix4f.h"
 
 // TODO(2016-04-27/JM): Fix local variable names in this class (some use improperly capitalized names from old source)
 
 Transform::Transform()
 {
-    scale_      = Vector3(1.0f, 1.0f, 1.0f);
-    worldPos_   = Vector3(0.0f, 0.0f, 0.0f);
-    rotateInfo_ = Vector3(0.0f, 0.0f, 0.0f);
+    scale_      = Vector3f(1.0f, 1.0f, 1.0f);
+    worldPos_   = Vector3f(0.0f, 0.0f, 0.0f);
+    rotateInfo_ = Vector3f(0.0f, 0.0f, 0.0f);
 }
 
 void Transform::scale(float s)
@@ -17,8 +17,8 @@ void Transform::scale(float s)
     scale(s, s, s);
 }
  
-// TODO(2016-04-27/JM): Figure out how to make this argument const Vector3 & s
-void Transform::scale(Vector3 & s)
+// TODO(2016-04-27/JM): Figure out how to make this argument const Vector3f & s
+void Transform::scale(Vector3f & s)
 {
     scale(s.x(), s.y(), s.z());
 }
@@ -37,8 +37,8 @@ void Transform::worldPos(float x, float y, float z)
     worldPos_.setZ(z);
 }
  
-// TODO(2016-04-27/JM): Figure out how to make this argument const Vector3 & position
-void Transform::worldPos(Vector3 & position)
+// TODO(2016-04-27/JM): Figure out how to make this argument const Vector3f & position
+void Transform::worldPos(Vector3f & position)
 {
     worldPos_ = position;
 }
@@ -50,8 +50,8 @@ void Transform::rotate(float rotateX, float rotateY, float rotateZ)
     rotateInfo_.setZ(rotateZ);
 }
  
-// TODO(2016-04-27/JM): Figure out how to make this argument const Vector3 & r
-void Transform::rotate(Vector3 & r)
+// TODO(2016-04-27/JM): Figure out how to make this argument const Vector3f & r
+void Transform::rotate(Vector3f & r)
 {
     rotate(r.x(), r.y(), r.z());
 }
@@ -61,7 +61,7 @@ void Transform::setPerspectiveProj(const PersProjInfo & p)
     persProjInfo_ = p;
 }
 
-//void Transform::setCamera(const Vector3 & position, const Vector3 & target, const Vector3 & up)
+//void Transform::setCamera(const Vector3f & position, const Vector3f & target, const Vector3f & up)
 //{
 //    camera_.position = position;
 //    camera_.target   = target;
@@ -80,13 +80,13 @@ void Transform::orient(const Orientation & o)
     rotateInfo_ = o.rotation_;
 }
 
-const Matrix4& Transform::getProjTrans() 
+const Matrix4f& Transform::getProjTrans() 
 {
     projTransformation_.initPersProjTransform(persProjInfo_);
     return projTransformation_;
 }
 
-const Matrix4& Transform::getVPTrans()
+const Matrix4f& Transform::getVPTrans()
 {
     getViewTrans();
     getProjTrans();
@@ -95,9 +95,9 @@ const Matrix4& Transform::getVPTrans()
     return VPtransformation_;
 }
 
-const Matrix4& Transform::getWorldTrans()
+const Matrix4f& Transform::getWorldTrans()
 {
-    Matrix4 ScaleTrans, RotateTrans, TranslationTrans;
+    Matrix4f ScaleTrans, RotateTrans, TranslationTrans;
 
     ScaleTrans.initScaleTransform(scale_.x(), scale_.y(), scale_.z());
     RotateTrans.initRotateTransform(rotateInfo_.x(), rotateInfo_.y(), rotateInfo_.z());
@@ -106,9 +106,9 @@ const Matrix4& Transform::getWorldTrans()
     return Wtransformation_;
 }
 
-const Matrix4& Transform::getViewTrans()
+const Matrix4f& Transform::getViewTrans()
 {
-    Matrix4 CameraTranslationTrans, CameraRotateTrans;
+    Matrix4f CameraTranslationTrans, CameraRotateTrans;
 
     CameraTranslationTrans.initTranslationTransform(-camera_.position_.x(), -camera_.position_.y(), -camera_.position_.z());
     CameraRotateTrans.initCameraTransform(camera_.target_, camera_.up_);
@@ -118,7 +118,7 @@ const Matrix4& Transform::getViewTrans()
     return Vtransformation_;
 }
 
-const Matrix4& Transform::getWVPTrans()
+const Matrix4f& Transform::getWVPTrans()
 {
     getWorldTrans();
     getVPTrans();
@@ -127,12 +127,12 @@ const Matrix4& Transform::getWVPTrans()
     return WVPtransformation_;
 }
 
-const Matrix4& Transform::getWVOrthoPTrans()
+const Matrix4f& Transform::getWVOrthoPTrans()
 {
     getWorldTrans();
     getViewTrans();
 
-    Matrix4 p;
+    Matrix4f p;
     p.initOrthoProjTransform(orthoProjInfo_);
     
     WVPtransformation_ = p * Vtransformation_ * Wtransformation_;
@@ -140,7 +140,7 @@ const Matrix4& Transform::getWVOrthoPTrans()
 }
 
 
-const Matrix4& Transform::getWVTrans()
+const Matrix4f& Transform::getWVTrans()
 {
 	getWorldTrans();
     getViewTrans();
@@ -150,9 +150,9 @@ const Matrix4& Transform::getWVTrans()
 }
 
 
-const Matrix4& Transform::getWPTrans()
+const Matrix4f& Transform::getWPTrans()
 {
-	Matrix4 PersProjTrans;
+	Matrix4f PersProjTrans;
 
 	getWorldTrans();
 	PersProjTrans.initPersProjTransform(persProjInfo_);

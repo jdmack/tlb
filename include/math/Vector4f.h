@@ -1,9 +1,9 @@
 #ifndef TLB_UTIL_MATH_VECTOR4_H_
 #define TLB_UTIL_MATH_VECTOR4_H_
 
-class Matrix4;
+class Matrix4f;
 
-class Vector4
+class Vector4f
 {
     private:
         float x_;
@@ -13,11 +13,11 @@ class Vector4
 
     public:
         // constructors
-        Vector4();
+        Vector4f();
         // A constructor with three parameters for point coordinates
-        Vector4(float x, float y, float z);
+        Vector4f(float x, float y, float z);
         // A constructor with four parameters
-        Vector4(float x, float y, float z, float w);
+        Vector4f(float x, float y, float z, float w);
 
         // accessors
         // Element access 'get': return one of the four coordinates
@@ -42,22 +42,22 @@ class Vector4
         float operator[](char coordinate) const;
 
         // Vector addition
-        void add(Vector4 param);
+        void add(Vector4f param);
 
         // Overload operator '+' for addition
-        Vector4 operator+(Vector4 param);
+        Vector4f operator+(Vector4f param);
 
         // Vector subtraction
-        void subtract(Vector4 param);
+        void subtract(Vector4f param);
 
         // Overload operator '-' for subtraction
-        Vector4 operator-(Vector4 param);
+        Vector4f operator-(Vector4f param);
 
-        float dotProduct(Vector4 param);
-        float operator*(Vector4 & param);
+        float dotProduct(Vector4f param);
+        float operator*(Vector4f & param);
 
-        Vector4 multiply(Matrix4 param);
-        Vector4 operator*(Matrix4 & param);
+        Vector4f multiply(Matrix4f param);
+        Vector4f operator*(Matrix4f & param);
 
         // Dehomogenize (make fourth component equal to 1)
         void dehomogenize();

@@ -12,16 +12,16 @@ Camera::Camera(int WindowWidth, int WindowHeight)
 {
     m_windowWidth  = WindowWidth;
     m_windowHeight = WindowHeight;
-    position_          = Vector3(0.0f, 0.0f, 0.0f);
-    target_       = Vector3(0.0f, 0.0f, 1.0f);
+    position_          = Vector3f(0.0f, 0.0f, 0.0f);
+    target_       = Vector3f(0.0f, 0.0f, 1.0f);
     target_.normalize();
-    up_           = Vector3(0.0f, 1.0f, 0.0f);
+    up_           = Vector3f(0.0f, 1.0f, 0.0f);
 
     init();
 }
 
 
-Camera::Camera(int WindowWidth, int WindowHeight, const Vector3& Pos, const Vector3& Target, const Vector3& Up)
+Camera::Camera(int WindowWidth, int WindowHeight, const Vector3f& Pos, const Vector3f& Target, const Vector3f& Up)
 {
     m_windowWidth  = WindowWidth;
     m_windowHeight = WindowHeight;
@@ -39,7 +39,7 @@ Camera::Camera(int WindowWidth, int WindowHeight, const Vector3& Pos, const Vect
 
 void Camera::init()
 {
-    Vector3 HTarget(target_.x(), 0.0, target_.z());
+    Vector3f HTarget(target_.x(), 0.0, target_.z());
     HTarget.normalize();
     
     if (HTarget.z() >= 0.0f)
@@ -100,7 +100,7 @@ bool Camera::onKeyboard(KeyType Key)
 
     case KEY_LEFT:
         {
-            Vector3 Left = target_.crossProduct(up_);
+            Vector3f Left = target_.crossProduct(up_);
             Left.normalize();
             Left = Left *STEP_SCALE;
             position_ = position_ + Left;
@@ -110,7 +110,7 @@ bool Camera::onKeyboard(KeyType Key)
 
     case KEY_RIGHT:
         {
-            Vector3 Right = up_.crossProduct(target_);
+            Vector3f Right = up_.crossProduct(target_);
             Right.normalize();
             Right = Right * STEP_SCALE;
             position_ = position_ + Right;
@@ -210,15 +210,15 @@ void Camera::onRender()
 
 void Camera::update()
 {
-    const Vector3 Vaxis(0.0f, 1.0f, 0.0f);
+    const Vector3f Vaxis(0.0f, 1.0f, 0.0f);
 
     // rotate the view vector by the horizontal angle around the vertical axis
-    Vector3 View(1.0f, 0.0f, 0.0f);
+    Vector3f View(1.0f, 0.0f, 0.0f);
     View.rotate(angleH_, Vaxis);
     View.normalize();
 
     // rotate the view vector by the vertical angle around the horizontal axis
-    Vector3 Haxis = Vaxis.crossProduct(View);
+    Vector3f Haxis = Vaxis.crossProduct(View);
     Haxis.normalize();
     View.rotate(angleV_, Haxis);
        

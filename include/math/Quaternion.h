@@ -1,7 +1,7 @@
 #ifndef TLB_UTIL_MATH_QUATERNION_H_
 #define TLB_UTIL_MATH_QUATERNION_H_
 
-#include "math/Vector3.h"
+#include "math/Vector3f.h"
 
 
 class Quaternion
@@ -40,7 +40,7 @@ class Quaternion
 
 
         Quaternion operator*(const Quaternion & q);
-        Quaternion operator*(const Vector3 & v);
+        Quaternion operator*(const Vector3f & v);
 
         void normalize();
         Quaternion conjugate();

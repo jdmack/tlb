@@ -120,7 +120,7 @@ Quaternion Quaternion::operator*(const Quaternion & q)
     return ret;
 }
 
-Quaternion Quaternion::operator*(const Vector3 & v)
+Quaternion Quaternion::operator*(const Vector3f & v)
 {
     const float w = - (x_ * v.x()) - (y_ * v.y()) - (z_ * v.z());
     const float x =   (w_ * v.x()) + (y_ * v.z()) - (z_ * v.y());
