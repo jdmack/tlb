@@ -21,12 +21,12 @@ class Vector4
 
         // accessors
         // Element access 'get': return one of the four coordinates
-        float & x() { return x_; }
-        float & y() { return y_; }
-        float & z() { return z_; }
-        float & w() { return w_; }
-        float & get(int coordinate);
-        float & get(char coordinate);
+        float x() const { return x_; }
+        float y() const { return y_; }
+        float z() const { return z_; }
+        float w() const { return w_; }
+        float get(int coordinate) const;
+        float get(char coordinate) const;
 
         // mutators
         // Element access 'set': set each coordinate separately
@@ -38,8 +38,8 @@ class Vector4
         void set(int coordinate, float value);
 
         // Overload operator '[]' as alternative to 'get' method
-        float & operator[](int coordinate);
-        float & operator[](char coordinate);
+        float operator[](int coordinate) const;
+        float operator[](char coordinate) const;
 
         // Vector addition
         void add(Vector4 param);

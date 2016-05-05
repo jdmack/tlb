@@ -1,6 +1,6 @@
 #include <iostream>
-#include "util/math/Vector4.h"
-#include "util/math/Matrix4.h"
+#include "math/Vector4.h"
+#include "math/Matrix4.h"
 
 
 // constructors
@@ -32,7 +32,7 @@ Vector4::Vector4(float x, float y, float z, float w)
 
 // accessors
 // Element access 'get': return one of the four coordinates
-float & Vector4::get(int coordinate)
+float Vector4::get(int coordinate) const
 {
     switch(coordinate) {
         case 0:
@@ -52,7 +52,7 @@ float & Vector4::get(int coordinate)
     }
 }
 
-float & Vector4::get(char coordinate)
+float Vector4::get(char coordinate) const
 {
     switch(coordinate) {
         case 'x':
@@ -101,11 +101,11 @@ void Vector4::set(int coordinate, float value)
 }
 
 // Overload operator '[]' as alternative to 'get' method
-float & Vector4::operator[](int coordinate)
+float Vector4::operator[](int coordinate) const
 {
     return get(coordinate);
 }
-float & Vector4::operator[](char coordinate)
+float Vector4::operator[](char coordinate) const
 {
     return get(coordinate);
 }

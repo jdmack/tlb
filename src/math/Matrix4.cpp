@@ -2,8 +2,9 @@
 #include <iomanip>
 #include <math.h>
 
-#include "util/math/Matrix4.h"
-#include "util/math/Vector4.h"
+#include "math/Math.h"
+#include "math/Matrix4.h"
+#include "math/Vector4.h"
 #include "Transform.h"
 
 // Note: Matrix is stored row-major.

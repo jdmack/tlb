@@ -46,10 +46,12 @@ SDL_Rect Tile::box()
 
 void Tile::render(Frame * frame)
 {
+    /*
     if(Game::instance()->renderer()->camera()->contains(box())) {
         SDL_Rect offset = box();
         SDL_Rect clip = tileset_->clips(type_);
         //Game::instance()->renderer()->renderTexture(tileset_->texture(), &offset, &clip);
         Game::instance()->renderer()->renderTextureFrame(tileset_->texture(), frame, &offset, &clip);
     }
+    */
 }

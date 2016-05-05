@@ -1,5 +1,8 @@
+#include <cmath>
 #include "gfx/Camera.h"
-#include "util/math/Math.h"
+#include "gfx/Renderer.h"
+#include "Game.h"
+#include "math/Math.h"
 
 const static float STEP_SCALE = 1.0f;
 const static float EDGE_STEP = 0.5f;
@@ -36,42 +39,42 @@ Camera::Camera(int WindowWidth, int WindowHeight, const Vector3& Pos, const Vect
 
 void Camera::init()
 {
-    Vector3 HTarget(target_.x, 0.0, target_.z);
+    Vector3 HTarget(target_.x(), 0.0, target_.z());
     HTarget.normalize();
     
-    if (HTarget.z >= 0.0f)
+    if (HTarget.z() >= 0.0f)
     {
-        if (HTarget.x >= 0.0f)
+        if (HTarget.x() >= 0.0f)
         {
-            angleH_ = 360.0f - toDegree(asin(HTarget.z));
+            angleH_ = 360.0f - toDegree(asin(HTarget.z()));
         }
         else
         {
-            angleH_ = 180.0f + toDegree(asin(HTarget.z));
+            angleH_ = 180.0f + toDegree(asin(HTarget.z()));
         }
     }
     else
     {
-        if (HTarget.x >= 0.0f)
+        if (HTarget.x() >= 0.0f)
         {
-            angleH_ = toDegree(asin(-HTarget.z));
+            angleH_ = toDegree(asin(-HTarget.z()));
         }
         else
         {
-            angleH_ = 90.0f + toDegree(asin(-HTarget.z));
+            angleH_ = 90.0f + toDegree(asin(-HTarget.z()));
         }
     }
     
-    angleV_ = -toDegree(asin(target_.y));
+    angleV_ = -toDegree(asin(target_.y()));
 
     onUpperEdge_ = false;
     onLowerEdge_ = false;
     onLeftEdge_  = false;
     onRightEdge_ = false;
-    mousePosition_.x  = m_windowWidth / 2;
-    mousePosition_.y  = m_windowHeight / 2;
+    mousePosition_.setX(m_windowWidth / 2);
+    mousePosition_.setY(m_windowHeight / 2);
 
-   // glutWarpPointer(mousePosition_.x, mousePosition_.y);
+    Game::instance()->renderer()->warpMouse(mousePosition_);
 }
 
 
@@ -83,14 +86,14 @@ bool Camera::onKeyboard(KeyType Key)
 
     case KEY_UP:
         {
-            position_ += (target_ * STEP_SCALE);
+            position_ = position_ + (target_ * STEP_SCALE);
             Ret = true;
         }
         break;
 
     case KEY_DOWN:
         {
-            position_ -= (target_ * STEP_SCALE);
+            position_ = position_ - (target_ * STEP_SCALE);
             Ret = true;
         }
         break;
@@ -99,8 +102,8 @@ bool Camera::onKeyboard(KeyType Key)
         {
             Vector3 Left = target_.crossProduct(up_);
             Left.normalize();
-            Left *= STEP_SCALE;
-            position_ += Left;
+            Left = Left *STEP_SCALE;
+            position_ = position_ + Left;
             Ret = true;
         }
         break;
@@ -109,18 +112,18 @@ bool Camera::onKeyboard(KeyType Key)
         {
             Vector3 Right = up_.crossProduct(target_);
             Right.normalize();
-            Right *= STEP_SCALE;
-            position_ += Right;
+            Right = Right * STEP_SCALE;
+            position_ = position_ + Right;
             Ret = true;
         }
         break;
         
     case KEY_PAGE_UP:
-        position_.y += STEP_SCALE;
+        position_.setY(position_.y() + STEP_SCALE);
         break;
     
     case KEY_PAGE_DOWN:
-        position_.y -= STEP_SCALE;
+        position_.setY(position_.y() - STEP_SCALE);
         break;
     
     default:
@@ -133,11 +136,11 @@ bool Camera::onKeyboard(KeyType Key)
 
 void Camera::onMouse(int x, int y)
 {
-    const int DeltaX = x - mousePosition_.x;
-    const int DeltaY = y - mousePosition_.y;
+    const int DeltaX = x - mousePosition_.x();
+    const int DeltaY = y - mousePosition_.y();
 
-    mousePosition_.x = x;
-    mousePosition_.y = y;
+    mousePosition_.setX(x);
+    mousePosition_.setY(y);
 
     angleH_ += (float)DeltaX / 20.0f;
     angleV_ += (float)DeltaY / 20.0f;
@@ -222,6 +225,6 @@ void Camera::update()
     target_ = View;
     target_.normalize();
 
-    up_ = target_.Cross(Haxis);
+    up_ = target_.crossProduct(Haxis);
     up_.normalize();
 }

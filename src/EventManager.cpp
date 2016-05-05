@@ -10,7 +10,7 @@
 #include "Point.h"
 #include "Entity.h"
 #include "gfx/Camera.h"
-#include "util/math/Math.h"
+#include "math/Math.h"
 #include "action/RotateAction.h"
 #include "util/GlobalTimer.h"
 #include "event/Event.h"

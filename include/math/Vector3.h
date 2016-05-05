@@ -2,9 +2,8 @@
 #define TLB_UTIL_MATH_VECTOR3_H_
 
 #include <string>
-#include "util/math/Vector4.h"
-#include "util/math/Matrix4.h"
-#define kPi 3.14159265359
+#include "math/Vector4.h"
+#include "math/Matrix4.h"
 
 
 class Vector3
@@ -22,11 +21,11 @@ class Vector3
 
         // accessors
         // Element access 'get': return a specific coordinate of the vector
-        float & x() { return x_; }
-        float & y() { return y_; }
-        float & z() { return z_; }
-        float & get(int coordinate);
-        float & get(char coordinate);
+        float x() const { return x_; }
+        float y() const { return y_; }
+        float z() const { return z_; }
+        float get(int coordinate) const;
+        float get(char coordinate) const;
 
         // mutators
         // Element access 'set': set the vector coordinates
@@ -37,8 +36,8 @@ class Vector3
         void set(int i, float val);
 
         // Overload operator '[]' as alternative to 'get' method
-        float & operator[](int coordinate);
-        float & operator[](char coordinate);
+        float operator[](int coordinate) const;
+        float operator[](char coordinate) const;
 
         // Copy assignment operator
         Vector3 & operator=(Vector3 v);
@@ -67,7 +66,7 @@ class Vector3
         float dotProduct(Vector3 param);
 
         // Cross product
-        Vector3 crossProduct(Vector3 param);
+        Vector3 crossProduct(const Vector3 & param) const;
         Vector3 operator*(Vector3 param);
 
         // Magnitude (length of vector)
@@ -77,6 +76,8 @@ class Vector3
         void normalize();
 
         void transform(Matrix4 param);
+
+        void rotate(float angle, const Vector3 axis);
         
         float distanceFrom(Vector3 point);
 

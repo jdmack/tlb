@@ -26,7 +26,7 @@ Game::Game()
     renderer_ = new Renderer();
     entityManager_ = new EntityManager();
     eventManager_ = new EventManager();
-    camera_ = new Camera();
+    //camera_ = new Camera();
     renderer_->setCamera(camera_);
     level_ = nullptr;
 

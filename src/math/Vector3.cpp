@@ -1,9 +1,11 @@
 #include <iostream>
 #include <sstream>
 #include <cmath>
-#include "util/math/Vector3.h"
-#include "util/math/Vector4.h"
-#include "util/math/Matrix4.h"
+#include "math/Vector3.h"
+#include "math/Vector4.h"
+#include "math/Matrix4.h"
+#include "math/Math.h"
+#include "math/Quaternion.h"
 
 // constructors
 Vector3::Vector3()
@@ -22,7 +24,7 @@ Vector3::Vector3(float x, float y, float z)
 
 // accessors
 // Element access 'get': return a specific coordinate of the vector
-float & Vector3::get(int coordinate)
+float Vector3::get(int coordinate) const
 {
     switch(coordinate) {
         case 0:
@@ -39,7 +41,7 @@ float & Vector3::get(int coordinate)
     }
 }
 
-float & Vector3::get(char coordinate)
+float Vector3::get(char coordinate) const 
 {
     switch(coordinate) {
         case 'x':
@@ -85,11 +87,11 @@ void Vector3::set(int i, float val)
 
 // Overload operator '[]' as alternative to 'get' method
 
-float & Vector3::operator[](int coordinate)
+float Vector3::operator[](int coordinate) const
 {
     return get(coordinate);
 }
-float & Vector3::operator[](char coordinate)
+float Vector3::operator[](char coordinate) const
 {
     return get(coordinate);
 }
@@ -182,7 +184,7 @@ float Vector3::dotProduct(Vector3 param)
 }
 
 // Cross product
-Vector3 Vector3::crossProduct(Vector3 param)
+Vector3 Vector3::crossProduct(const Vector3 & param) const
 {
     float newX = ((y_ * param.z()) - (z_ * param.y()));
     float newY = ((z_ * param.x()) - (x_ * param.z()));
@@ -214,6 +216,27 @@ void Vector3::normalize()
     x_ /= magnitude;
     y_ /= magnitude;
     z_ /= magnitude;
+}
+
+void Vector3::rotate(float angle, const Vector3 axis)
+{
+    const float sinHalfAngle = sinf(toRadian(angle / 2));
+    const float cosHalfAngle = cosf(toRadian(angle / 2));
+
+    const float rx = axis.x() * sinHalfAngle;
+    const float ry = axis.y() * sinHalfAngle;
+    const float rz = axis.z() * sinHalfAngle;
+    const float rw = cosHalfAngle;
+
+    Quaternion rotationQ(rx, ry, rz, rw);
+
+    Quaternion conjugateQ = rotationQ.conjugate();
+
+    Quaternion w = rotationQ * (*this) * conjugateQ;
+
+    x_ = w.x();
+    y_ = w.y();
+    z_ = w.z();
 }
 
 void Vector3::transform(Matrix4 param)

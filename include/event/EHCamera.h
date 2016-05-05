@@ -5,14 +5,14 @@
 #include "event/EventHandler.h"
 #include "Point.h"
 
-class EHLevel : public EventHandler
+class EHCamera : public EventHandler
 {
     private:
         KeyType toggleKey_;
 
     public:
-        EHLevel();
-        ~EHLevel();
+        EHCamera();
+        ~EHCamera();
 
         void handleEvent(Event * event);
 

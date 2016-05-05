@@ -1,4 +1,4 @@
-#include "util/math/Math.h"
+#include "math/Math.h"
 #include "Point.h"
 
 Point Math::convertToIsometric(Point point)

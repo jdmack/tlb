@@ -9,6 +9,7 @@
 #include "Constants.h"
 #include "Color.h"
 #include "Point.h"
+#include "math/Vector2i.h"
 
 class GameObject;
 class Entity;
@@ -63,13 +64,14 @@ class Renderer
         void drawRectangle(SDL_Rect rect, Color color);
         void drawLine(Point start, Point end, Color color);
 
-
         SDL_Surface * loadImage(std::string);
         SDL_Surface * loadImageAlpha(std::string);
         SDL_Texture * loadTexture(std::string);
         SDL_Texture * loadTextureAlpha(std::string);
 
         void drawLifeBar(Entity * entity, Frame * frame = nullptr);
+
+        void warpMouse(const Vector2i position);
 
         bool initShader();
         void printProgramLog(GLuint program);

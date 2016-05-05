@@ -1,7 +1,7 @@
 #include "Transform.h"
-#include "util/math/Vector3.h"
-#include "util/math/Vector4.h"
-#include "util/math/Matrix4.h"
+#include "math/Vector3.h"
+#include "math/Vector4.h"
+#include "math/Matrix4.h"
 
 // TODO(2016-04-27/JM): Fix local variable names in this class (some use improperly capitalized names from old source)
 

@@ -1,8 +1,8 @@
 #ifndef TLB_GFX_CAMERA_H_
 #define TLB_GFX_CAMERA_H_
 
-#include "util/math/Vector3.h"
-#include "util/math/Vector2i.h"
+#include "math/Vector3.h"
+#include "math/Vector2i.h"
 #include "event/Event.h"
 
 class Camera

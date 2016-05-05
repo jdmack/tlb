@@ -1,9 +1,7 @@
 #ifndef TLB_UTIL_MATH_MATRIX4_H_
 #define TLB_UTIL_MATH_MATRIX4_H_
 
-#include "util/math/Vector3.h"
-
-#define M_PI 3.14159265358979323846
+#include "math/Vector3.h"
 
 struct PersProjInfo;
 struct OrthoProjInfo;

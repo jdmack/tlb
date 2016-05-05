@@ -14,7 +14,7 @@
 #include "Point.h"
 #include "HitPoint.h"
 #include "Entity.h"
-#include "util/math/Math.h"
+#include "math/Math.h"
 #include "util/FileReader.h"
 #include "Frame.h"
 
@@ -277,7 +277,8 @@ void Renderer::renderTexture(SDL_Texture * texture, SDL_Rect * offset, SDL_Rect 
     point = Math::convertToIsometric(point);
 
     //SDL_Rect rect = { (int)offset->x - (int)camera_->xPosition(), (int)offset->y - (int)camera_->yPosition(), (int)offset->w, (int)offset->h };
-    SDL_Rect rect = { (int)point.x() - (int)camera_->xPosition(), (int)point.y() - (int)camera_->yPosition(), (int)offset->w, (int)offset->h };
+    //SDL_Rect rect = { (int)point.x() - (int)camera_->xPosition(), (int)point.y() - (int)camera_->yPosition(), (int)offset->w, (int)offset->h };
+    SDL_Rect rect = { (int)point.x(), (int)point.y(), (int)offset->w, (int)offset->h };
 
     int returnCode = SDL_RenderCopy(renderer_, texture, clip, &rect);
 
@@ -317,7 +318,8 @@ void Renderer::renderTextureRotate(SDL_Texture * texture, SDL_Rect * offset, SDL
 {
     // TODO(2013-09-09/JM): Add render offset checks
 
-    SDL_Rect rect = { (int)offset->x - (int)camera_->xPosition(), (int)offset->y - (int)camera_->yPosition(), (int)offset->w, (int)offset->h };
+    //SDL_Rect rect = { (int)offset->x - (int)camera_->xPosition(), (int)offset->y - (int)camera_->yPosition(), (int)offset->w, (int)offset->h };
+    SDL_Rect rect = { (int)offset->x, (int)offset->y, (int)offset->w, (int)offset->h };
 
     int returnCode = SDL_RenderCopyEx(renderer_, texture, nullptr, &rect, -angle, nullptr, SDL_FLIP_NONE);
 
@@ -502,8 +504,8 @@ void Renderer::drawLifeBar(Entity * entity, Frame * frame)
     int height = 5;
     int x = entity->xPosition() + frame->x()- (totalHp * widthPerPoint / 2);
     int y = entity->yPosition() + frame->y() - (entity->height() / 2) - height;
-    x = x - camera_->xPosition();
-    y = y - camera_->yPosition();
+    //x = x - camera_->xPosition();
+    //y = y - camera_->yPosition();
 
     Point point = Point(x,y);
     point = Math::convertToIsometric(point);
@@ -545,6 +547,16 @@ void Renderer::drawLifeBar(Entity * entity, Frame * frame)
     SDL_RenderFillRect(renderer_, &positiveRect );
 }
 
+////////////////////////////////////////////////////////////////////////////////
+//
+//
+//
+////////////////////////////////////////////////////////////////////////////////
+void Renderer::warpMouse(const Vector2i position)
+{
+    SDL_WarpMouseInWindow(window_, position.x(), position.y());
+}
+
 
 void Renderer::drawRectangle(SDL_Rect rect, Color color)
 {
@@ -557,5 +569,7 @@ void Renderer::drawLine(Point start, Point end, Color color)
     SDL_SetRenderDrawColor(renderer_, color.red(), color.green(), color.blue(), 255);
     SDL_RenderDrawLine(renderer_, start.x(), start.y(), end.x(), end.y());
 }
+
+
 
 

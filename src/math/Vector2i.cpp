@@ -1,7 +1,7 @@
 
 #include <sstream>
 #include <cmath>
-#include "Vector2i.h"
+#include "math/Vector2i.h"
 
 Vector2i::Vector2i()
 {
