@@ -1,6 +1,7 @@
 #ifndef TLB_GFX_CAMERA_H_
 #define TLB_GFX_CAMERA_H_
 
+#include "math/Matrix4f.h"
 #include "math/Vector3f.h"
 #include "math/Vector2i.h"
 #include "event/Event.h"
@@ -9,13 +10,13 @@ class Camera
 {
    private:
 
-
        Vector3f position_;
        Vector3f target_;
        Vector3f up_;
+       Matrix4f view_;
 
-       int m_windowWidth;
-       int m_windowHeight;
+       int windowWidth_;
+       int windowHeight_;
 
        float angleH_;
        float angleV_;
@@ -30,6 +31,8 @@ class Camera
        void init();
        void update();
 
+       void updateView();
+
    public:
 
        Camera(int windowWindow, int windowHeight);
@@ -42,9 +45,10 @@ class Camera
 
        void onRender();
 
-       const Vector3f & position() const { return position_; }
-       const Vector3f & GetTarget() const { return target_; } 
-       const Vector3f & GetUp() const { return up_; }
+       Vector3f position() const { return position_; }
+       Vector3f target() const { return target_; } 
+       Vector3f up() const { return up_; }
+       Matrix4f view() const { return view_; }
 
 };
 

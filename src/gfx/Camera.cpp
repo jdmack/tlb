@@ -8,32 +8,38 @@ const static float STEP_SCALE = 1.0f;
 const static float EDGE_STEP = 0.5f;
 const static int MARGIN = 10;
 
-Camera::Camera(int WindowWidth, int WindowHeight)
+Camera::Camera(int windowWidth, int windowHeight)
 {
-    m_windowWidth  = WindowWidth;
-    m_windowHeight = WindowHeight;
-    position_          = Vector3f(0.0f, 0.0f, 0.0f);
-    target_       = Vector3f(0.0f, 0.0f, 1.0f);
-    target_.normalize();
-    up_           = Vector3f(0.0f, 1.0f, 0.0f);
+    windowWidth_  = windowWidth;
+    windowHeight_ = windowHeight;
 
-    init();
+    position_ = Vector3f(0.0f, 0.0f, 0.0f);
+    target_   = Vector3f(0.0f, 0.0f, 1.0f);
+    up_       = Vector3f(0.0f, 1.0f, 0.0f);
+
+    target_.normalize();
+
+    updateView();
+
+    //init();
 }
 
 
-Camera::Camera(int WindowWidth, int WindowHeight, const Vector3f& Pos, const Vector3f& Target, const Vector3f& Up)
+Camera::Camera(int windowWidth, int windowHeight, const Vector3f & position, const Vector3f & target, const Vector3f& up)
 {
-    m_windowWidth  = WindowWidth;
-    m_windowHeight = WindowHeight;
-    position_ = Pos;
+    windowWidth_  = windowWidth;
+    windowHeight_ = windowHeight;
+    position_ = position;
 
-    target_ = Target;
+    target_ = target;
     target_.normalize();
 
-    up_ = Up;
+    up_ = up;
     up_.normalize();
 
-    init();
+    updateView();
+
+    //init();
 }
 
 
@@ -71,8 +77,8 @@ void Camera::init()
     onLowerEdge_ = false;
     onLeftEdge_  = false;
     onRightEdge_ = false;
-    mousePosition_.setX(m_windowWidth / 2);
-    mousePosition_.setY(m_windowHeight / 2);
+    mousePosition_.setX(windowWidth_ / 2);
+    mousePosition_.setY(windowHeight_ / 2);
 
     Game::instance()->renderer()->warpMouse(mousePosition_);
 }
@@ -150,7 +156,7 @@ void Camera::onMouse(int x, int y)
         //    angleH_ -= 1.0f;
             onLeftEdge_ = true;
         }
-        else if (x >= (m_windowWidth - MARGIN)) {
+        else if (x >= (windowWidth_ - MARGIN)) {
         //    angleH_ += 1.0f;
             onRightEdge_ = true;
         }
@@ -164,7 +170,7 @@ void Camera::onMouse(int x, int y)
         if (y <= MARGIN) {
             onUpperEdge_ = true;
         }
-        else if (y >= (m_windowHeight - MARGIN)) {
+        else if (y >= (windowHeight_ - MARGIN)) {
             onLowerEdge_ = true;
         }
     }
@@ -228,3 +234,15 @@ void Camera::update()
     up_ = target_.crossProduct(Haxis);
     up_.normalize();
 }
+
+void Camera::updateView()
+{
+    Matrix4f cameraTranslate;
+    Matrix4f cameraRotate;
+
+    cameraTranslate.initTranslationTransform(-position_.x(), -position_.y(), -position_.z());
+    cameraRotate.initCameraTransform(target_, up_);
+
+    view_ = cameraRotate * cameraTranslate;
+}
+
