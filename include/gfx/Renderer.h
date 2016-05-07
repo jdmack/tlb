@@ -46,9 +46,6 @@ class Renderer
         Camera * camera() const { return camera_; }
         GLuint programID() { return programID_; }
 
-        // mutators
-        void setCamera(Camera * camera) { camera_ = camera; }
-
         bool init();
         void update();
         void clear();

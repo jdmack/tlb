@@ -2,9 +2,8 @@
 #define TLB_UTIL_MATH_MATRIX4_H_
 
 #include "math/Vector3f.h"
+#include "gfx/Projection.h"
 
-struct PersProjInfo;
-struct OrthoProjInfo;
 class Vector3f;
 
 class Matrix4f
@@ -65,7 +64,7 @@ class Matrix4f
         // Transpose the matrix
         void transpose();
 
-        float * pointer();
+        const float * pointer() const;
         void identity();
 
         void invert();

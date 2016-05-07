@@ -85,7 +85,17 @@ void Model::render()
                             0.0f,        1.0f,         0.0f, 0.0f,
                             sinf(scale), 0.0f,  cosf(scale), 0.0f,
                             0.0f,        0.0f,         0.0f, 1.0f);
-    glUniformMatrix4fv(worldLoc_, 1, GL_TRUE, world.pointer());
+    Matrix4f world2 = Matrix4f(1.0f, 0.0f, 0.0f, 0.0f,
+                               0.0f, 1.0f, 0.0f, 0.0f,
+                               0.0f, 0.0f, 1.0f, 0.0f,
+                               0.0f, 0.0f, 0.0f, 1.0f);
+    //glUniformMatrix4fv(worldLoc_, 1, GL_TRUE, world2.pointer());
+    //transform_.getWVPTrans() = world; 
+
+    glUniformMatrix4fv(worldLoc_, 1, GL_TRUE, transform_.getWVPTrans().pointer());
+
+    //world.print();
+    //transform_.getWVPTrans().print();
 
     // Set vertex data
     glBindBuffer(GL_ARRAY_BUFFER, vbo);

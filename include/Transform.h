@@ -1,6 +1,7 @@
 #ifndef TLB_TRANSFORM_H_
 #define TLB_TRANSFORM_H_
 
+#include "gfx/Camera.h"
 #include "math/Vector3f.h"
 #include "math/Vector4f.h"
 #include "math/Matrix4f.h"
@@ -21,27 +22,11 @@ struct Orientation
     }
 };
 
-// TODO(2016-04-24/JM): Possibly move this struct somewhere else
-struct PersProjInfo
-{
-    float fov_;
-    float width_;
-    float height_;
-    float zNear_;
-    float zFar_;
-
-};
-
-// TODO(2016-04-27/JM): Possibly move this struct somewhere else
-struct OrthoProjInfo
-{
-    float r_;        // right
-    float l_;        // left
-    float b_;        // bottom
-    float t_;        // top
-    float n_;        // z near
-    float f_;        // z far
-};
+/*
+    P - Projection - Perspective Projection
+    V - View - Camera
+    W - World - Translate, Rotate, Scale
+*/
 
 class Transform
 {
@@ -50,21 +35,14 @@ class Transform
         Vector3f worldPos_;
         Vector3f rotateInfo_;
 
-        PersProjInfo persProjInfo_;
         OrthoProjInfo orthoProjInfo_;
-
-        struct {
-            Vector3f position_;
-            Vector3f target_;
-            Vector3f up_;
-        } camera_;
 
         Matrix4f WVPtransformation_;
         Matrix4f VPtransformation_;
         Matrix4f WPtransformation_;
-        Matrix4f WVtransformation_;
+        Matrix4f WVTransform_;
         Matrix4f Wtransformation_;
-        Matrix4f Vtransformation_;
+        Matrix4f viewTransform_;
         Matrix4f projTransformation_; // TODO(2016-04-24/JM): Probably want this part of the renderer
 
     public:
@@ -78,14 +56,13 @@ class Transform
         void rotate(float rotateX, float rotateY, float rotateZ);
         void rotate(Vector3f & rotation);
         void setPerspectiveProj(const PersProjInfo& p);
-        //void setCamera(const Vector3f & position, const Vector3f & target, const Vector3f & up);
-        //void setCamera(const Camera & camera);
         void orient(const Orientation & o);
 
         const Matrix4f & getWPTrans();
         const Matrix4f & getWVTrans();
         const Matrix4f & getVPTrans();
-        const Matrix4f & getWVPTrans();
+        //const Matrix4f & getWVPTrans();
+        Matrix4f & getWVPTrans();
         const Matrix4f & getWVOrthoPTrans();
         const Matrix4f & getWorldTrans();
         const Matrix4f & getViewTrans();

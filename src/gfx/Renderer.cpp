@@ -117,6 +117,9 @@ bool Renderer::init()
     //Logger::write(Logger::ss << "Minimum: (" << w << " x " << h << ")");
     //SDL_GetWindowMaximumSize(window_, &w, &h);
     //Logger::write(Logger::ss << "Maximum: (" << w << " x " << h << ")");
+
+    camera_ = new Camera(kRendererWidth, kRendererHeight);
+
     return true;
 }
 

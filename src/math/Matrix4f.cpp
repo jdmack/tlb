@@ -233,14 +233,14 @@ void Matrix4f::translate(float x, float y, float z)
 // Print the matrix (display all 16 matrix components numerically on the screen in a 4x4 array)
 void Matrix4f::print()
 {
-    transpose();
+    //transpose();
     for (int row = 0; row < 4; row++) {
         for (int col = 0; col < 4; col++) {
             std::cout << std::setw(6) << m_[row][col] << " ";
         }
         std::cout << std::endl;
     }
-    transpose();
+    //transpose();
     std::cout << std::endl;
 }
 
@@ -257,7 +257,7 @@ void Matrix4f::transpose()
     }
 }
 
-float * Matrix4f::pointer()
+const float * Matrix4f::pointer() const
 {
     return &m_[0][0];
 }

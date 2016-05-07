@@ -13,13 +13,21 @@ Camera::Camera(int windowWidth, int windowHeight)
     windowWidth_  = windowWidth;
     windowHeight_ = windowHeight;
 
-    position_ = Vector3f(0.0f, 0.0f, 0.0f);
+    //position_ = Vector3f(0.0f, 0.0f, 0.0f);
+    position_ = Vector3f(0.0f, 0.0f, 1.0f);
     target_   = Vector3f(0.0f, 0.0f, 1.0f);
     up_       = Vector3f(0.0f, 1.0f, 0.0f);
 
     target_.normalize();
 
     updateView();
+
+    persProjInfo_.fov_ = 60.0f;
+    persProjInfo_.width_ = windowWidth;
+    persProjInfo_.height_ = windowHeight;
+    persProjInfo_.zNear_ = 1.0f;
+    persProjInfo_.zFar_ = 100.0f;
+
 
     //init();
 }
@@ -38,6 +46,12 @@ Camera::Camera(int windowWidth, int windowHeight, const Vector3f & position, con
     up_.normalize();
 
     updateView();
+
+    persProjInfo_.fov_ = 60.0f;
+    persProjInfo_.width_ = windowWidth;
+    persProjInfo_.height_ = windowHeight;
+    persProjInfo_.zNear_ = 1.0f;
+    persProjInfo_.zFar_ = 100.0f;
 
     //init();
 }

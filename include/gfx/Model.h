@@ -2,6 +2,7 @@
 #define TLB_GFX_MODEL_H_
 
 #include "SDL2/SDL.h"
+#include "Transform.h"
 
 class Model
 {
@@ -11,6 +12,8 @@ class Model
         GLuint worldLoc_;
         GLuint vbo;
         GLuint ibo;
+
+        Transform transform_;
         
     public:
         Model();

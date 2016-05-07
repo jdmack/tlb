@@ -5,6 +5,7 @@
 #include "math/Vector3f.h"
 #include "math/Vector2i.h"
 #include "event/Event.h"
+#include "gfx/Projection.h"
 
 class Camera
 {
@@ -27,6 +28,7 @@ class Camera
        bool onRightEdge_;
 
        Vector2i mousePosition_;
+       PersProjInfo persProjInfo_;
 
        void init();
        void update();
@@ -49,6 +51,7 @@ class Camera
        Vector3f target() const { return target_; } 
        Vector3f up() const { return up_; }
        Matrix4f view() const { return view_; }
+       PersProjInfo persProjInfo() { return persProjInfo_; }
 
 };
 
