@@ -110,10 +110,10 @@ Quaternion Quaternion::conjugate()
 
 Quaternion Quaternion::operator*(const Quaternion & q)
 {
-    const float w = (w_ * w_) - (x_ * x_) - (y_ * y_) - (z_ * z_);
-    const float x = (x_ * x_) + (w_ * x_) + (y_ * z_) - (z_ * y_);
-    const float y = (y_ * w_) + (w_ * y_) + (z_ * x_) - (x_ * z_);
-    const float z = (z_ * w_) + (w_ * z_) + (x_ * y_) - (y_ * x_);
+    const float w = (w_ * q.w()) - (x_ * q.x()) - (y_ * q.y()) - (z_ * q.z());
+    const float x = (x_ * q.w()) + (w_ * q.x()) + (y_ * q.z()) - (z_ * q.y());
+    const float y = (y_ * q.w()) + (w_ * q.y()) + (z_ * q.x()) - (x_ * q.z());
+    const float z = (z_ * q.w()) + (w_ * q.z()) + (x_ * q.y()) - (y_ * q.x());
 
     Quaternion ret(x, y, z, w);
 

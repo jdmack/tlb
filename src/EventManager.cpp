@@ -17,10 +17,12 @@
 #include "event/EventDispatcher.h"
 #include "event/EKeyPress.h"
 #include "event/EMouseClick.h"
+#include "gfx/Camera.h"
+#include "gfx/Renderer.h"
 
 EventManager::EventManager()
 {
-
+    mouse_ = Vector2i(0, 0);
 }
 
 void EventManager::handleEvents()
@@ -54,6 +56,15 @@ void EventManager::handleEvents()
                     case SDLK_r:    // R
                         key = KEY_R;
                         break;
+                    case SDLK_d:    // D
+                        key = KEY_D;
+                        break;
+                    case SDLK_w:    // W
+                        key = KEY_W;
+                        break;
+                    case SDLK_c:    // C
+                        key = KEY_C;
+                        break;
                     case SDLK_s:    // S
                         key = KEY_S;
                         break;
@@ -73,6 +84,8 @@ void EventManager::handleEvents()
                         key = KEY_SPACE;
                         break;
                 }
+                    
+                Game::instance()->renderer()->camera()->onKeyboard(key);
                 EventDispatcher::instance()->sendEvent(new EKeyPress(key));
                 break;
 
@@ -90,6 +103,7 @@ void EventManager::handleEvents()
                 break;
 
             case SDL_MOUSEBUTTONDOWN:
+            {
                 // mouse Points adjusted to camera position
                 double mouseX = event.button.x;// +Game::instance()->camera()->xPosition();
                 double mouseY = event.button.y;// + Game::instance()->camera()->yPosition();
@@ -105,31 +119,43 @@ void EventManager::handleEvents()
                 EMouseClick * mouseEvent;
 
                 // SDL_BUTTON_LEFT - Selection
-                if(event.button.button == SDL_BUTTON_LEFT)
+                if (event.button.button == SDL_BUTTON_LEFT)
                 {
                     mouseEvent = new EMouseClick(MOUSE_LEFT, mousePoint);
                 }
                 // SDL_BUTTON_RIGHT - Command
-                else if(event.button.button == SDL_BUTTON_RIGHT)
+                else if (event.button.button == SDL_BUTTON_RIGHT)
                 {
                     mouseEvent = new EMouseClick(MOUSE_RIGHT, mousePoint);
                 }
 
                 EventDispatcher::instance()->sendEvent(mouseEvent);
 
-/*
-                if(event.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
-                    focusTimer_.start();
-                    //Logger::write("focusTimer started");
-                }
-                if(event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
-                    if(focusTimer_.started()) {
-                        focusTimer_.stop();
-                        //Logger::write("focusTimer stopped");
-                    }
-                }
-                */
                 break;
+            }
+            case SDL_WINDOWEVENT_FOCUS_LOST:
+            {
+                //focusTimer_.start();
+                //Logger::write("focusTimer started");
+                //if(focusTimer_.started()) {
+                    //focusTimer_.stop();
+                    //Logger::write("focusTimer stopped");
+                //}
+                break;
+            }
+            case SDL_MOUSEMOTION:
+            {
+                int x = event.motion.x;
+                int y = event.motion.y;
+
+                int delta = x - mouse_.x() + y - mouse_.y();
+                //if(delta > 25 || delta < -25) {
+                    mouse_.setX(x);
+                    mouse_.setY(y);
+                    Game::instance()->renderer()->camera()->onMouse(x, y);
+                //}
+                break;
+            }
         }
     }
 }

@@ -83,8 +83,7 @@ const Matrix4f& Transform::getVPTrans()
     getViewTrans();
     getProjTrans();
        
-    //VPtransformation_ = projTransformation_ * viewTransform_;
-    VPtransformation_ = viewTransform_;
+    VPtransformation_ = projTransformation_ * viewTransform_;
     return VPtransformation_;
 }
 
@@ -96,16 +95,15 @@ const Matrix4f& Transform::getWorldTrans()
     RotateTrans.initRotateTransform(rotateInfo_.x(), rotateInfo_.y(), rotateInfo_.z());
     TranslationTrans.initTranslationTransform(worldPos_.x(), worldPos_.y(), worldPos_.z());
     Wtransformation_ = TranslationTrans * RotateTrans * ScaleTrans;
-    std::cout << "World: " << std::endl;
-    Wtransformation_.print();
+    //std::cout << "World: " << std::endl;
+    //Wtransformation_.print();
     return Wtransformation_;
 }
 
 const Matrix4f& Transform::getViewTrans()
 {
     viewTransform_ = Game::instance()->renderer()->camera()->view();
-    std::cout << "View: " << std::endl;
-    viewTransform_.print();
+    
 
     return viewTransform_;
 }

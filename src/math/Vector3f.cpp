@@ -262,7 +262,7 @@ float Vector3f::distanceFrom(Vector3f point)
 // Print (display the vector's components numerically on the screen)
 void Vector3f::print()
 {
-    //std::cout << "(" << x_ << ", " << y_ << ", " << z_ << ")" << std::endl;
+    std::cout << "(" << x_ << ", " << y_ << ", " << z_ << ")" << std::endl;
 }
 
 float Vector3f::angle(Vector3f v)

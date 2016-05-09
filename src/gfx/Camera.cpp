@@ -1,3 +1,4 @@
+#include <iostream>
 #include <cmath>
 #include "gfx/Camera.h"
 #include "gfx/Renderer.h"
@@ -6,7 +7,7 @@
 
 const static float STEP_SCALE = 1.0f;
 const static float EDGE_STEP = 0.5f;
-const static int MARGIN = 10;
+const static int MARGIN = 30;
 
 Camera::Camera(int windowWidth, int windowHeight)
 {
@@ -29,7 +30,7 @@ Camera::Camera(int windowWidth, int windowHeight)
     persProjInfo_.zFar_ = 100.0f;
 
 
-    //init();
+    init();
 }
 
 
@@ -53,7 +54,7 @@ Camera::Camera(int windowWidth, int windowHeight, const Vector3f & position, con
     persProjInfo_.zNear_ = 1.0f;
     persProjInfo_.zFar_ = 100.0f;
 
-    //init();
+    init();
 }
 
 
@@ -98,56 +99,76 @@ void Camera::init()
 }
 
 
-bool Camera::onKeyboard(KeyType Key)
+bool Camera::onKeyboard(KeyType key)
 {
     bool Ret = false;
 
-    switch (Key) {
-
-    case KEY_UP:
+    switch(key) {
+        case KEY_W:
+        case KEY_UP:
         {
             position_ = position_ + (target_ * STEP_SCALE);
             Ret = true;
-        }
-        break;
 
-    case KEY_DOWN:
+            break;
+        }
+
+        case KEY_S:
+        case KEY_DOWN:
         {
             position_ = position_ - (target_ * STEP_SCALE);
             Ret = true;
+            break;
         }
-        break;
 
-    case KEY_LEFT:
+        case KEY_A:
+        case KEY_LEFT:
         {
             Vector3f Left = target_.crossProduct(up_);
             Left.normalize();
             Left = Left *STEP_SCALE;
             position_ = position_ + Left;
             Ret = true;
-        }
-        break;
 
-    case KEY_RIGHT:
+            break;
+        }
+
+        case KEY_D:
+        case KEY_RIGHT:
         {
             Vector3f Right = up_.crossProduct(target_);
             Right.normalize();
             Right = Right * STEP_SCALE;
             position_ = position_ + Right;
             Ret = true;
+
+            break;
         }
-        break;
+
+        case KEY_SPACE:
+        {
+            position_ = position_ + (up_ * STEP_SCALE);
+            Ret = true;
+            break;
+        }
+
+        case KEY_C:
+        {
+            position_ = position_ - (up_ * STEP_SCALE);
+            Ret = true;
+            break;
+        }
         
-    case KEY_PAGE_UP:
-        position_.setY(position_.y() + STEP_SCALE);
-        break;
+        case KEY_PAGE_UP:
+            position_.setY(position_.y() + STEP_SCALE);
+            break;
     
-    case KEY_PAGE_DOWN:
-        position_.setY(position_.y() - STEP_SCALE);
-        break;
+        case KEY_PAGE_DOWN:
+            position_.setY(position_.y() - STEP_SCALE);
+            break;
     
-    default:
-        break;            
+        default:
+            break;            
     }
 
     return Ret;
@@ -156,22 +177,23 @@ bool Camera::onKeyboard(KeyType Key)
 
 void Camera::onMouse(int x, int y)
 {
-    const int DeltaX = x - mousePosition_.x();
-    const int DeltaY = y - mousePosition_.y();
+    const int deltaX = x - mousePosition_.x();
+    const int deltaY = y - mousePosition_.y();
 
     mousePosition_.setX(x);
     mousePosition_.setY(y);
 
-    angleH_ += (float)DeltaX / 20.0f;
-    angleV_ += (float)DeltaY / 20.0f;
+    std::cout << "mouse( " << x << "," << y << ")" << std::endl;
+    std::cout << "delta( " << deltaX << "," << deltaY << ")" << std::endl;
 
-    if (DeltaX == 0) {
+    angleH_ += (float)deltaX / 20.0f;
+    angleV_ += (float)deltaY / 20.0f;
+
+    if (deltaX == 0) {
         if (x <= MARGIN) {
-        //    angleH_ -= 1.0f;
             onLeftEdge_ = true;
         }
         else if (x >= (windowWidth_ - MARGIN)) {
-        //    angleH_ += 1.0f;
             onRightEdge_ = true;
         }
     }
@@ -180,7 +202,7 @@ void Camera::onMouse(int x, int y)
         onRightEdge_ = false;
     }
 
-    if (DeltaY == 0) {
+    if (deltaY == 0) {
         if (y <= MARGIN) {
             onUpperEdge_ = true;
         }
@@ -234,6 +256,7 @@ void Camera::update()
 
     // rotate the view vector by the horizontal angle around the vertical axis
     Vector3f View(1.0f, 0.0f, 0.0f);
+
     View.rotate(angleH_, Vaxis);
     View.normalize();
 
@@ -241,12 +264,14 @@ void Camera::update()
     Vector3f Haxis = Vaxis.crossProduct(View);
     Haxis.normalize();
     View.rotate(angleV_, Haxis);
+    View.normalize();
        
     target_ = View;
     target_.normalize();
 
     up_ = target_.crossProduct(Haxis);
     up_.normalize();
+    updateView();
 }
 
 void Camera::updateView()
@@ -256,7 +281,29 @@ void Camera::updateView()
 
     cameraTranslate.initTranslationTransform(-position_.x(), -position_.y(), -position_.z());
     cameraRotate.initCameraTransform(target_, up_);
+    //std::cout << "angleH: " << angleH_ << ", angleV: " << angleV_ << std::endl;
+    //std::cout << "target: " << std::endl;
+    //target_.print();
+    //std::cout << "up: " << std::endl;
+    //up_.print();
+
+
+    /*
+    std::cout << "cameraTranslate: " << std::endl;
+    cameraRotate.print();
+    std::cout << "cameraRotate: " << std::endl;
+    cameraTranslate.print();
+    */
+
 
     view_ = cameraRotate * cameraTranslate;
+    //std::cout << "View: " << std::endl;
+    //view_.print();
+}
+
+Matrix4f Camera::view()
+{
+    updateView();
+    return view_;
 }
 

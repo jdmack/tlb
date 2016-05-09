@@ -50,7 +50,7 @@ class Camera
        Vector3f position() const { return position_; }
        Vector3f target() const { return target_; } 
        Vector3f up() const { return up_; }
-       Matrix4f view() const { return view_; }
+       Matrix4f view();//const { return view_; }
        PersProjInfo persProjInfo() { return persProjInfo_; }
 
 };

@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\Color.cpp" />
+    <ClCompile Include="src\Cooldown.cpp" />
+    <ClCompile Include="src\Duration.cpp" />
+    <ClCompile Include="src\Entity.cpp" />
+    <ClCompile Include="src\EntityManager.cpp" />
+    <ClCompile Include="src\EventManager.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="src\Grid.cpp" />
+    <ClCompile Include="src\GridNode.cpp" />
+    <ClCompile Include="src\HitPoint.cpp" />
+    <ClCompile Include="src\Level.cpp" />
+    <ClCompile Include="src\LevelGraph.cpp" />
+    <ClCompile Include="src\LevelNode.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Movement.cpp" />
+    <ClCompile Include="src\Pathfinder.cpp" />
+    <ClCompile Include="src\PathfinderHex.cpp" />
+    <ClCompile Include="src\PathfinderSquare.cpp" />
+    <ClCompile Include="src\Point.cpp" />
+    <ClCompile Include="src\Transform.cpp" />
+    <ClCompile Include="src\WinCondition.cpp" />
+    <ClCompile Include="src\gfx\2DCamera.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gfx\Animation.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gfx\Camera.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gfx\Tile.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gfx\Tileset.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\action\Action.cpp">
+      <Filter>action</Filter>
+    </ClCompile>
+    <ClCompile Include="src\action\AttackAction.cpp">
+      <Filter>action</Filter>
+    </ClCompile>
+    <ClCompile Include="src\action\DeadAction.cpp">
+      <Filter>action</Filter>
+    </ClCompile>
+    <ClCompile Include="src\action\IdleAction.cpp">
+      <Filter>action</Filter>
+    </ClCompile>
+    <ClCompile Include="src\action\MoveAction.cpp">
+      <Filter>action</Filter>
+    </ClCompile>
+    <ClCompile Include="src\action\RotateAction.cpp">
+      <Filter>action</Filter>
+    </ClCompile>
+    <ClCompile Include="src\aiState\AIState.cpp">
+      <Filter>aiState</Filter>
+    </ClCompile>
+    <ClCompile Include="src\aiState\AIStateMachine.cpp">
+      <Filter>aiState</Filter>
+    </ClCompile>
+    <ClCompile Include="src\aiState\AttackState.cpp">
+      <Filter>aiState</Filter>
+    </ClCompile>
+    <ClCompile Include="src\aiState\DeadState.cpp">
+      <Filter>aiState</Filter>
+    </ClCompile>
+    <ClCompile Include="src\aiState\IdleState.cpp">
+      <Filter>aiState</Filter>
+    </ClCompile>
+    <ClCompile Include="src\aiState\MoveState.cpp">
+      <Filter>aiState</Filter>
+    </ClCompile>
+    <ClCompile Include="src\aiState\RotateState.cpp">
+      <Filter>aiState</Filter>
+    </ClCompile>
+    <ClCompile Include="src\aiState\SeekState.cpp">
+      <Filter>aiState</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\Button.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\CharacterPanel.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\Text.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\TextPanel.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\UIElement.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\UserInterface.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\DateTime.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GSLevel.cpp" />
+    <ClCompile Include="src\GSLevelSelect.cpp" />
+    <ClCompile Include="src\GSMainMenu.cpp" />
+    <ClCompile Include="src\gfx\Sprite.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gfx\Renderer.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\event\EHCamera.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\event\EHLevel.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\event\EKeyPress.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\event\EMouseClick.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\event\Event.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\FileReader.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Frame.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\event\EventDispatcher.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\event\EventHandler.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\aiState\GlobalState.cpp">
+      <Filter>aiState</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gfx\Graphic.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\Logger.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vector.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\Vector2i.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\Vector3f.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\Vector4f.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\Matrix4f.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\Math.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\Quaternion.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gfx\Model.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\Panel.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\Timer.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\GameTimer.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\GlobalTimer.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Assets.h" />
+    <ClInclude Include="include\Color.h" />
+    <ClInclude Include="include\Constants.h" />
+    <ClInclude Include="include\Cooldown.h" />
+    <ClInclude Include="include\Duration.h" />
+    <ClInclude Include="include\Entity.h" />
+    <ClInclude Include="include\EntityManager.h" />
+    <ClInclude Include="include\EventManager.h" />
+    <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\GameObject.h" />
+    <ClInclude Include="include\Grid.h" />
+    <ClInclude Include="include\GridNode.h" />
+    <ClInclude Include="include\HitPoint.h" />
+    <ClInclude Include="include\Level.h" />
+    <ClInclude Include="include\LevelGraph.h" />
+    <ClInclude Include="include\LevelNode.h" />
+    <ClInclude Include="include\Movement.h" />
+    <ClInclude Include="include\Pathfinder.h" />
+    <ClInclude Include="include\PathfinderHex.h" />
+    <ClInclude Include="include\PathfinderSquare.h" />
+    <ClInclude Include="include\Point.h" />
+    <ClInclude Include="include\Transform.h" />
+    <ClInclude Include="include\WinCondition.h" />
+    <ClInclude Include="include\gfx\2DCamera.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gfx\Animation.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gfx\Camera.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gfx\Tile.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gfx\Tileset.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="include\action\Action.h">
+      <Filter>action</Filter>
+    </ClInclude>
+    <ClInclude Include="include\action\AttackAction.h">
+      <Filter>action</Filter>
+    </ClInclude>
+    <ClInclude Include="include\action\DeadAction.h">
+      <Filter>action</Filter>
+    </ClInclude>
+    <ClInclude Include="include\action\IdleAction.h">
+      <Filter>action</Filter>
+    </ClInclude>
+    <ClInclude Include="include\action\MoveAction.h">
+      <Filter>action</Filter>
+    </ClInclude>
+    <ClInclude Include="include\action\RotateAction.h">
+      <Filter>action</Filter>
+    </ClInclude>
+    <ClInclude Include="include\aiState\AIState.h">
+      <Filter>aiState</Filter>
+    </ClInclude>
+    <ClInclude Include="include\aiState\AIStateMachine.h">
+      <Filter>aiState</Filter>
+    </ClInclude>
+    <ClInclude Include="include\aiState\AttackState.h">
+      <Filter>aiState</Filter>
+    </ClInclude>
+    <ClInclude Include="include\aiState\DeadState.h">
+      <Filter>aiState</Filter>
+    </ClInclude>
+    <ClInclude Include="include\aiState\IdleState.h">
+      <Filter>aiState</Filter>
+    </ClInclude>
+    <ClInclude Include="include\aiState\MoveState.h">
+      <Filter>aiState</Filter>
+    </ClInclude>
+    <ClInclude Include="include\aiState\RotateState.h">
+      <Filter>aiState</Filter>
+    </ClInclude>
+    <ClInclude Include="include\aiState\SeekState.h">
+      <Filter>aiState</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ui\Button.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ui\CharacterPanel.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ui\Text.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ui\TextPanel.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ui\UIElement.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ui\UserInterface.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\DateTime.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GSLevel.h" />
+    <ClInclude Include="include\GSLevelSelect.h" />
+    <ClInclude Include="include\GSMainMenu.h" />
+    <ClInclude Include="include\GameState.h" />
+    <ClInclude Include="include\gfx\Sprite.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gfx\Renderer.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event\EHCamera.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event\EHLevel.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event\EKeyPress.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event\EMouseClick.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event\Event.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\FileReader.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Frame.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event\EventDispatcher.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event\EventHandler.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="include\aiState\GlobalState.h">
+      <Filter>aiState</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gfx\Graphic.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\Logger.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Vector.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\Vector2i.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\Vector3f.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\Vector4f.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\Matrix4f.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\Math.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\Quaternion.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gfx\Model.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ui\Panel.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gfx\Projection.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\Timer.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ui\GameTimer.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\GlobalTimer.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="action">
+      <UniqueIdentifier>{e475df73-58d8-4c66-ab20-b63944f99763}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="aiState">
+      <UniqueIdentifier>{6cc4f986-dd24-4abd-8368-9025b63b81ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="event">
+      <UniqueIdentifier>{a049a796-ee5f-4aef-ab65-27619c152ea7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gfx">
+      <UniqueIdentifier>{1b87eb37-c8ed-46b2-b1c1-c48a4ae3a7ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="math">
+      <UniqueIdentifier>{2614b3cf-481f-4797-a96f-f3ecfa903248}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui">
+      <UniqueIdentifier>{897d23e9-c503-435b-a28c-0546acfcb0a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{b526f275-0ba5-4e86-8ec5-c0e75375924c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -27,24 +27,32 @@ EHLevel::~EHLevel()
 
 void EHLevel::handleEvent(Event * event)
 {
-    if(event->type() == EVENT_MOUSE_CLICK) {
-        EMouseClick * mouseEvent = static_cast<EMouseClick *>(event);
-        Logger::write(Logger::ss << "Mouse Click " << mouseEvent->point().toString());
-        if(mouseEvent->button() == MOUSE_LEFT) {
-            mouseLeftClick(mouseEvent->point());
-        }
-        else if(mouseEvent->button() == MOUSE_RIGHT) {
-            mouseRightClick(mouseEvent->point());
-        }
-    }
-    else if(event->type() == EVENT_GAME_QUIT) {
+    switch(event->type()) {
+        case EVENT_MOUSE_CLICK:
+        {
+            EMouseClick * mouseEvent = static_cast<EMouseClick *>(event);
+            Logger::write(Logger::ss << "Mouse Click " << mouseEvent->point().toString());
+            if(mouseEvent->button() == MOUSE_LEFT) {
+                mouseLeftClick(mouseEvent->point());
+            }
+            else if(mouseEvent->button() == MOUSE_RIGHT) {
+                mouseRightClick(mouseEvent->point());
+            }
 
-    }
+            break;
+        }
 
-    else if(event->type() == EVENT_KEY_PRESS) {
-        EKeyPress * keyEvent = static_cast<EKeyPress *>(event);
-        keyPress(keyEvent->keyType());
-        return;
+        case EVENT_GAME_QUIT:
+        {
+
+        }
+
+        case EVENT_KEY_PRESS:
+        {
+            EKeyPress * keyEvent = static_cast<EKeyPress *>(event);
+            keyPress(keyEvent->keyType());
+            break;
+        }
     }
 }
 

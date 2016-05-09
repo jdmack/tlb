@@ -372,6 +372,7 @@ void Renderer::update()
 {
     //if(debug_) debugFrame_->render();
     //SDL_RenderPresent(renderer_);
+    camera_->onRender();
     SDL_GL_SwapWindow(window_);
 }
 
