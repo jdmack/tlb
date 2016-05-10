@@ -27,7 +27,7 @@ Tile::Tile(Point position, float width, float length, int type)
     setWidth(width);
     setLength(length);
     setHeight(0.25);
-    setType(type_);
+    setType(type);
 
     row_ = position_.y() / width_;
     column_ = position_.x() / length_;

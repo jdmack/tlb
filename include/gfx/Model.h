@@ -27,7 +27,7 @@ class Model
         Transform & transform() { return transform_; }
 
         // mutators
-        Vector4f setColor(Vector4f color) { color_ = color; }
+        void setColor(Vector4f color) { color_ = color; }
 
         bool init();
         void render();
