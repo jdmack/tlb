@@ -9,6 +9,7 @@
 
 
 // FOR TESTING
+#include "gfx/Tile.h"
 
 class UserInterface;
 class EHLevel;
@@ -24,6 +25,8 @@ class GSLevel : public GameState
 
         // FOR TESTING
         Model * model_;
+        Tile * tile_;
+        Tile * tile2_;
 
     public:
         GSLevel();

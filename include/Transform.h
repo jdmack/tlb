@@ -51,6 +51,7 @@ class Transform
         void scale(float s);
         void scale(Vector3f & scale);
         void scale(float scaleX, float scaleY, float scaleZ);
+        void scale(int which, float scale);
         void worldPos(float x, float y, float z);
         void worldPos(Vector3f & position);
         void rotate(float rotateX, float rotateY, float rotateZ);

@@ -118,6 +118,9 @@ bool Renderer::init()
     //SDL_GetWindowMaximumSize(window_, &w, &h);
     //Logger::write(Logger::ss << "Maximum: (" << w << " x " << h << ")");
 
+    // Initialize clear color
+    glClearColor(0.f, 0.f, 0.f, 1.f);
+
     camera_ = new Camera(kRendererWidth, kRendererHeight);
 
     return true;
@@ -348,8 +351,9 @@ void Renderer::applySurface(SDL_Surface * source, SDL_Surface * destination, SDL
 ////////////////////////////////////////////////////////////////////////////////
 void Renderer::clear()
 {
-    SDL_SetRenderDrawColor(renderer_, kDefaultClearColor.red(), kDefaultClearColor.green(), kDefaultClearColor.blue(), 255);
-    SDL_RenderClear(renderer_);
+    // Clear color buffer
+    glClear(GL_COLOR_BUFFER_BIT);
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////

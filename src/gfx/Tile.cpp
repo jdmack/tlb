@@ -6,13 +6,14 @@
 #include "Point.h"
 #include "gfx/Tileset.h"
 #include "Frame.h"
+#include "math/Vector4f.h"
 
 Tile::Tile()
 {
-    xPosition_ = 0;
-    yPosition_ = 0;
-    width_ = 0;
-    height_ = 0;
+    position_ = Vector3f(0.0, 0.0, 0.0);
+    width_ = 1;
+    length_ = 1;
+    height_ = 1;
     type_ = 0;
 
     row_ = -1;
@@ -20,38 +21,69 @@ Tile::Tile()
     tileset_ = nullptr;
 }
 
-Tile::Tile(Point position, double width, double height, int type)
+Tile::Tile(Point position, float width, float length, int type)
 {
-    xPosition_ = position.x();
-    yPosition_ = position.y();
-    width_ = width;
-    height_ = height;
-    type_ = type;
+    setPosition(Vector3f(position.x(), 0.0, position.y()));
+    setWidth(width);
+    setLength(length);
+    setHeight(0.25);
+    setType(type_);
 
-    row_ = yPosition_ / width_;
-    column_ = xPosition_ / height_;
+    row_ = position_.y() / width_;
+    column_ = position_.x() / length_;
     tileset_ = nullptr;
 }
 
-
-SDL_Rect Tile::box()
+void Tile::render()
 {
-    //SDL_Rect rect = { (int)xPosition_, (int)yPosition_, (int)width_, (int)height_ };
-    Point point = Point(xPosition_, yPosition_);
-    //point = level_->game()->renderer()->convertToIsometric(point);
-    //point = level_->game()->renderer()->convertToCartesian(point);
-    SDL_Rect rect = { (int)point.x(), (int)point.y(), (int)width_, (int)height_ };
-    return rect;
+    model_.render();
 }
 
-void Tile::render(Frame * frame)
+////////////////////////////////////////////////////////////////////////////////
+// Setters
+////////////////////////////////////////////////////////////////////////////////
+void Tile::setPosition(Vector3f position)
 {
-    /*
-    if(Game::instance()->renderer()->camera()->contains(box())) {
-        SDL_Rect offset = box();
-        SDL_Rect clip = tileset_->clips(type_);
-        //Game::instance()->renderer()->renderTexture(tileset_->texture(), &offset, &clip);
-        Game::instance()->renderer()->renderTextureFrame(tileset_->texture(), frame, &offset, &clip);
+    position_ = position;
+    model_.transform().worldPos(position_);
+}
+
+void Tile::setWidth(float width)
+{
+    width_ = width;
+    model_.transform().scale(0, width_);
+}
+
+void Tile::setLength(float length)
+{
+    length_ = length;
+    model_.transform().scale(2, length_);
+}
+
+void Tile::setHeight(float height)
+{
+    height_ = height;
+    model_.transform().scale(1, height_);
+}
+
+void Tile::setType(int type)
+{
+    type_ = type;
+    Vector4f color;
+
+    switch(type_) {
+        case 0:
+            color = Vector4f(1.0, 0.0, 0.0, 1.0);
+            break;
+        case 1:
+            color = Vector4f(0.0, 1.0, 0.0, 1.0);
+            break;
+        case 2:
+            color = Vector4f(0.0, 0.0, 1.0, 1.0);
+            break;
+        default: 
+            color = Vector4f(0.5, 0.5, 0.5, 1.0);
     }
-    */
+    model_.setColor(color);
+
 }

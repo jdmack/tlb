@@ -11,6 +11,8 @@ class Vector4f
         float z_;
         float w_;
 
+        float m_[4];
+
     public:
         // constructors
         Vector4f();
@@ -61,6 +63,8 @@ class Vector4f
 
         // Dehomogenize (make fourth component equal to 1)
         void dehomogenize();
+        const float * pointer();
+
         
         // Print (display the point's components numerically on the screen)
         void print();

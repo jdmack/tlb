@@ -190,6 +190,15 @@ void Vector4f::dehomogenize()
     w_ /= w_;
 }
 
+const float * Vector4f::pointer()
+{
+    m_[0] = x_;
+    m_[1] = y_;
+    m_[2] = z_;
+    m_[3] = w_;
+    return &m_[0];
+}
+
 // Print (display the point's components numerically on the screen)
 void Vector4f::print()
 {

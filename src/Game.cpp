@@ -95,7 +95,7 @@ void Game::gameLoop()
         deltaTimer_.start();
 
         // Draw
-        //renderer_->clear();
+        renderer_->clear();
         currentState_->render();
 
         renderer_->update();

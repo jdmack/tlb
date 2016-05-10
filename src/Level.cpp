@@ -133,7 +133,7 @@ bool Level::touchesWall(GameObject * object, SDL_Rect * rect)
 void Level::render(Frame * frame)
 {
     for(std::vector<Tile *>::iterator tileIterator = tiles_->begin(); tileIterator != tiles_->end(); ++tileIterator) {
-        (*tileIterator)->render(frame);
+        (*tileIterator)->render();
         //if(thing) Logger::write(Logger::ss << "Rendering tile: (" << (*tileIterator)->row() << "," << (*tileIterator)->column() << ")");
     }
     //if(thing) thing = false;

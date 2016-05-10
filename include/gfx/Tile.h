@@ -3,6 +3,8 @@
 
 #include "SDL2/SDL.h"
 #include "Point.h"
+#include "math/Vector3f.h"
+#include "gfx/Model.h"
 
 class Level;
 class Tileset;
@@ -11,33 +13,40 @@ class Frame;
 class Tile
 {
     private:
-        double xPosition_;
-        double yPosition_;
-        double width_;
-        double height_;
+        Vector3f position_;
+        Vector3f color_;
+        float width_;
+        float length_;
+        float height_;
         int row_;
         int column_;
         int type_;
         Tileset * tileset_;
 
+        Model model_;
+
     public:
         Tile();
-        Tile(Point point, double width, double height, int type);
-        double xPosition() const { return xPosition_; }
-        double yPosition() const { return yPosition_; }
-        double width() const { return width_; }
-        double height() const { return height_; }
+        Tile(Point point, float width, float height, int type);
+        Vector3f position() const { return position_; }
+        float width() const { return width_; }
+        float length() const { return length_; }
+        float height() const { return height_; }
         int row() const { return row_; }
         int column() const { return column_; }
         int type() const { return type_; }
         Tileset * tileset() const { return tileset_; }
 
-        SDL_Rect box();
-        void render(Frame * frame = nullptr);
+        void render();
 
-        void setWidth(double width) { width_ = width; }
-        void setHeight(double height) { height_ = height; }
+        void setPosition(Vector3f position);
+        void setWidth(float width);
+        void setLength(float length);
+        void setHeight(float height);
+        void setType(int type_);
+
         void setTileset(Tileset * tileset) { tileset_ = tileset; }
+
 };
 
 #endif

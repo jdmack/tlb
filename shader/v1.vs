@@ -1,9 +1,11 @@
 #version 130
 in vec3 Position;
 uniform mat4 World;
-out vec4 Color;
+uniform vec4 Color;
+out vec4 outColor;
 void main()
 {
     gl_Position = World * vec4(Position, 1.0);
-    Color = vec4(clamp(Position, 0.0, 1.0), 1.0);
+    outColor = Color;
+    //outColor = vec4(clamp(Position, 0.0, 1.0), 1.0);
 }

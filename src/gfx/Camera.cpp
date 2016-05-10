@@ -6,8 +6,9 @@
 #include "math/Math.h"
 
 const static float kStepScale = 1.0f;
+const static float kAngleStep = 10.0f;
 const static float kEdgeStep = 0.5f;
-const static int kMargin = 30;
+const static int kMargin = 100;
 
 Camera::Camera(int windowWidth, int windowHeight)
 {
@@ -27,7 +28,7 @@ Camera::Camera(int windowWidth, int windowHeight)
     persProjInfo_.width_ = windowWidth;
     persProjInfo_.height_ = windowHeight;
     persProjInfo_.zNear_ = 1.0f;
-    persProjInfo_.zFar_ = 100.0f;
+    persProjInfo_.zFar_ = 2000.0f;
 
 
     init();
@@ -183,8 +184,8 @@ void Camera::onMouse(int x, int y)
     mousePosition_.setX(x);
     mousePosition_.setY(y);
 
-    angleH_ += (float)deltaX / 20.0f;
-    angleV_ += (float)deltaY / 20.0f;
+    angleH_ += (float)deltaX / kAngleStep;
+    angleV_ += (float)deltaY / kAngleStep;
 
     if (deltaX == 0) {
         if (x <= kMargin) {

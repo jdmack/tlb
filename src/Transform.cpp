@@ -26,7 +26,7 @@ void Transform::scale(Vector3f & s)
 {
     scale(s.x(), s.y(), s.z());
 }
- 
+
 void Transform::scale(float scaleX, float scaleY, float scaleZ)
 {
     scale_.setX(scaleX);
@@ -34,6 +34,11 @@ void Transform::scale(float scaleX, float scaleY, float scaleZ)
     scale_.setZ(scaleZ);
 }
 
+void Transform::scale(int which, float scale)
+{
+    scale_.set(which, scale);
+}
+ 
 void Transform::worldPos(float x, float y, float z)
 {
     worldPos_.setX(x);

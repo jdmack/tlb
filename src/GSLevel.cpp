@@ -13,8 +13,12 @@
 #include "event/EHLevel.h"
 #include "event/EventDispatcher.h"
 #include "ui/CharacterPanel.h"
-#include "gfx/Model.h"
 
+
+// FOR TESTING
+#include "gfx/Model.h"
+#include "gfx/Tile.h"
+#include "math/Vector3f.h"
 
 GSLevel::GSLevel()
 {
@@ -27,15 +31,15 @@ GSLevel::GSLevel()
 bool GSLevel::init()
 {
     // Load level
-    //Level * level = new Level();
+    Level * level = new Level();
 
     //if(!level->load(kMapTestHexIsometric)) {
-    //if(!level->load(kMapTest24x18)) {
-    //    Logger::write(Logger::ss << "Failed to load map");
-    //    return false;
-    //}
+    if(!level->load(kMapTest24x18)) {
+        Logger::write(Logger::ss << "Failed to load map");
+        return false;
+    }
 
-    //Game::instance()->setLevel(level);
+    Game::instance()->setLevel(level);
 
     //userInterface_ = new UserInterface();
 
@@ -52,7 +56,14 @@ bool GSLevel::init()
     //Entity * zombie6 = spawnEntity(ZOMBIE, Point(48 * 7 + 24, 48 * 1 + 24), 0);
 
     // FOR TESTING
-    model_ = new Model();
+    //model_ = new Model();
+    tile_ = new Tile();
+    tile2_ = new Tile();
+    tile2_->setPosition(Vector3f(1, 0.0, 0.0));
+    tile2_->setWidth(0.5);
+    tile2_->setLength(0.5);
+    tile2_->setHeight(0.1);
+    tile2_->setType(2);
 
     return true;
 }
@@ -77,7 +88,7 @@ bool GSLevel::update(int deltaTicks)
 }
 void GSLevel::render()
 {
-    //Game::instance()->level()->render(levelArea_);
+    Game::instance()->level()->render(levelArea_);
 
     // Render
     std::vector<Entity *> entities = Game::instance()->entityManager()->getEntities();
@@ -92,7 +103,9 @@ void GSLevel::render()
     //userInterface_->render();
 
     // FOR TESTING
-    model_->render();
+    //model_->render();
+    //tile_->render();
+    //tile2_->render();
 }
 
 void GSLevel::end()
