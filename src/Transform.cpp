@@ -50,6 +50,11 @@ void Transform::setPosition(Vector3f & position)
     position_ = position;
 }
 
+void Transform::setPosition(int which, float value)
+{
+    position_.set(which, value);
+}
+
 void Transform::rotate(float rotateX, float rotateY, float rotateZ)
 {
     rotation_.setX(rotateX);
@@ -61,6 +66,11 @@ void Transform::rotate(float rotateX, float rotateY, float rotateZ)
 void Transform::rotate(Vector3f & r)
 {
     rotate(r.x(), r.y(), r.z());
+}
+
+void Transform::rotate(int which, float value)
+{
+    rotation_.set(which, value);
 }
 
 //void Transform::orient(const Orientation & o)

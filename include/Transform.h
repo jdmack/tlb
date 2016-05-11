@@ -47,9 +47,11 @@ class Transform
 
         void setPosition(float x, float y, float z);
         void setPosition(Vector3f & position);
+        void setPosition(int which, float value);
 
         void rotate(float rotateX, float rotateY, float rotateZ);
         void rotate(Vector3f & rotation);
+        void rotate(int which, float value);
         //void orient(const Orientation & o);
 
         const Matrix4f & getTrans();
