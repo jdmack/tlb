@@ -12,6 +12,8 @@ class Model
     private:
         GLuint vertexPositionLoc_;
         GLuint worldLoc_;
+        GLuint cameraLoc_;
+        GLuint projectionLoc_;
         GLuint colorLoc_;
         GLuint vbo_;
         GLuint ibo_;

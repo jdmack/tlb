@@ -288,3 +288,8 @@ Matrix4f Camera::view()
     return view_;
 }
 
+Matrix4f Camera::projection()
+{
+    projection_.initPersProjTransform(persProjInfo_);
+    return projection_;
+}

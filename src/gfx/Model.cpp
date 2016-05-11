@@ -20,6 +20,8 @@ Model::Model()
 {
     vertexPositionLoc_ = -1;
     worldLoc_ = -1;
+    cameraLoc_ = -1;
+    projectionLoc_ = -1;
     colorLoc_ = -1;
 
     color_ = Vector4f(1.0f, 0.0f, 0.0f, 1.0f);
@@ -39,6 +41,16 @@ bool Model::init()
     worldLoc_ = glGetUniformLocation(Game::instance()->renderer()->programID(), "World");
     if(worldLoc_ == -1) {
         Logger::write(Logger::ss << "World is not a valid glsl program variable!"); 
+    }
+
+    cameraLoc_ = glGetUniformLocation(Game::instance()->renderer()->programID(), "Camera");
+    if(cameraLoc_ == -1) {
+        Logger::write(Logger::ss << "Camera is not a valid glsl program variable!"); 
+    }
+
+    projectionLoc_ = glGetUniformLocation(Game::instance()->renderer()->programID(), "Projection");
+    if(projectionLoc_ == -1) {
+        Logger::write(Logger::ss << "Projection is not a valid glsl program variable!"); 
     }
 
     colorLoc_ = glGetUniformLocation(Game::instance()->renderer()->programID(), "Color");
@@ -96,7 +108,9 @@ void Model::render()
     glEnableVertexAttribArray(vertexPositionLoc_);
 
     //glUniformMatrix4fv(worldLoc_, 1, GL_TRUE, transform_.getWVPTrans().pointer());
-    glUniformMatrix4fv(worldLoc_, 1, GL_TRUE, transform_.getWVPTrans().pointer());
+    glUniformMatrix4fv(worldLoc_, 1, GL_TRUE, transform_.getWorldTrans().pointer());
+    glUniformMatrix4fv(cameraLoc_, 1, GL_TRUE, Game::instance()->renderer()->camera()->view().pointer());
+    glUniformMatrix4fv(projectionLoc_, 1, GL_TRUE, Game::instance()->renderer()->camera()->projection().pointer());
 
     glUniform4fv(colorLoc_, 1, color_.pointer());
 
