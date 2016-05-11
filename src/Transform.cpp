@@ -27,8 +27,7 @@ void Transform::scale(float s)
     dirty_ = true;
 }
  
-// TODO(2016-04-27/JM): Figure out how to make this argument const Vector3f & s
-void Transform::scale(Vector3f & s)
+void Transform::scale(const Vector3f & s)
 {
     scale(s.x(), s.y(), s.z());
     dirty_ = true;
@@ -70,8 +69,7 @@ void Transform::translate(float x, float y, float z)
     dirty_ = true;
 }
  
-// TODO(2016-04-27/JM): Figure out how to make this argument const Vector3f & translation
-void Transform::translate(Vector3f & translation)
+void Transform::translate(const Vector3f & translation)
 {
     translation_ = translation;
     dirty_ = true;
@@ -105,8 +103,7 @@ void Transform::rotate(float rotateX, float rotateY, float rotateZ)
     dirty_ = true;
 }
  
-// TODO(2016-04-27/JM): Figure out how to make this argument const Vector3f & r
-void Transform::rotate(Vector3f & r)
+void Transform::rotate(const Vector3f & r)
 {
     rotate(r.x(), r.y(), r.z());
     dirty_ = true;

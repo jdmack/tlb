@@ -23,18 +23,18 @@ class Transform
         Transform();
 
         void scale(float s);
-        void scale(Vector3f & scale);
+        void scale(const Vector3f & scale);
         void scale(float scaleX, float scaleY, float scaleZ);
         void scale(int which, float scale);
         void scaleRel(float scaleX, float scaleY, float scaleZ);
 
         void translate(float x, float y, float z);
-        void translate(Vector3f & translation);
+        void translate(const Vector3f & translation);
         void translate(int which, float value);
         void translateRel(float x, float y, float z);
 
         void rotate(float rotateX, float rotateY, float rotateZ);
-        void rotate(Vector3f & rotation);
+        void rotate(const Vector3f & rotation);
         void rotate(int which, float value);
         void rotateRel(float rotateX, float rotateY, float rotateZ);
 
