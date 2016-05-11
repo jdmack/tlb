@@ -36,6 +36,19 @@ void Transform::scale(int which, float scale)
 {
     scale_.set(which, scale);
 }
+
+void Transform::scaleRel(float scaleX, float scaleY, float scaleZ)
+{
+    if(scaleX != 0) {
+        scale_.setX(scale_.x() * scaleX);
+    }
+    if(scaleY != 0) {
+        scale_.setY(scale_.y() * scaleY);
+    }
+    if(scaleZ != 0) {
+        scale_.setZ(scale_.z() * scaleZ);
+    }
+}
  
 void Transform::setPosition(float x, float y, float z)
 {
@@ -55,6 +68,20 @@ void Transform::setPosition(int which, float value)
     position_.set(which, value);
 }
 
+void Transform::setPositionRel(float x, float y, float z)
+{
+    if(x != 0) {
+        position_.setX(position_.x() + x);
+    }
+    if(y != 0) {
+        position_.setY(position_.y() + y);
+    }
+    if(z != 0) {
+        position_.setZ(position_.z() + z);
+    }
+
+}
+
 void Transform::rotate(float rotateX, float rotateY, float rotateZ)
 {
     rotation_.setX(rotateX);
@@ -71,6 +98,19 @@ void Transform::rotate(Vector3f & r)
 void Transform::rotate(int which, float value)
 {
     rotation_.set(which, value);
+}
+
+void Transform::rotateRel(float rotateX, float rotateY, float rotateZ)
+{
+    if(rotateX != 0) {
+        rotation_.rotate(rotateX, Vector3f(1.0, 0.0, 0.0));
+    }
+    if(rotateY != 0) {
+        rotation_.rotate(rotateY, Vector3f(0.0, 1.0, 0.0));
+    }
+    if(rotateZ != 0) {
+        rotation_.rotate(rotateZ, Vector3f(0.0, 0.0, 1.0));
+    }
 }
 
 //void Transform::orient(const Orientation & o)
