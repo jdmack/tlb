@@ -1,9 +1,7 @@
 #ifndef TLB_TRANSFORM_H_
 #define TLB_TRANSFORM_H_
 
-#include "gfx/Camera.h"
 #include "math/Vector3f.h"
-#include "math/Vector4f.h"
 #include "math/Matrix4f.h"
 
 class Matrix4f;

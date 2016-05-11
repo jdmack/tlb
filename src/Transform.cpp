@@ -1,9 +1,6 @@
 #include "Transform.h"
-#include "math/Vector3f.h"
-#include "math/Vector4f.h"
-#include "math/Matrix4f.h"
-#include "Game.h"
-#include "gfx/Renderer.h"
+//#include "math/Vector3f.h"
+//#include "math/Matrix4f.h"
 
 #include <iostream>
 

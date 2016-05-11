@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "gfx/Renderer.h"
 #include "util/Logger.h"
+#include "gfx/Camera.h"
 
 #include "math/Vector3f.h"
 #include "math/Matrix4f.h"
