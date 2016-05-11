@@ -45,7 +45,7 @@ void Tile::render()
 void Tile::setPosition(Vector3f position)
 {
     position_ = position;
-    model_.transform().setPosition(position_);
+    model_.transform().translate(position_);
 }
 
 void Tile::setWidth(float width)

@@ -11,11 +11,13 @@ class Matrix4f;
 class Transform
 {
     private:
+        bool dirty_;
+
         Vector3f scale_;
-        Vector3f position_;
+        Vector3f translation_;
         Vector3f rotation_;
 
-        Matrix4f transformation_;
+        Matrix4f worldTrans_;
 
     public:
         Transform();
@@ -26,17 +28,17 @@ class Transform
         void scale(int which, float scale);
         void scaleRel(float scaleX, float scaleY, float scaleZ);
 
-        void setPosition(float x, float y, float z);
-        void setPosition(Vector3f & position);
-        void setPosition(int which, float value);
-        void setPositionRel(float x, float y, float z);
+        void translate(float x, float y, float z);
+        void translate(Vector3f & translation);
+        void translate(int which, float value);
+        void translateRel(float x, float y, float z);
 
         void rotate(float rotateX, float rotateY, float rotateZ);
         void rotate(Vector3f & rotation);
         void rotate(int which, float value);
         void rotateRel(float rotateX, float rotateY, float rotateZ);
 
-        const Matrix4f & getTrans();
+        const Matrix4f & worldTrans();
 
         //void orient(const Orientation & o);
 };
@@ -45,13 +47,13 @@ class Transform
 //{
 //    Vector3f scale_;
 //    Vector3f rotation_;
-//    Vector3f position_;       
+//    Vector3f translation_;       
     
 //    Orientation()
 //    {
 //        scale_    = Vector3f(1.0f, 1.0f, 1.0f);
 //        rotation_ = Vector3f(0.0f, 0.0f, 0.0f);
-//        position_ = Vector3f(0.0f, 0.0f, 0.0f);
+//        translation_ = Vector3f(0.0f, 0.0f, 0.0f);
 //    }
 //};
 
