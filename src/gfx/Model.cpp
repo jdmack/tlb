@@ -107,8 +107,7 @@ void Model::render()
     // Enable vertex position
     glEnableVertexAttribArray(vertexPositionLoc_);
 
-    //glUniformMatrix4fv(worldLoc_, 1, GL_TRUE, transform_.getWVPTrans().pointer());
-    glUniformMatrix4fv(worldLoc_, 1, GL_TRUE, transform_.getWorldTrans().pointer());
+    glUniformMatrix4fv(worldLoc_, 1, GL_TRUE, transform_.getTrans().pointer());
     glUniformMatrix4fv(cameraLoc_, 1, GL_TRUE, Game::instance()->renderer()->camera()->view().pointer());
     glUniformMatrix4fv(projectionLoc_, 1, GL_TRUE, Game::instance()->renderer()->camera()->projection().pointer());
 

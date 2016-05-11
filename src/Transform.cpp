@@ -7,13 +7,11 @@
 
 #include <iostream>
 
-// TODO(2016-04-27/JM): Fix local variable names in this class (some use improperly capitalized names from old source)
-
 Transform::Transform()
 {
     scale_      = Vector3f(1.0f, 1.0f, 1.0f);
-    worldPos_   = Vector3f(0.0f, 0.0f, 0.0f);
-    rotateInfo_ = Vector3f(0.0f, 0.0f, 0.0f);
+    position_   = Vector3f(0.0f, 0.0f, 0.0f);
+    rotation_ = Vector3f(0.0f, 0.0f, 0.0f);
 }
 
 void Transform::scale(float s)
@@ -39,24 +37,24 @@ void Transform::scale(int which, float scale)
     scale_.set(which, scale);
 }
  
-void Transform::worldPos(float x, float y, float z)
+void Transform::setPosition(float x, float y, float z)
 {
-    worldPos_.setX(x);
-    worldPos_.setY(y);
-    worldPos_.setZ(z);
+    position_.setX(x);
+    position_.setY(y);
+    position_.setZ(z);
 }
  
 // TODO(2016-04-27/JM): Figure out how to make this argument const Vector3f & position
-void Transform::worldPos(Vector3f & position)
+void Transform::setPosition(Vector3f & position)
 {
-    worldPos_ = position;
+    position_ = position;
 }
 
 void Transform::rotate(float rotateX, float rotateY, float rotateZ)
 {
-    rotateInfo_.setX(rotateX);
-    rotateInfo_.setY(rotateY);
-    rotateInfo_.setZ(rotateZ);
+    rotation_.setX(rotateX);
+    rotation_.setY(rotateY);
+    rotation_.setZ(rotateZ);
 }
  
 // TODO(2016-04-27/JM): Figure out how to make this argument const Vector3f & r
@@ -65,95 +63,21 @@ void Transform::rotate(Vector3f & r)
     rotate(r.x(), r.y(), r.z());
 }
 
-void Transform::setPerspectiveProj(const PersProjInfo & p)
-{
-    //persProjInfo_ = p;
-}
+//void Transform::orient(const Orientation & o)
+//{
+//    scale_      = o.scale_;
+//    position_   = o.position_;
+//    rotation_ = o.rotation_;
+//}
 
-void Transform::orient(const Orientation & o)
-{
-    scale_      = o.scale_;
-    worldPos_   = o.position_;
-    rotateInfo_ = o.rotation_;
-}
-
-const Matrix4f& Transform::getProjTrans() 
-{
-    projTransformation_.initPersProjTransform(Game::instance()->renderer()->camera()->persProjInfo());
-    return projTransformation_;
-}
-
-const Matrix4f& Transform::getVPTrans()
-{
-    getViewTrans();
-    getProjTrans();
-       
-    VPtransformation_ = projTransformation_ * viewTransform_;
-    return VPtransformation_;
-}
-
-const Matrix4f& Transform::getWorldTrans()
+const Matrix4f& Transform::getTrans()
 {
     Matrix4f ScaleTrans, RotateTrans, TranslationTrans;
 
     ScaleTrans.initScaleTransform(scale_.x(), scale_.y(), scale_.z());
-    RotateTrans.initRotateTransform(rotateInfo_.x(), rotateInfo_.y(), rotateInfo_.z());
-    TranslationTrans.initTranslationTransform(worldPos_.x(), worldPos_.y(), worldPos_.z());
-    Wtransformation_ = TranslationTrans * RotateTrans * ScaleTrans;
-    //std::cout << "World: " << std::endl;
-    //Wtransformation_.print();
-    return Wtransformation_;
-}
-
-const Matrix4f& Transform::getViewTrans()
-{
-    viewTransform_ = Game::instance()->renderer()->camera()->view();
-    
-
-    return viewTransform_;
-}
-
-//const Matrix4f& Transform::getWVPTrans()
-Matrix4f& Transform::getWVPTrans()
-{
-    getWorldTrans();
-    getVPTrans();
-
-    WVPtransformation_ = VPtransformation_ * Wtransformation_;
-    return WVPtransformation_;
-}
-
-const Matrix4f& Transform::getWVOrthoPTrans()
-{
-    getWorldTrans();
-    getViewTrans();
-
-    Matrix4f p;
-    p.initOrthoProjTransform(orthoProjInfo_);
-    
-    WVPtransformation_ = p * viewTransform_ * Wtransformation_;
-    return WVPtransformation_;
-}
-
-
-const Matrix4f& Transform::getWVTrans()
-{
-	getWorldTrans();
-    getViewTrans();
-	
-	WVTransform_ = viewTransform_ * Wtransformation_;
-	return WVTransform_;
-}
-
-
-const Matrix4f& Transform::getWPTrans()
-{
-	Matrix4f PersProjTrans;
-
-	getWorldTrans();
-	PersProjTrans.initPersProjTransform(Game::instance()->renderer()->camera()->persProjInfo());
-
-	WPtransformation_ = PersProjTrans * Wtransformation_;
-	return WPtransformation_;
+    RotateTrans.initRotateTransform(rotation_.x(), rotation_.y(), rotation_.z());
+    TranslationTrans.initTranslationTransform(position_.x(), position_.y(), position_.z());
+    transformation_ = TranslationTrans * RotateTrans * ScaleTrans;
+    return transformation_;
 }
 
