@@ -25,10 +25,14 @@ const Color kDefaultClearColor = kColorWhite;
 //const Color kDefaultClearColor = kColorBlack;
 
 const bool kDebugFrame = false;
+const bool kFullscreen = false;
 
 class Renderer
 {
     private:
+        int screenWidth_;
+        int screenHeight_;
+
         SDL_Window * window_;
         SDL_Renderer * renderer_;
         SDL_GLContext context_;
@@ -40,6 +44,8 @@ class Renderer
         Renderer();
 
         // accessors
+        int screenWidth() const { return screenWidth_; }
+        int screenHeight() const { return screenHeight_; }
         SDL_Window * window() const { return window_; }
         SDL_Renderer * renderer() const { return renderer_; }
         SDL_GLContext context() const { return context_;}

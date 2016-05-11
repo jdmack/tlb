@@ -25,6 +25,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 Renderer::Renderer()
 {
+    screenWidth_ = kRendererWidth;
+    screenHeight_ = kRendererHeight;
     window_ = nullptr;
     renderer_ = nullptr;
     camera_ = nullptr;
@@ -44,7 +46,17 @@ bool Renderer::init()
         return false;
     }
 
-    
+    // Setup screen size
+    SDL_DisplayMode current;
+    int display = 0;
+    if(SDL_GetCurrentDisplayMode(display, &current)) {
+        Logger::write(Logger::ss << "SDL could not get display mode. SDL Error: " << SDL_GetError());
+    }
+    else {
+        screenWidth_ = current.w;
+        screenHeight_ = current.h;
+    }
+    Logger::write(Logger::ss << "Setting window size: " << screenWidth_ << " x " << screenHeight_);
 
     // Set OpenGL Version
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -54,6 +66,13 @@ bool Renderer::init()
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY); // No idea what this does
     /* 3.2 and higher won't work because code currently doesn't use VAOs */
 
+    // MSAA - Multisample Anti-Aliasing - Do before creating window
+    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
+
+    glEnable(GL_MULTISAMPLE);
+    glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+    glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
 
     int imgFlags = IMG_INIT_PNG;
 
@@ -70,8 +89,11 @@ bool Renderer::init()
     }
 
     // Setup renderer
+    unsigned int flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
+    if(kFullscreen) flags |= SDL_WINDOW_FULLSCREEN;
+    else flags |= SDL_WINDOW_BORDERLESS;
     window_ = SDL_CreateWindow(kWindowName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
-        kRendererWidth, kRendererHeight, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+        screenWidth_, screenHeight_, flags);
     if(window_ == nullptr) {
         Logger::write(Logger::ss << "ERROR: Could not create window! SDL Error: " << SDL_GetError());
         return false;
@@ -117,6 +139,7 @@ bool Renderer::init()
     //Logger::write(Logger::ss << "Minimum: (" << w << " x " << h << ")");
     //SDL_GetWindowMaximumSize(window_, &w, &h);
     //Logger::write(Logger::ss << "Maximum: (" << w << " x " << h << ")");
+
 
     // Initialize clear color
     glClearColor(0.f, 0.f, 0.f, 1.f);
