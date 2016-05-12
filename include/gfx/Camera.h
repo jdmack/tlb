@@ -7,6 +7,15 @@
 #include "event/Event.h"
 #include "gfx/Projection.h"
 
+enum CameraDirection {
+    CAMERA_DIRECTION_FORWARD,
+    CAMERA_DIRECTION_BACKWARD,
+    CAMERA_DIRECTION_RIGHT,
+    CAMERA_DIRECTION_LEFT,
+    CAMERA_DIRECTION_UP,
+    CAMERA_DIRECTION_DOWN
+};
+
 class Camera
 {
     private:
@@ -54,6 +63,8 @@ class Camera
         Matrix4f view();//const { return view_; }
         Matrix4f projection();//const { return view_; }
         PersProjInfo persProjInfo() { return persProjInfo_; }
+
+        void move(CameraDirection dir, float distance);
         
 
 };

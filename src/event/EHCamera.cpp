@@ -1,7 +1,12 @@
 #include <list>
 #include "event/EHCamera.h"
 #include "event/Event.h"
+#include "Game.h"
+#include "gfx/Renderer.h"
+#include "gfx/Camera.h"
 
+
+const static float kStepScale = 1.0f;
 
 EHCamera::EHCamera()
 {
@@ -13,8 +18,9 @@ EHCamera::~EHCamera()
 
 }
 
-void EHCamera::handleEvent(Event * event)
+bool EHCamera::handleEvent(Event * event)
 {
+    bool ret = false;
     switch(event->type()) {
         case EVENT_MOUSE_CLICK:    
         {
@@ -22,70 +28,88 @@ void EHCamera::handleEvent(Event * event)
         }
 
         case EVENT_MOUSE_MOTION:
+        {
 
             break;
+        }
         
         case EVENT_KEY_PRESS:
-
+        {
             break;
+        }
 
     }
 
+    return ret;
 }
 
-void EHCamera::mouseLeftClick(Point point)
+bool EHCamera::mouseLeftClick(Vector2i position)
 {
-
+    return false;
 }
 
-void EHCamera::mouseRightClick(Point point)
+bool EHCamera::mouseRightClick(Vector2i position)
 {
+    return false;
 }
 
-void EHCamera::keyPress(KeyType key)
+bool EHCamera::keyPress(KeyType key)
 {
+    bool ret = false;
     switch(key) {
-
-        case KEY_ESCAPE:
-            break;
-
-        case KEY_SPACE:
+        case KEY_W:
+        case KEY_UP:
+            Game::instance()->renderer()->camera()->move(CAMERA_DIRECTION_FORWARD, kStepScale);
             break;
 
         case KEY_S:
-            break;
-        case KEY_UP:
         case KEY_DOWN:
-        case KEY_LEFT:
-        case KEY_RIGHT:
+        {   
+            Game::instance()->renderer()->camera()->move(CAMERA_DIRECTION_BACKWARD, kStepScale);
+            break;
+        }
+
         case KEY_A:
+        case KEY_LEFT:
+        {   
+            Game::instance()->renderer()->camera()->move(CAMERA_DIRECTION_LEFT, kStepScale);
+
             break;
-        case KEY_B:
-            break;
-        case KEY_C:
+        }
+
         case KEY_D:
-        case KEY_E:
-        case KEY_F:
-        case KEY_G:
-        case KEY_H:
-        case KEY_I:
-        case KEY_J:
-        case KEY_K:
-        case KEY_L:
-        case KEY_M:
-        case KEY_N:
-        case KEY_O:
-        case KEY_P:
-        case KEY_Q:
-        case KEY_R:
-        case KEY_T:
-        case KEY_U:
-        case KEY_V:
-        case KEY_W:
-        case KEY_X:
-        case KEY_Y:
-        case KEY_Z:
-        case KEY_NONE:
+        case KEY_RIGHT:
+        {   
+            Game::instance()->renderer()->camera()->move(CAMERA_DIRECTION_RIGHT, kStepScale);
+
+            break;
+        }
+
+        case KEY_SPACE:
+        {   
+            Game::instance()->renderer()->camera()->move(CAMERA_DIRECTION_UP, kStepScale);
+            break;
+        }
+        case KEY_C:
+        {
+            Game::instance()->renderer()->camera()->move(CAMERA_DIRECTION_DOWN, kStepScale);
+            break;
+        }
+
+        case KEY_PAGE_UP:
+            //position_.setY(position_.y() + kStepScale);
+            break;
+
+        case KEY_PAGE_DOWN:
+            //position_.setY(position_.y() - kStepScale);
+            break;
+
+        default:
             break;
     }
+
+
+
+
+    return ret;
 }

@@ -107,29 +107,20 @@ bool Camera::onKeyboard(KeyType key)
     switch(key) {
         case KEY_W:
         case KEY_UP:
-        {
-            position_ = position_ + (target_ * kStepScale);
-            ret = true;
-
+            move(CAMERA_DIRECTION_FORWARD, kStepScale);
             break;
-        }
 
         case KEY_S:
         case KEY_DOWN:
         {
-            position_ = position_ - (target_ * kStepScale);
-            ret = true;
+            move(CAMERA_DIRECTION_BACKWARD, kStepScale);
             break;
         }
 
         case KEY_A:
         case KEY_LEFT:
         {
-            Vector3f Left = target_.crossProduct(up_);
-            Left.normalize();
-            Left = Left *kStepScale;
-            position_ = position_ + Left;
-            ret = true;
+            move(CAMERA_DIRECTION_LEFT, kStepScale);
 
             break;
         }
@@ -137,26 +128,20 @@ bool Camera::onKeyboard(KeyType key)
         case KEY_D:
         case KEY_RIGHT:
         {
-            Vector3f Right = up_.crossProduct(target_);
-            Right.normalize();
-            Right = Right * kStepScale;
-            position_ = position_ + Right;
-            ret = true;
+            move(CAMERA_DIRECTION_RIGHT, kStepScale);
 
             break;
         }
 
         case KEY_SPACE:
         {
-            position_ = position_ + (up_ * kStepScale);
-            ret = true;
+            move(CAMERA_DIRECTION_UP, kStepScale);
             break;
         }
 
         case KEY_C:
         {
-            position_ = position_ - (up_ * kStepScale);
-            ret = true;
+            move(CAMERA_DIRECTION_DOWN, kStepScale);
             break;
         }
         
@@ -293,3 +278,56 @@ Matrix4f Camera::projection()
     projection_.initPersProjTransform(persProjInfo_);
     return projection_;
 }
+
+
+void Camera::move(CameraDirection dir, float distance)
+{
+    switch(dir) {
+        case CAMERA_DIRECTION_FORWARD:
+        {
+            position_ = position_ + (target_ * distance);
+
+            break;
+        }
+
+        case CAMERA_DIRECTION_BACKWARD:
+        {
+            position_ = position_ - (target_ * distance);
+            break;
+        }
+
+        case CAMERA_DIRECTION_LEFT:
+        {
+            Vector3f left = target_.crossProduct(up_);
+            left.normalize();
+            left = left * distance;
+            position_ = position_ + left;
+
+            break;
+        }
+
+        case CAMERA_DIRECTION_RIGHT:
+        {
+            Vector3f right = up_.crossProduct(target_);
+            right.normalize();
+            right = right * distance;
+            position_ = position_ + right;
+
+            break;
+        }
+
+        case CAMERA_DIRECTION_UP:
+        {
+            position_ = position_ + (up_ * distance);
+            break;
+        }
+
+        case CAMERA_DIRECTION_DOWN:
+        {
+            position_ = position_ - (up_ * distance);
+            break;
+        }
+    }
+    updateView();
+}
+
