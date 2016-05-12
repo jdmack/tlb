@@ -33,7 +33,9 @@ void EventDispatcher::sendEvent(Event * event)
 {
     //for(std::vector<EventHandler *>::iterator iterator = handlers_.begin(); iterator != handlers_.end(); ++iterator) {
     for(std::list<EventHandler *>::iterator iterator = handlers_.begin(); iterator != handlers_.end(); ++iterator) {
-        (*iterator)->handleEvent(event);
+        if((*iterator)->handleEvent(event)) {
+            break;
+        }
     }
 }
 

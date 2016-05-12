@@ -8,7 +8,7 @@ class EventHandler
     public:
         EventHandler();
         ~EventHandler();
-        virtual void handleEvent(Event * event);
+        virtual bool handleEvent(Event * event);
 
 };
 

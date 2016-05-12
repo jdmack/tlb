@@ -3,21 +3,23 @@
 
 #include "event/Event.h"
 #include "event/EventHandler.h"
-#include "Point.h"
+#include "math/Vector2i.h"
+
 class EHLevel : public EventHandler
 {
     private:
         KeyType toggleKey_;
 
+        void mouseLeftClick(Vector2i position);
+        void mouseRightClick(Vector2i position);
+        void keyPress(KeyType key);
+
     public:
         EHLevel();
         ~EHLevel();
 
-        void handleEvent(Event * event);
+        bool handleEvent(Event * event);
 
-        void mouseLeftClick(Point point);
-        void mouseRightClick(Point point);
-        void keyPress(KeyType key);
 };
 
 #endif

@@ -53,6 +53,7 @@ class Event
         EventType type_;
     public:
         Event();
+        Event(EventType type);
         ~Event();
 
         // accessors

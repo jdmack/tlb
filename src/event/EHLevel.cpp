@@ -3,7 +3,7 @@
 #include "event/EHLevel.h"
 #include "event/Event.h"
 #include "event/EKeyPress.h"
-#include "event/EMouseClick.h"
+#include "event/EMouse.h"
 #include "Game.h"
 #include "GameObject.h"
 #include "Entity.h"
@@ -13,6 +13,8 @@
 #include "util/Logger.h"
 #include "EntityManager.h"
 #include "ui/UserInterface.h"
+#include "gfx/Renderer.h"
+#include "gfx/Camera.h"
 
 
 EHLevel::EHLevel()
@@ -25,46 +27,66 @@ EHLevel::~EHLevel()
 
 }
 
-void EHLevel::handleEvent(Event * event)
+bool EHLevel::handleEvent(Event * event)
 {
+    bool ret = false;
+
     switch(event->type()) {
         case EVENT_MOUSE_CLICK:
         {
-            EMouseClick * mouseEvent = static_cast<EMouseClick *>(event);
-            Logger::write(Logger::ss << "Mouse Click " << mouseEvent->point().toString());
-            if(mouseEvent->button() == MOUSE_LEFT) {
-                mouseLeftClick(mouseEvent->point());
+            EMouse * mouseEvent = static_cast<EMouse *>(event);
+            //Logger::write(Logger::ss << "Mouse Click " << mouseEvent->position().toString());
+            if(mouseEvent->button() == MOUSE_BUTTON_LEFT) {
+                mouseLeftClick(mouseEvent->position());
             }
-            else if(mouseEvent->button() == MOUSE_RIGHT) {
-                mouseRightClick(mouseEvent->point());
+            else if(mouseEvent->button() == MOUSE_BUTTON_RIGHT) {
+                mouseRightClick(mouseEvent->position());
             }
 
+            ret = true;
             break;
         }
-
-        case EVENT_GAME_QUIT:
+        case EVENT_MOUSE_MOTION:
         {
 
+            EMouse * mouseEvent = static_cast<EMouse *>(event);
+
+            Game::instance()->renderer()->camera()->onMouse(mouseEvent->position().x(), mouseEvent->position().y());
+
+            ret = true;
+            break;
+
+        }
+        case EVENT_GAME_QUIT:
+        {
+            Game::instance()->setQuit(true);
+
+            ret = true;
+            break;
         }
 
         case EVENT_KEY_PRESS:
         {
             EKeyPress * keyEvent = static_cast<EKeyPress *>(event);
             keyPress(keyEvent->keyType());
+
+            ret = true;
             break;
         }
     }
+    return ret;
 }
 
-void EHLevel::mouseLeftClick(Point point)
+void EHLevel::mouseLeftClick(Vector2i position)
 {
     Logger::write("Mouse Left Click");
 
+    /*
     GSLevel * gsLevel = static_cast<GSLevel *>(Game::instance()->state());
     UserInterface * ui = gsLevel->userInterface();
 
     // POINT IS ON UI ELEMENT
-    if(ui->containsPoint(point)) {
+    if(ui->contains(point)) {
         ui->click(point);
     }
     // POINT IS IN LEVEL AREA
@@ -113,12 +135,14 @@ void EHLevel::mouseLeftClick(Point point)
     }
 
     toggleKey_ = KEY_NONE;
+    */
 }
 
-void EHLevel::mouseRightClick(Point point)
+void EHLevel::mouseRightClick(Vector2i position)
 {
     Logger::write("Mouse Right Click");
 
+    /*
     GSLevel * gsLevel = static_cast<GSLevel *>(Game::instance()->state());
     UserInterface * ui = gsLevel->userInterface();
 
@@ -152,6 +176,7 @@ void EHLevel::mouseRightClick(Point point)
             entity->move(point);
         }
     }
+    */
 }
 
 void EHLevel::keyPress(KeyType key)

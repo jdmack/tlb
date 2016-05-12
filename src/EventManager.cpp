@@ -16,13 +16,12 @@
 #include "event/Event.h"
 #include "event/EventDispatcher.h"
 #include "event/EKeyPress.h"
-#include "event/EMouseClick.h"
+#include "event/EMouse.h"
 #include "gfx/Camera.h"
 #include "gfx/Renderer.h"
 
 EventManager::EventManager()
 {
-    mouse_ = Vector2i(0, 0);
 }
 
 void EventManager::handleEvents()
@@ -40,7 +39,8 @@ void EventManager::handleEvents()
         // Handle Events
         switch(event.type) {
             case SDL_QUIT:  // Quit Event (user x's the window)
-                Game::instance()->setQuit(true);
+                EventDispatcher::instance()->sendEvent(new Event(EVENT_GAME_QUIT));
+
                 break;
 
             case SDL_KEYDOWN:   // Keypress
@@ -104,29 +104,17 @@ void EventManager::handleEvents()
 
             case SDL_MOUSEBUTTONDOWN:
             {
-                // mouse Points adjusted to camera position
-                double mouseX = event.button.x;// +Game::instance()->camera()->xPosition();
-                double mouseY = event.button.y;// + Game::instance()->camera()->yPosition();
+                Vector2i mousePosition = Vector2i(event.button.x, event.button.y);
 
-                Point mousePoint = Point(mouseX, mouseY);
-                mousePoint = Math::convertToCartesian(mousePoint);
+                EMouse * mouseEvent;
 
-                mouseX = mousePoint.x();
-                mouseY = mousePoint.y();
-
-                //Logger::write(Logger::ss << "mouse: (" << mouseX << "," << mouseY << ")");
-
-                EMouseClick * mouseEvent;
-
-                // SDL_BUTTON_LEFT - Selection
-                if (event.button.button == SDL_BUTTON_LEFT)
+                if(event.button.button == SDL_BUTTON_LEFT)
                 {
-                    mouseEvent = new EMouseClick(MOUSE_LEFT, mousePoint);
+                    mouseEvent = new EMouse(MOUSE_BUTTON_LEFT, mousePosition);
                 }
-                // SDL_BUTTON_RIGHT - Command
-                else if (event.button.button == SDL_BUTTON_RIGHT)
+                else if(event.button.button == SDL_BUTTON_RIGHT)
                 {
-                    mouseEvent = new EMouseClick(MOUSE_RIGHT, mousePoint);
+                    mouseEvent = new EMouse(MOUSE_BUTTON_RIGHT, mousePosition);
                 }
 
                 EventDispatcher::instance()->sendEvent(mouseEvent);
@@ -145,15 +133,10 @@ void EventManager::handleEvents()
             }
             case SDL_MOUSEMOTION:
             {
-                int x = event.motion.x;
-                int y = event.motion.y;
+                EMouse * mouseEvent = new EMouse(EVENT_MOUSE_MOTION);
+                mouseEvent->setPosition(Vector2i(event.motion.x, event.motion.y));
+                EventDispatcher::instance()->sendEvent(mouseEvent);
 
-                int delta = x - mouse_.x() + y - mouse_.y();
-                //if(delta > 25 || delta < -25) {
-                    mouse_.setX(x);
-                    mouse_.setY(y);
-                    Game::instance()->renderer()->camera()->onMouse(x, y);
-                //}
                 break;
             }
         }
