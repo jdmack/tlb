@@ -25,6 +25,8 @@ class Tile
 
         Model model_;
 
+        void loadModelData();
+
     public:
         Tile();
         Tile(Point point, float width, float height, int type);

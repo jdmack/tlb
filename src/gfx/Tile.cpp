@@ -19,6 +19,8 @@ Tile::Tile()
     row_ = -1;
     column_ = -1;
     tileset_ = nullptr;
+
+    loadModelData();
 }
 
 Tile::Tile(Point position, float width, float length, int type)
@@ -32,6 +34,39 @@ Tile::Tile(Point position, float width, float length, int type)
     row_ = position_.y() / width_;
     column_ = position_.x() / length_;
     tileset_ = nullptr;
+
+    loadModelData();
+}
+
+void Tile::loadModelData()
+{
+    // VBO data
+    Vector3f vertices[8];
+    vertices[0] = Vector3f(-0.5f, 0.0f, -0.5f);
+    vertices[1] = Vector3f(0.5f, 0.0f, -0.5f);
+    vertices[2] = Vector3f(-0.5f, 0.0f, 0.5f);
+    vertices[3] = Vector3f(0.5f, 0.0f, 0.5f);
+    vertices[4] = Vector3f(-0.5f, 0.5f, -0.5f);
+    vertices[5] = Vector3f(0.5f, 0.5f, -0.5f);
+    vertices[6] = Vector3f(-0.5f, 0.5f, 0.5f);
+    vertices[7] = Vector3f(0.5f, 0.5f, 0.5f);
+
+    // IBO data
+    int indices[] = { 4, 6, 7,   // 1a
+                         4, 7, 5,   // 1b
+                         0, 2, 3,   // 2a
+                         0, 3, 1,   // 2b
+                         0, 4, 5,   // 3a
+                         0, 5, 1,   // 3b
+                         0, 4, 6,   // 4a
+                         0, 6, 2,   // 4b
+                         1, 5, 7,   // 5a
+                         1, 7, 3,   // 5b
+                         2, 6, 7,   // 6a
+                         2, 7, 3 }; // 6b
+
+    model_.loadVertices(vertices, sizeof(vertices));
+    model_.loadIndices(indices, sizeof(indices));
 }
 
 void Tile::render()

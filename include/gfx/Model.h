@@ -34,6 +34,9 @@ class Model
         bool init();
         void render();
         void update();
+
+        void loadVertices(Vector3f * vertices, int size);
+        void loadIndices(int * indices, int size);
 };
 
 #endif

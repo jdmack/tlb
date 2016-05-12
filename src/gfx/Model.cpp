@@ -19,6 +19,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 Model::Model()
 {
+    vbo_ = -1;
+    ibo_ = -1;
     vertexPositionLoc_ = -1;
     worldLoc_ = -1;
     cameraLoc_ = -1;
@@ -59,44 +61,6 @@ bool Model::init()
         Logger::write(Logger::ss << "Color is not a valid glsl program variable!"); 
     }
 
-    // TODO(2016-05-09/JM): Change the way vertex and index data is loaded in
-    //                      to generalize Model class
-
-    // VBO data
-    Vector3f vertices[8];
-    vertices[0] = Vector3f(-0.5f, 0.0f, -0.5f);
-    vertices[1] = Vector3f(0.5f, 0.0f, -0.5f);
-    vertices[2] = Vector3f(-0.5f, 0.0f, 0.5f);
-    vertices[3] = Vector3f(0.5f, 0.0f, 0.5f);
-    vertices[4] = Vector3f(-0.5f, 0.5f, -0.5f);
-    vertices[5] = Vector3f(0.5f, 0.5f, -0.5f);
-    vertices[6] = Vector3f(-0.5f, 0.5f, 0.5f);
-    vertices[7] = Vector3f(0.5f, 0.5f, 0.5f);
-
-    // IBO data
-    GLuint indices[] = { 4, 6, 7,   // 1a
-                         4, 7, 5,   // 1b
-                         0, 2, 3,   // 2a
-                         0, 3, 1,   // 2b
-                         0, 4, 5,   // 3a
-                         0, 5, 1,   // 3b
-                         0, 4, 6,   // 4a
-                         0, 6, 2,   // 4b
-                         1, 5, 7,   // 5a
-                         1, 7, 3,   // 5b
-                         2, 6, 7,   // 6a
-                         2, 7, 3 }; // 6b
-
-    // Create VBO
-    glGenBuffers(1, &vbo_);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo_);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    // Create IBO
-    glGenBuffers(1, &ibo_);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
     return true;
 }
 
@@ -133,3 +97,33 @@ void Model::update()
 {
 
 }
+
+void Model::loadVertices(Vector3f * vertices, int size)
+{
+    // If buffer already created for this model, delete it
+    if(vbo_ != -1) {
+        glDeleteBuffers(1, &vbo_);
+    }
+
+    // Create VBO
+    glGenBuffers(1, &vbo_);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo_);
+    glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+}
+
+void Model::loadIndices(int * indices, int size)
+{
+    // If buffer already created for this model, delete it
+    if(ibo_ != -1) {
+        glDeleteBuffers(1, &ibo_);
+    }
+
+    // Create IBO
+    glGenBuffers(1, &ibo_);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
+
+}
+
+
+
