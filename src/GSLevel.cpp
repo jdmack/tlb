@@ -46,7 +46,7 @@ bool GSLevel::init()
     EventDispatcher::instance()->registerHandler(eventHandler_);
 
     // (264,216)
-    ///*Entity * char1   = */spawnEntity(PLAYER, Point(48 * 1 + 24, 48 * 1 + 24), 90);
+    /*Entity * char1   = */spawnEntity(PLAYER, Point(48 * 1 + 24, 48 * 1 + 24), 90);
     ///*Entity * zombie1 = */spawnEntity(ZOMBIE, Point(48 * 5 + 24, 48 * 5 + 24), 270);
 
     //Entity * zombie2 = spawnEntity(ZOMBIE, Point(48 * 5 + 24, 48 * 1 + 24), 90);
@@ -57,13 +57,13 @@ bool GSLevel::init()
 
     // FOR TESTING
     //model_ = new Model();
-    tile_ = new Tile();
-    tile2_ = new Tile();
-    tile2_->setPosition(Vector3f(1, 0.0, 0.0));
-    tile2_->setWidth(0.5);
-    tile2_->setLength(0.5);
-    tile2_->setHeight(0.1);
-    tile2_->setType(2);
+    //tile_ = new Tile();
+    //tile2_ = new Tile();
+    //tile2_->setPosition(Vector3f(1, 0.0, 0.0));
+    //tile2_->setWidth(0.5);
+    //tile2_->setLength(0.5);
+    //tile2_->setHeight(0.1);
+    //tile2_->setType(2);
 
     return true;
 }
@@ -95,9 +95,9 @@ void GSLevel::render()
     for(std::vector<Entity *>::iterator entityIterator = entities.begin(); entityIterator != entities.end(); ++entityIterator) {
         (*entityIterator)->render();
 
-        if(((*entityIterator)->type() == PLAYER) || ((*entityIterator)->type() == ZOMBIE)) {
-            Game::instance()->renderer()->drawLifeBar(*entityIterator, levelArea_);
-        }
+        //if(((*entityIterator)->type() == PLAYER) || ((*entityIterator)->type() == ZOMBIE)) {
+        //    Game::instance()->renderer()->drawLifeBar(*entityIterator, levelArea_);
+        //}
     }
 
     //userInterface_->render();
@@ -132,8 +132,8 @@ Entity * GSLevel::spawnEntity(EntityType type, Point position, double rotation)
 
         int randomNum = rand() % 5 + 1;
 
-        std::string asset;
-        asset = kAssetSpriteZombie1;
+        //std::string asset;
+        //asset = kAssetSpriteZombie1;
 
      /* switch(randomNum) {
             case 1: asset = kAssetSpriteZombie1; break;

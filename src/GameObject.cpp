@@ -32,6 +32,7 @@ GameObject::GameObject()
 
     xAbs_ = 0;
     yAbs_ = 0;
+    loadModelData();
 }
 
 GameObject::GameObject(Point position, double rot)
@@ -53,6 +54,7 @@ GameObject::GameObject(Point position, double rot)
 
     xAbs_ = 0;
     yAbs_ = 0;
+    loadModelData();
 
 }
 
@@ -61,9 +63,34 @@ GameObject::~GameObject()
 
 }
 
+void GameObject::loadModelData()
+{
+    // VBO data
+    Vector3f vertices[5];
+    vertices[0] = Vector3f(-0.5f, 0.0f, -0.5f);
+    vertices[1] = Vector3f(0.5f, 0.0f, -0.5f);
+    vertices[2] = Vector3f(-0.5f, 0.0f, 0.5f);
+    vertices[3] = Vector3f(0.5f, 0.0f, 0.5f);
+    vertices[4] = Vector3f(0.0f, 1.0f, 0.0f);
+
+    // IBO data
+    int indices[] = { 3, 0, 1,
+                      3, 1, 2,
+                      0, 4, 1,
+                      1, 4, 2,
+                      2, 4, 3,
+                      3, 4, 0 };
+
+    model_.loadVertices(vertices, sizeof(vertices));
+    model_.loadIndices(indices, sizeof(indices));
+
+}
+
 void GameObject::render()
 {
-
+    model_.render();
+    model_.transform().translate(0, 1, -10);
+    model_.transform().scale(10);
 }
 
 bool GameObject::containsPoint(double x, double y)

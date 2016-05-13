@@ -31,7 +31,6 @@ Model::Model()
 
     init();
 
-    Logger::write(Logger::ss << "Model(vertex: " << vertexPositionLoc_ << ", world: " << worldLoc_ << ", vbo_: " << vbo_ << ", ibo: " << ibo_);
 }
 
 bool Model::init()
@@ -122,6 +121,7 @@ void Model::loadIndices(int * indices, int size)
     glGenBuffers(1, &ibo_);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
+    Logger::write(Logger::ss << "Model(vertex: " << vertexPositionLoc_ << ", world: " << worldLoc_ << ", vbo_: " << vbo_ << ", ibo: " << ibo_);
 
 }
 

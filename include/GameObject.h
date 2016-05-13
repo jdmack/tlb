@@ -34,6 +34,8 @@ class GameObject
         Point position_;
         Model model_;
 
+        void loadModelData();
+
     public:
         // constructors/destructors
         GameObject();
