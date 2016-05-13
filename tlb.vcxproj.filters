@@ -119,9 +119,6 @@
     <ClCompile Include="src\event\EKeyPress.cpp">
       <Filter>event</Filter>
     </ClCompile>
-    <ClCompile Include="src\event\EMouseClick.cpp">
-      <Filter>event</Filter>
-    </ClCompile>
     <ClCompile Include="src\event\Event.cpp">
       <Filter>event</Filter>
     </ClCompile>
@@ -181,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="src\util\GlobalTimer.cpp">
       <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\event\EMouse.cpp">
+      <Filter>event</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -304,9 +304,6 @@
     <ClInclude Include="include\event\EKeyPress.h">
       <Filter>event</Filter>
     </ClInclude>
-    <ClInclude Include="include\event\EMouseClick.h">
-      <Filter>event</Filter>
-    </ClInclude>
     <ClInclude Include="include\event\Event.h">
       <Filter>event</Filter>
     </ClInclude>
@@ -369,6 +366,9 @@
     </ClInclude>
     <ClInclude Include="include\util\GlobalTimer.h">
       <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event\EMouse.h">
+      <Filter>event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

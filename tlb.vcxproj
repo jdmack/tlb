@@ -124,7 +124,7 @@
     <ClCompile Include="src\event\EHCamera.cpp" />
     <ClCompile Include="src\event\EHLevel.cpp" />
     <ClCompile Include="src\event\EKeyPress.cpp" />
-    <ClCompile Include="src\event\EMouseClick.cpp" />
+    <ClCompile Include="src\event\EMouse.cpp" />
     <ClCompile Include="src\event\Event.cpp" />
     <ClCompile Include="src\event\EventDispatcher.cpp" />
     <ClCompile Include="src\event\EventHandler.cpp" />
@@ -205,7 +205,7 @@
     <ClInclude Include="include\event\EHCamera.h" />
     <ClInclude Include="include\event\EHLevel.h" />
     <ClInclude Include="include\event\EKeyPress.h" />
-    <ClInclude Include="include\event\EMouseClick.h" />
+    <ClInclude Include="include\event\EMouse.h" />
     <ClInclude Include="include\event\Event.h" />
     <ClInclude Include="include\event\EventDispatcher.h" />
     <ClInclude Include="include\event\EventHandler.h" />
