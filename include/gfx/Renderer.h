@@ -57,7 +57,6 @@ class Renderer
         void clear();
         void clear(Color color);
         void cleanUp();
-        void initObject(GameObject * object);
 
         void renderTexture(SDL_Texture * source, SDL_Rect * offset, SDL_Rect * clip = nullptr);
         void renderTextureFrame(SDL_Texture * source, Frame * frame, SDL_Rect * offset, SDL_Rect * clip = nullptr);

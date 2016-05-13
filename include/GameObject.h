@@ -56,8 +56,6 @@ class GameObject
         double xAbs() const { return xAbs_; }
         double yAbs() const { return yAbs_; }
 
-        Sprite * sprite() const { return sprite_; }
-        SDL_Rect rect();
         Point position();
 
         // mutators
@@ -76,14 +74,11 @@ class GameObject
         void setXAbs(double xAbs) { xAbs_ = xAbs; }
         void setYAbs(double yAbs) { yAbs_ = yAbs; }
 
-        void createSprite(std::string asset);
-
         virtual void select();
         virtual void deselect();
         virtual bool containsPoint(double x, double y);
         virtual void move(Point point);
-        void render(Frame * frame = nullptr);
-        void setSprite(Sprite * sprite) { sprite_ = sprite; }
+        void render();
 
         bool checkCollision(SDL_Rect rect);
         void fixCollision(SDL_Rect rect);

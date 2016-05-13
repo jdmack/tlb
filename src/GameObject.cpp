@@ -30,8 +30,6 @@ GameObject::GameObject()
 
     objectId_ = idCounter_++;
 
-    sprite_ = nullptr;
-
     xAbs_ = 0;
     yAbs_ = 0;
 }
@@ -53,8 +51,6 @@ GameObject::GameObject(Point position, double rot)
 
     objectId_ = idCounter_++;
 
-    sprite_ = nullptr;
-
     xAbs_ = 0;
     yAbs_ = 0;
 
@@ -65,17 +61,9 @@ GameObject::~GameObject()
 
 }
 
-void GameObject::createSprite(std::string asset)
+void GameObject::render()
 {
-    // TODO(2014-08-20/JM): Get rid of the selection asset string
-    sprite_ = new Sprite(this, asset, asset);
-}
 
-void GameObject::render(Frame * frame)
-{
-    sprite_->render(frame);
-    xAbs_ = xPosition_ + frame->x();
-    yAbs_ = yPosition_ + frame->y();
 }
 
 bool GameObject::containsPoint(double x, double y)
@@ -100,12 +88,6 @@ void GameObject::move(Point point)
 {
     // TODO(2013-08-27/JM): Handle rotating
 
-}
-
-SDL_Rect GameObject::rect()
-{
-    SDL_Rect rect = { (int)xPosition_, (int)yPosition_, (int)width_, (int)height_ };
-    return rect;
 }
 
 bool GameObject::checkCollision(SDL_Rect rect)

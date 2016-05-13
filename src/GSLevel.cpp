@@ -93,7 +93,7 @@ void GSLevel::render()
     // Render
     std::vector<Entity *> entities = Game::instance()->entityManager()->getEntities();
     for(std::vector<Entity *>::iterator entityIterator = entities.begin(); entityIterator != entities.end(); ++entityIterator) {
-        (*entityIterator)->render(levelArea_);
+        (*entityIterator)->render();
 
         if(((*entityIterator)->type() == PLAYER) || ((*entityIterator)->type() == ZOMBIE)) {
             Game::instance()->renderer()->drawLifeBar(*entityIterator, levelArea_);
@@ -120,12 +120,10 @@ Entity * GSLevel::spawnEntity(EntityType type, Point position, double rotation)
     Entity * entity = new Entity(type, position, rotation);
     if(type == PLAYER) {
         entity->setControllable(true);
-        entity->createSprite(kAssetSpriteHuman1);
         //userInterface_->characterPanel(0)->setEntity(entity);
     }
     else if(type == HUMAN) {
         entity->setControllable(false);
-        entity->createSprite(kAssetSpriteHuman1);
     }
     else if(type == ZOMBIE) {
         entity->setSelectable(false);
@@ -146,11 +144,9 @@ Entity * GSLevel::spawnEntity(EntityType type, Point position, double rotation)
             case 6: asset = kAssetSpriteZombie6; break;
             default: asset = kAssetSpriteZombie1; break;
        } */
-        entity->createSprite(asset);
     }
 
     Game::instance()->entityManager()->addObject(entity);
-    Game::instance()->renderer()->initObject(entity);
 
 
     return entity;
