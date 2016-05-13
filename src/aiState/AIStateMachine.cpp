@@ -105,6 +105,9 @@ void AIStateMachine::stop()
 
 void AIStateMachine::moveCommand(Point destination)
 {
+    if(currentState_ == nullptr) {
+        currentState_ = idleState_;
+    }
     currentState_->stop();
     nextState_ = moveState_;
     moveState_->setDestination(destination);

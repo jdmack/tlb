@@ -133,6 +133,9 @@ bool Renderer::init()
         return false;
     }
 
+    glEnable(GL_DEPTH_TEST);
+
+
     //int w;
     //int h;
     //SDL_GetWindowMinimumSize(window_, &w, &h);
@@ -375,7 +378,7 @@ void Renderer::applySurface(SDL_Surface * source, SDL_Surface * destination, SDL
 void Renderer::clear()
 {
     // Clear color buffer
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 }
 

@@ -48,7 +48,7 @@ bool GSLevel::init()
     // (264,216)
     /*Entity * char1   = */spawnEntity(PLAYER, Point(48 * 1 + 24, 48 * 1 + 24), 90);
     ///*Entity * zombie1 = */spawnEntity(ZOMBIE, Point(48 * 5 + 24, 48 * 5 + 24), 270);
-
+    
     //Entity * zombie2 = spawnEntity(ZOMBIE, Point(48 * 5 + 24, 48 * 1 + 24), 90);
     //Entity * zombie3 = spawnEntity(ZOMBIE, Point(48 * 6 + 24, 48 * 1 + 24), 90);
     //Entity * zombie4 = spawnEntity(ZOMBIE, Point(48 * 7 + 24, 48 * 1 + 24), 90);
@@ -146,7 +146,7 @@ Entity * GSLevel::spawnEntity(EntityType type, Point position, double rotation)
 
     Game::instance()->entityManager()->addObject(entity);
 
-
+    entity->move(Point(500, 500));
     return entity;
 }
 

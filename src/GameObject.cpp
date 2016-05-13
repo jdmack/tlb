@@ -68,14 +68,14 @@ void GameObject::loadModelData()
     // VBO data
     Vector3f vertices[5];
     vertices[0] = Vector3f(-0.5f, 0.0f, -0.5f);
-    vertices[1] = Vector3f(0.5f, 0.0f, -0.5f);
-    vertices[2] = Vector3f(-0.5f, 0.0f, 0.5f);
-    vertices[3] = Vector3f(0.5f, 0.0f, 0.5f);
+    vertices[1] = Vector3f(-0.5f, 0.0f, 0.5f);
+    vertices[2] = Vector3f(0.5f, 0.0f, 0.5f);
+    vertices[3] = Vector3f(0.5f, 0.0f, -0.5f);
     vertices[4] = Vector3f(0.0f, 1.0f, 0.0f);
 
     // IBO data
-    int indices[] = { 3, 0, 1,
-                      3, 1, 2,
+    int indices[] = { 3, 0, 2,
+                      0, 1, 2,
                       0, 4, 1,
                       1, 4, 2,
                       2, 4, 3,

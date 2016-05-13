@@ -70,6 +70,8 @@ void Entity::update(int deltaTicks)
     if(stateMachine_ != nullptr) {
         stateMachine_->update(deltaTicks);
     }
+    //model_.transform().translate(position_.x(), 0, position_.y());
+    model_.transform().translate(xPosition_, 0, yPosition_);
 }
 
 bool Entity::containsPoint(double x, double y)
