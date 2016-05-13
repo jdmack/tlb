@@ -5,6 +5,7 @@
 #include "Assets.h"
 #include "Vector.h"
 #include "Point.h"
+#include "gfx/Model.h"
 
 class Sprite;
 class Frame;
@@ -31,7 +32,7 @@ class GameObject
         double yAbs_;
 
         Point position_;
-        Sprite * sprite_;
+        Model model_;
 
     public:
         // constructors/destructors
@@ -57,6 +58,8 @@ class GameObject
         double yAbs() const { return yAbs_; }
 
         Point position();
+
+        Model & model() { return model_; }
 
         // mutators
         void setXPosition(double xPosition) { xPosition_ = xPosition; }

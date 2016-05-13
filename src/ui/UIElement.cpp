@@ -24,9 +24,9 @@ UIElement::~UIElement()
 
 void UIElement::render(Frame * frame)
 {
-    Renderer * renderer = Game::instance()->renderer();
-    SDL_Rect offset = { position_.x(), position_.y(), width_, height_ };
-    renderer->renderTextureFrame(texture_, frame, &offset);
+    //Renderer * renderer = Game::instance()->renderer();
+    //SDL_Rect offset = { position_.x(), position_.y(), width_, height_ };
+    //renderer->renderTextureFrame(texture_, frame, &offset);
 }
 
 bool UIElement::toggle()
