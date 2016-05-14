@@ -1,8 +1,6 @@
 #include <iostream>
 #include <cmath>
 #include "gfx/Camera.h"
-#include "gfx/Renderer.h"
-#include "Game.h"
 #include "math/Math.h"
 #include "util/Logger.h"
 
@@ -19,11 +17,14 @@ Camera::Camera(int windowWidth, int windowHeight)
 
     updateView();
 
-    persProjInfo_.fov_ = 60.0f;
-    persProjInfo_.width_ = windowWidth;
-    persProjInfo_.height_ = windowHeight;
-    persProjInfo_.zNear_ = 0.1f;
-    persProjInfo_.zFar_ = 100.0f;
+    fov_ = 60.0f;
+    width_ = windowWidth;
+    height_ = windowHeight;
+    zNear_ = 0.1f;
+    zFar_ = 100.0f;
+
+    updateView();
+    updateProjection();
 
     init();
 }
@@ -39,11 +40,11 @@ Camera::Camera(int windowWidth, int windowHeight, const Vector3f & position, con
 
     updateView();
 
-    persProjInfo_.fov_ = 60.0f;
-    persProjInfo_.width_ = windowWidth;
-    persProjInfo_.height_ = windowHeight;
-    persProjInfo_.zNear_ = 0.1f;
-    persProjInfo_.zFar_ = 100.0f;
+    fov_ = 60.0f;
+    width_ = windowWidth;
+    height_ = windowHeight;
+    zNear_ = 0.1f;
+    zFar_ = 100.0f;
 
     init();
 }
@@ -106,22 +107,30 @@ void Camera::updateView()
     Matrix4f cameraRotate;
 
     cameraTranslate.initTranslationTransform(-position_.x(), -position_.y(), -position_.z());
-    cameraRotate.initCameraTransform(target_, up_);
+    cameraRotate = Math::genCameraTransform(target_, up_);
     view_ = cameraRotate * cameraTranslate;
+}
+
+void Camera::updateProjection()
+{
+    projection_ = Math::genPersProjTransform(fov_, width_, height_, zNear_, zFar_);
 }
 
 Matrix4f Camera::view()
 {
-    updateView();
+    if(viewDirty_) {
+        updateView();
+    }
     return view_;
 }
 
 Matrix4f Camera::projection()
 {
-    projection_.initPersProjTransform(persProjInfo_);
+    if (projectionDirty_) {
+        updateProjection();
+    }
     return projection_;
 }
-
 
 void Camera::move(CameraDirection dir, float distance)
 {
@@ -171,7 +180,7 @@ void Camera::move(CameraDirection dir, float distance)
             break;
         }
     }
-    updateView();
+    viewDirty_ = true;
 }
 
 void Camera::rotate(CameraAxis axis, float angle)
@@ -189,3 +198,45 @@ void Camera::rotate(CameraAxis axis, float angle)
     update();
 }
 
+
+void Camera::setWidth(float width)
+{
+    width_ = width;
+    projectionDirty_ = true;
+}
+
+void Camera::setHeight(float height)
+{
+    height_ = height;
+    projectionDirty_ = true;
+}
+
+void Camera::setFovRel(float fov)
+{
+    fov_ += fov;
+    projectionDirty_ = true;
+}
+
+void Camera::setZNear(float zNear)
+{
+    zNear_ = zNear;
+    projectionDirty_ = true;
+}
+void Camera::setZFar(float zFar)
+{
+    zFar_ = zFar;
+    projectionDirty_ = true;
+}
+
+void Camera::setZNearRel(float zNear)
+{
+    zNear_ += zNear;
+    projectionDirty_ = true;
+}
+
+void Camera::setZFarRel(float zFar)
+{
+    zFar_ += zFar;
+    projectionDirty_ = true;
+
+}

@@ -410,33 +410,6 @@ void Matrix4f::initTranslationTransform(float x, float y, float z)
     m_[3][0] = 0.0f; m_[3][1] = 0.0f; m_[3][2] = 0.0f; m_[3][3] = 1.0f;
 }
 
-void Matrix4f::initCameraTransform(Vector3f & target, Vector3f& up)
-{
-    Vector3f n = target;
-    n.normalize();
-    Vector3f u = up;
-    u.normalize();
-    u = u.crossProduct(n);
-    Vector3f v = n.crossProduct(u);
-
-    m_[0][0] = u.x();   m_[0][1] = u.y();   m_[0][2] = u.z();   m_[0][3] = 0.0f;
-    m_[1][0] = v.x();   m_[1][1] = v.y();   m_[1][2] = v.z();   m_[1][3] = 0.0f;
-    m_[2][0] = n.x();   m_[2][1] = n.y();   m_[2][2] = n.z();   m_[2][3] = 0.0f;
-    m_[3][0] = 0.0f;    m_[3][1] = 0.0f;    m_[3][2] = 0.0f;    m_[3][3] = 1.0f;
-}
-
-void Matrix4f::initPersProjTransform(const PersProjInfo& p)
-{
-    const float ar = p.width_ / p.height_;
-    const float zRange = p.zNear_ - p.zFar_;
-    const float tanHalfFOV = tanf(toRadian(p.fov_ / 2.0f));
-
-    m_[0][0] = 1.0f / (tanHalfFOV * ar); m_[0][1] = 0.0f;              m_[0][2] = 0.0f;                         m_[0][3] = 0.0;
-    m_[1][0] = 0.0f;                     m_[1][1] = 1.0f / tanHalfFOV; m_[1][2] = 0.0f;                         m_[1][3] = 0.0;
-    m_[2][0] = 0.0f;                     m_[2][1] = 0.0f;              m_[2][2] = (-p.zNear_ - p.zFar_) / zRange; m_[2][3] = 2.0f*p.zFar_*p.zNear_ / zRange;
-    m_[3][0] = 0.0f;                     m_[3][1] = 0.0f;              m_[3][2] = 1.0f;                         m_[3][3] = 0.0;
-}
-
 void Matrix4f::initOrthoProjTransform(const OrthoProjInfo& p)
 {
     float l = p.l_;

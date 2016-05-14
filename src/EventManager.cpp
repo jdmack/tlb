@@ -85,6 +85,12 @@ void EventManager::handleEvents()
                 case SDLK_LALT:     // Left Alt
                     key = KEY_LEFT_ALT;
                     break;
+                case SDLK_PAGEUP:
+                    key = KEY_PAGE_UP;
+                    break;
+                case SDLK_PAGEDOWN:
+                    key = KEY_PAGE_DOWN;
+                    break;
                 }
 
                 EventDispatcher::instance()->sendEvent(new EKeyPress(key));

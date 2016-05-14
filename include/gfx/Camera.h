@@ -29,17 +29,26 @@ class Camera
         Vector3f position_;
         Vector3f target_;
         Vector3f up_;
+
         Matrix4f view_;
         Matrix4f projection_;
 
         float angleH_;
         float angleV_;
 
-        PersProjInfo persProjInfo_;
+        float width_;
+        float height_;
+        float fov_;
+        float zNear_;
+        float zFar_;
+
+        bool viewDirty_;
+        bool projectionDirty_;
 
         void init();
         void update();
         void updateView();
+        void updateProjection();
 
     public:
 
@@ -48,15 +57,23 @@ class Camera
 
         void onRender();
 
+        // accessors
         Vector3f position() const { return position_; }
         Vector3f target() const { return target_; } 
         Vector3f up() const { return up_; }
-        Matrix4f view();//const { return view_; }
-        Matrix4f projection();//const { return view_; }
-        PersProjInfo persProjInfo() { return persProjInfo_; }
+        Matrix4f view();
+        Matrix4f projection();
 
+        // mutators
         void move(CameraDirection dir, float distance);
         void rotate(CameraAxis axis, float angle);
+        void setWidth(float width);
+        void setHeight(float height);
+        void setFovRel(float fov);
+        void setZNear(float zNear);
+        void setZFar(float zFar);
+        void setZNearRel(float zNear);
+        void setZFarRel(float zFar);
         
 };
 

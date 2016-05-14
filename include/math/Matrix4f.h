@@ -71,13 +71,11 @@ class Matrix4f
 
         void copy_3x3(Matrix4f param);
 
-        // TODO(2016-04-24/JM): Possibly move this function somewhere else, probably want a perspective projection as part of the renderer
+        // TODO(2016-05-14/JM): Decide whether to move these functions or not
         void initScaleTransform(float scaleX, float scaleY, float scaleZ);
         void initRotateTransform(float rotateX, float rotateY, float rotateZ);
         //void initRotateTransform(const Quaternion& quat);
         void initTranslationTransform(float x, float y, float z);
-        void initCameraTransform(Vector3f & target, Vector3f & up);
-        void initPersProjTransform(const PersProjInfo& p);
         void initOrthoProjTransform(const OrthoProjInfo& p);
 
 };

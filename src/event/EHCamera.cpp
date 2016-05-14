@@ -136,6 +136,16 @@ bool EHCamera::keyPress(KeyType key)
             Game::instance()->renderer()->camera()->move(CAMERA_DIRECTION_DOWN, kStepScale);
             break;
         }
+        case KEY_PAGE_UP:
+        {
+            Game::instance()->renderer()->camera()->setFovRel(5);
+            break;
+        }
+        case KEY_PAGE_DOWN:
+        {
+            Game::instance()->renderer()->camera()->setFovRel(-5);
+            break;
+        }
 
         default:
             ret = false;
