@@ -11,7 +11,6 @@ const double kFocusTimeout = 10000;
 class EventManager
 {
     private:
-        Timer focusTimer_;
         Vector2i mouse_;
 
     public:

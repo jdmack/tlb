@@ -53,14 +53,9 @@ bool EHLevel::handleEvent(Event * event)
         }
         case EVENT_MOUSE_MOTION:
         {
-
-            EMouse * mouseEvent = static_cast<EMouse *>(event);
-
-            Game::instance()->renderer()->camera()->onMouse(mouseEvent->position().x(), mouseEvent->position().y());
-
-            ret = true;
+            //EMouse * mouseEvent = static_cast<EMouse *>(event);
+            //ret = true;
             break;
-
         }
         case EVENT_GAME_QUIT:
         {
@@ -214,13 +209,18 @@ void EHLevel::keyPress(KeyType key)
                 EventDispatcher::instance()->removeHandler(cameraHandlerId_);
                 cameraHandlerId_ = 0;
                 cameraOn_ = false;
+                Game::instance()->renderer()->showCursor(true);
             }
+
             else {
                 std::cout << "Camera ON" << std::endl;
                 EHCamera * cameraHandler = new EHCamera();
                 cameraHandlerId_ = cameraHandler->id();
                 EventDispatcher::instance()->registerHandler(cameraHandler);
                 cameraOn_ = true;
+                Game::instance()->renderer()->showCursor(false);
+                Game::instance()->renderer()->warpMouse(Vector2i(Game::instance()->renderer()->screenWidth() / 2,
+                    Game::instance()->renderer()->screenHeight() / 2));
             }
             break;
         }

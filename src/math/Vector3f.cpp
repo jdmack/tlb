@@ -281,3 +281,9 @@ std::string Vector3f::str()
     return ss.str();
 }
 
+std::ostream & operator<<(std::ostream & os, const Vector3f & v)
+{
+    os << "<" << v.x() << ", " << v.y() << ", " << v.z() << ">";
+    return os;
+}
+

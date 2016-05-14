@@ -4,21 +4,16 @@
 #include "gfx/Renderer.h"
 #include "Game.h"
 #include "math/Math.h"
-
-const static float kStepScale = 1.0f;
-const static float kAngleStep = 10.0f;
-const static float kEdgeStep = 0.5f;
-const static int kMargin = 100;
+#include "util/Logger.h"
 
 Camera::Camera(int windowWidth, int windowHeight)
 {
-    windowWidth_  = windowWidth;
-    windowHeight_ = windowHeight;
-
-    //position_ = Vector3f(0.0f, 0.0f, 0.0f);
-    position_ = Vector3f(0.0f, 0.0f, 1.0f);
-    target_   = Vector3f(0.0f, 0.0f, 1.0f);
-    up_       = Vector3f(0.0f, 1.0f, 0.0f);
+    //position_ = Vector3f(0.0f, 0.0f, 1.0f);
+    //target_   = Vector3f(0.0f, 0.0f, 1.0f);
+    //up_       = Vector3f(0.0f, 1.0f, 0.0f);
+    position_ = Vector3f(11.0f, 12.0f, -0.5f);
+    target_   = Vector3f(0.0f, -1.0f, 0.5f);
+    up_       = Vector3f(0.0f, 0.5f, 1.0f);
 
     target_.normalize();
 
@@ -30,21 +25,16 @@ Camera::Camera(int windowWidth, int windowHeight)
     persProjInfo_.zNear_ = 0.1f;
     persProjInfo_.zFar_ = 100.0f;
 
-
     init();
 }
 
-
 Camera::Camera(int windowWidth, int windowHeight, const Vector3f & position, const Vector3f & target, const Vector3f& up)
 {
-    windowWidth_  = windowWidth;
-    windowHeight_ = windowHeight;
     position_ = position;
-
     target_ = target;
-    target_.normalize();
-
     up_ = up;
+
+    target_.normalize();
     up_.normalize();
 
     updateView();
@@ -61,74 +51,28 @@ Camera::Camera(int windowWidth, int windowHeight, const Vector3f & position, con
 
 void Camera::init()
 {
+    // This function extracts the angles from the target vector
     Vector3f hTarget(target_.x(), 0.0, target_.z());
     hTarget.normalize();
     
-    if (hTarget.z() >= 0.0f)
-    {
-        if (hTarget.x() >= 0.0f)
-        {
+    if(hTarget.z() >= 0.0f) {
+        if(hTarget.x() >= 0.0f) {
             angleH_ = 360.0f - toDegree(asin(hTarget.z()));
         }
-        else
-        {
+        else {
             angleH_ = 180.0f + toDegree(asin(hTarget.z()));
         }
     }
-    else
-    {
-        if (hTarget.x() >= 0.0f)
-        {
+    else {
+        if(hTarget.x() >= 0.0f) {
             angleH_ = toDegree(asin(-hTarget.z()));
         }
-        else
-        {
+        else {
             angleH_ = 90.0f + toDegree(asin(-hTarget.z()));
         }
     }
     
     angleV_ = -toDegree(asin(target_.y()));
-
-    //Game::instance()->renderer()->warpMouse(mousePosition_);
-}
-
-void Camera::onMouse(int x, int y)
-{
-
-}
-
-
-void Camera::onRender()
-{
-    /*
-    bool doUpdate = false;
-
-    if (onLeftEdge_) {
-        angleH_ -= kEdgeStep;
-        doUpdate = true;
-    }
-    else if (onRightEdge_) {
-        angleH_ += kEdgeStep;
-        doUpdate = true;
-    }
-
-    if (onUpperEdge_) {
-        if (angleV_ > -90.0f) {
-            angleV_ -= kEdgeStep;
-            doUpdate = true;
-        }
-    }
-    else if (onLowerEdge_) {
-        if (angleV_ < 90.0f) {
-           angleV_ += kEdgeStep;
-           doUpdate = true;
-        }
-    }
-
-    if (doUpdate) {
-        update();
-    }
-    */
 }
 
 void Camera::update()
@@ -152,6 +96,7 @@ void Camera::update()
 
     up_ = target_.crossProduct(hAxis);
     up_.normalize();
+    //std::cout << "position:" << position_ << ", target:" << target_ << ", up:" << up_ << std::endl;
     updateView();
 }
 

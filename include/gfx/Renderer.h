@@ -74,6 +74,9 @@ class Renderer
         void drawLifeBar(Entity * entity, Frame * frame = nullptr);
 
         void warpMouse(const Vector2i position);
+        void showCursor(bool show);
+
+        bool windowFocused();
 
         bool initShader();
         void printProgramLog(GLuint program);

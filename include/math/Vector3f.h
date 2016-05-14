@@ -2,6 +2,7 @@
 #define TLB_UTIL_MATH_VECTOR3_H_
 
 #include <string>
+#include <iostream>
 #include "math/Vector4f.h"
 #include "math/Matrix4f.h"
 
@@ -84,6 +85,7 @@ class Vector3f
         // Print (display the vector's components numerically on the screen)
         void print();
         std::string str();
+        friend std::ostream & operator<<(std::ostream & os, const Vector3f & v);
 
         float angle(Vector3f v);
 

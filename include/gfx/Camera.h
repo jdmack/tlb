@@ -32,9 +32,6 @@ class Camera
         Matrix4f view_;
         Matrix4f projection_;
 
-        int windowWidth_;
-        int windowHeight_;
-
         float angleH_;
         float angleV_;
 
@@ -42,16 +39,12 @@ class Camera
 
         void init();
         void update();
-
         void updateView();
 
     public:
 
         Camera(int windowWindow, int windowHeight);
-
         Camera(int windowWidth, int windowHeight, const Vector3f & position, const Vector3f & target, const Vector3f & up);
-
-        void onMouse(int x, int y);
 
         void onRender();
 
@@ -65,7 +58,6 @@ class Camera
         void move(CameraDirection dir, float distance);
         void rotate(CameraAxis axis, float angle);
         
-
 };
 
 #endif

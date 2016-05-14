@@ -30,11 +30,6 @@ void EventManager::handleEvents()
     while(SDL_PollEvent(&event)) {
 
         const Uint8 * currentKeyStates = SDL_GetKeyboardState(NULL);
-        // timer checks
-        if((focusTimer_.started()) && (focusTimer_.getTicks() >= kFocusTimeout)) {
-            Game::instance()->setQuit(true);
-            Logger::write("Setting game quit");
-        }
 
         // Handle Events
         switch(event.type) {
@@ -44,55 +39,57 @@ void EventManager::handleEvents()
                 break;
 
             case SDL_KEYDOWN:   // Keypress
+            {
                 KeyType key;
-                switch(event.key.keysym.sym) {
+                switch (event.key.keysym.sym) {
 
-                    case SDLK_ESCAPE:   // Escape
-                        key = KEY_ESCAPE;
-                        break;
-                    case SDLK_a:    // A
-                        key = KEY_A;
-                        break;
-                    case SDLK_r:    // R
-                        key = KEY_R;
-                        break;
-                    case SDLK_d:    // D
-                        key = KEY_D;
-                        break;
-                    case SDLK_w:    // W
-                        key = KEY_W;
-                        break;
-                    case SDLK_c:    // C
-                        key = KEY_C;
-                        break;
-                    case SDLK_s:    // S
-                        key = KEY_S;
-                        break;
-                    case SDLK_UP:       // Up Arrow
-                        key = KEY_UP;
-                        break;
-                    case SDLK_DOWN:     // Down Arrow
-                        key = KEY_DOWN;
-                        break;
-                    case SDLK_LEFT:     // Left Arrow
-                        key = KEY_LEFT;
-                        break;
-                    case SDLK_RIGHT:    // Right Arrow
-                        key = KEY_RIGHT;
-                        break;
-                    case SDLK_SPACE:    // Spacebar
-                        key = KEY_SPACE;
-                        break;
-                    case SDLK_LCTRL:     // Left Ctrl
-                        key = KEY_LEFT_CTRL;
-                        break;
-                    case SDLK_LALT:     // Left Alt
-                        key = KEY_LEFT_ALT;
-                        break;
+                case SDLK_ESCAPE:   // Escape
+                    key = KEY_ESCAPE;
+                    break;
+                case SDLK_a:    // A
+                    key = KEY_A;
+                    break;
+                case SDLK_r:    // R
+                    key = KEY_R;
+                    break;
+                case SDLK_d:    // D
+                    key = KEY_D;
+                    break;
+                case SDLK_w:    // W
+                    key = KEY_W;
+                    break;
+                case SDLK_c:    // C
+                    key = KEY_C;
+                    break;
+                case SDLK_s:    // S
+                    key = KEY_S;
+                    break;
+                case SDLK_UP:       // Up Arrow
+                    key = KEY_UP;
+                    break;
+                case SDLK_DOWN:     // Down Arrow
+                    key = KEY_DOWN;
+                    break;
+                case SDLK_LEFT:     // Left Arrow
+                    key = KEY_LEFT;
+                    break;
+                case SDLK_RIGHT:    // Right Arrow
+                    key = KEY_RIGHT;
+                    break;
+                case SDLK_SPACE:    // Spacebar
+                    key = KEY_SPACE;
+                    break;
+                case SDLK_LCTRL:     // Left Ctrl
+                    key = KEY_LEFT_CTRL;
+                    break;
+                case SDLK_LALT:     // Left Alt
+                    key = KEY_LEFT_ALT;
+                    break;
                 }
-                    
+
                 EventDispatcher::instance()->sendEvent(new EKeyPress(key));
                 break;
+            }
 
             case SDL_KEYUP:
                 switch( event.key.keysym.sym) {
@@ -126,15 +123,23 @@ void EventManager::handleEvents()
 
                 break;
             }
-            case SDL_WINDOWEVENT_FOCUS_LOST:
+            case SDL_WINDOWEVENT:
             {
-                //focusTimer_.start();
-                //Logger::write("focusTimer started");
-                //if(focusTimer_.started()) {
-                    //focusTimer_.stop();
-                    //Logger::write("focusTimer stopped");
-                //}
-                break;
+                switch (event.window.event) {
+                    case SDL_WINDOWEVENT_FOCUS_GAINED:
+                    {
+                        Event * event = new Event(EVENT_WINDOW_FOCUS_GAINED);
+                        EventDispatcher::instance()->sendEvent(event);
+                        break;
+                    }
+
+                    case SDL_WINDOWEVENT_FOCUS_LOST:
+                    {
+                        Event * event = new Event(EVENT_WINDOW_FOCUS_LOST);
+                        EventDispatcher::instance()->sendEvent(event);
+                        break;
+                    }
+                }
             }
             case SDL_MOUSEMOTION:
             {

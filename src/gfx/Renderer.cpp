@@ -402,7 +402,6 @@ void Renderer::update()
 {
     //if(debug_) debugFrame_->render();
     //SDL_RenderPresent(renderer_);
-    camera_->onRender();
     SDL_GL_SwapWindow(window_);
 }
 
@@ -580,6 +579,30 @@ void Renderer::warpMouse(const Vector2i position)
 {
     SDL_WarpMouseInWindow(window_, position.x(), position.y());
 }
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//
+//
+void Renderer::showCursor(bool show)
+{
+    int toggle;
+    if(show) toggle = 1;
+    else toggle = 0;
+    
+    SDL_ShowCursor(toggle);
+}
+
+bool Renderer::windowFocused()
+{
+    unsigned int flags = SDL_GetWindowFlags(window_);
+    bool ret = false;
+    if(flags & SDL_WINDOW_INPUT_FOCUS) {
+        ret = true;
+    }
+    return ret;
+}
+
 
 
 void Renderer::drawRectangle(SDL_Rect rect, Color color)
