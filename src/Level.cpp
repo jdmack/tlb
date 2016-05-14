@@ -58,7 +58,7 @@ bool Level::load(std::string filename)
     rapidxml::xml_node<> * tiles = level->first_node("tiles");      // this is the tiles element
 
     std::string tileset = tiles->first_attribute("tileset")->value();
-    tileset_ = new Tileset(tileset);
+    //tileset_ = new Tileset(tileset);
 
 
     columns_ = std::atoi(tiles->first_attribute("columns")->value());
@@ -84,7 +84,7 @@ bool Level::load(std::string filename)
         // If the number is a valid tile number
         //if((tileType >= 0 ) && (tileType < kTileSprites)) {
         Tile * newTile = new Tile(Point(x, y), tileWidth_, tileHeight_, tileType);
-        newTile->setTileset(tileset_);
+        //newTile->setTileset(tileset_);
         tiles_->push_back(newTile);
         //}
         //else {

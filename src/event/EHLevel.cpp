@@ -4,6 +4,8 @@
 #include "event/Event.h"
 #include "event/EKeyPress.h"
 #include "event/EMouse.h"
+#include "event/EventDispatcher.h"
+#include "event/EHCamera.h"
 #include "Game.h"
 #include "GameObject.h"
 #include "Entity.h"
@@ -16,10 +18,12 @@
 #include "gfx/Renderer.h"
 #include "gfx/Camera.h"
 
+#include <iostream>
 
-EHLevel::EHLevel()
+EHLevel::EHLevel() : EventHandler()
 {
     toggleKey_ = KEY_NONE;
+    cameraHandlerId_ = 0;
 }
 
 EHLevel::~EHLevel()
@@ -181,7 +185,6 @@ void EHLevel::mouseRightClick(Vector2i position)
 
 void EHLevel::keyPress(KeyType key)
 {
-    toggleKey_ = key;
     Entity * entity;
 
     switch(key) {
@@ -199,6 +202,19 @@ void EHLevel::keyPress(KeyType key)
             if(entity != nullptr) {
             // something is selected, can now give it an order
                 entity->stop();
+            }
+            break;
+        case KEY_LEFT_CTRL:
+            std::cout << "HERE" << std::endl;
+            if(toggleKey_ == KEY_LEFT_CTRL) {
+                EventDispatcher::instance()->removeHandler(cameraHandlerId_);
+                cameraHandlerId_ = 0;
+            }
+            else {    
+                EHCamera * cameraHandler = new EHCamera();
+                cameraHandlerId_ = cameraHandler->id();
+                EventDispatcher::instance()->registerHandler(cameraHandler);
+                toggleKey_ = KEY_NONE;
             }
             break;
         case KEY_UP:
@@ -235,5 +251,7 @@ void EHLevel::keyPress(KeyType key)
         case KEY_NONE:
             break;
     }
+
+    toggleKey_ = key;
 }
 

@@ -34,7 +34,7 @@ bool GSLevel::init()
     Level * level = new Level();
 
     //if(!level->load(kMapTestHexIsometric)) {
-    if(!level->load(kMapTest24x18)) {
+    if(!level->load(kMapTest3D)) {
         Logger::write(Logger::ss << "Failed to load map");
         return false;
     }
@@ -56,14 +56,13 @@ bool GSLevel::init()
     //Entity * zombie6 = spawnEntity(ZOMBIE, Point(48 * 7 + 24, 48 * 1 + 24), 0);
 
     // FOR TESTING
-    //model_ = new Model();
-    //tile_ = new Tile();
-    //tile2_ = new Tile();
-    //tile2_->setPosition(Vector3f(1, 0.0, 0.0));
-    //tile2_->setWidth(0.5);
-    //tile2_->setLength(0.5);
-    //tile2_->setHeight(0.1);
-    //tile2_->setType(2);
+    tile_ = new Tile();
+    tile2_ = new Tile();
+    tile2_->setPosition(Vector3f(1, 0.0, 0.0));
+    tile2_->setWidth(0.5);
+    tile2_->setLength(0.5);
+    tile2_->setHeight(0.1);
+    tile2_->setType(2);
 
     return true;
 }
@@ -103,9 +102,8 @@ void GSLevel::render()
     //userInterface_->render();
 
     // FOR TESTING
-    //model_->render();
-    //tile_->render();
-    //tile2_->render();
+    tile_->render();
+    tile2_->render();
 }
 
 void GSLevel::end()

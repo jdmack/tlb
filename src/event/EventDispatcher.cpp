@@ -7,7 +7,7 @@ EventDispatcher * EventDispatcher::instance_ = nullptr;
 
 EventDispatcher::EventDispatcher()
 {
-    //handlers_ = std::vector<EventHandler *>();
+
 }
 
 EventDispatcher::~EventDispatcher()
@@ -26,16 +26,28 @@ EventDispatcher * EventDispatcher::instance()
 
 void EventDispatcher::registerHandler(EventHandler * handler)
 {
-    handlers_.push_back(handler);
+    handlers_.push_front(handler);
 }
 
 void EventDispatcher::sendEvent(Event * event)
 {
-    //for(std::vector<EventHandler *>::iterator iterator = handlers_.begin(); iterator != handlers_.end(); ++iterator) {
     for(std::list<EventHandler *>::iterator iterator = handlers_.begin(); iterator != handlers_.end(); ++iterator) {
         if((*iterator)->handleEvent(event)) {
             break;
         }
     }
 }
+
+void EventDispatcher::removeHandler(int id)
+{
+    for(std::list<EventHandler *>::iterator iterator = handlers_.begin(); iterator != handlers_.end(); ++iterator) {
+        if((*iterator)->id() == id) {
+            handlers_.erase(iterator);
+            break;
+        }
+    }
+}
+
+
+
 

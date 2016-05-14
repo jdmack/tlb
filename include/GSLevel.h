@@ -24,7 +24,6 @@ class GSLevel : public GameState
         WinCondition winCondition_;
 
         // FOR TESTING
-        Model * model_;
         Tile * tile_;
         Tile * tile2_;
 

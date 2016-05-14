@@ -16,6 +16,12 @@ enum CameraDirection {
     CAMERA_DIRECTION_DOWN
 };
 
+enum CameraAxis {
+    CAMERA_AXIS_X,
+    CAMERA_AXIS_Y,
+    CAMERA_AXIS_Z
+};
+
 class Camera
 {
     private:
@@ -32,12 +38,6 @@ class Camera
         float angleH_;
         float angleV_;
 
-        bool onUpperEdge_;
-        bool onLowerEdge_;
-        bool onLeftEdge_;
-        bool onRightEdge_;
-
-        Vector2i mousePosition_;
         PersProjInfo persProjInfo_;
 
         void init();
@@ -65,6 +65,7 @@ class Camera
         PersProjInfo persProjInfo() { return persProjInfo_; }
 
         void move(CameraDirection dir, float distance);
+        void rotate(CameraAxis axis, float angle);
         
 
 };

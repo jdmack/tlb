@@ -24,6 +24,7 @@ class EventDispatcher
 
         void registerHandler(EventHandler * handler);
         void sendEvent(Event * event);
+        void removeHandler(int id);
 
 };
 

@@ -9,6 +9,7 @@ class EHLevel : public EventHandler
 {
     private:
         KeyType toggleKey_;
+        int cameraHandlerId_;
 
         void mouseLeftClick(Vector2i position);
         void mouseRightClick(Vector2i position);

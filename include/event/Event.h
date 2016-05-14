@@ -18,6 +18,8 @@ enum KeyType {
     KEY_RIGHT,
     KEY_PAGE_UP,
     KEY_PAGE_DOWN,
+    KEY_LEFT_ALT,
+    KEY_LEFT_CTRL,
     KEY_A,
     KEY_B,
     KEY_C,

@@ -55,6 +55,7 @@ const std::string kAssetFontConsolas = kPathFont + "consola.ttf";
 const std::string kAssetFontUbuntuMono = kPathFont + "UbuntuMono-Regular.ttf";
 
 /* Maps */
+const std::string kMapTest3D = kPathMap + "test_3d.xml";
 const std::string kMapTest24x18 = kPathMap + "test_24x18.xml";
 const std::string kMapTest24x18Iso = kPathMap + "test_24x18Iso.map";
 

@@ -9,9 +9,16 @@ class EHCamera : public EventHandler
 {
     private:
         KeyType toggleKey_;
+        Vector2i mousePosition_;
+
+        bool onUpperEdge_;
+        bool onLowerEdge_;
+        bool onLeftEdge_;
+        bool onRightEdge_;
 
         bool mouseLeftClick(Vector2i position);
         bool mouseRightClick(Vector2i position);
+        bool mouseMotion(Vector2i position);
         bool keyPress(KeyType key);
 
     public:

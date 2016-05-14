@@ -5,10 +5,17 @@
 
 class EventHandler
 {
+    private: 
+        int id_;
+        static int idCounter_;
+
     public:
         EventHandler();
         ~EventHandler();
         virtual bool handleEvent(Event * event);
+
+        // accessors
+        int id() const { return id_; }
 
 };
 

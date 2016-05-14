@@ -89,14 +89,7 @@ void Camera::init()
     
     angleV_ = -toDegree(asin(target_.y()));
 
-    onUpperEdge_ = false;
-    onLowerEdge_ = false;
-    onLeftEdge_  = false;
-    onRightEdge_ = false;
-    mousePosition_.setX(windowWidth_ / 2);
-    mousePosition_.setY(windowHeight_ / 2);
-
-    Game::instance()->renderer()->warpMouse(mousePosition_);
+    //Game::instance()->renderer()->warpMouse(mousePosition_);
 }
 
 
@@ -104,6 +97,7 @@ bool Camera::onKeyboard(KeyType key)
 {
     bool ret = false;
 
+/*
     switch(key) {
         case KEY_W:
         case KEY_UP:
@@ -156,6 +150,7 @@ bool Camera::onKeyboard(KeyType key)
         default:
             break;            
     }
+    */
 
     return ret;
 }
@@ -163,40 +158,6 @@ bool Camera::onKeyboard(KeyType key)
 
 void Camera::onMouse(int x, int y)
 {
-    const int deltaX = x - mousePosition_.x();
-    const int deltaY = y - mousePosition_.y();
-
-    mousePosition_.setX(x);
-    mousePosition_.setY(y);
-
-    angleH_ += (float)deltaX / kAngleStep;
-    angleV_ += (float)deltaY / kAngleStep;
-
-    if (deltaX == 0) {
-        if (x <= kMargin) {
-            onLeftEdge_ = true;
-        }
-        else if (x >= (windowWidth_ - kMargin)) {
-            onRightEdge_ = true;
-        }
-    }
-    else {
-        onLeftEdge_ = false;
-        onRightEdge_ = false;
-    }
-
-    if (deltaY == 0) {
-        if (y <= kMargin) {
-            onUpperEdge_ = true;
-        }
-        else if (y >= (windowHeight_ - kMargin)) {
-            onLowerEdge_ = true;
-        }
-    }
-    else {
-        onUpperEdge_ = false;
-        onLowerEdge_ = false;
-    }
 
     update();
 }
@@ -204,6 +165,7 @@ void Camera::onMouse(int x, int y)
 
 void Camera::onRender()
 {
+    /*
     bool doUpdate = false;
 
     if (onLeftEdge_) {
@@ -231,6 +193,7 @@ void Camera::onRender()
     if (doUpdate) {
         update();
     }
+    */
 }
 
 void Camera::update()
@@ -329,5 +292,10 @@ void Camera::move(CameraDirection dir, float distance)
         }
     }
     updateView();
+}
+
+void Camera::rotate(CameraAxis axis, float angle)
+{
+
 }
 

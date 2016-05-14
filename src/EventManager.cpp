@@ -83,6 +83,12 @@ void EventManager::handleEvents()
                     case SDLK_SPACE:    // Spacebar
                         key = KEY_SPACE;
                         break;
+                    case SDLK_LCTRL:     // Left Ctrl
+                        key = KEY_LEFT_CTRL;
+                        break;
+                    case SDLK_LALT:     // Left Alt
+                        key = KEY_LEFT_ALT;
+                        break;
                 }
                     
                 Game::instance()->renderer()->camera()->onKeyboard(key);
