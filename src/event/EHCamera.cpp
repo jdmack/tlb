@@ -2,6 +2,7 @@
 #include "event/EHCamera.h"
 #include "event/Event.h"
 #include "event/EKeyPress.h"
+#include "event/EMouse.h"
 #include "Game.h"
 #include "gfx/Renderer.h"
 #include "gfx/Camera.h"
@@ -16,7 +17,7 @@ const static int kMargin = 100;
 EHCamera::EHCamera() : EventHandler()
 {
     toggleKey_ = KEY_NONE;
-    mousePosition_ = Vector2i(0, 0);
+    mousePosition_ = Vector2i(-1, -1);
 
     onUpperEdge_ = false;
     onLowerEdge_ = false;
@@ -41,6 +42,8 @@ bool EHCamera::handleEvent(Event * event)
 
         case EVENT_MOUSE_MOTION:
         {
+            EMouse * mouseEvent = static_cast<EMouse *>(event);
+            ret = mouseMotion(Vector2i(mouseEvent->position()));
 
             break;
         }
@@ -69,6 +72,10 @@ bool EHCamera::mouseRightClick(Vector2i position)
 
 bool EHCamera::mouseMotion(Vector2i position)
 {
+    if(mousePosition_ == Vector2i(-1, -1)) {
+        mousePosition_ = position;
+        return true;
+    }
     const int deltaX = position.x() - mousePosition_.x();
     const int deltaY = position.y() - mousePosition_.y();
 
@@ -106,16 +113,15 @@ bool EHCamera::mouseMotion(Vector2i position)
         onLowerEdge_ = false;
     }
  
-    Game::instance()->renderer()->camera()->rotate(CAMERA_AXIS_X, angleH);
-    Game::instance()->renderer()->camera()->rotate(CAMERA_AXIS_Z, angleV);
+    Game::instance()->renderer()->camera()->rotate(CAMERA_AXIS_Y, angleH);
+    Game::instance()->renderer()->camera()->rotate(CAMERA_AXIS_X, angleV);
 
-    return false;
+    return true;
 }
 
 bool EHCamera::keyPress(KeyType key)
 {
-    std::cout << "Hi" << std::endl;
-    bool ret = false;
+    bool ret = true;
     switch(key) {
         case KEY_W:
         case KEY_UP:
@@ -165,6 +171,7 @@ bool EHCamera::keyPress(KeyType key)
             break;
 
         default:
+            ret = false;
             break;
     }
 

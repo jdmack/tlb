@@ -24,6 +24,7 @@ EHLevel::EHLevel() : EventHandler()
 {
     toggleKey_ = KEY_NONE;
     cameraHandlerId_ = 0;
+    cameraOn_ = false;
 }
 
 EHLevel::~EHLevel()
@@ -185,7 +186,7 @@ void EHLevel::mouseRightClick(Vector2i position)
 
 void EHLevel::keyPress(KeyType key)
 {
-    Entity * entity;
+    toggleKey_ = key;
 
     switch(key) {
 
@@ -198,25 +199,31 @@ void EHLevel::keyPress(KeyType key)
             break;
 
         case KEY_S:
-            entity = Game::instance()->entityManager()->selected();
-            if(entity != nullptr) {
-            // something is selected, can now give it an order
+        {
+            Entity * entity = Game::instance()->entityManager()->selected();
+            if (entity != nullptr) {
+                // something is selected, can now give it an order
                 entity->stop();
             }
             break;
+        }
         case KEY_LEFT_CTRL:
-            std::cout << "HERE" << std::endl;
-            if(toggleKey_ == KEY_LEFT_CTRL) {
+        {
+            if (cameraOn_) {
+                std::cout << "Camera OFF" << std::endl;
                 EventDispatcher::instance()->removeHandler(cameraHandlerId_);
                 cameraHandlerId_ = 0;
+                cameraOn_ = false;
             }
-            else {    
+            else {
+                std::cout << "Camera ON" << std::endl;
                 EHCamera * cameraHandler = new EHCamera();
                 cameraHandlerId_ = cameraHandler->id();
                 EventDispatcher::instance()->registerHandler(cameraHandler);
-                toggleKey_ = KEY_NONE;
+                cameraOn_ = true;
             }
             break;
+        }
         case KEY_UP:
         case KEY_DOWN:
         case KEY_LEFT:
@@ -252,6 +259,5 @@ void EHLevel::keyPress(KeyType key)
             break;
     }
 
-    toggleKey_ = key;
 }
 

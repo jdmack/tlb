@@ -27,8 +27,8 @@ Camera::Camera(int windowWidth, int windowHeight)
     persProjInfo_.fov_ = 60.0f;
     persProjInfo_.width_ = windowWidth;
     persProjInfo_.height_ = windowHeight;
-    persProjInfo_.zNear_ = 1.0f;
-    persProjInfo_.zFar_ = 2000.0f;
+    persProjInfo_.zNear_ = 0.1f;
+    persProjInfo_.zFar_ = 100.0f;
 
 
     init();
@@ -52,7 +52,7 @@ Camera::Camera(int windowWidth, int windowHeight, const Vector3f & position, con
     persProjInfo_.fov_ = 60.0f;
     persProjInfo_.width_ = windowWidth;
     persProjInfo_.height_ = windowHeight;
-    persProjInfo_.zNear_ = 1.0f;
+    persProjInfo_.zNear_ = 0.1f;
     persProjInfo_.zFar_ = 100.0f;
 
     init();
@@ -92,74 +92,9 @@ void Camera::init()
     //Game::instance()->renderer()->warpMouse(mousePosition_);
 }
 
-
-bool Camera::onKeyboard(KeyType key)
-{
-    bool ret = false;
-
-/*
-    switch(key) {
-        case KEY_W:
-        case KEY_UP:
-            move(CAMERA_DIRECTION_FORWARD, kStepScale);
-            break;
-
-        case KEY_S:
-        case KEY_DOWN:
-        {
-            move(CAMERA_DIRECTION_BACKWARD, kStepScale);
-            break;
-        }
-
-        case KEY_A:
-        case KEY_LEFT:
-        {
-            move(CAMERA_DIRECTION_LEFT, kStepScale);
-
-            break;
-        }
-
-        case KEY_D:
-        case KEY_RIGHT:
-        {
-            move(CAMERA_DIRECTION_RIGHT, kStepScale);
-
-            break;
-        }
-
-        case KEY_SPACE:
-        {
-            move(CAMERA_DIRECTION_UP, kStepScale);
-            break;
-        }
-
-        case KEY_C:
-        {
-            move(CAMERA_DIRECTION_DOWN, kStepScale);
-            break;
-        }
-        
-        case KEY_PAGE_UP:
-            position_.setY(position_.y() + kStepScale);
-            break;
-    
-        case KEY_PAGE_DOWN:
-            position_.setY(position_.y() - kStepScale);
-            break;
-    
-        default:
-            break;            
-    }
-    */
-
-    return ret;
-}
-
-
 void Camera::onMouse(int x, int y)
 {
 
-    update();
 }
 
 
@@ -296,6 +231,16 @@ void Camera::move(CameraDirection dir, float distance)
 
 void Camera::rotate(CameraAxis axis, float angle)
 {
+    switch (axis) {
+        case CAMERA_AXIS_X:
+            angleV_ += angle;
+            break;
 
+        case CAMERA_AXIS_Y:
+            angleH_ += angle;
+            break;
+    }
+
+    update();
 }
 

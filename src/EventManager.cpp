@@ -91,7 +91,6 @@ void EventManager::handleEvents()
                         break;
                 }
                     
-                Game::instance()->renderer()->camera()->onKeyboard(key);
                 EventDispatcher::instance()->sendEvent(new EKeyPress(key));
                 break;
 
@@ -149,9 +148,9 @@ void EventManager::handleEvents()
     }
 }
 
-Point EventManager::mousePosition()
+Vector2i EventManager::mousePosition()
 {
     int x, y = 0;
     SDL_GetMouseState(&x, &y);
-    return Point(x, y);
+    return Vector2i(x, y);
 }

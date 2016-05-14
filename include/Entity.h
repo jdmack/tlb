@@ -9,7 +9,7 @@
 const int kEntityWidth  = 40;
 const int kEntityHeight = 40;
 
-const double kEntityDefaultVelocity     = 100;
+const double kEntityDefaultVelocity     = 5;
 const double kEntityDefaultAcceleration = 800;
 const double kEntityRotationVelocity = 1000;
 

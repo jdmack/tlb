@@ -51,8 +51,6 @@ class Camera
 
         Camera(int windowWidth, int windowHeight, const Vector3f & position, const Vector3f & target, const Vector3f & up);
 
-        bool onKeyboard(KeyType key);
-
         void onMouse(int x, int y);
 
         void onRender();

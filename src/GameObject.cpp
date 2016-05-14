@@ -89,8 +89,6 @@ void GameObject::loadModelData()
 void GameObject::render()
 {
     model_.render();
-    model_.transform().translate(0, 1, -10);
-    model_.transform().scale(10);
 }
 
 bool GameObject::containsPoint(double x, double y)

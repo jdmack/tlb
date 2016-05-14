@@ -3,8 +3,8 @@
 
 #include <string>
 
-const int kGridNodeWidth  = 48;
-const int kGridNodeHeight = 48;
+const int kGridNodeWidth  = 1;
+const int kGridNodeHeight = 1;
 //const int kGridNodeWidth  = 24;
 //const int kGridNodeHeight = 24;
 

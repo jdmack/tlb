@@ -3,7 +3,6 @@
 #ifndef TLB_EVENGENT_H_
 #define TLB_EVENGENT_H_
 
-#include "Point.h"
 #include "math/Vector2i.h"
 #include "util/Timer.h"
 
@@ -19,7 +18,7 @@ class EventManager
         EventManager();
         void handleEvents();
 
-        static Point mousePosition();
+        static Vector2i mousePosition();
 };
 
 #endif
