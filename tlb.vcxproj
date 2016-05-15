@@ -136,6 +136,7 @@
     <ClCompile Include="src\gfx\Camera.cpp" />
     <ClCompile Include="src\gfx\Graphic.cpp" />
     <ClCompile Include="src\gfx\Model.cpp" />
+    <ClCompile Include="src\gfx\MousePicker.cpp" />
     <ClCompile Include="src\gfx\Renderer.cpp" />
     <ClCompile Include="src\gfx\Sprite.cpp" />
     <ClCompile Include="src\gfx\Tile.cpp" />
@@ -218,6 +219,7 @@
     <ClInclude Include="include\gfx\Camera.h" />
     <ClInclude Include="include\gfx\Graphic.h" />
     <ClInclude Include="include\gfx\Model.h" />
+    <ClInclude Include="include\gfx\MousePicker.h" />
     <ClInclude Include="include\gfx\Projection.h" />
     <ClInclude Include="include\gfx\Renderer.h" />
     <ClInclude Include="include\gfx\Sprite.h" />
