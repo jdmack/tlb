@@ -22,6 +22,7 @@ class Model
         GLuint vbo_;
         GLuint ibo_;
         GLenum mode_;
+        int numOfIndices_;
 
         Vector4f color_;
 

@@ -27,6 +27,7 @@ Model::Model()
     projectionLoc_ = -1;
     colorLoc_ = -1;
     mode_ = GL_TRIANGLES;
+    numOfIndices_ = 0;
 
     color_ = Vector4f(1.0f, 0.0f, 0.0f, 1.0f);
 
@@ -84,7 +85,7 @@ void Model::render()
 
     // Set index data and render
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_);
-    glDrawElements(mode_, 36, GL_UNSIGNED_INT, 0);
+    glDrawElements(mode_, numOfIndices_, GL_UNSIGNED_INT, 0);
 
     // Disable vertex position
     glDisableVertexAttribArray(vertexPositionLoc_);
@@ -123,6 +124,8 @@ void Model::loadIndices(int * indices, int size)
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
     //Logger::write(Logger::ss << "Model(vertex: " << vertexPositionLoc_ << ", world: " << worldLoc_ << ", vbo_: " << vbo_ << ", ibo: " << ibo_);
+
+    numOfIndices_ = size / sizeof(int);
 
 }
 

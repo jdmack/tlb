@@ -70,7 +70,7 @@ float MousePicker::rayPlaneIntersect(Vector3f ray, Vector3f rayOrigin, Vector3f 
 {
     float denom = planeNormal.dotProduct(ray);
 
-    if(std::abs(denom) > 0.0001f) {
+    if(std::abs((int)denom) > 2.0001f) {
         float t = (planePoint - rayOrigin).dotProduct(planeNormal) / denom;
         
         if(t >= 0) return t;

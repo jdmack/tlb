@@ -53,17 +53,17 @@ void Tile::loadModelData()
 
     // IBO data
     int indices[] = { 4, 6, 7,   // 1a
-                         4, 7, 5,   // 1b
-                         0, 2, 3,   // 2a
-                         0, 3, 1,   // 2b
-                         0, 4, 5,   // 3a
-                         0, 5, 1,   // 3b
-                         0, 4, 6,   // 4a
-                         0, 6, 2,   // 4b
-                         1, 5, 7,   // 5a
-                         1, 7, 3,   // 5b
-                         2, 6, 7,   // 6a
-                         2, 7, 3 }; // 6b
+                      4, 7, 5,   // 1b
+                      0, 2, 3,   // 2a
+                      0, 3, 1,   // 2b
+                      0, 4, 5,   // 3a
+                      0, 5, 1,   // 3b
+                      0, 4, 6,   // 4a
+                      0, 6, 2,   // 4b
+                      1, 5, 7,   // 5a
+                      1, 7, 3,   // 5b
+                      2, 6, 7,   // 6a
+                      2, 7, 3 }; // 6b
 
     model_.loadVertices(vertices, sizeof(vertices));
     model_.loadIndices(indices, sizeof(indices));
