@@ -3,6 +3,7 @@
 #include "GSLevel.h"
 
 #include "gfx/Renderer.h"
+#include "gfx/Camera.h"
 #include "Game.h"
 #include "Level.h"
 #include "EntityManager.h"
@@ -64,6 +65,9 @@ bool GSLevel::init()
     tile2_->setHeight(0.1);
     tile2_->setType(2);
 
+    //ray_ = new Ray(Vector3f(1, 1, 1), Game::instance()->renderer()->camera()->position());
+    //ray_ = new Ray(Vector3f(1, 1, 1), Vector3f(6,6,6));
+
     return true;
 }
 
@@ -104,6 +108,8 @@ void GSLevel::render()
     // FOR TESTING
     tile_->render();
     tile2_->render();
+    eventHandler_->update();
+    //ray_->render();
 }
 
 void GSLevel::end()

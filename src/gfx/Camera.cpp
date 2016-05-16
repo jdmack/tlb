@@ -4,6 +4,9 @@
 #include "math/Math.h"
 #include "util/Logger.h"
 
+const static float kMaxVAngle = 90.0f;
+const static float kMinVAngle = -90.0f;
+
 Camera::Camera(int windowWidth, int windowHeight)
 {
     //position_ = Vector3f(0.0f, 0.0f, 1.0f);
@@ -188,6 +191,8 @@ void Camera::rotate(CameraAxis axis, float angle)
     switch (axis) {
         case CAMERA_AXIS_X:
             angleV_ += angle;
+            if(angleV_ > kMaxVAngle) angleV_ = kMaxVAngle;
+            else if(angleV_ < kMinVAngle) angleV_ = kMinVAngle;
             break;
 
         case CAMERA_AXIS_Y:

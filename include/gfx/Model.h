@@ -6,6 +6,10 @@
 #include "Transform.h"
 #include "math/Vector4f.h"
 
+enum DrawMode {
+    DRAW_TRIANGLES,
+    DRAW_LINES
+};
 
 class Model
 {
@@ -17,6 +21,7 @@ class Model
         GLuint colorLoc_;
         GLuint vbo_;
         GLuint ibo_;
+        GLenum mode_;
 
         Vector4f color_;
 
@@ -30,6 +35,7 @@ class Model
 
         // mutators
         void setColor(Vector4f color) { color_ = color; }
+        void setMode(DrawMode mode);
 
         bool init();
         void render();

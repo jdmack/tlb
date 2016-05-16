@@ -26,6 +26,7 @@ Model::Model()
     cameraLoc_ = -1;
     projectionLoc_ = -1;
     colorLoc_ = -1;
+    mode_ = GL_TRIANGLES;
 
     color_ = Vector4f(1.0f, 0.0f, 0.0f, 1.0f);
 
@@ -83,7 +84,7 @@ void Model::render()
 
     // Set index data and render
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_);
-    glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+    glDrawElements(mode_, 36, GL_UNSIGNED_INT, 0);
 
     // Disable vertex position
     glDisableVertexAttribArray(vertexPositionLoc_);
@@ -125,5 +126,16 @@ void Model::loadIndices(int * indices, int size)
 
 }
 
+void Model::setMode(DrawMode mode)
+{
+    switch(mode) {
+        case DRAW_LINES:
+            mode_ = GL_LINES;
+            break;
+        case DRAW_TRIANGLES:
+            mode_ = GL_TRIANGLES;
+            break;
+    }
+}
 
 

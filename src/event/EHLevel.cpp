@@ -17,6 +17,8 @@
 #include "ui/UserInterface.h"
 #include "gfx/Renderer.h"
 #include "gfx/Camera.h"
+#include "gfx/MousePicker.h"
+#include "Level.h"
 
 #include <iostream>
 
@@ -53,8 +55,10 @@ bool EHLevel::handleEvent(Event * event)
         }
         case EVENT_MOUSE_MOTION:
         {
-            //EMouse * mouseEvent = static_cast<EMouse *>(event);
-            //ret = true;
+            EMouse * mouseEvent = static_cast<EMouse *>(event);
+            mouseMotion(mouseEvent->position());
+
+            ret = true;
             break;
         }
         case EVENT_GAME_QUIT:
@@ -80,6 +84,30 @@ bool EHLevel::handleEvent(Event * event)
 void EHLevel::mouseLeftClick(Vector2i position)
 {
     Logger::write("Mouse Left Click");
+
+    Vector3f cameraPos = Game::instance()->renderer()->camera()->position();
+    MousePicker picker(Game::instance()->renderer()->camera()->view(), Game::instance()->renderer()->camera()->projection());
+    picker.update(position);
+    float intersect = picker.rayPlaneIntersect(picker.ray(), cameraPos, Vector3f(0, 1, 0), Vector3f(0, 0, 0));
+    ray_ = Ray(picker.ray(), cameraPos);
+
+
+    if(intersect > 0) {
+
+        Vector3f ray = picker.ray();
+        //ray.negate();
+        Vector3f point = ray * intersect; 
+        point = point + cameraPos;
+        Tile * tile = Game::instance()->level()->getTileAt(point);
+        if(tile != nullptr) {
+            tile->setColor(Vector4f(0, 1, 0, 1));
+        }
+        else {
+            Logger::write("Nothing found");                
+        }
+    }
+
+
 
     /*
     GSLevel * gsLevel = static_cast<GSLevel *>(Game::instance()->state());
@@ -179,6 +207,13 @@ void EHLevel::mouseRightClick(Vector2i position)
     */
 }
 
+void EHLevel::mouseMotion(Vector2i position)
+{
+   
+    
+
+}
+
 void EHLevel::keyPress(KeyType key)
 {
     toggleKey_ = key;
@@ -258,6 +293,10 @@ void EHLevel::keyPress(KeyType key)
         case KEY_NONE:
             break;
     }
+}
 
+void EHLevel::update()
+{
+    ray_.render();
 }
 

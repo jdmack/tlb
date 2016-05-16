@@ -5,6 +5,9 @@
 #include "event/EventHandler.h"
 #include "math/Vector2i.h"
 
+// FOR TESTING
+#include "gfx/Ray.h"
+
 class EHLevel : public EventHandler
 {
     private:
@@ -12,8 +15,12 @@ class EHLevel : public EventHandler
         int cameraHandlerId_;
         bool cameraOn_;
 
+        // FOR TESTING
+        Ray ray_;
+
         void mouseLeftClick(Vector2i position);
         void mouseRightClick(Vector2i position);
+        void mouseMotion(Vector2i position);
         void keyPress(KeyType key);
 
     public:
@@ -21,7 +28,7 @@ class EHLevel : public EventHandler
         ~EHLevel();
 
         bool handleEvent(Event * event);
-
+        void update();
 };
 
 #endif

@@ -185,6 +185,9 @@
     <ClCompile Include="src\gfx\MousePicker.cpp">
       <Filter>gfx</Filter>
     </ClCompile>
+    <ClCompile Include="src\gfx\Ray.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Assets.h" />
@@ -374,6 +377,9 @@
       <Filter>event</Filter>
     </ClInclude>
     <ClInclude Include="include\gfx\MousePicker.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gfx\Ray.h">
       <Filter>gfx</Filter>
     </ClInclude>
   </ItemGroup>

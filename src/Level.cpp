@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -165,6 +166,23 @@ bool Level::isWalkable(int row, int col)
     //Logger::write(Logger::ss << "Recorded: (" << thisTile->row() << "," << thisTile->column() << ")");
     return true;
 }
+
+Tile * Level::getTileAt(Vector3f point)
+{
+    for(std::vector<Tile *>::iterator tileIterator = tiles_->begin(); tileIterator != tiles_->end(); ++tileIterator) {
+        Vector3f tilePos = (*tileIterator)->position();
+        float tileWidth = (*tileIterator)->width();
+        float tileLength = (*tileIterator)->length();
+
+        if(std::abs(point.x() - tilePos.x()) <= (tileWidth / 2)) {
+            if(std::abs(point.z() - tilePos.z()) <= (tileLength / 2)) {
+                return *tileIterator;
+            }
+        }
+    }
+    return nullptr;
+}
+
 
 
 

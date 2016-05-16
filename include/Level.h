@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "SDL2/SDL.h"
+#include "math/Vector3f.h"
 
 
 class Tile;
@@ -46,6 +47,8 @@ class Level
         void buildGrid();
 
         bool isWalkable(int row, int col);
+
+        Tile * getTileAt(Vector3f point);
 };
 
 #endif

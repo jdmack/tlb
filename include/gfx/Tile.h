@@ -14,7 +14,6 @@ class Tile
 {
     private:
         Vector3f position_;
-        Vector3f color_;
         float width_;
         float length_;
         float height_;
@@ -42,6 +41,7 @@ class Tile
         void render();
 
         void setPosition(Vector3f position);
+        void setColor(Vector4f color);
         void setWidth(float width);
         void setLength(float length);
         void setHeight(float height);

@@ -120,5 +120,9 @@ void Tile::setType(int type)
             color = Vector4f(0.5, 0.5, 0.5, 1.0);
     }
     model_.setColor(color);
+}
 
+void Tile::setColor(Vector4f color)
+{
+    model_.setColor(color);
 }
