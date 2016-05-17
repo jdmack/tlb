@@ -199,8 +199,9 @@ const float * Vector4f::pointer()
     return &m_[0];
 }
 
-// Print (display the point's components numerically on the screen)
-void Vector4f::print()
+std::ostream & operator<<(std::ostream & os, const Vector4f & v)
 {
-    std::cout << "(" << x_ << ", " << y_ << ", " << z_ << ", " << w_ << ")" << std::endl;
+        os << "<" << v.x() << ", " << v.y() << ", " << v.z() << ", " << v.w() << ">";
+            return os;
 }
+

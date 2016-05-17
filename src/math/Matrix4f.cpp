@@ -230,20 +230,6 @@ void Matrix4f::translate(float x, float y, float z)
     set(multiply(param));
 }
 
-// Print the matrix (display all 16 matrix components numerically on the screen in a 4x4 array)
-void Matrix4f::print()
-{
-    //transpose();
-    for (int row = 0; row < 4; row++) {
-        for (int col = 0; col < 4; col++) {
-            std::cout << std::setw(6) << m_[row][col] << " ";
-        }
-        std::cout << std::endl;
-    }
-    //transpose();
-    std::cout << std::endl;
-}
-
 // Transpose the matrix
 void Matrix4f::transpose()
 {
@@ -425,5 +411,16 @@ void Matrix4f::initOrthoProjTransform(const OrthoProjInfo& p)
     m_[3][0] = 0.0f;         m_[3][1] = 0.0f;         m_[3][2] = 0.0f;         m_[3][3] = 1.0;
 }
 
+std::ostream & operator<<(std::ostream & os, const Matrix4f & v)
+{
+    for (int row = 0; row < 4; row++) {
+        for (int col = 0; col < 4; col++) {
+            os << std::setw(6) << v.get(row, col) << " ";
+        }
+        os << std::endl;
+    }
+
+    return os;
+}
 
 

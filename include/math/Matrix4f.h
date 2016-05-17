@@ -58,9 +58,6 @@ class Matrix4f
         // Make a translation matrix
         void translate(float x, float y, float z);
 
-        // Print the matrix (display all 16 matrix components numerically on the screen in a 4x4 array)
-        void print();
-
         // Transpose the matrix
         void transpose();
 
@@ -77,6 +74,9 @@ class Matrix4f
         //void initRotateTransform(const Quaternion& quat);
         void initTranslationTransform(float x, float y, float z);
         void initOrthoProjTransform(const OrthoProjInfo& p);
+
+        friend std::ostream & operator<<(std::ostream & os, const Matrix4f & v);
+
 
 };
 

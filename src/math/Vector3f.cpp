@@ -257,14 +257,6 @@ float Vector3f::distanceFrom(Vector3f point)
     return std::sqrt((x * x) + (y * y) + (z * z));
 }
 
-
-
-// Print (display the vector's components numerically on the screen)
-void Vector3f::print()
-{
-    std::cout << "(" << x_ << ", " << y_ << ", " << z_ << ")" << std::endl;
-}
-
 float Vector3f::angle(Vector3f v)
 {
     float dotProduct = this->dotProduct(v);

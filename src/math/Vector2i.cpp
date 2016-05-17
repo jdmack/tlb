@@ -44,3 +44,9 @@ int Vector2i::distanceFrom(Vector2i point)
     int yDistance = point.y() - y_;
     return sqrt((xDistance * xDistance) + (yDistance * yDistance));
 }
+
+std::ostream & operator<<(std::ostream & os, const Vector2i & v)
+{
+        os << "(" << v.x() << ", " << v.y() << ">";
+        return os;
+}

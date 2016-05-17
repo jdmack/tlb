@@ -82,8 +82,6 @@ class Vector3f
         
         float distanceFrom(Vector3f point);
 
-        // Print (display the vector's components numerically on the screen)
-        void print();
         std::string str();
         friend std::ostream & operator<<(std::ostream & os, const Vector3f & v);
 

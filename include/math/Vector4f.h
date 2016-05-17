@@ -1,5 +1,6 @@
 #ifndef TLB_UTIL_MATH_VECTOR4_H_
 #define TLB_UTIL_MATH_VECTOR4_H_
+#include <iostream>
 
 class Matrix4f;
 
@@ -64,10 +65,9 @@ class Vector4f
         // Dehomogenize (make fourth component equal to 1)
         void dehomogenize();
         const float * pointer();
-
         
-        // Print (display the point's components numerically on the screen)
-        void print();
+        friend std::ostream & operator<<(std::ostream & os, const Vector4f & v);
+
 };
 
 #endif
