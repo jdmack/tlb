@@ -64,6 +64,7 @@ class Matrix4f
         const float * pointer() const;
         void identity();
 
+        float determinant();
         void invert();
 
         void copy_3x3(Matrix4f param);
