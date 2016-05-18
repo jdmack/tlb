@@ -101,7 +101,9 @@ void Camera::update()
 
     up_ = target_.crossProduct(hAxis);
     up_.normalize();
-    Logger::write(Logger::ss << "position:" << position_ << ", target:" << target_ << ", up:" << up_);
+
+    //Logger::write(Logger::ss << "position:" << position_ << ", target:" << target_ << ", up:" << up_);
+
     updateView();
 }
 

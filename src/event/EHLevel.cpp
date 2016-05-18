@@ -95,7 +95,6 @@ void EHLevel::mouseLeftClick(Vector2i position)
     if(intersect > 0) {
 
         Vector3f ray = picker.ray();
-        //ray.negate();
         Vector3f point = ray * intersect; 
         point = point + cameraPos;
         Tile * tile = Game::instance()->level()->getTileAt(point);
