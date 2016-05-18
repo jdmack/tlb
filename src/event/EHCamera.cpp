@@ -99,19 +99,16 @@ bool EHCamera::keyPress(KeyType key)
     bool ret = true;
     switch(key) {
         case KEY_W:
-        case KEY_UP:
             Game::instance()->renderer()->camera()->move(CAMERA_DIRECTION_FORWARD, kStepScale);
             break;
 
         case KEY_S:
-        case KEY_DOWN:
         {   
             Game::instance()->renderer()->camera()->move(CAMERA_DIRECTION_BACKWARD, kStepScale);
             break;
         }
 
         case KEY_A:
-        case KEY_LEFT:
         {   
             Game::instance()->renderer()->camera()->move(CAMERA_DIRECTION_LEFT, kStepScale);
 
@@ -119,7 +116,6 @@ bool EHCamera::keyPress(KeyType key)
         }
 
         case KEY_D:
-        case KEY_RIGHT:
         {   
             Game::instance()->renderer()->camera()->move(CAMERA_DIRECTION_RIGHT, kStepScale);
 
@@ -134,6 +130,27 @@ bool EHCamera::keyPress(KeyType key)
         case KEY_C:
         {
             Game::instance()->renderer()->camera()->move(CAMERA_DIRECTION_DOWN, kStepScale);
+            break;
+        }
+
+        case KEY_UP:
+        {
+            Game::instance()->renderer()->camera()->rotate(CAMERA_AXIS_X, -5);
+            break;
+        }
+        case KEY_DOWN:
+        {
+            Game::instance()->renderer()->camera()->rotate(CAMERA_AXIS_X, 5);
+            break;
+        }
+        case KEY_RIGHT:
+        {
+            Game::instance()->renderer()->camera()->rotate(CAMERA_AXIS_Y, 5);
+            break;
+        }
+        case KEY_LEFT:
+        {
+            Game::instance()->renderer()->camera()->rotate(CAMERA_AXIS_Y, -5);
             break;
         }
         case KEY_PAGE_UP:
