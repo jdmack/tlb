@@ -14,7 +14,7 @@ class MousePicker
         Vector3f calculateMouseRay(Vector2i mousePosition);
         Vector3f getNormalizedDeviceCoords(Vector2i mousePosition);
         Vector4f toEyeCoords(Vector4f clipCoords); 
-        Vector3f toWorldCoords(Vector4f eyeCoords);
+        Vector4f toWorldCoords(Vector4f eyeCoords);
 
     public:
         MousePicker();
