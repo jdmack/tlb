@@ -12,9 +12,9 @@ Camera::Camera(int windowWidth, int windowHeight)
     //position_ = Vector3f(0.0f, 0.0f, 1.0f);
     //target_   = Vector3f(0.0f, 0.0f, 1.0f);
     //up_       = Vector3f(0.0f, 1.0f, 0.0f);
-    position_ = Vector3f(11.0f, 12.0f, -0.5f);
-    target_   = Vector3f(0.0f, -1.0f, 0.5f);
-    up_       = Vector3f(0.0f, 0.5f, 1.0f);
+    position_ = Vector3f(11.0f, 13.0f, 0.0f);
+    target_   = Vector3f(0.0f, 0.9f, -0.4f);
+    up_       = Vector3f(0.0f, 0.4f, 0.9f);
 
     target_.normalize();
 
@@ -23,7 +23,8 @@ Camera::Camera(int windowWidth, int windowHeight)
     fov_ = 60.0f;
     width_ = windowWidth;
     height_ = windowHeight;
-    zNear_ = 0.1f;
+    //zNear_ = 0.1f;
+    zNear_ = 1.0f;
     zFar_ = 100.0f;
 
     updateView();
@@ -100,7 +101,7 @@ void Camera::update()
 
     up_ = target_.crossProduct(hAxis);
     up_.normalize();
-    //std::cout << "position:" << position_ << ", target:" << target_ << ", up:" << up_ << std::endl;
+    Logger::write(Logger::ss << "position:" << position_ << ", target:" << target_ << ", up:" << up_);
     updateView();
 }
 
@@ -140,14 +141,14 @@ void Camera::move(CameraDirection dir, float distance)
     switch(dir) {
         case CAMERA_DIRECTION_FORWARD:
         {
-            position_ = position_ + (target_ * distance);
+            position_ = position_ - (target_ * distance);
 
             break;
         }
 
         case CAMERA_DIRECTION_BACKWARD:
         {
-            position_ = position_ - (target_ * distance);
+            position_ = position_ + (target_ * distance);
             break;
         }
 
@@ -184,19 +185,20 @@ void Camera::move(CameraDirection dir, float distance)
         }
     }
     viewDirty_ = true;
+    //Logger::write(Logger::ss << "Camera position: " << position_);
 }
 
 void Camera::rotate(CameraAxis axis, float angle)
 {
     switch (axis) {
         case CAMERA_AXIS_X:
-            angleV_ += angle;
+            angleV_ -= angle;
             if(angleV_ > kMaxVAngle) angleV_ = kMaxVAngle;
             else if(angleV_ < kMinVAngle) angleV_ = kMinVAngle;
             break;
 
         case CAMERA_AXIS_Y:
-            angleH_ += angle;
+            angleH_ -= angle;
             break;
     }
 
