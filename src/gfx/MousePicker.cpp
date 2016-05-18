@@ -17,7 +17,6 @@ MousePicker::MousePicker(Matrix4f view, Matrix4f projection)
 
 void MousePicker::update(Vector2i mousePosition)
 {
-    Logger::write(Logger::ss << "-------------------------------------------------Mouse Ray--------------------------------------------------");
     ray_ = calculateMouseRay(mousePosition);
     view_ = Game::instance()->renderer()->camera()->view();
     projection_ = Game::instance()->renderer()->camera()->projection();
@@ -28,7 +27,7 @@ Vector3f MousePicker::calculateMouseRay(Vector2i mousePosition)
 
     Vector3f normalizedCoords = getNormalizedDeviceCoords(mousePosition);
     //Vector4f clipCoords = Vector4f(normalizedCoords.x(), normalizedCoords.y(), 1.0, 0.0);
-    Vector4f clipCoords = Vector4f(normalizedCoords.x(), normalizedCoords.y(), normalizedCoords.z(), 0.0);
+    Vector4f clipCoords = Vector4f(normalizedCoords.x(), normalizedCoords.y(), normalizedCoords.z(), 1.0);
     Vector4f eyeCoords = toEyeCoords(clipCoords);
     Vector4f worldCoords = toWorldCoords(eyeCoords);
     Vector3f ray = Vector3f(worldCoords.x(), worldCoords.y(), worldCoords.z());
@@ -39,8 +38,6 @@ Vector3f MousePicker::calculateMouseRay(Vector2i mousePosition)
 
 Vector3f MousePicker::getNormalizedDeviceCoords(Vector2i mousePosition)
 {
-    Logger::write(Logger::ss << "Screen Coords: " << mousePosition);
-
     float width = Game::instance()->renderer()->screenWidth();
     float height = Game::instance()->renderer()->screenHeight();
     float mouseX = mousePosition.x();
@@ -48,11 +45,9 @@ Vector3f MousePicker::getNormalizedDeviceCoords(Vector2i mousePosition)
 
     float x = ((2.0 * mouseX) / width) - 1.0;
     float y = 1.0 - ((2.0 * mouseY) / height);
-    float z = 1.0;
+    float z = -1.0;
 
     Vector3f ndc = Vector3f(x, y, z);
-
-    Logger::write(Logger::ss << "Normalized Device Coords: " << ndc);
 
     return ndc;
 }
@@ -62,15 +57,9 @@ Vector4f MousePicker::toEyeCoords(Vector4f clipCoords)
     Matrix4f invertedProjection = projection_;
     invertedProjection.invert();
     
-    Logger::write(Logger::ss << "Projection: " << std::endl << projection_);
-    Logger::write(Logger::ss << "Inverse Projection: " << std::endl << invertedProjection);
-    Logger::write(Logger::ss << "Projection * Inverse Projection: " << std::endl << projection_ * invertedProjection);
-
     Vector4f eyeCoords = invertedProjection * clipCoords;
 
-    Logger::write(Logger::ss << "Eye Coords: " << eyeCoords);
-
-    return Vector4f(eyeCoords.x(), eyeCoords.y(), 1, 0.0);
+    return Vector4f(eyeCoords.x(), eyeCoords.y(), -1, 0.0);
 }
 
 Vector4f MousePicker::toWorldCoords(Vector4f eyeCoords)
@@ -78,18 +67,10 @@ Vector4f MousePicker::toWorldCoords(Vector4f eyeCoords)
     Matrix4f invertedView = view_;
     invertedView.invert();
 
-    Logger::write(Logger::ss << "View Determinant: " << view_.determinant());
-    Logger::write(Logger::ss << "View: " << std::endl << view_);
-    Logger::write(Logger::ss << "Inverse View: " << std::endl << invertedView);
-    Logger::write(Logger::ss << "View * Inverse View: " << std::endl << view_ * invertedView);
-
     Vector4f worldCoords = invertedView * eyeCoords;
-
-    Logger::write(Logger::ss << "World Coords: " << worldCoords);
 
     return worldCoords;
 }
-
 
 float MousePicker::rayPlaneIntersect(Vector3f ray, Vector3f rayOrigin, Vector3f planeNormal, Vector3f planePoint)
 {
