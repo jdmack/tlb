@@ -278,23 +278,9 @@ float Matrix4f::determinant()
 
 void Matrix4f::invert()
 {
-    /*
-    Matrix4f rotation(m_[0][0], m_[0][1], m_[0][2], 0,
-                     m_[1][0], m_[1][1], m_[1][2], 0,
-                     m_[2][0], m_[2][1], m_[2][2], 0,
-                           0,       0,       0, 1);
-
-    Matrix4f translation(1, 0, 0, -m_[0][3],
-                        0, 1, 0, -m_[1][3],
-                        0, 0, 1, -m_[2][3],
-                        0, 0, 0,        1);
-
-    rotation.transpose();
-    set(translation.multiply(rotation));
-    */
-    float b[4][4];
-    float det = determinant();
-    float invdet = 1.0 / det;
+    double b[4][4];
+    double det = determinant();
+    double invdet = 1.0 / det;
     
     b[0][0] = invdet  * (m_[1][1] * (m_[2][2] * m_[3][3] - m_[2][3] * m_[3][2]) + m_[1][2] * (m_[2][3] * m_[3][1] - m_[2][1] * m_[3][3]) + m_[1][3] * (m_[2][1] * m_[3][2] - m_[2][2] * m_[3][1]));
 	b[0][1] = -invdet * (m_[0][1] * (m_[2][2] * m_[3][3] - m_[2][3] * m_[3][2]) + m_[0][2] * (m_[2][3] * m_[3][1] - m_[2][1] * m_[3][3]) + m_[0][3] * (m_[2][1] * m_[3][2] - m_[2][2] * m_[3][1]));
