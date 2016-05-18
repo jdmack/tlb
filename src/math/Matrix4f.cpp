@@ -118,13 +118,11 @@ Matrix4f Matrix4f::multiply(Matrix4f param)
 Vector4f Matrix4f::multiply(Vector4f param)
 {
     Vector4f result;
-    transpose();
     for (int row = 0; row < 4; row++) {
         for (int col = 0; col < 4; col++) {
             result.set(row, result.get(row) + m_[row][col] * param.get(col));
         }
     }
-    transpose();
     return result;
 }
 
@@ -226,7 +224,6 @@ void Matrix4f::translate(float x, float y, float z)
                   0,1,0,y,
                   0,0,1,z,
                   0,0,0,1);
-    param.transpose();
     set(multiply(param));
 }
 
