@@ -10,7 +10,7 @@
 
 // FOR TESTING
 #include "gfx/Tile.h"
-#include "gfx/Ray.h"
+#include "gfx/Sphere.h"
 
 class UserInterface;
 class EHLevel;
@@ -27,7 +27,7 @@ class GSLevel : public GameState
         // FOR TESTING
         Tile * tile_;
         Tile * tile2_;
-        Ray * ray_;
+        Sphere * sphere_;
 
     public:
         GSLevel();

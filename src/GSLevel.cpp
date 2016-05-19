@@ -65,8 +65,7 @@ bool GSLevel::init()
     tile2_->setHeight(0.1);
     tile2_->setType(2);
 
-    //ray_ = new Ray(Vector3f(1, 1, 1), Game::instance()->renderer()->camera()->position());
-    //ray_ = new Ray(Vector3f(1, 1, 1), Vector3f(6,6,6));
+    sphere_ = new Sphere(1, Vector3f(0, 0, 0));
 
     return true;
 }
@@ -91,7 +90,7 @@ bool GSLevel::update(int deltaTicks)
 }
 void GSLevel::render()
 {
-    Game::instance()->level()->render(levelArea_);
+    //Game::instance()->level()->render(levelArea_);
 
     // Render
     std::vector<Entity *> entities = Game::instance()->entityManager()->getEntities();
@@ -106,10 +105,10 @@ void GSLevel::render()
     //userInterface_->render();
 
     // FOR TESTING
-    tile_->render();
-    tile2_->render();
+    //tile_->render();
+    //tile2_->render();
     eventHandler_->update();
-    //ray_->render();
+    sphere_->render();
 }
 
 void GSLevel::end()
