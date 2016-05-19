@@ -23,8 +23,7 @@ Camera::Camera(int windowWidth, int windowHeight)
     fov_ = 60.0f;
     width_ = windowWidth;
     height_ = windowHeight;
-    //zNear_ = 0.1f;
-    zNear_ = 1.0f;
+    zNear_ = 0.1f;
     zFar_ = 100.0f;
 
     updateView();
