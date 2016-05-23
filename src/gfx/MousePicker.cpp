@@ -1,3 +1,4 @@
+#include <cmath>
 #include <cstdlib>
 #include "gfx/MousePicker.h"
 #include "Game.h"

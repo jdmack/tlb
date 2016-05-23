@@ -3,8 +3,8 @@
 
 Sphere::Sphere()
 {
-    stacks_ = 3;
-    slices_ = 3;
+    stacks_ = 20;
+    slices_ = 20;
 }
 
 Sphere::Sphere(float radius, Vector3f center) : Sphere()
@@ -41,7 +41,6 @@ void Sphere::loadModelData()
             vertex = vertex * radius_;
 
             vertices[vertIndex++] = vertex;
-            //Logger::write(Logger::ss << "Generating vertex: " << vertex);
         }
     }
     
@@ -55,21 +54,9 @@ void Sphere::loadModelData()
         indices[indIndex++] = i + 1;
     }
 
-    for(int i = 0; i < indIndex; i = i + 6) {
-        Logger::write(Logger::ss << "(" << indices[i] 
-            << "," << indices[i + 1]
-            << "," << indices[i + 2]
-            << "," << indices[i + 3]
-            << "," << indices[i + 4]
-            << "," << indices[i + 5] << ")");
-    
-    }
 
-    Logger::write(Logger::ss << "vertices: " << vertIndex);
-    Logger::write(Logger::ss << "indices: " << indIndex);
-
-    model_.loadVertices(vertices, sizeof(vertices));
-    model_.loadIndices(indices, sizeof(indices));
+    model_.loadVertices(vertices, sizeof(Vector3f) * ((slices_ + 1) * (stacks_ + 1)));
+    model_.loadIndices(indices, sizeof(indices) * (stacks_ * slices_ + slices_) * 6);
 }
 
 void Sphere::setCenter(Vector3f center)

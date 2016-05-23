@@ -90,7 +90,7 @@ bool GSLevel::update(int deltaTicks)
 }
 void GSLevel::render()
 {
-    //Game::instance()->level()->render(levelArea_);
+    Game::instance()->level()->render(levelArea_);
 
     // Render
     std::vector<Entity *> entities = Game::instance()->entityManager()->getEntities();
