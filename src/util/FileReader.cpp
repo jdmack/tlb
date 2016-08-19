@@ -4,15 +4,13 @@
 #include <iostream>
 #include <fstream>
 
-std::string FileReader::readFile(const char * filename)
+bool FileReader::readFile(const char * filename, std::string & content)
 {
-    std::string content;
-
     std::ifstream fileStream(filename, std::ios::in);
 
     if(!fileStream.is_open()) {
         std::cerr << "Could not read file " << filename << ". File does not exist." << std::endl;
-        return "";
+        return false;
     }
 
     std::string line = "";
@@ -22,5 +20,5 @@ std::string FileReader::readFile(const char * filename)
     }
 
     fileStream.close();
-    return content;
+    return true;
 }

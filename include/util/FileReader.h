@@ -6,7 +6,7 @@
 class FileReader
 {
     public:
-        static std::string readFile(const char *filename);
+        static bool readFile(const char *filename, std::string content);
     
 };
 
