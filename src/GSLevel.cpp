@@ -65,7 +65,6 @@ bool GSLevel::init()
     tile2_->setHeight(0.1);
     tile2_->setType(2);
 
-    sphere_ = new Sphere(10, Vector3f(5, 5, 5));
 
     return true;
 }
@@ -108,7 +107,6 @@ void GSLevel::render()
     //tile_->render();
     //tile2_->render();
     eventHandler_->update();
-    sphere_->render();
 }
 
 void GSLevel::end()

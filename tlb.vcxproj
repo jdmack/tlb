@@ -139,6 +139,7 @@
     <ClCompile Include="src\gfx\MousePicker.cpp" />
     <ClCompile Include="src\gfx\Ray.cpp" />
     <ClCompile Include="src\gfx\Renderer.cpp" />
+    <ClCompile Include="src\gfx\Sphere.cpp" />
     <ClCompile Include="src\gfx\Sprite.cpp" />
     <ClCompile Include="src\gfx\Tile.cpp" />
     <ClCompile Include="src\gfx\Tileset.cpp" />
@@ -224,6 +225,7 @@
     <ClInclude Include="include\gfx\Projection.h" />
     <ClInclude Include="include\gfx\Ray.h" />
     <ClInclude Include="include\gfx\Renderer.h" />
+    <ClInclude Include="include\gfx\Sphere.h" />
     <ClInclude Include="include\gfx\Sprite.h" />
     <ClInclude Include="include\gfx\Tile.h" />
     <ClInclude Include="include\gfx\Tileset.h" />
