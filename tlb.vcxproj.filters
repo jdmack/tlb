@@ -191,6 +191,9 @@
     <ClCompile Include="src\gfx\Sphere.cpp">
       <Filter>gfx</Filter>
     </ClCompile>
+    <ClCompile Include="src\gfx\Shader.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Assets.h" />
@@ -386,6 +389,9 @@
       <Filter>gfx</Filter>
     </ClInclude>
     <ClInclude Include="include\gfx\Sphere.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gfx\Shader.h">
       <Filter>gfx</Filter>
     </ClInclude>
   </ItemGroup>

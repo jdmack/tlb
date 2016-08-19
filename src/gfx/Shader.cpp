@@ -152,6 +152,17 @@ void Shader::disable()
     glUseProgram(0);
 }
 
+GLint Shader::getAttribLocation(const char* attribName)
+{
+    GLuint location = glGetAttribLocation(programID_, attribName);
+
+    if(location == -1) {
+        Logger::write(Logger::ss << "ERROR: Unable to get attribute location of " << attribName);
+    }
+
+    return location;
+}
+
 GLint Shader::getUniformLocation(const char* uniformName)
 {
     GLuint location = glGetUniformLocation(programID_, uniformName);

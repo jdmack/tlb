@@ -40,7 +40,7 @@ bool Model::init()
 {
     Shader * shader = Game::instance()->renderer()->shader();
 
-    vertexPositionLoc_ = shader->getUniformLocation("Position");
+    vertexPositionLoc_ = shader->getAttribLocation("Position");
     if(vertexPositionLoc_ == -1) {
         Logger::write(Logger::ss << "Position is not a valid glsl program variable!"); 
     }

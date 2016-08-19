@@ -15,6 +15,7 @@ class Shader
         void enable();
         void disable();
 
+        GLint getAttribLocation(const char* attribName);
         GLint getUniformLocation(const char* uniformName);
         GLint getProgramParam(GLint param);
 
