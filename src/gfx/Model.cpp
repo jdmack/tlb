@@ -8,6 +8,7 @@
 #include "gfx/Renderer.h"
 #include "util/Logger.h"
 #include "gfx/Camera.h"
+#include "gfx/Shader.h"
 
 #include "math/Vector3f.h"
 #include "math/Matrix4f.h"
@@ -37,27 +38,29 @@ Model::Model()
 
 bool Model::init()
 {
-    vertexPositionLoc_ = glGetAttribLocation(Game::instance()->renderer()->programID(), "Position");
+    Shader * shader = Game::instance()->renderer()->shader();
+
+    vertexPositionLoc_ = shader->getUniformLocation("Position");
     if(vertexPositionLoc_ == -1) {
         Logger::write(Logger::ss << "Position is not a valid glsl program variable!"); 
     }
 
-    worldLoc_ = glGetUniformLocation(Game::instance()->renderer()->programID(), "World");
+    worldLoc_ = shader->getUniformLocation("World");
     if(worldLoc_ == -1) {
         Logger::write(Logger::ss << "World is not a valid glsl program variable!"); 
     }
 
-    cameraLoc_ = glGetUniformLocation(Game::instance()->renderer()->programID(), "Camera");
+    cameraLoc_ = shader->getUniformLocation("Camera");
     if(cameraLoc_ == -1) {
         Logger::write(Logger::ss << "Camera is not a valid glsl program variable!"); 
     }
 
-    projectionLoc_ = glGetUniformLocation(Game::instance()->renderer()->programID(), "Projection");
+    projectionLoc_ = shader->getUniformLocation("Projection");
     if(projectionLoc_ == -1) {
         Logger::write(Logger::ss << "Projection is not a valid glsl program variable!"); 
     }
 
-    colorLoc_ = glGetUniformLocation(Game::instance()->renderer()->programID(), "Color");
+    colorLoc_ = shader->getUniformLocation("Color");
     if(colorLoc_ == -1) {
         Logger::write(Logger::ss << "Color is not a valid glsl program variable!"); 
     }
@@ -67,8 +70,8 @@ bool Model::init()
 
 void Model::render()
 {
-    // Bind program
-    glUseProgram(Game::instance()->renderer()->programID());
+    Shader * shader = Game::instance()->renderer()->shader();
+    shader->enable();
 
     // Enable vertex position
     glEnableVertexAttribArray(vertexPositionLoc_);
@@ -90,8 +93,8 @@ void Model::render()
     // Disable vertex position
     glDisableVertexAttribArray(vertexPositionLoc_);
 
-    // Unbind program
-    glUseProgram(0);
+    shader->disable();
+
 }
 
 void Model::update()

@@ -18,6 +18,8 @@
 #include "util/FileReader.h"
 #include "Frame.h"
 
+#include "gfx/Shader.h"
+
 ////////////////////////////////////////////////////////////////////////////////
 //
 //
@@ -127,9 +129,10 @@ bool Renderer::init()
         return false;
     }
 
-    // Initialize OpenGL
-    if(!initShader()) {
-        Logger::write(Logger::ss << "ERROR: Could not initialize OpenGL!");
+    // Initialize shader
+    shader_ = new Shader("shader/v1.vs", "shader/f1.fs");
+    if(!shader_->init()) {
+        Logger::write(Logger::ss << "ERROR: Could not initialize shader");
         return false;
     }
 
@@ -150,151 +153,6 @@ bool Renderer::init()
     camera_ = new Camera(kRendererWidth, kRendererHeight);
 
     return true;
-}
-
-bool Renderer::initShader()
-{
-    // Generate program
-    programID_ = glCreateProgram();
-
-    // Create vertex shader
-    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-
-    // Get vertex shader source
-    //const GLchar * vertexShaderSource[] = FileReader::readFile("shader/v1.vs");
-    std::string vertexShaderStr = FileReader::readFile("shader/v1.vs");
-    const GLchar * vertexShaderSource = vertexShaderStr.c_str();
-    
-    //{
-    //    "#version 130\nin vec2 LVertexPos2D; void main() { gl_Position = vec4(LVertexPos2D.x, LVertexPos2D.y, 0, 1); }" 
-    //};
-
-    // Set vertex source
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-
-    // Compile vertex source
-    glCompileShader(vertexShader);
-
-    // Check vertex shader for errors
-    GLint vShaderCompiled = GL_FALSE;
-    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &vShaderCompiled);
-
-    if(vShaderCompiled != GL_TRUE) {
-        Logger::write(Logger::ss << "ERROR: Could not compile vertex shader: " << vertexShader);
-        printShaderLog(vertexShader);
-        return false;
-    }
-
-    // Attach vertex shader to program
-    glAttachShader(programID_, vertexShader);
-
-    // Create fragment shader
-    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-
-    // Get fragment source
-    std::string fragmentShaderStr = FileReader::readFile("shader/f1.fs");
-    const GLchar * fragmentShaderSource = fragmentShaderStr.c_str();
-
-    //{
-    //    "#version 130\nout vec4 LFragment; void main() { LFragment = vec4(1.0, 1.0, 1.0, 1.0); }"
-    //};
-
-    // Set fragment source
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-
-    // Compile fragment source
-    glCompileShader(fragmentShader);
-
-    // Check fragment shader for errors
-    GLint fShaderCompiled = GL_FALSE;
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &fShaderCompiled);
-
-    if(fShaderCompiled != GL_TRUE) {
-        Logger::write(Logger::ss << "ERROR: Could not compile fragment shader: " << fragmentShader);
-        printShaderLog(fragmentShader);
-        return false;
-    }
-
-    // Attach fragment shader to program
-    glAttachShader(programID_, fragmentShader);
-
-    // Link program
-    glLinkProgram(programID_);
-
-    // Check for errors
-    GLint programSuccess = GL_TRUE;
-    glGetProgramiv(programID_, GL_LINK_STATUS, &programSuccess);
-
-    if(programSuccess != GL_TRUE) {
-        Logger::write(Logger::ss << "ERROR: Could not link program: " << programID_);
-        printProgramLog(programID_); 
-        return false;
-    }
-
-    return true;
-
-}
-
-void Renderer::printProgramLog(GLuint program)
-{
-    // Make sure name is program
-    if(glIsProgram(program)) {
-        
-        // Program log length
-        int infoLogLength = 0;
-        int maxLength = infoLogLength;
-
-        // Get info string length
-        glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
-
-        // Allocate string
-        char * infoLog = new char[maxLength];
-
-        // Get info log
-        glGetProgramInfoLog(program, maxLength, &infoLogLength, infoLog);
-
-        if(infoLogLength > 0) {
-            // Print log
-            printf("%s\n", infoLog);
-        }
-        
-        // Deallocate string
-        delete[] infoLog;
-    }
-    else {
-        printf("Name %d is not a program\n", program);
-    }
-}
-
-void Renderer::printShaderLog(GLuint shader)
-{
-    // Make sure name is shader
-    if(glIsShader(shader)) {
-        
-        // Program log length
-        int infoLogLength = 0;
-        int maxLength = infoLogLength;
-
-        // Get info string length
-        glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
-
-        // Allocate string
-        char * infoLog = new char[maxLength];
-
-        // Get info log
-        glGetShaderInfoLog(shader, maxLength, &infoLogLength, infoLog);
-
-        if(infoLogLength > 0) {
-            // Print log
-            printf("%s\n", infoLog);
-        }
-        
-        // Deallocate string
-        delete[] infoLog;
-    }
-    else {
-        printf("Name %d is not a shader\n", shader);
-    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -417,9 +275,6 @@ void Renderer::cleanUp()
     //NOTE/TODO: Uncomment this when SDLTtf is installed
     //TTF_Quit();
     
-    // Deallocate program
-    glDeleteProgram(programID_);
-
     // Destroy window
     SDL_DestroyWindow(window_);
 

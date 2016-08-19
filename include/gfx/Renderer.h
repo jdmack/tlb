@@ -16,6 +16,7 @@ class Entity;
 class DebugFrame;
 class Camera;
 class Frame;
+class Shader;
 
 /* Renderer Attributes */
 //const int kRendererWidth        = 800;
@@ -38,7 +39,7 @@ class Renderer
         SDL_GLContext context_;
         Camera * camera_;
 
-        GLuint programID_;
+        Shader* shader_;
 
     public:
         Renderer();
@@ -50,7 +51,7 @@ class Renderer
         SDL_Renderer * renderer() const { return renderer_; }
         SDL_GLContext context() const { return context_;}
         Camera * camera() const { return camera_; }
-        GLuint programID() { return programID_; }
+        Shader * shader() { return shader_; }
 
         bool init();
         void update();
@@ -77,10 +78,6 @@ class Renderer
         void showCursor(bool show);
 
         bool windowFocused();
-
-        bool initShader();
-        void printProgramLog(GLuint program);
-        void printShaderLog(GLuint program);
 
 };
 
