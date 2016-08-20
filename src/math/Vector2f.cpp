@@ -23,6 +23,13 @@ std::string Vector2f::toString()
     return ss.str();
 }
 
+Vector2f & Vector2f::operator=(Vector2f v)
+{
+    x_ = v.x();
+    y_ = v.y();
+    return *this;
+}
+
 bool Vector2f::operator==(const Vector2f &other) const
 {
     if((x_ == other.x()) && (y_ == other.y())) {

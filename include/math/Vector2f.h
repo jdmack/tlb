@@ -20,6 +20,9 @@ class Vector2f
         void setX(float x) { x_= x; }
         void setY(float y) { y_= y; }
 
+        // copy assignment operator
+        Vector2f & operator=(Vector2f v);
+
         bool operator==(const Vector2f &other) const;
         bool operator!=(const Vector2f &other) const;
 
