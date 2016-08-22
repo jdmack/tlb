@@ -10,8 +10,9 @@ class Vertex
         Vector3f position_;
         Vector2f tex_;
 
+        Vertex();
         Vertex(Vector3f position, Vector2f tex);
-}
+};
 
 #endif
 

@@ -142,6 +142,7 @@
     <ClCompile Include="src\gfx\Shader.cpp" />
     <ClCompile Include="src\gfx\Sphere.cpp" />
     <ClCompile Include="src\gfx\Sprite.cpp" />
+    <ClCompile Include="src\gfx\Texture.cpp" />
     <ClCompile Include="src\gfx\Tile.cpp" />
     <ClCompile Include="src\gfx\Tileset.cpp" />
     <ClCompile Include="src\Grid.cpp" />
@@ -157,9 +158,11 @@
     <ClCompile Include="src\math\Math.cpp" />
     <ClCompile Include="src\math\Matrix4f.cpp" />
     <ClCompile Include="src\math\Quaternion.cpp" />
+    <ClCompile Include="src\math\Vector2f.cpp" />
     <ClCompile Include="src\math\Vector2i.cpp" />
     <ClCompile Include="src\math\Vector3f.cpp" />
     <ClCompile Include="src\math\Vector4f.cpp" />
+    <ClCompile Include="src\math\Vertex.cpp" />
     <ClCompile Include="src\Movement.cpp" />
     <ClCompile Include="src\Pathfinder.cpp" />
     <ClCompile Include="src\PathfinderHex.cpp" />
@@ -229,6 +232,7 @@
     <ClInclude Include="include\gfx\Shader.h" />
     <ClInclude Include="include\gfx\Sphere.h" />
     <ClInclude Include="include\gfx\Sprite.h" />
+    <ClInclude Include="include\gfx\Texture.h" />
     <ClInclude Include="include\gfx\Tile.h" />
     <ClInclude Include="include\gfx\Tileset.h" />
     <ClInclude Include="include\Grid.h" />
@@ -243,9 +247,11 @@
     <ClInclude Include="include\math\Math.h" />
     <ClInclude Include="include\math\Matrix4f.h" />
     <ClInclude Include="include\math\Quaternion.h" />
+    <ClInclude Include="include\math\Vector2f.h" />
     <ClInclude Include="include\math\Vector2i.h" />
     <ClInclude Include="include\math\Vector3f.h" />
     <ClInclude Include="include\math\Vector4f.h" />
+    <ClInclude Include="include\math\Vertex.h" />
     <ClInclude Include="include\Movement.h" />
     <ClInclude Include="include\Pathfinder.h" />
     <ClInclude Include="include\PathfinderHex.h" />

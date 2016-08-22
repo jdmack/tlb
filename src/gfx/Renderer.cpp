@@ -129,9 +129,14 @@ bool Renderer::init()
         return false;
     }
 
-    // Initialize shader
+    // Initialize shaders
     shader_ = new Shader("shader/v1.vs", "shader/f1.fs");
     if(!shader_->init()) {
+        Logger::write(Logger::ss << "ERROR: Could not initialize shader");
+        return false;
+    }
+    textureShader_ = new Shader("shader/v2.vs", "shader/f2.fs");
+    if(!textureShader_->init()) {
         Logger::write(Logger::ss << "ERROR: Could not initialize shader");
         return false;
     }

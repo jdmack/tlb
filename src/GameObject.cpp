@@ -7,6 +7,7 @@
 #include "Movement.h"
 #include "gfx/Camera.h"
 #include "Frame.h"
+#include "math/Vertex.h"
 
 // TODO (2013-08-26/JM): Refactor constructor to use constructor delegation when
 // you get a gcc 4.7 compiler
@@ -66,12 +67,13 @@ GameObject::~GameObject()
 void GameObject::loadModelData()
 {
     // VBO data
-    Vector3f vertices[5];
-    vertices[0] = Vector3f(-0.5f, 0.0f, -0.5f);
-    vertices[1] = Vector3f(-0.5f, 0.0f, 0.5f);
-    vertices[2] = Vector3f(0.5f, 0.0f, 0.5f);
-    vertices[3] = Vector3f(0.5f, 0.0f, -0.5f);
-    vertices[4] = Vector3f(0.0f, 1.0f, 0.0f);
+    //Vector3f vertices[5];
+    Vertex vertices[5];
+    vertices[0] = Vertex(Vector3f(-0.5f, 0.0f, -0.5f), Vector2f(0.0f, 0.0f));
+    vertices[1] = Vertex(Vector3f(-0.5f, 0.0f, 0.5f), Vector2f(0.5f, 0.0f));
+    vertices[2] = Vertex(Vector3f(0.5f, 0.0f, 0.5f), Vector2f(1.0f, 0.0f));
+    vertices[3] = Vertex(Vector3f(0.5f, 0.0f, -0.5f), Vector2f(0.5f, 1.0f));
+    vertices[4] = Vertex(Vector3f(0.0f, 1.0f, 0.0f), Vector2f(0.5f, 1.0f));
 
     // IBO data
     int indices[] = { 3, 0, 2,
@@ -83,6 +85,9 @@ void GameObject::loadModelData()
 
     model_.loadVertices(vertices, sizeof(vertices));
     model_.loadIndices(indices, sizeof(indices));
+
+    Texture * texture = new Texture("assets/art/textures/test.png");
+    model_.setTexture(texture);
 
 }
 

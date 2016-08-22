@@ -4,6 +4,12 @@
 #include "Game.h"
 #include "util/Logger.h"
 
+Texture::Texture(const std::string & filename)
+{
+    textureTarget_ = GL_TEXTURE_2D;
+    filename_      = filename;
+}
+
 Texture::Texture(GLenum textureTarget, const std::string & filename)
 {
     textureTarget_ = textureTarget;

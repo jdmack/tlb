@@ -102,7 +102,7 @@ void Model::update()
 
 }
 
-void Model::loadVertices(Vector3f * vertices, int size)
+void Model::loadVertices(Vertex * vertices, int size)
 {
     // If buffer already created for this model, delete it
     if(vbo_ != -1) {

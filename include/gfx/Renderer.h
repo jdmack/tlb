@@ -40,6 +40,7 @@ class Renderer
         Camera * camera_;
 
         Shader* shader_;
+        Shader* textureShader_;
 
     public:
         Renderer();
@@ -52,6 +53,7 @@ class Renderer
         SDL_GLContext context() const { return context_;}
         Camera * camera() const { return camera_; }
         Shader * shader() { return shader_; }
+        Shader * textureShader() { return textureShader_; }
 
         bool init();
         void update();

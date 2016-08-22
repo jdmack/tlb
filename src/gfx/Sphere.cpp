@@ -1,5 +1,6 @@
 #include "gfx/Sphere.h"
 #include "util/Logger.h"
+#include "math/Vertex.h"
 
 Sphere::Sphere()
 {

@@ -8,6 +8,7 @@
 class Texture
 {
     public:
+        Texture(const std::string & filename);
         Texture(GLenum textureTarget, const std::string & filename);
 
         bool load();
