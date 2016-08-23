@@ -7,15 +7,12 @@
 
 Shader::Shader()
 {
-    std::cout << "Prints first" << std::endl;
     programID_ = 0;
     initSuccess = false;
 }
 
 Shader::Shader(const char* vertexFilename, const char* fragmentFilename) : Shader()
 {
-    std::cout << "Prints second" << std::endl;
-
     if(!init()) {
         return;
     }

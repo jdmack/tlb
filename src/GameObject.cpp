@@ -66,6 +66,7 @@ GameObject::~GameObject()
 
 void GameObject::loadModelData()
 {
+    /*
     // VBO data
     Vertex vertices[5];
     vertices[0] = Vertex(Vector3f(-0.5f, 0.0f, -0.5f), Vector2f(0.0f, 0.0f));
@@ -83,7 +84,7 @@ void GameObject::loadModelData()
                       2, 4, 3,
                       3, 4, 0 };
 
-    /*
+*/
     // Test Data
     Vertex vertices[4] = { Vertex(Vector3f(-1.0f, -1.0f, 0.5773f), Vector2f(0.0f, 0.0f)),
                            Vertex(Vector3f(0.0f, -1.0f, -1.15475f), Vector2f(0.5f, 0.0f)),
@@ -93,12 +94,21 @@ void GameObject::loadModelData()
                       1, 3, 2,
                       2, 3, 0,
                       0, 1, 2 };
+
+/*
+    Vertex vertices[4] = { Vertex(Vector3f(-1.0f, -1.0f, 0), Vector2f(0.0f, 0.0f)),
+                           Vertex(Vector3f(-1.0f, 1.0f, 0), Vector2f(0.0f, 1.0f)),
+                           Vertex(Vector3f(1.0f, -1.0f, 0), Vector2f(1.0f, 0.0f)),
+                           Vertex(Vector3f(1.0f, 1.0f, 0), Vector2f(1.0f, 1.0f)) };
+    int indices[] = { 0, 1, 2,
+                      1, 2, 3 };
 */
 
     model_.loadVertices(vertices, sizeof(vertices));
     model_.loadIndices(indices, sizeof(indices));
 
     Texture * texture = new Texture("assets/art/textures/test2.png");
+    //Texture * texture = new Texture("assets/art/textures/test3.png");
     model_.setTexture(texture);
 
 }

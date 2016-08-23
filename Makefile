@@ -12,12 +12,12 @@ OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 TESTOBJ := $(patsubst $(TESTDIR)/%,$(BUILDDIR)/%,$(TESTS:.$(SRCEXT)=.o)) $(filter-out build/main.o,$(OBJECTS))
 
 CFLAGS := -g -O0 -std=c++0x #-Wall
-LIB := -lSDL2 -lSDL2_image -lSDL2_ttf -lGLEW -lGLU -lGL -static-libgcc 
+LIB := -lSDL2 -lSDL2_image -lSDL2_ttf -lGLEW -lGLU -lGL -static-libgcc -lMagick++
 
 # Uncomment on CentOS 6 (GCC 4.4)
 #CFLAGS += -Dnullptr='(NULL)'
 
-INC := -I include -I lib
+INC := -I include -I lib -I /usr/include/ImageMagick/
 
 $(TARGET): $(OBJECTS)
 	@echo " Linking..."

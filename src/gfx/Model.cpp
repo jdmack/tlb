@@ -63,15 +63,16 @@ bool Model::init()
         Logger::write(Logger::ss << "Projection is not a valid glsl program variable!"); 
     }
 
-    colorLoc_ = shader->getUniformLocation("Color");
-    if(colorLoc_ == -1) {
-        Logger::write(Logger::ss << "Color is not a valid glsl program variable!"); 
-    }
+    //colorLoc_ = shader->getUniformLocation("Color");
+    //if(colorLoc_ == -1) {
+    //    Logger::write(Logger::ss << "Color is not a valid glsl program variable!"); 
+    //}
 
     samplerLoc_ = shader->getUniformLocation("Sampler");
     if(samplerLoc_ == -1) {
         Logger::write(Logger::ss << "Sampler is not a valid glsl program variable!"); 
     }
+    glUniform1i(samplerLoc_, 0);
 
     return true;
 }
@@ -81,6 +82,7 @@ void Model::render()
     //Shader * shader = Game::instance()->renderer()->shader();
     Shader * shader = Game::instance()->renderer()->textureShader();
     shader->enable();
+
 
     // Enable vertex position
     glEnableVertexAttribArray(vertexPositionLoc_);
@@ -92,14 +94,13 @@ void Model::render()
 
     glUniform4fv(colorLoc_, 1, color_.pointer());
 
-    glUniform1i(samplerLoc_, 0);
 
     // Set vertex data
     glBindBuffer(GL_ARRAY_BUFFER, vbo_);
     //glVertexAttribPointer(vertexPositionLoc_, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), NULL);
-    //glVertexAttribPointer(samplerLoc, 2, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), NULL);
     glVertexAttribPointer(vertexPositionLoc_, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), NULL);
-    glVertexAttribPointer(samplerLoc_, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*) 12);
+    glVertexAttribPointer(samplerLoc_, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*) sizeof(Vector3f));
+    // Tex coords are behind a Vector3 in memory 
 
     // Set index data and render
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_);
