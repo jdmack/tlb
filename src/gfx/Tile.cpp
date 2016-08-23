@@ -40,6 +40,7 @@ Tile::Tile(Point position, float width, float length, int type)
 
 void Tile::loadModelData()
 {
+    /*
     // VBO data
     Vector3f vertices[8];
     vertices[0] = Vector3f(-0.5f, 0.0f, -0.5f);
@@ -67,6 +68,7 @@ void Tile::loadModelData()
 
     model_.loadVertices(vertices, sizeof(vertices));
     model_.loadIndices(indices, sizeof(indices));
+    */
 }
 
 void Tile::render()

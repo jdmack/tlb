@@ -14,6 +14,7 @@ Ray::Ray(Vector3f direction, Vector3f origin)
 
 void Ray::loadModelData()
 {
+    /*
     Vector3f vertices[2];
     vertices[0] = origin_;
     vertices[1] = (direction_ * 100) + origin_;
@@ -22,6 +23,7 @@ void Ray::loadModelData()
 
     model_.loadVertices(vertices, sizeof(vertices));
     model_.loadIndices(indices, sizeof(indices));
+    */
 }
 
 void Ray::setDirection(Vector3f direction)

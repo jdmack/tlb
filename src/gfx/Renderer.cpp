@@ -154,6 +154,9 @@ bool Renderer::init()
 
     // Initialize clear color
     glClearColor(0.f, 0.f, 0.f, 1.f);
+    //glFrontFace(GL_CW);
+    //glCullFace(GL_BACK);
+    //glEnable(GL_CULL_FACE);
 
     camera_ = new Camera(kRendererWidth, kRendererHeight);
 

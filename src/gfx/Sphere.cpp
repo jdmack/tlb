@@ -19,6 +19,7 @@ Sphere::Sphere(float radius, Vector3f center) : Sphere()
 
 void Sphere::loadModelData()
 {
+    /*
     Vector3f * vertices = new Vector3f[(stacks_ + 1) * (slices_ + 1)];
     int * indices = new int[(stacks_ * slices_ + slices_) * 6];
 
@@ -58,6 +59,7 @@ void Sphere::loadModelData()
 
     model_.loadVertices(vertices, sizeof(Vector3f) * ((slices_ + 1) * (stacks_ + 1)));
     model_.loadIndices(indices, sizeof(indices) * (stacks_ * slices_ + slices_) * 6);
+    */
 }
 
 void Sphere::setCenter(Vector3f center)

@@ -27,10 +27,13 @@ Model::Model()
     cameraLoc_ = -1;
     projectionLoc_ = -1;
     colorLoc_ = -1;
+    samplerLoc_ = -1;
     mode_ = GL_TRIANGLES;
     numOfIndices_ = 0;
 
     color_ = Vector4f(1.0f, 0.0f, 0.0f, 1.0f);
+
+    texture_ = nullptr;
 
     init();
 
@@ -38,7 +41,7 @@ Model::Model()
 
 bool Model::init()
 {
-    Shader * shader = Game::instance()->renderer()->shader();
+    Shader * shader = Game::instance()->renderer()->textureShader();
 
     vertexPositionLoc_ = shader->getAttribLocation("Position");
     if(vertexPositionLoc_ == -1) {
@@ -65,16 +68,23 @@ bool Model::init()
         Logger::write(Logger::ss << "Color is not a valid glsl program variable!"); 
     }
 
+    samplerLoc_ = shader->getUniformLocation("Sampler");
+    if(samplerLoc_ == -1) {
+        Logger::write(Logger::ss << "Sampler is not a valid glsl program variable!"); 
+    }
+
     return true;
 }
 
 void Model::render()
 {
-    Shader * shader = Game::instance()->renderer()->shader();
+    //Shader * shader = Game::instance()->renderer()->shader();
+    Shader * shader = Game::instance()->renderer()->textureShader();
     shader->enable();
 
     // Enable vertex position
     glEnableVertexAttribArray(vertexPositionLoc_);
+    glEnableVertexAttribArray(samplerLoc_);
 
     glUniformMatrix4fv(worldLoc_, 1, GL_TRUE, transform_.worldTrans().pointer());
     glUniformMatrix4fv(cameraLoc_, 1, GL_TRUE, Game::instance()->renderer()->camera()->view().pointer());
@@ -82,16 +92,28 @@ void Model::render()
 
     glUniform4fv(colorLoc_, 1, color_.pointer());
 
+    glUniform1i(samplerLoc_, 0);
+
     // Set vertex data
     glBindBuffer(GL_ARRAY_BUFFER, vbo_);
-    glVertexAttribPointer(vertexPositionLoc_, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), NULL);
+    //glVertexAttribPointer(vertexPositionLoc_, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), NULL);
+    //glVertexAttribPointer(samplerLoc, 2, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), NULL);
+    glVertexAttribPointer(vertexPositionLoc_, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), NULL);
+    glVertexAttribPointer(samplerLoc_, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*) 12);
 
     // Set index data and render
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_);
+
+    if(texture_ != nullptr) {
+        texture_->bind(GL_TEXTURE0);
+    }
+
+
     glDrawElements(mode_, numOfIndices_, GL_UNSIGNED_INT, 0);
 
     // Disable vertex position
     glDisableVertexAttribArray(vertexPositionLoc_);
+    glDisableVertexAttribArray(samplerLoc_);
 
     shader->disable();
 

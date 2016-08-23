@@ -67,13 +67,13 @@ GameObject::~GameObject()
 void GameObject::loadModelData()
 {
     // VBO data
-    //Vector3f vertices[5];
     Vertex vertices[5];
     vertices[0] = Vertex(Vector3f(-0.5f, 0.0f, -0.5f), Vector2f(0.0f, 0.0f));
     vertices[1] = Vertex(Vector3f(-0.5f, 0.0f, 0.5f), Vector2f(0.5f, 0.0f));
     vertices[2] = Vertex(Vector3f(0.5f, 0.0f, 0.5f), Vector2f(1.0f, 0.0f));
     vertices[3] = Vertex(Vector3f(0.5f, 0.0f, -0.5f), Vector2f(0.5f, 1.0f));
     vertices[4] = Vertex(Vector3f(0.0f, 1.0f, 0.0f), Vector2f(0.5f, 1.0f));
+
 
     // IBO data
     int indices[] = { 3, 0, 2,
@@ -83,10 +83,22 @@ void GameObject::loadModelData()
                       2, 4, 3,
                       3, 4, 0 };
 
+    /*
+    // Test Data
+    Vertex vertices[4] = { Vertex(Vector3f(-1.0f, -1.0f, 0.5773f), Vector2f(0.0f, 0.0f)),
+                           Vertex(Vector3f(0.0f, -1.0f, -1.15475f), Vector2f(0.5f, 0.0f)),
+                           Vertex(Vector3f(1.0f, -1.0f, 0.5773f), Vector2f(1.0f, 0.0f)),
+                           Vertex(Vector3f(0.0f, 1.0f, 0.0f), Vector2f(0.5f, 1.0f)) };
+    int indices[] = { 0, 3, 1,
+                      1, 3, 2,
+                      2, 3, 0,
+                      0, 1, 2 };
+*/
+
     model_.loadVertices(vertices, sizeof(vertices));
     model_.loadIndices(indices, sizeof(indices));
 
-    Texture * texture = new Texture("assets/art/textures/test.png");
+    Texture * texture = new Texture("assets/art/textures/test2.png");
     model_.setTexture(texture);
 
 }

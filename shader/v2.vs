@@ -12,5 +12,5 @@ void main()
 {
     gl_Position = Projection * Camera * World * vec4(Position, 1.0);
     outColor = Color;
-    TextCoord0 = TexCoord;
+    TexCoord0 = TexCoord;
 }
