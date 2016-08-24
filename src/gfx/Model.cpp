@@ -64,10 +64,10 @@ bool Model::init()
         Logger::write(Logger::ss << "Projection is not a valid glsl program variable!"); 
     }
 
-    //colorLoc_ = shader->getUniformLocation("Color");
-    //if(colorLoc_ == -1) {
-    //    Logger::write(Logger::ss << "Color is not a valid glsl program variable!"); 
-    //}
+    colorLoc_ = shader->getUniformLocation("Color");
+    if(colorLoc_ == -1) {
+        Logger::write(Logger::ss << "Color is not a valid glsl program variable!"); 
+    }
 
     texLoc_ = shader->getAttribLocation("TexCoord");
     if(texLoc_ == -1) {
@@ -99,10 +99,8 @@ void Model::render()
 
     glUniform4fv(colorLoc_, 1, color_.pointer());
 
-
     // Set vertex data
     glBindBuffer(GL_ARRAY_BUFFER, vbo_);
-    //glVertexAttribPointer(vertexPositionLoc_, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), NULL);
     glVertexAttribPointer(vertexPositionLoc_, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), NULL);
     glVertexAttribPointer(texLoc_, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*) sizeof(Vector3f));
     // Tex coords are behind a Vector3 in memory 

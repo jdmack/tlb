@@ -6,6 +6,6 @@ out vec4 FragColor;
 
 void main()
 {
-    FragColor = texture2D(Sampler, TexCoord0.xy);
-    //FragColor = texture2D(Sampler, TexCoord0.st) + 0.25 * outColor;
+    //FragColor = texture2D(Sampler, TexCoord0.xy);
+    FragColor = texture2D(Sampler, TexCoord0.st) + 0.50 * outColor;
 }    

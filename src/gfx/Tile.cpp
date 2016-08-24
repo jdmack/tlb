@@ -7,6 +7,7 @@
 #include "gfx/Tileset.h"
 #include "Frame.h"
 #include "math/Vector4f.h"
+#include "math/Vertex.h"
 
 Tile::Tile()
 {
@@ -40,17 +41,16 @@ Tile::Tile(Point position, float width, float length, int type)
 
 void Tile::loadModelData()
 {
-    /*
     // VBO data
-    Vector3f vertices[8];
-    vertices[0] = Vector3f(-0.5f, 0.0f, -0.5f);
-    vertices[1] = Vector3f(0.5f, 0.0f, -0.5f);
-    vertices[2] = Vector3f(-0.5f, 0.0f, 0.5f);
-    vertices[3] = Vector3f(0.5f, 0.0f, 0.5f);
-    vertices[4] = Vector3f(-0.5f, 0.5f, -0.5f);
-    vertices[5] = Vector3f(0.5f, 0.5f, -0.5f);
-    vertices[6] = Vector3f(-0.5f, 0.5f, 0.5f);
-    vertices[7] = Vector3f(0.5f, 0.5f, 0.5f);
+    Vertex vertices[8];
+    vertices[0] = Vertex(Vector3f(-0.5f, 0.0f, -0.5f), Vector2f(0.0f, 0.0f));
+    vertices[1] = Vertex(Vector3f(0.5f, 0.0f, -0.5f), Vector2f(0.0f, 1.0f));
+    vertices[2] = Vertex(Vector3f(-0.5f, 0.0f, 0.5f), Vector2f(1.0f, 0.0f));
+    vertices[3] = Vertex(Vector3f(0.5f, 0.0f, 0.5f), Vector2f(1.0f, 1.0f));
+    vertices[4] = Vertex(Vector3f(-0.5f, 0.5f, -0.5f), Vector2f(0.0f, 0.0f));
+    vertices[5] = Vertex(Vector3f(0.5f, 0.5f, -0.5f), Vector2f(0.0f, 1.0f));
+    vertices[6] = Vertex(Vector3f(-0.5f, 0.5f, 0.5f), Vector2f(1.0f, 0.0f));
+    vertices[7] = Vertex(Vector3f(0.5f, 0.5f, 0.5f), Vector2f(1.0f, 1.0f));
 
     // IBO data
     int indices[] = { 4, 6, 7,   // 1a
@@ -66,9 +66,13 @@ void Tile::loadModelData()
                       2, 6, 7,   // 6a
                       2, 7, 3 }; // 6b
 
+
     model_.loadVertices(vertices, sizeof(vertices));
     model_.loadIndices(indices, sizeof(indices));
-    */
+
+    Texture * texture = new Texture("assets/art/textures/tile.png");
+    model_.setTexture(texture);
+
 }
 
 void Tile::render()
