@@ -1,7 +1,7 @@
 #version 130
 in vec3 Position;
 in vec2 TexCoord;
-uniform mat4 World;
+uniform mat4x4 World;
 uniform mat4x4 Camera;
 uniform mat4x4 Projection;
 uniform vec4 Color;

@@ -21,6 +21,7 @@ class Model
         GLuint cameraLoc_;
         GLuint projectionLoc_;
         GLuint colorLoc_;
+        GLuint texLoc_;
         GLuint samplerLoc_;
         GLuint vbo_;
         GLuint ibo_;

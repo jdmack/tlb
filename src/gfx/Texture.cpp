@@ -24,7 +24,6 @@ Texture::Texture(GLenum textureTarget, const std::string & filename)
 bool Texture::load()
 {
     // Read in image
-    /*
     SDL_Surface * surface = Game::instance()->renderer()->loadImageAlpha(filename_);
 
     if(surface == nullptr) {
@@ -51,7 +50,7 @@ bool Texture::load()
             std::cout << "GL_RGBA" << std::endl;
         }
         else {
-            std::cout << "Pixel Format not recognized for GL display" << std::endl;
+            std::cout << "Pixel Format not recognized for GL display - 4 bytes" << std::endl;
         }
     }
     else if(surface->format->BytesPerPixel == 3) {
@@ -64,18 +63,17 @@ bool Texture::load()
             std::cout << "RGB" << std::endl;
         }
         else {
-            std::cout << "Pixel Format not recognized for GL display" << std::endl;
+            std::cout << "Pixel Format not recognized for GL display - 3 bytes" << std::endl;
         }
     }
     else {
-        std::cout << "Pixel Format not recognized for GL display" << std::endl;
+        std::cout << "Pixel Format not recognized for GL display - bytes: " << surface->format->BytesPerPixel << std::endl;
     }
 
     //int mode = GL_RGB;
     //if(surface->format->BytesPerPixel == 4) {
         //mode = GL_RGBA;
     //}
-    */
 
     try {
         image_.read(filename_);
@@ -86,58 +84,32 @@ bool Texture::load()
         return false;
     }
 
-
     // Generate texture object
     glGenTextures(1, &textureObj_);
 
     // Bind current texture
-    textureTarget_ = GL_TEXTURE_2D;
     glBindTexture(textureTarget_, textureObj_);
 
     // Load texture data into OpenGL
-    //glTexImage2D(textureTarget_, 0, mode, surface->w, surface->h, 0, mode, GL_UNSIGNED_BYTE, surface->pixels);
+    glTexImage2D(textureTarget_, 0, mode, surface->w, surface->h, 0, mode, GL_UNSIGNED_BYTE, surface->pixels);
 
     glTexParameteri(textureTarget_, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(textureTarget_, GL_TEXTURE_MAG_FILTER, GL_LINEAR);    
     glTexParameteri(textureTarget_, GL_TEXTURE_WRAP_S, GL_REPEAT);    
     glTexParameteri(textureTarget_, GL_TEXTURE_WRAP_T, GL_REPEAT);    
 
-
-
-    int imageWidth = 128;
-    int imageHeight = 128;
-
-
-GLubyte * image_data_temp = new GLubyte[imageWidth * imageHeight * 3];
-GLubyte * dst_image = image_data_temp;
-for(unsigned int i = 0; i < imageWidth * imageHeight; i++) {
-    if(i < 8000) {
-    dst_image[0] = 0xFF;
-    dst_image[1] = 0x00;
-    dst_image[2] = 0x00;
-    }
-    else {
-    dst_image[0] = 0x00;
-    dst_image[1] = 0xFF;
-    dst_image[2] = 0x00;
-    }
-    dst_image += 3;
-}
-glTexImage2D(textureTarget_, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image_data_temp);
-delete [] image_data_temp;
-
-    //glTexImage2D(textureTarget_, 0, GL_RGB, image_.columns(), image_.rows(), 0, GL_RGB, GL_UNSIGNED_BYTE, blob_.data());
+    //glTexImage2D(textureTarget_, 0, GL_RGBA, image_.columns(), image_.rows(), 0, GL_RGBA, GL_UNSIGNED_BYTE, blob_.data());
 
     // Unbind texture
     glBindTexture(textureTarget_, 0);
 
-    //SDL_FreeSurface(surface);
+    SDL_FreeSurface(surface);
     
     return true;
 }
 
 void Texture::bind(GLenum textureUnit)
 {
-    glActiveTexture(textureUnit);
-    glBindTexture(textureTarget_, textureObj_);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, textureObj_);
 }
