@@ -106,7 +106,7 @@ void GameObject::loadModelData()
     model_.loadVertices(vertices, sizeof(vertices));
     model_.loadIndices(indices, sizeof(indices));
 
-    Texture * texture = new Texture("assets/art/textures/test.png");
+    Texture * texture = new Texture("assets/art/textures/test3.png");
     model_.setTexture(texture);
 
 }

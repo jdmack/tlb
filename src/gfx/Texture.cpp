@@ -1,5 +1,5 @@
 #include <iostream>
-#include <ImageMagick/Magick++.h>
+//#include <ImageMagick/Magick++.h>
 #include "gfx/Texture.h"
 #include "gfx/Renderer.h"
 #include "Game.h"
@@ -75,6 +75,7 @@ bool Texture::load()
         //mode = GL_RGBA;
     //}
 
+    /*
     try {
         image_.read(filename_);
         image_.write(&blob_, "RGBA");
@@ -83,6 +84,7 @@ bool Texture::load()
         std::cout << "ERROR loading texture '" << filename_ << "': " << error.what() << std::endl;
         return false;
     }
+    */
 
     // Generate texture object
     glGenTextures(1, &textureObj_);
