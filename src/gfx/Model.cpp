@@ -32,7 +32,7 @@ Model::Model()
     mode_ = GL_TRIANGLES;
     numOfIndices_ = 0;
 
-    color_ = Vector4f(1.0f, 0.0f, 0.0f, 1.0f);
+    color_ = Vector4f(0.0f, 0.0f, 0.0f, 0.0f);
 
     texture_ = nullptr;
 
