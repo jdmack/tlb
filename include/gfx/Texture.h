@@ -2,6 +2,7 @@
 #define	TLB_GFX_TEXTURE_H_
 
 #include <string>
+#include <ImageMagick/Magick++.h>
 
 #include <GL/glew.h>
 
@@ -19,6 +20,9 @@ class Texture
         std::string filename_;
         GLenum textureTarget_;
         GLuint textureObj_;
+
+        Magick::Image image_;
+        Magick::Blob blob_;
 };
 
 #endif

@@ -13,6 +13,27 @@ class Vertex
         Vertex();
         Vertex(Vector3f position, Vector2f tex);
 };
+/*
+struct Vertex
+{
+    float x_;
+    float y_;
+    float z_;
+    float s_;
+    float t_;
 
+    Vertex() {}
+    Vertex(float x, float y, float z, float s, float t)
+    {
+        x_ = x;
+        y_ = x;
+        z_ = z;
+        s_ = s;
+        t_ = t;
+    }
+
+
+};
+*/
 #endif
 
