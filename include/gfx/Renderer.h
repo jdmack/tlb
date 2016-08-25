@@ -17,6 +17,7 @@ class DebugFrame;
 class Camera;
 class Frame;
 class Shader;
+class ResourceManager;
 
 /* Renderer Attributes */
 //const int kRendererWidth        = 800;
@@ -42,6 +43,8 @@ class Renderer
         Shader* shader_;
         Shader* textureShader_;
 
+        ResourceManager * resourceManager_;
+
     public:
         Renderer();
 
@@ -54,6 +57,7 @@ class Renderer
         Camera * camera() const { return camera_; }
         Shader * shader() { return shader_; }
         Shader * textureShader() { return textureShader_; }
+        ResourceManager * resourceManager() { return resourceManager_; }
 
         bool init();
         void update();

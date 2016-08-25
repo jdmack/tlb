@@ -17,6 +17,7 @@
 #include "math/Math.h"
 #include "util/FileReader.h"
 #include "Frame.h"
+#include "gfx/ResourceManager.h"
 
 #include "gfx/Shader.h"
 
@@ -32,6 +33,8 @@ Renderer::Renderer()
     window_ = nullptr;
     renderer_ = nullptr;
     camera_ = nullptr;
+
+    resourceManager_ = nullptr;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -159,6 +162,7 @@ bool Renderer::init()
     //glEnable(GL_CULL_FACE);
 
     camera_ = new Camera(kRendererWidth, kRendererHeight);
+    resourceManager_ = new ResourceManager();
 
     return true;
 }

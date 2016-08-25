@@ -2,6 +2,7 @@
 #include "Level.h"
 #include "gfx/Camera.h"
 #include "gfx/Renderer.h"
+#include "gfx/ResourceManager.h"
 #include "Game.h"
 #include "Point.h"
 #include "gfx/Tileset.h"
@@ -70,8 +71,10 @@ void Tile::loadModelData()
     model_.loadVertices(vertices, sizeof(vertices));
     model_.loadIndices(indices, sizeof(indices));
 
-    Texture * texture = new Texture("assets/art/textures/tile.png");
-    model_.setTexture(texture);
+    model_.setTexture(Game::instance()->renderer()->resourceManager()->getTexture("assets/art/textures/tile.png"));
+
+    //Texture * texture = new Texture("assets/art/textures/tile.png");
+    //model_.setTexture(texture);
 
 }
 
