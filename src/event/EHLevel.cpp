@@ -16,6 +16,7 @@
 #include "EntityManager.h"
 #include "ui/UserInterface.h"
 #include "gfx/Renderer.h"
+#include "gfx/Light.h"
 #include "gfx/Camera.h"
 #include "gfx/MousePicker.h"
 #include "Level.h"
@@ -263,7 +264,15 @@ void EHLevel::keyPress(KeyType key)
         case KEY_LEFT:
         case KEY_RIGHT:
         case KEY_A:
+        {
+            Light * light = Game::instance()->renderer()->light();
+            float ambientIntensity = light->ambientIntensity();
+            ambientIntensity += 0.1;
+            if(ambientIntensity > 1.0) ambientIntensity = 1.0;
+            light->setAmbientIntensity(ambientIntensity);
+
             break;
+        }
         case KEY_B:
             break;
         case KEY_C:
@@ -289,6 +298,15 @@ void EHLevel::keyPress(KeyType key)
         case KEY_X:
         case KEY_Y:
         case KEY_Z:
+        {
+            Light * light = Game::instance()->renderer()->light();
+            float ambientIntensity = light->ambientIntensity();
+            ambientIntensity -= 0.1;
+            if(ambientIntensity < 0.0) ambientIntensity = 0.0;
+            light->setAmbientIntensity(ambientIntensity);
+
+            break;
+        }
         case KEY_NONE:
             break;
     }

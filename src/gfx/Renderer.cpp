@@ -20,6 +20,7 @@
 #include "gfx/ResourceManager.h"
 
 #include "gfx/Shader.h"
+#include "gfx/Light.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -138,9 +139,16 @@ bool Renderer::init()
         Logger::write(Logger::ss << "ERROR: Could not initialize shader");
         return false;
     }
-    textureShader_ = new Shader("shader/v2.vs", "shader/f2.fs");
+    //textureShader_ = new Shader("shader/v2.vs", "shader/f2.fs");
+    textureShader_ = new Shader("shader/v2.vs", "shader/lighting.fs");
     if(!textureShader_->init()) {
         Logger::write(Logger::ss << "ERROR: Could not initialize shader");
+        return false;
+    }
+
+    light_ = new Light();
+    if(!light_->init()) {
+        Logger::write(Logger::ss << "ERROR: Could not initialize light");
         return false;
     }
 
@@ -269,6 +277,16 @@ void Renderer::clear(Color clearColor)
 //
 ////////////////////////////////////////////////////////////////////////////////
 void Renderer::update()
+{
+    light_->update();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//
+//
+////////////////////////////////////////////////////////////////////////////////
+void Renderer::render()
 {
     //if(debug_) debugFrame_->render();
     //SDL_RenderPresent(renderer_);

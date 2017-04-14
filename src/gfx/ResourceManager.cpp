@@ -14,7 +14,7 @@ Texture * ResourceManager::getTexture(std::string filename)
     Texture * texture = nullptr;
     if(textures_.count(filename) > 0) {
         texture = textures_[filename];
-        Logger::write(Logger::ss << "Texture exists: " << filename);
+        //Logger::write(Logger::ss << "Texture exists: " << filename);
     }
     else {
         Logger::write(Logger::ss << "Texture does not exist, creating: " << filename);

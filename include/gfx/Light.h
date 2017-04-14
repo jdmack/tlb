@@ -14,6 +14,7 @@ class Light
 {
     public:
         Light();
+        Light(Vector3f color, float ambientIntensity);
 
         bool init();
 
@@ -26,6 +27,8 @@ class Light
         //void setDirectionalLight(DirectionalLight directionalLight) { directionalLight_ = directionalLight; }
         void setColor(Vector3f color) { color_ = color; }
         void setAmbientIntensity(float ambientIntensity) { ambientIntensity_ = ambientIntensity; } 
+
+        void update();
 
     private:
         struct DirectionalLight directionalLight_;

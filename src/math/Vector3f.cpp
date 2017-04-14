@@ -266,6 +266,15 @@ float Vector3f::angle(Vector3f v)
     return std::acos(dotProduct / (thisMag * vMag));
 }
 
+const float * Vector3f::pointer()
+{
+    m_[0] = x_;
+    m_[1] = y_;
+    m_[2] = z_;
+    return &m_[0];
+}
+
+
 std::string Vector3f::str()
 {
     std::stringstream ss;

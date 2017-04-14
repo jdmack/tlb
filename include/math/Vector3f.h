@@ -14,6 +14,9 @@ class Vector3f
         float y_;
         float z_;
 
+        float m_[3];
+
+
     public:
         // constructors
         Vector3f();
@@ -81,6 +84,8 @@ class Vector3f
         void rotate(float angle, const Vector3f axis);
         
         float distanceFrom(Vector3f point);
+
+        const float * pointer();
 
         std::string str();
         friend std::ostream & operator<<(std::ostream & os, const Vector3f & v);

@@ -17,6 +17,7 @@ class DebugFrame;
 class Camera;
 class Frame;
 class Shader;
+class Light;
 class ResourceManager;
 
 /* Renderer Attributes */
@@ -40,8 +41,9 @@ class Renderer
         SDL_GLContext context_;
         Camera * camera_;
 
-        Shader* shader_;
-        Shader* textureShader_;
+        Shader * shader_;
+        Shader * textureShader_;
+        Light * light_;
 
         ResourceManager * resourceManager_;
 
@@ -56,11 +58,13 @@ class Renderer
         SDL_GLContext context() const { return context_;}
         Camera * camera() const { return camera_; }
         Shader * shader() { return shader_; }
+        Light * light() { return light_; }
         Shader * textureShader() { return textureShader_; }
         ResourceManager * resourceManager() { return resourceManager_; }
 
         bool init();
         void update();
+        void render();
         void clear();
         void clear(Color color);
         void cleanUp();

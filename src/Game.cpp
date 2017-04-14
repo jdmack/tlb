@@ -91,6 +91,7 @@ void Game::gameLoop()
         // Update
         //if(deltaTimer_.getTicks() >= 33) {
         bool keepState = currentState_->update(deltaTimer_.getTicks());
+        renderer_->update();
 
         deltaTimer_.start();
 
@@ -98,7 +99,7 @@ void Game::gameLoop()
         renderer_->clear();
         currentState_->render();
 
-        renderer_->update();
+        renderer_->render();
 
         if(!keepState) {
             changeState();
