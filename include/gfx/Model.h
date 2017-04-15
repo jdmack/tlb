@@ -17,11 +17,12 @@ class Model
 {
     private:
         GLuint vertexPositionLoc_;
+        GLuint texLoc_;
+        GLuint normalLoc_;
         GLuint worldLoc_;
         GLuint cameraLoc_;
         GLuint projectionLoc_;
         GLuint colorLoc_;
-        GLuint texLoc_;
         GLuint samplerLoc_;
         GLuint vbo_;
         GLuint ibo_;
@@ -51,6 +52,7 @@ class Model
 
         void loadVertices(Vertex * vertices, int size);
         void loadIndices(int * indices, int size);
+        void calculateNormals(const int * indices, int indexCount, Vertex * vertices, int vertexCount);
 };
 
 #endif

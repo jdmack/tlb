@@ -14,7 +14,7 @@ class Vector3f
         float y_;
         float z_;
 
-        float m_[3];
+        //float m_[3];
 
 
     public:
@@ -85,7 +85,7 @@ class Vector3f
         
         float distanceFrom(Vector3f point);
 
-        const float * pointer();
+        //const float * pointer();
 
         std::string str();
         friend std::ostream & operator<<(std::ostream & os, const Vector3f & v);

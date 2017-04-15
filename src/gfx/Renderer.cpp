@@ -140,7 +140,8 @@ bool Renderer::init()
         return false;
     }
     //textureShader_ = new Shader("shader/v2.vs", "shader/f2.fs");
-    textureShader_ = new Shader("shader/v2.vs", "shader/lighting.fs");
+    //textureShader_ = new Shader("shader/v2.vs", "shader/lighting.fs");
+    textureShader_ = new Shader("shader/lighting.vs", "shader/lighting.fs");
     if(!textureShader_->init()) {
         Logger::write(Logger::ss << "ERROR: Could not initialize shader");
         return false;

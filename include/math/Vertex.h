@@ -9,9 +9,21 @@ class Vertex
     public:
         Vector3f position_;
         Vector2f tex_;
+        Vector3f normal_;
 
         Vertex();
         Vertex(Vector3f position, Vector2f tex);
+
+        // accessors
+        Vector3f & position() { return position_; }
+        Vector2f tex() { return tex_; }
+        Vector3f & normal() { return normal_; }
+
+        // mutators
+        void setPosition(Vector3f position) { position_ = position; }
+        void setTex(Vector2f tex) { tex_ = tex; }
+        void setNormal(Vector3f normal) { normal_ = normal; }
+
 };
 /*
 struct Vertex

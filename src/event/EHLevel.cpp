@@ -276,6 +276,15 @@ void EHLevel::keyPress(KeyType key)
         case KEY_B:
             break;
         case KEY_C:
+        {
+            Light * light = Game::instance()->renderer()->light();
+            float diffuseIntensity = light->diffuseIntensity();
+            diffuseIntensity -= 0.1;
+            if(diffuseIntensity < 0.0) diffuseIntensity = 0.0;
+            light->setDiffuseIntensity(diffuseIntensity);
+
+            break;
+        }
         case KEY_D:
         case KEY_E:
         case KEY_F:
@@ -296,6 +305,15 @@ void EHLevel::keyPress(KeyType key)
         case KEY_V:
         case KEY_W:
         case KEY_X:
+        {
+            Light * light = Game::instance()->renderer()->light();
+            float diffuseIntensity = light->diffuseIntensity();
+            diffuseIntensity += 0.1;
+            if(diffuseIntensity > 1.0) diffuseIntensity = 1.0;
+            light->setDiffuseIntensity(diffuseIntensity);
+
+            break;
+        }
         case KEY_Y:
         case KEY_Z:
         {

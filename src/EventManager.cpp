@@ -64,7 +64,10 @@ void EventManager::handleEvents()
                 case SDLK_s:    // S
                     key = KEY_S;
                     break;
-                case SDLK_z:    // S
+                case SDLK_x:    // X
+                    key = KEY_X;
+                    break;
+                case SDLK_z:    // Z
                     key = KEY_Z;
                     break;
                 case SDLK_UP:       // Up Arrow

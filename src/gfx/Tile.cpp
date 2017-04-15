@@ -67,6 +67,7 @@ void Tile::loadModelData()
                       2, 6, 7,   // 6a
                       2, 7, 3 }; // 6b
 
+    model_.calculateNormals(indices, 36, vertices, 8);
 
     model_.loadVertices(vertices, sizeof(vertices));
     model_.loadIndices(indices, sizeof(indices));

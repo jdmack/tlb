@@ -103,6 +103,8 @@ void GameObject::loadModelData()
     //int indices[] = { 0, 1, 2,
     //                  1, 2, 3 };
 
+    model_.calculateNormals(indices, 18, vertices, 5);
+
     model_.loadVertices(vertices, sizeof(vertices));
     model_.loadIndices(indices, sizeof(indices));
 
