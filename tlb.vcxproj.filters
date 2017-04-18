@@ -201,6 +201,8 @@
     <ClCompile Include="src\math\Vector2f.cpp">
       <Filter>math</Filter>
     </ClCompile>
+    <ClCompile Include="src\gfx\ResourceManager.cpp" />
+    <ClCompile Include="src\gfx\Light.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Assets.h" />
@@ -410,6 +412,7 @@
     <ClInclude Include="include\gfx\Texture.h">
       <Filter>gfx</Filter>
     </ClInclude>
+    <ClInclude Include="include\gfx\ResourceManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="action">

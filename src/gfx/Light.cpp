@@ -8,9 +8,9 @@
 Light::Light()
 {
     color_ = Vector3f(1.0, 1.0, 1.0);
-    ambientIntensity_ = 1.0;
-    direction_ = Vector3f(1.0, 1.0, 1.0);
-    diffuseIntensity_ = 1.0;
+    ambientIntensity_ = 0.3;
+    direction_ = Vector3f(1.0, 1.0, 0.0);
+    diffuseIntensity_ = 0.8;
 
     update();
 }
