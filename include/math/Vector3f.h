@@ -80,7 +80,7 @@ class Vector3f
         
         float distanceFrom(Vector3f point);
 
-        //const float * pointer();
+        const float * pointer();
 
         std::string str();
         friend std::ostream & operator<<(std::ostream & os, const Vector3f & v);

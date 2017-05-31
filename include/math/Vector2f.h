@@ -28,6 +28,8 @@ class Vector2f
 
         float distanceFrom(Vector2f point);
 
+        const float * pointer();
+
         std::string toString();
         friend std::ostream & operator<<(std::ostream & os, const Vector2f & v);
 

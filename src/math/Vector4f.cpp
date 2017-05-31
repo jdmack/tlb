@@ -192,10 +192,6 @@ void Vector4f::dehomogenize()
 
 const float * Vector4f::pointer()
 {
-    m_[0] = m_[0];
-    m_[1] = m_[1];
-    m_[2] = m_[2];
-    m_[3] = m_[3];
     return &m_[0];
 }
 

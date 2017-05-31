@@ -59,6 +59,7 @@ class Vector4f
 
         // Dehomogenize (make fourth component equal to 1)
         void dehomogenize();
+
         const float * pointer();
         
         friend std::ostream & operator<<(std::ostream & os, const Vector4f & v);

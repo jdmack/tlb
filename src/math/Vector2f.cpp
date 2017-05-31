@@ -52,6 +52,12 @@ float Vector2f::distanceFrom(Vector2f point)
     return sqrt((xDistance * xDistance) + (yDistance * yDistance));
 }
 
+const float * Vector2f::pointer()
+{
+        return &m_[0];
+}
+
+
 std::ostream & operator<<(std::ostream & os, const Vector2f & v)
 {
         os << "(" << v.x() << ", " << v.y() << ">";
