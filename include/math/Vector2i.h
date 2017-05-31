@@ -25,7 +25,7 @@ class Vector2i
 
         int distanceFrom(Vector2i point);
 
-        const float * pointer();
+        const int * pointer();
 
         std::string toString();
         friend std::ostream & operator<<(std::ostream & os, const Vector2i & v);

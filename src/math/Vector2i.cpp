@@ -45,7 +45,7 @@ int Vector2i::distanceFrom(Vector2i point)
     return sqrt((xDistance * xDistance) + (yDistance * yDistance));
 }
 
-const float * Vector2i::pointer()
+const int * Vector2i::pointer()
 {
         return &m_[0];
 }
