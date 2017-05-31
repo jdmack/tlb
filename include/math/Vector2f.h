@@ -6,19 +6,19 @@
 class Vector2f
 {
     private:
-        float x_;
-        float y_;
+        float m_[2];
+
     public:
         Vector2f();
         Vector2f(float x, float y);
 
         // accessors
-        float x() const { return x_; }
-        float y() const { return y_; }
+        float x() const { return m_[0]; }
+        float y() const { return m_[1]; }
 
         // mutators
-        void setX(float x) { x_= x; }
-        void setY(float y) { y_= y; }
+        void setX(float x) { m_[0]= x; }
+        void setY(float y) { m_[1]= y; }
 
         // copy assignment operator
         Vector2f & operator=(Vector2f v);

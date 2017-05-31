@@ -6,19 +6,19 @@
 class Vector2i
 {
     private:
-        int x_;
-        int y_;
+        int m_[2];
+
     public:
         Vector2i();
         Vector2i(int x, int y);
 
         // accessors
-        int x() const { return x_; }
-        int y() const { return y_; }
+        int x() const { return m_[0]; }
+        int y() const { return m_[1]; }
 
         // mutators
-        void setX(int x) { x_= x; }
-        void setY(int y) { y_= y; }
+        void setX(int x) { m_[0]= x; }
+        void setY(int y) { m_[1]= y; }
 
         bool operator==(const Vector2i &other) const;
         bool operator!=(const Vector2i &other) const;

@@ -7,11 +7,6 @@ class Matrix4f;
 class Vector4f
 {
     private:
-        float x_;
-        float y_;
-        float z_;
-        float w_;
-
         float m_[4];
 
     public:
@@ -24,19 +19,19 @@ class Vector4f
 
         // accessors
         // Element access 'get': return one of the four coordinates
-        float x() const { return x_; }
-        float y() const { return y_; }
-        float z() const { return z_; }
-        float w() const { return w_; }
+        float x() const { return m_[0]; }
+        float y() const { return m_[1]; }
+        float z() const { return m_[2]; }
+        float w() const { return m_[3]; }
         float get(int coordinate) const;
         float get(char coordinate) const;
 
         // mutators
         // Element access 'set': set each coordinate separately
-        void setX(float x) { x_ = x; }
-        void setY(float y) { y_ = y; }
-        void setZ(float z) { z_ = z; }
-        void setW(float w) { w_ = w; }
+        void setX(float x) { m_[0] = x; }
+        void setY(float y) { m_[1] = y; }
+        void setZ(float z) { m_[2] = z; }
+        void setW(float w) { m_[3] = w; }
         void setCoordinates(float x, float y, float z, float w);
         void set(int coordinate, float value);
 

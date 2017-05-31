@@ -10,12 +10,7 @@
 class Vector3f
 {
     private:
-        float x_;
-        float y_;
-        float z_;
-
-        //float m_[3];
-
+        float m_[3];
 
     public:
         // constructors
@@ -25,17 +20,17 @@ class Vector3f
 
         // accessors
         // Element access 'get': return a specific coordinate of the vector
-        float x() const { return x_; }
-        float y() const { return y_; }
-        float z() const { return z_; }
+        float x() const { return m_[0]; }
+        float y() const { return m_[1]; }
+        float z() const { return m_[2]; }
         float get(int coordinate) const;
         float get(char coordinate) const;
 
         // mutators
         // Element access 'set': set the vector coordinates
-        void setX(float x) { x_ = x; }
-        void setY(float y) { y_ = y; }
-        void setZ(float z) { z_ = z; }
+        void setX(float x) { m_[0] = x; }
+        void setY(float y) { m_[1] = y; }
+        void setZ(float z) { m_[2] = z; }
         void set(float x, float y, float z);
         void set(int i, float val);
 

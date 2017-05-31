@@ -10,16 +10,16 @@
 // constructors
 Vector3f::Vector3f()
 {
-    x_ = 0;
-    y_ = 0;
-    z_ = 0;
+    m_[0] = 0;
+    m_[1] = 0;
+    m_[2] = 0;
 }
 // A constructor with three parameters for the vector coordinates
 Vector3f::Vector3f(float x, float y, float z)
 {
-    x_ = x;
-    y_ = y;
-    z_ = z;
+    m_[0] = x;
+    m_[1] = y;
+    m_[2] = z;
 }
 
 // accessors
@@ -28,16 +28,16 @@ float Vector3f::get(int coordinate) const
 {
     switch(coordinate) {
         case 0:
-            return x_;
+            return m_[0];
             break;
         case 1:
-            return y_;
+            return m_[1];
             break;
         case 2:
-            return z_;
+            return m_[2];
             break;
         default:
-            return x_;
+            return m_[0];
     }
 }
 
@@ -45,16 +45,16 @@ float Vector3f::get(char coordinate) const
 {
     switch(coordinate) {
         case 'x':
-            return x_;
+            return m_[0];
             break;
         case 'y':
-            return y_;
+            return m_[1];
             break;
         case 'z':
-            return z_;
+            return m_[2];
             break;
         default:
-            return x_;
+            return m_[0];
     }
 
 }
@@ -63,22 +63,22 @@ float Vector3f::get(char coordinate) const
 // Element access 'set': set the vector coordinates
 void Vector3f::set(float x, float y, float z)
 {
-    x_ = x;
-    y_ = y;
-    z_ = z;
+    m_[0] = x;
+    m_[1] = y;
+    m_[2] = z;
 }
 
 void Vector3f::set(int i, float val)
 {
     switch(i) {
         case 0:
-            x_ = val;
+            m_[0] = val;
             break;
         case 1:
-            y_ = val;
+            m_[1] = val;
             break;
         case 2:
-            z_ = val;
+            m_[2] = val;
             break;
         default:
             break;
@@ -99,9 +99,9 @@ float Vector3f::operator[](char coordinate) const
 // Copy assignment operator
 Vector3f & Vector3f::operator=(Vector3f v)
 {
-    x_ = v.x();
-    y_ = v.y();
-    z_ = v.z();
+    m_[0] = v.x();
+    m_[1] = v.y();
+    m_[2] = v.z();
 
     return *this;
 }
@@ -109,17 +109,17 @@ Vector3f & Vector3f::operator=(Vector3f v)
 // Vector addition
 void Vector3f::add(Vector3f param)
 {
-    x_ = x_ + param.x();
-    y_ = y_ + param.y();
-    z_ = z_ + param.z();
+    m_[0] = m_[0] + param.x();
+    m_[1] = m_[1] + param.y();
+    m_[2] = m_[2] + param.z();
 }
 
 // Overload operator '+' for addition
 Vector3f Vector3f::operator+(Vector3f param)
 {
-    float newX = x_ + param.x();
-    float newY = y_ + param.y();
-    float newZ = z_ + param.z();
+    float newX = m_[0] + param.x();
+    float newY = m_[1] + param.y();
+    float newZ = m_[2] + param.z();
     
     return Vector3f(newX, newY, newZ);
 }
@@ -127,17 +127,17 @@ Vector3f Vector3f::operator+(Vector3f param)
 // Vector subtraction
 void Vector3f::subtract(Vector3f param)
 {
-    x_ = x_ - param.x();
-    y_ = y_ - param.y();
-    z_ = z_ - param.z();
+    m_[0] = m_[0] - param.x();
+    m_[1] = m_[1] - param.y();
+    m_[2] = m_[2] - param.z();
 }
 
 // Overload operator '-' for subtraction
 Vector3f Vector3f::operator-(Vector3f param)
 {
-    float newX = x_ - param.x();
-    float newY = y_ - param.y();
-    float newZ = z_ - param.z();
+    float newX = m_[0] - param.x();
+    float newY = m_[1] - param.y();
+    float newZ = m_[2] - param.z();
     
     return Vector3f(newX, newY, newZ);
 }
@@ -145,40 +145,40 @@ Vector3f Vector3f::operator-(Vector3f param)
 // Negation
 void Vector3f::negate()
 {
-    x_ = -x_;
-    y_ = -y_;
-    z_ = -z_;
+    m_[0] = -m_[0];
+    m_[1] = -m_[1];
+    m_[2] = -m_[2];
 }
 
 // Scale (multiplication with scalar value)
 void Vector3f::scale(float param)
 {
-    x_ *= param;
-    y_ *= param;
-    z_ *= param;
+    m_[0] *= param;
+    m_[1] *= param;
+    m_[2] *= param;
 }
 Vector3f Vector3f::operator*(float param)
 {
-    float newX = x_ * param;
-    float newY = y_ * param;
-    float newZ = z_ * param;
+    float newX = m_[0] * param;
+    float newY = m_[1] * param;
+    float newZ = m_[2] * param;
     return Vector3f(newX, newY, newZ);
 }
 
 Vector3f Vector3f::operator/(float param)
 {
-    float newX = x_ / param;
-    float newY = y_ / param;
-    float newZ = z_ / param;
+    float newX = m_[0] / param;
+    float newY = m_[1] / param;
+    float newZ = m_[2] / param;
     return Vector3f(newX, newY, newZ);
 }
 
 // Dot product
 float Vector3f::dotProduct(Vector3f param)
 {
-    float dotProduct = (x_ * param.x())
-                       + (y_ * param.y())
-                       + (z_ * param.z());
+    float dotProduct = (m_[0] * param.x())
+                       + (m_[1] * param.y())
+                       + (m_[2] * param.z());
 
     return dotProduct;
 }
@@ -186,9 +186,9 @@ float Vector3f::dotProduct(Vector3f param)
 // Cross product
 Vector3f Vector3f::crossProduct(const Vector3f & param) const
 {
-    float newX = ((y_ * param.z()) - (z_ * param.y()));
-    float newY = ((z_ * param.x()) - (x_ * param.z()));
-    float newZ = ((x_ * param.y()) - (y_ * param.x()));
+    float newX = ((m_[1] * param.z()) - (m_[2] * param.y()));
+    float newY = ((m_[2] * param.x()) - (m_[0] * param.z()));
+    float newZ = ((m_[0] * param.y()) - (m_[1] * param.x()));
     
     return Vector3f(newX, newY, newZ);
 }
@@ -201,9 +201,9 @@ Vector3f Vector3f::operator*(Vector3f param)
 // Magnitude (length of vector)
 float Vector3f::magnitude()
 {
-    float magnitude = std::sqrt(std::pow(x_, 2) 
-                               + std::pow(y_, 2) 
-                               + std::pow(z_, 2)
+    float magnitude = std::sqrt(std::pow(m_[0], 2) 
+                               + std::pow(m_[1], 2) 
+                               + std::pow(m_[2], 2)
                             );
 
     return magnitude;
@@ -213,9 +213,9 @@ float Vector3f::magnitude()
 void Vector3f::normalize()
 {
     float magnitude = this->magnitude();
-    x_ /= magnitude;
-    y_ /= magnitude;
-    z_ /= magnitude;
+    m_[0] /= magnitude;
+    m_[1] /= magnitude;
+    m_[2] /= magnitude;
 }
 
 void Vector3f::rotate(float angle, const Vector3f axis)
@@ -234,25 +234,25 @@ void Vector3f::rotate(float angle, const Vector3f axis)
 
     Quaternion w = rotationQ * (*this) * conjugateQ;
 
-    x_ = w.x();
-    y_ = w.y();
-    z_ = w.z();
+    m_[0] = w.x();
+    m_[1] = w.y();
+    m_[2] = w.z();
 }
 
 void Vector3f::transform(Matrix4f param)
 {
-    Vector4f v4 = Vector4f(x_, y_, z_);
+    Vector4f v4 = Vector4f(m_[0], m_[1], m_[2]);
     v4 = param.multiply(v4);
 
-    x_ = v4.x();
-    y_ = v4.y();
-    z_ = v4.z();
+    m_[0] = v4.x();
+    m_[1] = v4.y();
+    m_[2] = v4.z();
 }
 float Vector3f::distanceFrom(Vector3f point)
 {
-    float x = x_ - point.x();
-    float y = y_ - point.y();
-    float z = z_ - point.z();
+    float x = m_[0] - point.x();
+    float y = m_[1] - point.y();
+    float z = m_[2] - point.z();
 
     return std::sqrt((x * x) + (y * y) + (z * z));
 }
@@ -270,9 +270,9 @@ float Vector3f::angle(Vector3f v)
 const float * Vector3f::pointer()
 {
 
-    m_[0] = x_;
-    m_[1] = y_;
-    m_[2] = z_;
+    m_[0] = m_[0];
+    m_[1] = m_[1];
+    m_[2] = m_[2];
 
     return &m_[0];
 }
@@ -282,7 +282,7 @@ const float * Vector3f::pointer()
 std::string Vector3f::str()
 {
     std::stringstream ss;
-    ss << "<" << x_ << ", " << y_ << ", " << z_ << ">";
+    ss << "<" << m_[0] << ", " << m_[1] << ", " << m_[2] << ">";
     return ss.str();
 }
 

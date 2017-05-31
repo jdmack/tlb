@@ -6,28 +6,28 @@
 // constructors
 Vector4f::Vector4f()
 {
-    x_ = 0;
-    y_ = 0;
-    z_ = 0;
-    w_ = 1;
+    m_[0] = 0;
+    m_[1] = 0;
+    m_[2] = 0;
+    m_[3] = 1;
 }
 
 // A constructor with three parameters for point coordinates
 Vector4f::Vector4f(float x, float y, float z)
 {
-    x_ = x;
-    y_ = y;
-    z_ = z;
-    w_ = 1;
+    m_[0] = x;
+    m_[1] = y;
+    m_[2] = z;
+    m_[3] = 1;
 }
 
 // A constructor with four parameters
 Vector4f::Vector4f(float x, float y, float z, float w)
 {
-    x_ = x;
-    y_ = y;
-    z_ = z;
-    w_ = w;
+    m_[0] = x;
+    m_[1] = y;
+    m_[2] = z;
+    m_[3] = w;
 }
 
 // accessors
@@ -36,19 +36,19 @@ float Vector4f::get(int coordinate) const
 {
     switch(coordinate) {
         case 0:
-            return x_;
+            return m_[0];
             break;
         case 1:
-            return y_;
+            return m_[1];
             break;
         case 2:
-            return z_;
+            return m_[2];
             break;
         case 3:
-            return w_;
+            return m_[3];
             break;
         default:
-            return x_;
+            return m_[0];
     }
 }
 
@@ -56,19 +56,19 @@ float Vector4f::get(char coordinate) const
 {
     switch(coordinate) {
         case 'x':
-            return x_;
+            return m_[0];
             break;
         case 'y':
-            return y_;
+            return m_[1];
             break;
         case 'z':
-            return z_;
+            return m_[2];
             break;
         case 'w':
-            return w_;
+            return m_[3];
             break;
         default:
-            return x_;
+            return m_[0];
     }
 
 }
@@ -77,25 +77,25 @@ float Vector4f::get(char coordinate) const
 // Element access 'set': set the vector coordinates
 void Vector4f::setCoordinates(float x, float y, float z, float w)
 {
-    x_ = x;
-    y_ = y;
-    z_ = z;
-    w_ = w;
+    m_[0] = x;
+    m_[1] = y;
+    m_[2] = z;
+    m_[3] = w;
 }
 void Vector4f::set(int coordinate, float value)
 {
     switch(coordinate) {
         case 0:
-            x_ = value;
+            m_[0] = value;
             break;
         case 1:
-            y_ = value;
+            m_[1] = value;
             break;
         case 2:
-            z_ = value;
+            m_[2] = value;
             break;
         case 3:
-            w_ = value;
+            m_[3] = value;
             break;
     }
 }
@@ -113,19 +113,19 @@ float Vector4f::operator[](char coordinate) const
 // Vector addition
 void Vector4f::add(Vector4f param)
 {
-    x_ = x_ + param.x();
-    y_ = y_ + param.y();
-    z_ = z_ + param.z();
-    w_ = w_ + param.w();
+    m_[0] = m_[0] + param.x();
+    m_[1] = m_[1] + param.y();
+    m_[2] = m_[2] + param.z();
+    m_[3] = m_[3] + param.w();
 }
 
 // Overload operator '+' for addition
 Vector4f Vector4f::operator+(Vector4f param)
 {
-    float newX = x_ + param.x();
-    float newY = y_ + param.y();
-    float newZ = z_ + param.z();
-    float newW = w_ + param.w();
+    float newX = m_[0] + param.x();
+    float newY = m_[1] + param.y();
+    float newZ = m_[2] + param.z();
+    float newW = m_[3] + param.w();
 
     return Vector4f(newX, newY, newZ, newW);
 }
@@ -133,19 +133,19 @@ Vector4f Vector4f::operator+(Vector4f param)
 // Vector subtraction
 void Vector4f::subtract(Vector4f param)
 {
-    x_ = x_ - param.x();
-    y_ = y_ - param.y();
-    z_ = z_ - param.z();
-    w_ = w_ - param.w();
+    m_[0] = m_[0] - param.x();
+    m_[1] = m_[1] - param.y();
+    m_[2] = m_[2] - param.z();
+    m_[3] = m_[3] - param.w();
 }
 
 // Overload operator '-' for subtraction
 Vector4f Vector4f::operator-(Vector4f param)
 {
-    float newX = x_ - param.x();
-    float newY = y_ - param.y();
-    float newZ = z_ - param.z();
-    float newW = w_ - param.w();
+    float newX = m_[0] - param.x();
+    float newY = m_[1] - param.y();
+    float newZ = m_[2] - param.z();
+    float newW = m_[3] - param.w();
 
     return Vector4f(newX, newY, newZ, newW);
 }
@@ -153,10 +153,10 @@ Vector4f Vector4f::operator-(Vector4f param)
 // Dot product
 float Vector4f::dotProduct(Vector4f param)
 {
-    float dotProduct = (x_ * param.x())
-                       + (y_ * param.y())
-                       + (z_ * param.z())
-                       + (w_ * param.w());
+    float dotProduct = (m_[0] * param.x())
+                       + (m_[1] * param.y())
+                       + (m_[2] * param.z())
+                       + (m_[3] * param.w());
 
     return dotProduct;
 }
@@ -164,7 +164,7 @@ float Vector4f::dotProduct(Vector4f param)
 // Multiply (vector-times-matrix)
 Vector4f Vector4f::multiply(Matrix4f param)
 {
-    Vector4f thisV = Vector4f(x_, y_, z_, w_);
+    Vector4f thisV = Vector4f(m_[0], m_[1], m_[2], m_[3]);
     Vector4f result = param.multiply(thisV);
 
     return result;
@@ -184,18 +184,18 @@ Vector4f Vector4f::operator*(Matrix4f & param)
 void Vector4f::dehomogenize()
 {
     // TODO: account for W = 0;
-    x_ /= w_;
-    y_ /= w_;
-    z_ /= w_;
-    w_ /= w_;
+    m_[0] /= m_[3];
+    m_[1] /= m_[3];
+    m_[2] /= m_[3];
+    m_[3] /= m_[3];
 }
 
 const float * Vector4f::pointer()
 {
-    m_[0] = x_;
-    m_[1] = y_;
-    m_[2] = z_;
-    m_[3] = w_;
+    m_[0] = m_[0];
+    m_[1] = m_[1];
+    m_[2] = m_[2];
+    m_[3] = m_[3];
     return &m_[0];
 }
 
