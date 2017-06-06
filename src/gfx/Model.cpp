@@ -25,8 +25,11 @@ Model::Model()
     vertexPositionLoc_ = -1;
     texLoc_ = -1;
     normalLoc_ = -1;
+    specularIntensityLoc_ = -1;
+    specularPowerLoc_ = -1;
     worldLoc_ = -1;
     cameraLoc_ = -1;
+    cameraPositionLoc_ = -1;
     projectionLoc_ = -1;
     colorLoc_ = -1;
     samplerLoc_ = -1;
@@ -60,6 +63,16 @@ bool Model::init()
         Logger::write(Logger::ss << "Normal is not a valid glsl program variable!"); 
     }
 
+    specularIntensityLoc_ = shader->getAttribLocation("SpecularIntensity");
+    if(specularIntensityLoc_ == -1) {
+        Logger::write(Logger::ss << "SpecularIntensity is not a valid glsl program variable!"); 
+    }
+
+    specularPowerLoc_ = shader->getAttribLocation("SpecularPower");
+    if(specularPowerLoc_ == -1) {
+        Logger::write(Logger::ss << "SpecularPower is not a valid glsl program variable!"); 
+    }
+
     worldLoc_ = shader->getUniformLocation("World");
     if(worldLoc_ == -1) {
         Logger::write(Logger::ss << "World is not a valid glsl program variable!"); 
@@ -68,6 +81,11 @@ bool Model::init()
     cameraLoc_ = shader->getUniformLocation("Camera");
     if(cameraLoc_ == -1) {
         Logger::write(Logger::ss << "Camera is not a valid glsl program variable!"); 
+    }
+
+    cameraPositionLoc_ = shader->getUniformLocation("CameraPosition");
+    if(cameraPositionLoc_ == -1) {
+        Logger::write(Logger::ss << "CameraPosition is not a valid glsl program variable!"); 
     }
 
     projectionLoc_ = shader->getUniformLocation("Projection");
@@ -99,9 +117,13 @@ void Model::render()
     glEnableVertexAttribArray(vertexPositionLoc_);
     glEnableVertexAttribArray(texLoc_);
     glEnableVertexAttribArray(normalLoc_);
+    glEnableVertexAttribArray(specularIntensityLoc_);
+    glEnableVertexAttribArray(specularPowerLoc_);
 
     glUniformMatrix4fv(worldLoc_, 1, GL_TRUE, transform_.worldTrans().pointer());
+    // TODO (2017-05-30/JM): Think I can move camera, project
     glUniformMatrix4fv(cameraLoc_, 1, GL_TRUE, Game::instance()->renderer()->camera()->view().pointer());
+    glUniform3fv(cameraPositionLoc_, 1, Game::instance()->renderer()->camera()->position().pointer());
     glUniformMatrix4fv(projectionLoc_, 1, GL_TRUE, Game::instance()->renderer()->camera()->projection().pointer());
 
     glUniform4fv(colorLoc_, 1, color_.pointer());
@@ -109,10 +131,16 @@ void Model::render()
     // Set vertex data
     glBindBuffer(GL_ARRAY_BUFFER, vbo_);
     glVertexAttribPointer(vertexPositionLoc_, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), NULL);
-    // Tex coords are behind a Vector3 in memory 
+    // Tex coords are behind a Vector3(Position) in memory 
     glVertexAttribPointer(texLoc_, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*) sizeof(Vector3f));
-    // Normal are behind a Vector3 and Vector2 in memory 
+    // Normal is behind a Vector3(Position) and Vector2(Tex coords) in memory 
     glVertexAttribPointer(normalLoc_, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*) (sizeof(Vector3f) + sizeof(Vector2f)));
+    // SpecularIntensity is behind a Vector3(Position), Vector2(Tex coords) and Vector3(Normal) in memory
+    glVertexAttribPointer(specularIntensityLoc_, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*) (sizeof(Vector3f) + sizeof(Vector2f) 
+        + sizeof(Vector3f)));
+    // SpecularPower is behind a Vector3(Position), Vector2(Tex coords), Vector3(Normal) and float(SpecularIntensity) in memory
+    glVertexAttribPointer(specularPowerLoc_, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*) (sizeof(Vector3f) + sizeof(Vector2f) 
+        + sizeof(Vector3f) + sizeof(float)));
 
     // Set index data and render
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_);
@@ -129,6 +157,8 @@ void Model::render()
     glDisableVertexAttribArray(vertexPositionLoc_);
     glDisableVertexAttribArray(texLoc_);
     glDisableVertexAttribArray(normalLoc_);
+    glDisableVertexAttribArray(specularIntensityLoc_);
+    glDisableVertexAttribArray(specularPowerLoc_);
 
     shader->disable();
 

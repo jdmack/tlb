@@ -19,8 +19,11 @@ class Model
         GLuint vertexPositionLoc_;
         GLuint texLoc_;
         GLuint normalLoc_;
+        GLuint specularIntensityLoc_;
+        GLuint specularPowerLoc_;
         GLuint worldLoc_;
         GLuint cameraLoc_;
+        GLuint cameraPositionLoc_;
         GLuint projectionLoc_;
         GLuint colorLoc_;
         GLuint samplerLoc_;

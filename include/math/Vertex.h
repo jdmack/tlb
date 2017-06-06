@@ -20,15 +20,15 @@ class Vertex
         Vector3f & position() { return position_; }
         Vector2f tex() { return tex_; }
         Vector3f & normal() { return normal_; }
-        float specularIntensity() { return specularIntensity_; }
-        float specularPower() { return specularPower_; }
+        //float specularIntensity() { return specularIntensity_; }
+        //float specularPower() { return specularPower_; }
 
         // mutators
         void setPosition(Vector3f position) { position_ = position; }
         void setTex(Vector2f tex) { tex_ = tex; }
         void setNormal(Vector3f normal) { normal_ = normal; }
-        void setSpecularIntensity(float specularIntensity) { specularIntensity_ = specularIntensity; }
-        void setSpecularPower(float specularPower) { specularPower_ = specularPower; }
+        //void setSpecularIntensity(float specularIntensity) { specularIntensity_ = specularIntensity; }
+        //void setSpecularPower(float specularPower) { specularPower_ = specularPower; }
 
 };
 /*
