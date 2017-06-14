@@ -48,59 +48,59 @@ bool Model::init()
 {
     Shader * shader = Game::instance()->renderer()->textureShader();
 
-    vertexPositionLoc_ = shader->getAttribLocation("Position");
+    vertexPositionLoc_ = shader->getAttribLocation("v_Position");
     if(vertexPositionLoc_ == -1) {
-        Logger::write(Logger::ss << "Position is not a valid glsl program variable!"); 
+        Logger::write(Logger::ss << "v_Position is not a valid glsl program variable!"); 
     }
 
-    texLoc_ = shader->getAttribLocation("TexCoord");
+    texLoc_ = shader->getAttribLocation("v_TexCoord");
     if(texLoc_ == -1) {
-        Logger::write(Logger::ss << "TexCoord is not a valid glsl program variable!"); 
+        Logger::write(Logger::ss << "v_TexCoord is not a valid glsl program variable!"); 
     }
 
-    normalLoc_ = shader->getAttribLocation("Normal");
+    normalLoc_ = shader->getAttribLocation("v_Normal");
     if(normalLoc_ == -1) {
-        Logger::write(Logger::ss << "Normal is not a valid glsl program variable!"); 
+        Logger::write(Logger::ss << "v_Normal is not a valid glsl program variable!"); 
     }
 
-    specularIntensityLoc_ = shader->getAttribLocation("SpecularIntensity");
+    specularIntensityLoc_ = shader->getAttribLocation("v_SpecularIntensity");
     if(specularIntensityLoc_ == -1) {
-        Logger::write(Logger::ss << "SpecularIntensity is not a valid glsl program variable!"); 
+        Logger::write(Logger::ss << "v_SpecularIntensity is not a valid glsl program variable!"); 
     }
 
-    specularPowerLoc_ = shader->getAttribLocation("SpecularPower");
+    specularPowerLoc_ = shader->getAttribLocation("v_SpecularPower");
     if(specularPowerLoc_ == -1) {
-        Logger::write(Logger::ss << "SpecularPower is not a valid glsl program variable!"); 
+        Logger::write(Logger::ss << "v_SpecularPower is not a valid glsl program variable!"); 
     }
 
-    worldLoc_ = shader->getUniformLocation("World");
+    worldLoc_ = shader->getUniformLocation("v_World");
     if(worldLoc_ == -1) {
-        Logger::write(Logger::ss << "World is not a valid glsl program variable!"); 
+        Logger::write(Logger::ss << "v_World is not a valid glsl program variable!"); 
     }
 
-    cameraLoc_ = shader->getUniformLocation("Camera");
+    cameraLoc_ = shader->getUniformLocation("v_Camera");
     if(cameraLoc_ == -1) {
-        Logger::write(Logger::ss << "Camera is not a valid glsl program variable!"); 
+        Logger::write(Logger::ss << "v_Camera is not a valid glsl program variable!"); 
     }
 
-    cameraPositionLoc_ = shader->getUniformLocation("CameraPosition");
+    cameraPositionLoc_ = shader->getUniformLocation("f_CameraPosition");
     if(cameraPositionLoc_ == -1) {
-        Logger::write(Logger::ss << "CameraPosition is not a valid glsl program variable!"); 
+        Logger::write(Logger::ss << "f_CameraPosition is not a valid glsl program variable!"); 
     }
 
-    projectionLoc_ = shader->getUniformLocation("Projection");
+    projectionLoc_ = shader->getUniformLocation("v_Projection");
     if(projectionLoc_ == -1) {
-        Logger::write(Logger::ss << "Projection is not a valid glsl program variable!"); 
+        Logger::write(Logger::ss << "v_Projection is not a valid glsl program variable!"); 
     }
 
-    colorLoc_ = shader->getUniformLocation("Color");
+    colorLoc_ = shader->getUniformLocation("v_Color");
     if(colorLoc_ == -1) {
-        Logger::write(Logger::ss << "Color is not a valid glsl program variable!"); 
+        Logger::write(Logger::ss << "v_Color is not a valid glsl program variable!"); 
     }
 
-    samplerLoc_ = shader->getUniformLocation("Sampler");
+    samplerLoc_ = shader->getUniformLocation("f_Sampler");
     if(samplerLoc_ == -1) {
-        Logger::write(Logger::ss << "Sampler is not a valid glsl program variable!"); 
+        Logger::write(Logger::ss << "f_Sampler is not a valid glsl program variable!"); 
     }
 
     return true;

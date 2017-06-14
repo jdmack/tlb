@@ -1,28 +1,28 @@
 #version 130
 
-in vec3 Position;
-in vec2 TexCoord;
-in vec3 Normal;
-in float SpecularIntensity;
-in float SpecularPower;
-uniform mat4x4 World;
-uniform mat4x4 Camera;
-uniform mat4x4 Projection;
-uniform vec4 Color;
-out vec3 WorldPosition;
-out vec4 outColor;
-out vec2 TexCoord0;
-out vec3 Normal0;
-out float SpecularIntensity0;
-out float SpecularPower0;
+in vec3 v_Position;
+in vec2 v_TexCoord;
+in vec3 v_Normal;
+in float v_SpecularIntensity;
+in float v_SpecularPower;
+uniform mat4x4 v_World;
+uniform mat4x4 v_Camera;
+uniform mat4x4 v_Projection;
+uniform vec4 v_Color;
+out vec3 f_WorldPosition;
+out vec4 f_Color;
+out vec2 f_TexCoord;
+out vec3 f_Normal;
+out float f_SpecularIntensity;
+out float f_SpecularPower;
 
 void main()
 {
-    gl_Position = Projection * Camera * World * vec4(Position, 1.0);
-    outColor = Color;
-    TexCoord0 = TexCoord;
-    Normal0 = (World * vec4(Normal, 0.0)).xyz;
-    WorldPosition = (World * vec4(Position, 1.0)).xyz;
-    SpecularIntensity0 = SpecularIntensity;
-    SpecularPower0 = SpecularPower;
+    gl_Position = v_Projection * v_Camera * v_World * vec4(v_Position, 1.0);
+    f_Color = v_Color;
+    f_TexCoord = v_TexCoord;
+    f_Normal = (v_World * vec4(v_Normal, 0.0)).xyz;
+    f_WorldPosition = (v_World * vec4(v_Position, 1.0)).xyz;
+    f_SpecularIntensity = v_SpecularIntensity;
+    f_SpecularPower = v_SpecularPower;
 }

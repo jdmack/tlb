@@ -29,24 +29,24 @@ bool Light::init()
 {
     Shader * shader = Game::instance()->renderer()->textureShader();
 
-    dirLightColorLoc_ = shader->getUniformLocation("directionalLight.color");
+    dirLightColorLoc_ = shader->getUniformLocation("f_DirectionalLight.color");
     if(dirLightColorLoc_ == -1) {
-        Logger::write(Logger::ss << "directionalLight.color is not a valid glsl program variable!");
+        Logger::write(Logger::ss << "f_DirectionalLight.color is not a valid glsl program variable!");
     }
 
-    dirLightAmbientIntensityLoc_ = shader->getUniformLocation("directionalLight.ambientIntensity");
+    dirLightAmbientIntensityLoc_ = shader->getUniformLocation("f_DirectionalLight.ambientIntensity");
     if(dirLightAmbientIntensityLoc_ == -1) {
-        Logger::write(Logger::ss << "directionalLight.ambientIntensity is not a valid glsl program variable!");
+        Logger::write(Logger::ss << "f_DirectionalLight.ambientIntensity is not a valid glsl program variable!");
     }
 
-    dirLightDirectionLoc_ = shader->getUniformLocation("directionalLight.direction");
+    dirLightDirectionLoc_ = shader->getUniformLocation("f_DirectionalLight.direction");
     if(dirLightDirectionLoc_ == -1) {
-        Logger::write(Logger::ss << "directionalLight.direction is not a valid glsl program variable!");
+        Logger::write(Logger::ss << "f_DirectionalLight.direction is not a valid glsl program variable!");
     }
 
-    dirLightDiffuseIntensityLoc_ = shader->getUniformLocation("directionalLight.diffuseIntensity");
+    dirLightDiffuseIntensityLoc_ = shader->getUniformLocation("f_DirectionalLight.diffuseIntensity");
     if(dirLightDiffuseIntensityLoc_ == -1) {
-        Logger::write(Logger::ss << "directionalLight.diffuseIntensity is not a valid glsl program variable!");
+        Logger::write(Logger::ss << "f_DirectionalLight.diffuseIntensity is not a valid glsl program variable!");
     }
 
     return true;
