@@ -1,5 +1,6 @@
+/*
 #include "GL/glew.h"
-#include "gfx/DirectionalLight.h"
+#include "gfx/lighting/PointLight.h"
 #include "Game.h"
 #include "gfx/Renderer.h"
 #include "gfx/Shader.h"
@@ -54,3 +55,4 @@ void DirectionalLight::update()
 
     shader->disable();
 }
+*/

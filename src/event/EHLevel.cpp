@@ -16,7 +16,7 @@
 #include "EntityManager.h"
 #include "ui/UserInterface.h"
 #include "gfx/Renderer.h"
-#include "gfx/DirectionalLight.h"
+#include "gfx/lighting/DirectionalLight.h"
 #include "gfx/Camera.h"
 #include "gfx/MousePicker.h"
 #include "Level.h"

@@ -1,5 +1,5 @@
 #include "GL/glew.h"
-#include "gfx/Light.h"
+#include "gfx/lighting/Light.h"
 #include "Game.h"
 #include "gfx/Renderer.h"
 #include "gfx/Shader.h"
@@ -7,7 +7,6 @@
 
 Light::Light()
 {
-    std::cout << "HIIIIIIIIIIIIIIIIIIIIIIIIIIIII" << std::endl;
     color_ = Vector3f(1.0, 1.0, 1.0);
     ambientIntensity_ = 0.3;
     diffuseIntensity_ = 0.8;

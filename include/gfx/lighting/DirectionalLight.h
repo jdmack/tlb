@@ -1,7 +1,7 @@
 #ifndef TLB_GFX_DIRECTIONAL_LIGHT_H_
 #define TLB_GFX_DIRECTIONAL_LIGHT_H_
 
-#include "gfx/Light.h"
+#include "gfx/lighting/Light.h"
 #include "math/Vector3f.h"
 #include "math/Matrix4f.h"
 

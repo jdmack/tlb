@@ -20,7 +20,7 @@
 #include "gfx/ResourceManager.h"
 
 #include "gfx/Shader.h"
-#include "gfx/DirectionalLight.h"
+#include "gfx/lighting/DirectionalLight.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
