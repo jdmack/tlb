@@ -20,7 +20,7 @@
 #include "gfx/ResourceManager.h"
 
 #include "gfx/Shader.h"
-#include "gfx/Light.h"
+#include "gfx/DirectionalLight.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -147,8 +147,8 @@ bool Renderer::init()
         return false;
     }
 
-    light_ = new Light();
-    if(!light_->init()) {
+    dirLight_ = new DirectionalLight();
+    if(!dirLight_->init()) {
         Logger::write(Logger::ss << "ERROR: Could not initialize light");
         return false;
     }
@@ -279,7 +279,7 @@ void Renderer::clear(Color clearColor)
 ////////////////////////////////////////////////////////////////////////////////
 void Renderer::update()
 {
-    light_->update();
+    dirLight_->update();
 }
 
 ////////////////////////////////////////////////////////////////////////////////

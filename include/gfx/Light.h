@@ -4,49 +4,43 @@
 #include "math/Vector3f.h"
 #include "math/Matrix4f.h"
 
-struct DirectionalLight
+/*
+struct Light
 {
     Vector3f color;
     float ambientIntensity;
-    Vector3f direction;
     float diffuseIntensity;
 };
+*/
 
 class Light
 {
     public:
         Light();
-        Light(Vector3f color, float ambientIntensity, Vector3f direction, float diffuseIntensity);
-
-        bool init();
+        Light(Vector3f color, float ambientIntensity, float diffuseIntensity);
+        ~Light();
 
         // accessors
-        struct DirectionalLight directionalLight() { return directionalLight_; }
         Vector3f color() { return color_; }
         float ambientIntensity() { return ambientIntensity_; }
-        Vector3f direction() { return direction_; }
         float diffuseIntensity() { return diffuseIntensity_; }
 
         // mutators
-        //void setDirectionalLight(DirectionalLight directionalLight) { directionalLight_ = directionalLight; }
         void setColor(Vector3f color) { color_ = color; }
         void setAmbientIntensity(float ambientIntensity) { ambientIntensity_ = ambientIntensity; } 
-        void setDirection(Vector3f direction) { direction_ = direction; }
         void setDiffuseIntensity(float diffuseIntensity) { diffuseIntensity_ = diffuseIntensity; } 
 
+        virtual bool init() = 0;
         void update();
 
-    private:
-        struct DirectionalLight directionalLight_;
+    protected:
         Vector3f color_;
         float ambientIntensity_;
-        Vector3f direction_;
         float diffuseIntensity_;
 
-        GLuint dirLightColorLoc_;
-        GLuint dirLightAmbientIntensityLoc_;
-        GLuint dirLightDirectionLoc_;
-        GLuint dirLightDiffuseIntensityLoc_;
+        GLuint colorLoc_;
+        GLuint ambientIntensityLoc_;
+        GLuint diffuseIntensityLoc_;
 };
 
 #endif
