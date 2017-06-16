@@ -1,35 +1,30 @@
 #include "GL/glew.h"
-#include "gfx/lighting/PointLight.h"
+#include "gfx/lighting/SpotLight.h"
 #include "Game.h"
 #include "gfx/Renderer.h"
 #include "gfx/Shader.h"
 #include "util/Logger.h"
 
-PointLight::PointLight()
+SpotLight::SpotLight()
 {
-    position_ = Vector3f(0.0, 0.0, 0.0);
-    attenConstant_ = 0.0;
-    attenLinear_ = 0.0;
-    attenExp_ = 0.0;
-
+    direction_ = Vector3f(0.0, 0.0, 0.0);
+    cutoff_ = 1.0;
 }
 
-PointLight::PointLight(Vector3f color, float ambientIntensity, float diffuseIntensity, Vector3f position,
-    float attenConstant, float attenLinear, float attenExp)
-    : Light(color, ambientIntensity, diffuseIntensity)
+SpotLight::SpotLight(Vector3f color, float ambientIntensity, float diffuseIntensity, Vector3f position,
+    float attenConstant, float attenLinear, float attenExp, Vector3f direction, float cutoff)
+    : PointLight(color, ambientIntensity, diffuseIntensity, position, attenConstant, attenLinear, attenExp)
 {
-    position_ = position;
-    attenConstant_ = attenConstant;
-    attenLinear_ = attenLinear;
-    attenExp_ = attenExp_;
+    direction_ = direction;
+    cutoff_ = cutoff;
 }
 
-bool PointLight::init()
+bool SpotLight::init()
 {
     Shader * shader = Game::instance()->renderer()->textureShader();
 
     std::ostringstream ss;
-    ss << "f_PointLight[" << lightId_ << "]";
+    ss << "f_SpotLight[" << lightId_ << "]";
     std::string preName = ss.str();
     std::string name;
 
@@ -75,20 +70,30 @@ bool PointLight::init()
         Logger::write(Logger::ss << name << " is not a valid glsl program variable!");
     }
 
+    name = preName + ".direction";
+    directionLoc_ = shader->getUniformLocation(name.c_str());
+    if(directionLoc_ == -1) {
+        Logger::write(Logger::ss << name << " is not a valid glsl program variable!");
+    }
+
+    name = preName + ".cutoff";
+    cutoffLoc_ = shader->getUniformLocation(name.c_str());
+    if(cutoffLoc_ == -1) {
+        Logger::write(Logger::ss << name << " is not a valid glsl program variable!");
+    }
+
     return true;
 }
 
-void PointLight::update()
+void SpotLight::update()
 {
-    Light::update();    
+    PointLight::update();    
 
     Shader * shader = Game::instance()->renderer()->textureShader();
     shader->enable();
     
-    glUniform3f(positionLoc_, position_.x(), position_.y(), position_.z());
-    glUniform1f(attenConstantLoc_, attenConstant_);
-    glUniform1f(attenLinearLoc_, attenLinear_);
-    glUniform1f(attenExpLoc_, attenExp_);
+    glUniform3f(directionLoc_, direction_.x(), direction_.y(), direction_.z());
+    glUniform1f(cutoffLoc_, cutoff_);
 
     shader->disable();
 }

@@ -49,6 +49,8 @@ bool LightManager::init()
     }
 
     update();
+
+    return true;
 }
 
 void LightManager::update()
@@ -71,6 +73,8 @@ bool LightManager::createDirectionalLight()
 
     ++numDirectionalLights_;
     directionalLight_ = new DirectionalLight();
+    directionalLight_->init();
+    update();
 
     return true;
 }
@@ -83,6 +87,7 @@ bool LightManager::createDirectionalLight(Vector3f color, float ambientIntensity
 
     ++numDirectionalLights_;
     directionalLight_ = new DirectionalLight(color, ambientIntensity, diffuseIntensity, direction);
+    update();
 
     return true;
 

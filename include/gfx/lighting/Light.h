@@ -1,5 +1,5 @@
-#ifndef TLB_GFX_LIGHT_H_
-#define TLB_GFX_LIGHT_H_
+#ifndef TLB_GFX_LIGHTING_LIGHT_H_
+#define TLB_GFX_LIGHTING_LIGHT_H_
 
 #include "math/Vector3f.h"
 #include "math/Matrix4f.h"
@@ -31,7 +31,7 @@ class Light
         void setDiffuseIntensity(float diffuseIntensity) { diffuseIntensity_ = diffuseIntensity; } 
 
         virtual bool init() = 0;
-        void update();
+        virtual void update();
 
     protected:
         Vector3f color_;

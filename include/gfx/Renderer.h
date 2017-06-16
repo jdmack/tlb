@@ -17,8 +17,8 @@ class DebugFrame;
 class Camera;
 class Frame;
 class Shader;
-class DirectionalLight;
 class ResourceManager;
+class LightManager;
 
 /* Renderer Attributes */
 //const int kRendererWidth        = 800;
@@ -43,9 +43,9 @@ class Renderer
 
         Shader * shader_;
         Shader * textureShader_;
-        DirectionalLight * dirLight_;
 
         ResourceManager * resourceManager_;
+        LightManager * lightManager_;
 
     public:
         Renderer();
@@ -58,9 +58,9 @@ class Renderer
         SDL_GLContext context() const { return context_;}
         Camera * camera() const { return camera_; }
         Shader * shader() { return shader_; }
-        DirectionalLight * dirLight() { return dirLight_; }
         Shader * textureShader() { return textureShader_; }
         ResourceManager * resourceManager() { return resourceManager_; }
+        LightManager * lightManager() { return lightManager_; }
 
         bool init();
         void update();

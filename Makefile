@@ -26,6 +26,7 @@ $(TARGET): $(OBJECTS)
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	@mkdir -p $(BUILDDIR)
 	@mkdir -p $(BUILDDIR)/gfx
+	@mkdir -p $(BUILDDIR)/gfx/lighting
 	@mkdir -p $(BUILDDIR)/util
 	@mkdir -p $(BUILDDIR)/math
 	@mkdir -p $(BUILDDIR)/action

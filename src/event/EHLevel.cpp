@@ -265,11 +265,13 @@ void EHLevel::keyPress(KeyType key)
         case KEY_RIGHT:
         case KEY_A:
         {
+            /*
             DirectionalLight * dirLight = Game::instance()->renderer()->dirLight();
             float ambientIntensity = dirLight->ambientIntensity();
             ambientIntensity += 0.1;
             if(ambientIntensity > 1.0) ambientIntensity = 1.0;
             dirLight->setAmbientIntensity(ambientIntensity);
+            */
 
             break;
         }
@@ -277,11 +279,13 @@ void EHLevel::keyPress(KeyType key)
             break;
         case KEY_C:
         {
+            /*
             DirectionalLight * dirLight = Game::instance()->renderer()->dirLight();
             float diffuseIntensity = dirLight->diffuseIntensity();
             diffuseIntensity -= 0.1;
             if(diffuseIntensity < 0.0) diffuseIntensity = 0.0;
             dirLight->setDiffuseIntensity(diffuseIntensity);
+            */
 
             break;
         }
@@ -306,22 +310,26 @@ void EHLevel::keyPress(KeyType key)
         case KEY_W:
         case KEY_X:
         {
+            /*
             DirectionalLight * dirLight = Game::instance()->renderer()->dirLight();
             float diffuseIntensity = dirLight->diffuseIntensity();
             diffuseIntensity += 0.1;
             if(diffuseIntensity > 1.0) diffuseIntensity = 1.0;
             dirLight->setDiffuseIntensity(diffuseIntensity);
 
+*/
             break;
         }
         case KEY_Y:
         case KEY_Z:
         {
+            /*
             DirectionalLight * dirLight = Game::instance()->renderer()->dirLight();
             float ambientIntensity = dirLight->ambientIntensity();
             ambientIntensity -= 0.1;
             if(ambientIntensity < 0.0) ambientIntensity = 0.0;
             dirLight->setAmbientIntensity(ambientIntensity);
+            */
 
             break;
         }

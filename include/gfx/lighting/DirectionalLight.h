@@ -1,5 +1,5 @@
-#ifndef TLB_GFX_DIRECTIONAL_LIGHT_H_
-#define TLB_GFX_DIRECTIONAL_LIGHT_H_
+#ifndef TLB_GFX_LIGHTING_DIRECTIONAL_LIGHT_H_
+#define TLB_GFX_LIGHTING_DIRECTIONAL_LIGHT_H_
 
 #include "gfx/lighting/Light.h"
 #include "math/Vector3f.h"

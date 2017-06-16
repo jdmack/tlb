@@ -18,9 +18,9 @@
 #include "util/FileReader.h"
 #include "Frame.h"
 #include "gfx/ResourceManager.h"
+#include "gfx/lighting/LightManager.h"
 
 #include "gfx/Shader.h"
-#include "gfx/lighting/DirectionalLight.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -147,9 +147,9 @@ bool Renderer::init()
         return false;
     }
 
-    dirLight_ = new DirectionalLight();
-    if(!dirLight_->init()) {
-        Logger::write(Logger::ss << "ERROR: Could not initialize light");
+    lightManager_ = new LightManager();
+    if(!lightManager_->init()) {
+        Logger::write(Logger::ss << "ERROR: Could not initialize LightManager");
         return false;
     }
 
@@ -279,7 +279,7 @@ void Renderer::clear(Color clearColor)
 ////////////////////////////////////////////////////////////////////////////////
 void Renderer::update()
 {
-    dirLight_->update();
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////

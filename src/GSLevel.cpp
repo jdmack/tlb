@@ -14,6 +14,7 @@
 #include "event/EHLevel.h"
 #include "event/EventDispatcher.h"
 #include "ui/CharacterPanel.h"
+#include "gfx/lighting/LightManager.h"
 
 
 // FOR TESTING
@@ -41,6 +42,9 @@ bool GSLevel::init()
     }
 
     Game::instance()->setLevel(level);
+    LightManager * lightManager = Game::instance()->renderer()->lightManager();
+    lightManager->createDirectionalLight();
+
 
     //userInterface_ = new UserInterface();
 
@@ -65,6 +69,7 @@ bool GSLevel::init()
     tile2_->setHeight(0.1);
     tile2_->setType(2);
 
+    
 
     return true;
 }
