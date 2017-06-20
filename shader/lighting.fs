@@ -103,6 +103,8 @@ vec4 CalcPointLight(int Index, vec3 Normal)
                          f_PointLights[Index].attenLinear * Distance +
                          f_PointLights[Index].attenExp * Distance * Distance;
 
+    //return Color;
+    //return vec4(1,0,0,0);
     return Color / Attenuation;
 }
 
@@ -112,7 +114,7 @@ void main()
     vec4 TotalLight = CalcDirectionalLight(Normal);
 
     for (int i = 0; i < f_NumPointLights; i++) {
-        //TotalLight += CalcPointLight(i, Normal);
+        TotalLight += CalcPointLight(i, Normal);
     }
 
     //FragColor = texture2D(gSampler, TexCoord0.xy) * TotalLight;

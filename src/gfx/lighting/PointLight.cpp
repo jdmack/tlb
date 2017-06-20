@@ -29,7 +29,7 @@ bool PointLight::init()
     Shader * shader = Game::instance()->renderer()->textureShader();
 
     std::ostringstream ss;
-    ss << "f_PointLight[" << lightId_ << "]";
+    ss << "f_PointLights[" << lightId_ << "]";
     std::string preName = ss.str();
     std::string name;
 
@@ -74,6 +74,8 @@ bool PointLight::init()
     if(attenExpLoc_ == -1) {
         Logger::write(Logger::ss << name << " is not a valid glsl program variable!");
     }
+
+    update();
 
     return true;
 }

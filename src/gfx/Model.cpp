@@ -225,8 +225,8 @@ void Model::calculateNormals(const int * indices, int indexCount, Vertex * verti
         normal.normalize();
 
         vertices[index0].setNormal(vertices[index0].normal() + normal);
-        vertices[index1].setNormal(vertices[index0].normal() + normal);
-        vertices[index2].setNormal(vertices[index0].normal() + normal);
+        vertices[index1].setNormal(vertices[index1].normal() + normal);
+        vertices[index2].setNormal(vertices[index2].normal() + normal);
     }
 
     for(unsigned int i = 0; i < vertexCount; ++i) {

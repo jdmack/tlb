@@ -82,18 +82,22 @@ void GameObject::loadModelData()
                       1, 4, 2,
                       2, 4, 3,
                       3, 4, 0 };
+    model_.calculateNormals(indices, 18, vertices, 5);
 
-/*
+    /*
     // Test Data
-    Vertex vertices[4] = { Vertex(Vector3f(-1.0f, -1.0f, 0.5773f), Vector2f(0.0f, 0.0f)),
-                           Vertex(Vector3f(0.0f, -1.0f, -1.15475f), Vector2f(0.5f, 0.0f)),
-                           Vertex(Vector3f(1.0f, -1.0f, 0.5773f), Vector2f(1.0f, 0.0f)),
-                           Vertex(Vector3f(0.0f, 1.0f, 0.0f), Vector2f(0.5f, 1.0f)) };
+    Vertex vertices[4];
+    vertices[0] = Vertex(Vector3f(-1.0f, -1.0f, 0.5773f), Vector2f(0.0f, 0.0f));
+    vertices[1] = Vertex(Vector3f(0.0f, -1.0f, -1.15475f), Vector2f(0.5f, 0.0f));
+    vertices[2] = Vertex(Vector3f(1.0f, -1.0f, 0.5773f), Vector2f(1.0f, 0.0f));
+    vertices[3] = Vertex(Vector3f(0.0f, 1.0f, 0.0f), Vector2f(0.5f, 1.0f));
+
     int indices[] = { 0, 3, 1,
                       1, 3, 2,
                       2, 3, 0,
                       0, 1, 2 };
-*/
+    model_.calculateNormals(indices, 12, vertices, 4);
+  */
 
     // Square
     //Vertex vertices[4] = { Vertex(Vector3f(-1.0f, -1.0f, 0), Vector2f(0.0f, 0.0f)),
@@ -103,7 +107,6 @@ void GameObject::loadModelData()
     //int indices[] = { 0, 1, 2,
     //                  1, 2, 3 };
 
-    model_.calculateNormals(indices, 18, vertices, 5);
 
     model_.loadVertices(vertices, sizeof(vertices));
     model_.loadIndices(indices, sizeof(indices));

@@ -87,6 +87,7 @@ bool LightManager::createDirectionalLight(Vector3f color, float ambientIntensity
 
     ++numDirectionalLights_;
     directionalLight_ = new DirectionalLight(color, ambientIntensity, diffuseIntensity, direction);
+    directionalLight_->init();
     update();
 
     return true;
@@ -101,6 +102,8 @@ bool LightManager::createPointLight()
     
     ++numPointLights_;
     pointLights_[numPointLights_ - 1] = new PointLight();
+    pointLights_[numPointLights_ - 1]->setLightId(numPointLights_ - 1);
+    pointLights_[numPointLights_ - 1]->init();
     update();
     
     return true;
@@ -116,6 +119,8 @@ bool LightManager::createPointLight(Vector3f color, float ambientIntensity, floa
     ++numPointLights_;
     pointLights_[numPointLights_ - 1] = new PointLight(color, ambientIntensity, diffuseIntensity, position,
         attenConstant, attenLinear, attenExp);
+    pointLights_[numPointLights_ - 1]->setLightId(numPointLights_ - 1);
+    pointLights_[numPointLights_ - 1]->init();
     update();
     
     return true;
