@@ -44,8 +44,8 @@ bool GSLevel::init()
     Game::instance()->setLevel(level);
     LightManager * lightManager = Game::instance()->renderer()->lightManager();
 
-    lightManager->createDirectionalLight(Vector3f(1,1,1), 0.0, 0.9, Vector3f(0,-1,0));
-    //lightManager->createPointLight(Vector3f(1,1,1), 1.0, 1.0, Vector3f(10,1,10), 1, 1, 1);
+    //lightManager->createDirectionalLight(Vector3f(1,1,1), 0.2, 0.4, Vector3f(1,-1,0));
+    lightManager->createPointLight(Vector3f(1,1,1), 1.0, 1.0, Vector3f(10,1,10), 1, 1, 0.1);
 
     //userInterface_ = new UserInterface();
 

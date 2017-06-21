@@ -67,6 +67,7 @@ GameObject::~GameObject()
 void GameObject::loadModelData()
 {
     // VBO data
+    /*
     Vertex vertices[5];
     vertices[0] = Vertex(Vector3f(-0.5f, 0.0f, -0.5f), Vector2f(0.0f, 0.0f));
     vertices[1] = Vertex(Vector3f(-0.5f, 0.0f, 0.5f), Vector2f(0.5f, 0.0f));
@@ -83,8 +84,8 @@ void GameObject::loadModelData()
                       2, 4, 3,
                       3, 4, 0 };
     model_.calculateNormals(indices, 18, vertices, 5);
+    */
 
-    /*
     // Test Data
     Vertex vertices[4];
     vertices[0] = Vertex(Vector3f(-1.0f, -1.0f, 0.5773f), Vector2f(0.0f, 0.0f));
@@ -97,7 +98,6 @@ void GameObject::loadModelData()
                       2, 3, 0,
                       0, 1, 2 };
     model_.calculateNormals(indices, 12, vertices, 4);
-  */
 
     // Square
     //Vertex vertices[4] = { Vertex(Vector3f(-1.0f, -1.0f, 0), Vector2f(0.0f, 0.0f)),
