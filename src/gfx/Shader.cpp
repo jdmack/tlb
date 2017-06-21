@@ -230,6 +230,7 @@ void Shader::printShaderLog(GLuint shader)
         if(infoLogLength > 0) {
             // Print log
             printf("%s\n", infoLog);
+            Logger::write(infoLog);
         }
         
         // Deallocate string

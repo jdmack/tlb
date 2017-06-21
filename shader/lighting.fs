@@ -2,7 +2,6 @@
 
 const int MAX_POINT_LIGHTS = 2;
 const int MAX_SPOT_LIGHTS = 2;
-
 in vec4 f_Color;
 in vec2 f_TexCoord;
 in vec3 f_Normal;
@@ -30,15 +29,22 @@ struct PointLight
     float attenExp;
 };
 
+//struct SpotLight
+//{
+//    vec3 color;
+//    float ambientIntensity;
+//    float diffuseIntensity;
+//    vec3 position;
+//    float attenConstant;
+//    float attenLinear;
+//    float attenExp;
+//    vec3 direction;
+//    float cutoff;
+//};
+
 struct SpotLight
 {
-    vec3 color;
-    float ambientIntensity;
-    float diffuseIntensity;
-    vec3 position;
-    float attenConstant;
-    float attenLinear;
-    float attenExp;
+    PointLight base;
     vec3 direction;
     float cutoff;
 };
@@ -50,6 +56,7 @@ uniform int f_NumPointLights;
 uniform int f_NumSpotLights;
 uniform DirectionalLight f_DirectionalLight;
 uniform PointLight f_PointLights[MAX_POINT_LIGHTS];
+uniform SpotLight f_SpotLights[MAX_SPOT_LIGHTS];
 uniform vec3 f_CameraPosition;
 out vec4 FragColor;
 
@@ -90,22 +97,34 @@ vec4 CalcDirectionalLight(vec3 Normal)
     }
 }
 
-vec4 CalcPointLight(int Index, vec3 Normal)
+vec4 CalcPointLight(PointLight Light, vec3 Normal)
 {
-    vec3 LightDirection = f_WorldPosition - f_PointLights[Index].position;
+    vec3 LightDirection = f_WorldPosition - Light.position;
     float Distance = length(LightDirection);
     LightDirection = normalize(LightDirection);
 
-    vec4 Color = CalcLightInternal(f_PointLights[Index].color, f_PointLights[Index].ambientIntensity, 
-        f_PointLights[Index].diffuseIntensity,  LightDirection, Normal);
+    vec4 Color = CalcLightInternal(Light.color, Light.ambientIntensity, 
+        Light.diffuseIntensity,  LightDirection, Normal);
 
-    float Attenuation =  f_PointLights[Index].attenConstant +
-                         f_PointLights[Index].attenLinear * Distance +
-                         f_PointLights[Index].attenExp * Distance * Distance;
+    float Attenuation =  Light.attenConstant +
+                         Light.attenLinear * Distance +
+                         Light.attenExp * Distance * Distance;
 
-    //return Color;
-    //return vec4(1,0,0,0);
     return Color / Attenuation;
+}
+
+vec4 CalcSpotLight(SpotLight Light, vec3 Normal)
+{
+    vec3 LightToPixel = normalize(f_WorldPosition - Light.base.position);
+    float SpotFactor = dot(LightToPixel, Light.direction);
+
+    if(SpotFactor > Light.cutoff) {
+        vec4 Color = CalcPointLight(Light.base, Normal);
+        return Color * (1.0 - (1.0 - SpotFactor) * 1.0/(1.0 - Light.cutoff));
+    }
+    else {
+        return vec4(0, 0, 0, 0);
+    }
 }
 
 void main()
@@ -114,8 +133,13 @@ void main()
     vec4 TotalLight = CalcDirectionalLight(Normal);
 
     for (int i = 0; i < f_NumPointLights; i++) {
-        TotalLight += CalcPointLight(i, Normal);
+        TotalLight += CalcPointLight(f_PointLights[i], Normal);
     }
+
+    for (int i = 0; i < f_NumSpotLights; i++) {
+        TotalLight += CalcSpotLight(f_SpotLights[i], Normal);
+    }
+
 
     //FragColor = texture2D(gSampler, TexCoord0.xy) * TotalLight;
     FragColor = (texture2D(f_Sampler, f_TexCoord.xy) + (0.50 * f_Color)) * TotalLight;

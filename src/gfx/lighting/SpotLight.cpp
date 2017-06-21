@@ -1,9 +1,11 @@
+#include <cmath>
 #include "GL/glew.h"
 #include "gfx/lighting/SpotLight.h"
 #include "Game.h"
 #include "gfx/Renderer.h"
 #include "gfx/Shader.h"
 #include "util/Logger.h"
+#include "math/Math.h"
 
 SpotLight::SpotLight()
 {
@@ -24,47 +26,47 @@ bool SpotLight::init()
     Shader * shader = Game::instance()->renderer()->textureShader();
 
     std::ostringstream ss;
-    ss << "f_SpotLight[" << lightId_ << "]";
+    ss << "f_SpotLights[" << lightId_ << "]";
     std::string preName = ss.str();
     std::string name;
 
-    name = preName + ".color";
+    name = preName + ".base.color";
     colorLoc_ = shader->getUniformLocation(name.c_str());
     if(colorLoc_ == -1) {
         Logger::write(Logger::ss << name << " is not a valid glsl program variable!");
     }
 
-    name = preName + ".ambientIntensity";
+    name = preName + ".base.ambientIntensity";
     ambientIntensityLoc_ = shader->getUniformLocation(name.c_str());
     if(ambientIntensityLoc_ == -1) {
         Logger::write(Logger::ss << name << " is not a valid glsl program variable!");
     }
 
-    name = preName + ".diffuseIntensity";
+    name = preName + ".base.diffuseIntensity";
     diffuseIntensityLoc_ = shader->getUniformLocation(name.c_str());
     if(diffuseIntensityLoc_ == -1) {
         Logger::write(Logger::ss << name << " is not a valid glsl program variable!");
     }
 
-    name = preName + ".position";
+    name = preName + ".base.position";
     positionLoc_ = shader->getUniformLocation(name.c_str());
     if(positionLoc_ == -1) {
         Logger::write(Logger::ss << name << " is not a valid glsl program variable!");
     }
 
-    name = preName + ".attenConstant";
+    name = preName + ".base.attenConstant";
     attenConstantLoc_ = shader->getUniformLocation(name.c_str());
     if(attenConstantLoc_ == -1) {
         Logger::write(Logger::ss << name << " is not a valid glsl program variable!");
     }
 
-    name = preName + ".attenLinear";
+    name = preName + ".base.attenLinear";
     attenLinearLoc_ = shader->getUniformLocation(name.c_str());
     if(attenLinearLoc_ == -1) {
         Logger::write(Logger::ss << name << " is not a valid glsl program variable!");
     }
 
-    name = preName + ".attenExp";
+    name = preName + ".base.attenExp";
     attenExpLoc_ = shader->getUniformLocation(name.c_str());
     if(attenExpLoc_ == -1) {
         Logger::write(Logger::ss << name << " is not a valid glsl program variable!");
@@ -82,6 +84,8 @@ bool SpotLight::init()
         Logger::write(Logger::ss << name << " is not a valid glsl program variable!");
     }
 
+    update();
+
     return true;
 }
 
@@ -93,7 +97,7 @@ void SpotLight::update()
     shader->enable();
     
     glUniform3f(directionLoc_, direction_.x(), direction_.y(), direction_.z());
-    glUniform1f(cutoffLoc_, cutoff_);
+    glUniform1f(cutoffLoc_, std::cos(toRadian(cutoff_)));
 
     shader->disable();
 }

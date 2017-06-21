@@ -135,6 +135,8 @@ bool LightManager::createSpotLight()
     
     ++numSpotLights_;
     spotLights_[numSpotLights_ - 1] = new SpotLight();
+    spotLights_[numSpotLights_ - 1]->setLightId(numSpotLights_ - 1);
+    spotLights_[numSpotLights_ - 1]->init();
     update();
     
     return true;
@@ -151,6 +153,8 @@ bool LightManager::createSpotLight(Vector3f color, float ambientIntensity, float
     ++numSpotLights_;
     spotLights_[numSpotLights_ - 1] = new SpotLight(color, ambientIntensity, diffuseIntensity, position,
         attenConstant, attenLinear, attenExp, direction, cutoff);
+    spotLights_[numSpotLights_ - 1]->setLightId(numSpotLights_ - 1);
+    spotLights_[numSpotLights_ - 1]->init();
     update();
     
     return true;
