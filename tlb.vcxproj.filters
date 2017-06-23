@@ -203,6 +203,11 @@
     </ClCompile>
     <ClCompile Include="src\gfx\ResourceManager.cpp" />
     <ClCompile Include="src\gfx\Light.cpp" />
+    <ClCompile Include="src\gfx\lighting\DirectionalLight.cpp" />
+    <ClCompile Include="src\gfx\lighting\Light.cpp" />
+    <ClCompile Include="src\gfx\lighting\LightManager.cpp" />
+    <ClCompile Include="src\gfx\lighting\PointLight.cpp" />
+    <ClCompile Include="src\gfx\lighting\SpotLight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Assets.h" />
@@ -413,6 +418,11 @@
       <Filter>gfx</Filter>
     </ClInclude>
     <ClInclude Include="include\gfx\ResourceManager.h" />
+    <ClInclude Include="include\gfx\lighting\DirectionalLight.h" />
+    <ClInclude Include="include\gfx\lighting\Light.h" />
+    <ClInclude Include="include\gfx\lighting\LightManager.h" />
+    <ClInclude Include="include\gfx\lighting\PointLight.h" />
+    <ClInclude Include="include\gfx\lighting\SpotLight.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="action">

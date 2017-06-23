@@ -135,7 +135,11 @@
     <ClCompile Include="src\gfx\Animation.cpp" />
     <ClCompile Include="src\gfx\Camera.cpp" />
     <ClCompile Include="src\gfx\Graphic.cpp" />
-    <ClCompile Include="src\gfx\Light.cpp" />
+    <ClCompile Include="src\gfx\lighting\DirectionalLight.cpp" />
+    <ClCompile Include="src\gfx\lighting\Light.cpp" />
+    <ClCompile Include="src\gfx\lighting\LightManager.cpp" />
+    <ClCompile Include="src\gfx\lighting\PointLight.cpp" />
+    <ClCompile Include="src\gfx\lighting\SpotLight.cpp" />
     <ClCompile Include="src\gfx\Model.cpp" />
     <ClCompile Include="src\gfx\MousePicker.cpp" />
     <ClCompile Include="src\gfx\Ray.cpp" />
@@ -226,6 +230,11 @@
     <ClInclude Include="include\gfx\Animation.h" />
     <ClInclude Include="include\gfx\Camera.h" />
     <ClInclude Include="include\gfx\Graphic.h" />
+    <ClInclude Include="include\gfx\lighting\DirectionalLight.h" />
+    <ClInclude Include="include\gfx\lighting\Light.h" />
+    <ClInclude Include="include\gfx\lighting\LightManager.h" />
+    <ClInclude Include="include\gfx\lighting\PointLight.h" />
+    <ClInclude Include="include\gfx\lighting\SpotLight.h" />
     <ClInclude Include="include\gfx\Model.h" />
     <ClInclude Include="include\gfx\MousePicker.h" />
     <ClInclude Include="include\gfx\Projection.h" />
