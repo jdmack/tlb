@@ -21,7 +21,7 @@ PointLight::PointLight(Vector3f color, float ambientIntensity, float diffuseInte
     position_ = position;
     attenConstant_ = attenConstant;
     attenLinear_ = attenLinear;
-    attenExp_ = attenExp_;
+    attenExp_ = attenExp;
 }
 
 bool PointLight::init()
