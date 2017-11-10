@@ -46,6 +46,8 @@ Model::Model()
 
 bool Model::init()
 {
+    glGenVertexArrays(1, &vao_);
+
     Shader * shader = Game::instance()->renderer()->textureShader();
 
     vertexPositionLoc_ = shader->getAttribLocation("v_Position");
@@ -112,38 +114,15 @@ void Model::render()
     Shader * shader = Game::instance()->renderer()->textureShader();
     shader->enable();
 
-
-    // Enable vertex position
-    glEnableVertexAttribArray(vertexPositionLoc_);
-    glEnableVertexAttribArray(texLoc_);
-    glEnableVertexAttribArray(normalLoc_);
-    glEnableVertexAttribArray(specularIntensityLoc_);
-    glEnableVertexAttribArray(specularPowerLoc_);
+    glBindVertexArray(vao_);
 
     glUniformMatrix4fv(worldLoc_, 1, GL_TRUE, transform_.worldTrans().pointer());
     // TODO (2017-05-30/JM): Think I can move camera, project
     glUniformMatrix4fv(cameraLoc_, 1, GL_TRUE, Game::instance()->renderer()->camera()->view().pointer());
     glUniform3fv(cameraPositionLoc_, 1, Game::instance()->renderer()->camera()->position().pointer());
     glUniformMatrix4fv(projectionLoc_, 1, GL_TRUE, Game::instance()->renderer()->camera()->projection().pointer());
-
     glUniform4fv(colorLoc_, 1, color_.pointer());
 
-    // Set vertex data
-    glBindBuffer(GL_ARRAY_BUFFER, vbo_);
-    glVertexAttribPointer(vertexPositionLoc_, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), NULL);
-    // Tex coords are behind a Vector3(Position) in memory 
-    glVertexAttribPointer(texLoc_, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*) sizeof(Vector3f));
-    // Normal is behind a Vector3(Position) and Vector2(Tex coords) in memory 
-    glVertexAttribPointer(normalLoc_, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*) (sizeof(Vector3f) + sizeof(Vector2f)));
-    // SpecularIntensity is behind a Vector3(Position), Vector2(Tex coords) and Vector3(Normal) in memory
-    glVertexAttribPointer(specularIntensityLoc_, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*) (sizeof(Vector3f) + sizeof(Vector2f) 
-        + sizeof(Vector3f)));
-    // SpecularPower is behind a Vector3(Position), Vector2(Tex coords), Vector3(Normal) and float(SpecularIntensity) in memory
-    glVertexAttribPointer(specularPowerLoc_, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*) (sizeof(Vector3f) + sizeof(Vector2f) 
-        + sizeof(Vector3f) + sizeof(float)));
-
-    // Set index data and render
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_);
 
     if(texture_ != nullptr) {
         texture_->bind(GL_TEXTURE0);
@@ -152,13 +131,8 @@ void Model::render()
 
 
     glDrawElements(mode_, numOfIndices_, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
 
-    // Disable vertex position
-    glDisableVertexAttribArray(vertexPositionLoc_);
-    glDisableVertexAttribArray(texLoc_);
-    glDisableVertexAttribArray(normalLoc_);
-    glDisableVertexAttribArray(specularIntensityLoc_);
-    glDisableVertexAttribArray(specularPowerLoc_);
 
     shader->disable();
 
@@ -177,9 +151,41 @@ void Model::loadVertices(Vertex * vertices, int size)
     }
 
     // Create VBO
+    glBindVertexArray(vao_);
     glGenBuffers(1, &vbo_);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_);
     glBufferData(GL_ARRAY_BUFFER, size, (const GLvoid *)vertices, GL_STATIC_DRAW);
+
+    // Enable vertex position
+    glEnableVertexAttribArray(vertexPositionLoc_);
+    glEnableVertexAttribArray(texLoc_);
+    glEnableVertexAttribArray(normalLoc_);
+    glEnableVertexAttribArray(specularIntensityLoc_);
+    glEnableVertexAttribArray(specularPowerLoc_);
+
+    // Set vertex data
+    glBindBuffer(GL_ARRAY_BUFFER, vbo_);
+    glVertexAttribPointer(vertexPositionLoc_, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), NULL);
+    // Tex coords are behind a Vector3(Position) in memory 
+    glVertexAttribPointer(texLoc_, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*) sizeof(Vector3f));
+    // Normal is behind a Vector3(Position) and Vector2(Tex coords) in memory 
+    glVertexAttribPointer(normalLoc_, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*) (sizeof(Vector3f) + sizeof(Vector2f)));
+    // SpecularIntensity is behind a Vector3(Position), Vector2(Tex coords) and Vector3(Normal) in memory
+    glVertexAttribPointer(specularIntensityLoc_, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*) (sizeof(Vector3f) + sizeof(Vector2f) 
+        + sizeof(Vector3f)));
+    // SpecularPower is behind a Vector3(Position), Vector2(Tex coords), Vector3(Normal) and float(SpecularIntensity) in memory
+    glVertexAttribPointer(specularPowerLoc_, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*) (sizeof(Vector3f) + sizeof(Vector2f) 
+        + sizeof(Vector3f) + sizeof(float)));
+
+    // Disable vertex position
+    //glDisableVertexAttribArray(vertexPositionLoc_);
+    //glDisableVertexAttribArray(texLoc_);
+    //glDisableVertexAttribArray(normalLoc_);
+    //glDisableVertexAttribArray(specularIntensityLoc_);
+    //glDisableVertexAttribArray(specularPowerLoc_);
+    //glEnableVertexAttribArray(0);
+    glBindVertexArray(0);
+
 }
 
 void Model::loadIndices(int * indices, int size)
@@ -190,6 +196,7 @@ void Model::loadIndices(int * indices, int size)
     }
 
     // Create IBO
+    glBindVertexArray(vao_);
     glGenBuffers(1, &ibo_);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);

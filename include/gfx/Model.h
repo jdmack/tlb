@@ -29,6 +29,7 @@ class Model
         GLuint samplerLoc_;
         GLuint vbo_;
         GLuint ibo_;
+        GLuint vao_;
         GLenum mode_;
         int numOfIndices_;
 
