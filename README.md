@@ -1,5 +1,6 @@
 TLB - The Left Behind (Working Title)
 ===
+FYI: This README is out dated and does not reflect the 3D version of the engine. I originally was doing 2D and then I branched and changed the renderer to 3D with OpenGL.
 
 TLB is a game I am developing as an educational exercise to learn game development and get game development experience. When I began the project, my main objective was to learn how things are done at each layer of game and so I decided to develop the game from scratch, without using a preexisting engine. 
 
